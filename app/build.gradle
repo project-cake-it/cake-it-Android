@@ -1,0 +1,116 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.cakeit.cakitandroid"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        dataBinding true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // RecyclerView
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    // CardView
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    // Room components
+    implementation "androidx.room:room-runtime:$rootProject.room_version"
+    implementation "androidx.room:room-ktx:$rootProject.room_version"
+    kapt "androidx.room:room-compiler:$rootProject.room_version"
+    androidTestImplementation "androidx.room:room-testing:$rootProject.room_version"
+
+    // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycle_version"
+    kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.lifecycle_version"
+    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coretesting_version"
+
+    // ViewModel Kotlin support
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycle_version"
+
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycle_version"
+
+    // Coroutines
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.lifecycle_version"
+
+    // Testing
+    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.archcore_version"
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.5.0"
+    implementation "com.squareup.retrofit2:retrofit-mock:2.5.0"
+
+    // OkHttp
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp_version"
+
+    // KAKAO
+    implementation "com.kakao.sdk:v2-user:2.0.5"
+    implementation files('libs/libDaumMapAndroid.jar')
+
+    // NAVER
+    implementation "com.naver.nid:naveridlogin-android-sdk:4.2.6"
+
+    implementation "androidx.legacy:legacy-support-core-utils:$rootProject.android_x_version"
+    implementation "androidx.browser:browser:$rootProject.android_x_version"
+    implementation "androidx.legacy:legacy-support-v4:$rootProject.android_x_version"
+
+    // Circle ImageView (원형 이미지 사용하기 위함)
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+
+    // AutoScroll ViewPager (배너 자동 넘김)
+    implementation 'com.github.pzienowicz:androidx-auto-scroll-view-pager:1.1.0'
+
+    // Material CalendarView (커스텀 캘린더)
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
+}
