@@ -49,7 +49,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d(TAG, "requestCode$requestCode")
+
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == REQUEST_CODE_GOOGLE_LOGIN) {
             // The Task returned from this call is always completed, no need to attach a listener.
@@ -58,10 +58,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 // Signed in successfully, show authenticated UI.
                 val account: GoogleSignInAccount? = task.result
                 val authCode = account?.idToken
-                GlobalScope.async {
-                    Log.d(TAG, "authCode $authCode")
-                    binding.viewModel?.sendAuthCodeToServer(authCode!!, "GOOGLE")
-                }
+
+                binding.viewModel?.sendAuthCodeToServer(authCode!!, "GOOGLE")
             } catch (e: Exception) {
                 // The ApiException status code indicates the detailed failure reason.
                 // Please refer to the GoogleSignInStatusCodes class reference for more information.

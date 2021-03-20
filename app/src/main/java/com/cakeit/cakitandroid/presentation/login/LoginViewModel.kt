@@ -22,12 +22,16 @@ class LoginViewModel(application: Application) : BaseViewModel<Any?>(application
     }
 
     fun sendAuthCodeToServer(authCode : String, socialType : String) {
-        try {
-            val response = ApiClient.provideCakeApi().postSocialLogin(PostSocialLoginData(authCode, socialType)).execute()
-            Log.d(TAG, "sendAuthCode :: ${response}")
-        } catch (e : Exception){
-            Log.d(TAG, "sendAuthCode error ${e.message}")
-//            (TAG, "sendAuthCode error ${e.message}")
+
+        GlobalScope.async {
+            try {
+                val response = ApiClient.provideCakeApi()
+                    .postSocialLogin(PostSocialLoginData(authCode, socialType)).execute()
+
+                //서버통신의 response 처리하는 부분 나중에
+            } catch (e: Exception) {
+                Log.d(TAG, "sendAuthCode error ${e.message}")
+            }
         }
     }
 }
