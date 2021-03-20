@@ -105,6 +105,9 @@ dependencies {
     implementation "androidx.browser:browser:$rootProject.android_x_version"
     implementation "androidx.legacy:legacy-support-v4:$rootProject.android_x_version"
 
+    //GOOGLE
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
     // Circle ImageView (원형 이미지 사용하기 위함)
     implementation 'de.hdodenhof:circleimageview:3.0.1'
 

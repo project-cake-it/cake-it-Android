@@ -1,5 +1,6 @@
 package com.cakeit.cakitandroid.di.api
 
+import com.cakeit.cakitandroid.di.api.data.PostSocialLoginData
 import com.cakeit.cakitandroid.di.api.responses.PostSocialLoginResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -8,9 +9,9 @@ import retrofit2.http.*
 const val BASE_API_URL = "/api/v2"
 
 interface CakeApi {
+    @Headers("Content-Type: application/json")
     @POST("${BASE_API_URL}/login")
     fun postSocialLogin(
-            @Field("code") code : String,
-            @Field("socialType") socialType : String
+            @Body body : PostSocialLoginData
     ) : Call<PostSocialLoginResponse>
 }
