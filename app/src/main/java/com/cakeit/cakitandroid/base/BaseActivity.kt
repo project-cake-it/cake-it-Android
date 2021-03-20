@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
 abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppCompatActivity() {
+    val TAG = this.javaClass.simpleName
     private lateinit var viewDataBinding: T
 
     @LayoutRes

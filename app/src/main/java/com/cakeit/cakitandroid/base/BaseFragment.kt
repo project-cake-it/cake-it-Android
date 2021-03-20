@@ -11,7 +11,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
 abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragment() {
-
+    val TAG = this.javaClass.simpleName
     private lateinit var viewDataBinding: T
 
     @LayoutRes
