@@ -1,13 +1,16 @@
 package com.cakeit.cakitandroid.di.api
 
+import com.cakeit.cakitandroid.di.api.responses.PostSocialLoginResponse
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
+
+//SWAGGER : http://13.124.173.58:8080/swagger-ui.html#/
+const val BASE_API_URL = "/api/v2"
 
 interface CakeApi {
-//    @GET("/api/v1/shops/{shopId}")
-//    fun getShopDetail(
-//        @Path("shopId") shopId : Int
-//    ) : Call<GetShopDetailResponse>
+    @POST("${BASE_API_URL}/login")
+    fun postSocialLogin(
+            @Field("code") code : String,
+            @Field("socialType") socialType : String
+    ) : Call<PostSocialLoginResponse>
 }
