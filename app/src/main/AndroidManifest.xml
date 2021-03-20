@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cakeit.cakitandroid">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".di.applicationModule.GlobalApplication"
         android:allowBackup="true"
