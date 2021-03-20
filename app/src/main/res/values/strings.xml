@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CakeItReboot</string>
+    <string name="loginActivity_kakaoLogin">카카오 로그인</string>
 </resources>
