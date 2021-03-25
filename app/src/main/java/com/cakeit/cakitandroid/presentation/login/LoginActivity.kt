@@ -34,7 +34,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 //filtering reset :: is this necessary?
                 val message = binding.viewModel?.registerMessage!!
                 if(it || message != "Reset livedata"){
-                    showToast(message)
+                    showToast(message, true)
                 }
 
 //                TODO("미/완료시 logic 짜기")
