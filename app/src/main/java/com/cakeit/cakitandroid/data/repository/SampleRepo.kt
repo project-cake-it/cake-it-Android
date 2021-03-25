@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import com.cakeit.cakitandroid.data.source.local.entity.SampleData
 import com.cakeit.cakitandroid.data.source.local.room.dao.SampleDao
 
-class SampleRepo(val sampleDao : SampleDao) {
 
+//TODO("Data layer에서 model로의 변환을 완료한 후 넘겨줘야 합니다.")
+
+class SampleRepo(val sampleDao : SampleDao) {
     fun selectSampleDataByIndex(keyword : String) : SampleData {
         return sampleDao.selectSampleDataByKeyword(keyword)
     }
