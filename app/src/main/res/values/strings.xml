@@ -1,11 +1,21 @@
+<!DOCTYPE resources [
+<!ENTITY AUTHCODE_KAKAO_NATIVEAPPKEY "336e5fa0e2a8c916ffda94b2b64f5c8d">
+]>
 <resources>
     <string name="app_name">CakeItReboot</string>
+<<<<<<< Updated upstream
+=======
 
-    <string name="loginActivity_kakaoLogin">카카오 로그인</string>
-    <string name="loginActivity_naverLogin">네이버 로그인</string>
-    <string name="loginActivity_googleLogin">구글 로그인</string>
-    <string name="loginActivity_appleLogin">애플 로그인</string>
+    <string name="kakao_login">카카오 로그인</string>
+    <string name="naver_login">네이버 로그인</string>
+    <string name="google_login">구글 로그인</string>
+    <string name="apple_login">애플 로그인</string>
 
-    <!-- Login auth code-->
+    <!-- Login auth code -->
+    <!-- kakao -->
+    <string name="AUTHCODE_KAKAO_NATIVEAPPKEY">&AUTHCODE_KAKAO_NATIVEAPPKEY;</string>
+    <string name="AUTHCODE_KAKAO_REDIRECTURI">kakao&AUTHCODE_KAKAO_NATIVEAPPKEY;</string>
+    <!-- google-->
     <string name="AUTHCODE_GOOGLE_CLIENTID">911891330500-f586aevn27sktah813pncac2qa5na15v.apps.googleusercontent.com</string>
+>>>>>>> Stashed changes
 </resources>

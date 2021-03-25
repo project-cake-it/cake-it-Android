@@ -14,8 +14,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CakeItReboot">
         <activity android:name=".presentation.main.test.SampleActivity"></activity>
-        <activity android:name=".presentation.login.LoginActivity">
+        <activity android:name=".presentation.login.LoginActivity"></activity>
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:host="oauth"
+                    android:scheme="@string/AUTHCODE_KAKAO_REDIRECTURI" />
+            </intent-filter>
         </activity>
+
         <activity android:name=".presentation.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

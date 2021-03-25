@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
@@ -11,11 +12,8 @@ import com.cakeit.cakitandroid.databinding.ActivityLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlin.coroutines.CoroutineContext
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.user.UserApiClient
 
 
 class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
@@ -31,6 +29,32 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
         binding = getViewDataBinding()
         binding.viewModel = getViewModel()
 
+        binding.lifecycleOwner?.let {
+            binding.viewModel?.registerState?.observe(it, Observer{ it ->
+                //filtering reset :: is this necessary?
+                val message = binding.viewModel?.registerMessage!!
+                if(it || message != "Reset livedata"){
+                    showToast(message)
+                }
+
+//                TODO("미/완료시 logic 짜기")
+            })
+        }
+
+        //카카오 로그인 버튼
+        findViewById<Button>(R.id.btn_login_kakaoLogin).setOnClickListener {
+            val kakaoClientInstance = UserApiClient.instance
+            if (kakaoClientInstance.isKakaoTalkLoginAvailable(this)) {
+                kakaoClientInstance.loginWithKakaoTalk(this, callback = kakaoLoginCallback)
+            } else {
+                kakaoClientInstance.loginWithKakaoAccount(this, callback = kakaoLoginCallback)
+            }
+        }
+
+        //네이버 로그인 버튼
+        findViewById<Button>(R.id.btn_login_naverLogin).setOnClickListener {
+
+        }
 
         //구글 로그인 버튼
         findViewById<Button>(R.id.btn_login_googleLogin).setOnClickListener {
@@ -45,6 +69,23 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             startActivityForResult(signInIntent, REQUEST_CODE_GOOGLE_LOGIN)
         }
 
+        //애플 로그인 버튼
+
+        findViewById<Button>(R.id.btn_login_appleLogin).setOnClickListener {
+
+        }
+
+    }
+
+    val kakaoLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, e ->
+        if (e != null) {
+            Log.d(TAG, "Kakao signin failed : ${e.message}")
+            showToast("Kakao signin failed : ${e.message}")
+        }
+        else if (token != null) {
+            //Login Success
+            binding.viewModel?.sendKakaoCodeToServer(token)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -56,10 +97,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Signed in successfully, show authenticated UI.
-                val account: GoogleSignInAccount? = task.result
-                val authCode = account?.idToken
-
-                binding.viewModel?.sendAuthCodeToServer(authCode!!, "GOOGLE")
+                binding.viewModel?.sendGoogleCodeToServer(task.result)
             } catch (e: Exception) {
                 // The ApiException status code indicates the detailed failure reason.
                 // Please refer to the GoogleSignInStatusCodes class reference for more information.

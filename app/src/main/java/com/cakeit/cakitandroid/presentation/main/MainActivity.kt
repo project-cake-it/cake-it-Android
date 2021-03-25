@@ -20,10 +20,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         dataBinding()
         binding = getViewDataBinding()
         binding.viewModel = getViewModel()
-
         //MainActivity 진입시 로그인 되어있는지 확인후 분기
         binding.lifecycleOwner?.let {
-            binding.viewModel?.isRegistered?.observe(it, Observer { isLoggedIn ->
+            binding.viewModel?.isRegistered?.observe(it, Observer{ isLoggedIn ->
                 if(!isLoggedIn){
                     val appContext = this
                     val loginActivityIntent = Intent(appContext, LoginActivity::class.java)
@@ -32,7 +31,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                 }
             })
         }
-
         binding.viewModel?.checkIsRegistered()
     }
     override fun getLayoutId(): Int {

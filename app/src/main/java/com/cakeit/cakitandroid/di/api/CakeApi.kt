@@ -1,7 +1,7 @@
 package com.cakeit.cakitandroid.di.api
 
+import com.cakeit.cakitandroid.data.source.remote.entity.SocialLoginResponseEntity
 import com.cakeit.cakitandroid.di.api.data.PostSocialLoginData
-import com.cakeit.cakitandroid.di.api.responses.PostSocialLoginResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -13,5 +13,5 @@ interface CakeApi {
     @POST("${BASE_API_URL}/login")
     fun postSocialLogin(
             @Body body : PostSocialLoginData
-    ) : Call<PostSocialLoginResponse>
+    ) : Call<CakeItServerResponse<SocialLoginResponseEntity>>
 }
