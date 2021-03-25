@@ -3,11 +3,9 @@ package com.cakeit.cakitandroid.data.repository
 import android.util.Log
 import com.cakeit.cakitandroid.data.source.remote.entity.SocialLoginResponseEntity
 import com.cakeit.cakitandroid.di.api.ApiClient
-import com.cakeit.cakitandroid.di.api.CakeItServerResponse
 import com.cakeit.cakitandroid.di.api.data.PostSocialLoginData
 import com.cakeit.cakitandroid.domain.model.SocialLoginResponseModel
 import com.cakeit.cakitandroid.domain.usecase.SocialLoginUsecase
-import retrofit2.Response
 
 object SocialLoginRepo {
     val TAG = this.javaClass.simpleName

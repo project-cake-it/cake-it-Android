@@ -3,8 +3,6 @@
 ]>
 <resources>
     <string name="app_name">CakeItReboot</string>
-<<<<<<< Updated upstream
-=======
 
     <string name="kakao_login">카카오 로그인</string>
     <string name="naver_login">네이버 로그인</string>
@@ -17,5 +15,4 @@
     <string name="AUTHCODE_KAKAO_REDIRECTURI">kakao&AUTHCODE_KAKAO_NATIVEAPPKEY;</string>
     <!-- google-->
     <string name="AUTHCODE_GOOGLE_CLIENTID">911891330500-f586aevn27sktah813pncac2qa5na15v.apps.googleusercontent.com</string>
->>>>>>> Stashed changes
 </resources>
