@@ -29,7 +29,7 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppComp
         return viewDataBinding
     }
 
-    protected fun showToast(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    protected fun showToast(msg: String, long : Boolean = false) {
+        Toast.makeText(this, msg, if(long) Toast.LENGTH_LONG else Toast.LENGTH_SHORT).show()
     }
 }
