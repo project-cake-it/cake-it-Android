@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">CakeItReboot</string>
+
+    <string name="shop_title">케이크가게이름</string>
+    <string name="shop_address">서울특별시 마포구 **동 123-45</string>
+    <string name="shop_zzim_count">132</string>
+    <string name="shop_order_availability_date">주문 가능 날짜 보기</string>
+    <string name="cake_information_title">케이크 정보</string>
+    <string name="cake_information_theme">테마</string>
+    <string name="cake_information_price_by_size">크기별 가격</string>
+    <string name="cake_information_cream_type">크림 종류</string>
+    <string name="cake_information_sheet_type">시트 종류</string>
 </resources>
