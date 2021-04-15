@@ -1,6 +1,7 @@
 package com.cakeit.cakitandroid.presentation.shop.inform
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.R
@@ -15,6 +16,7 @@ class ShopInformFragment : BaseFragment<FragmentShopInformBinding, ShopInformFra
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d("songjem", "here shopinfo")
         binding = getViewDataBinding()
         binding.viewModel = getViewModel()
     }

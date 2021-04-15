@@ -16,4 +16,7 @@
     <string name="shop_inform_notice_closed_days">휴무일</string>
     <string name="shop_inform_notice_phone">전화번호</string>
     <string name="shop_connect">가게 연결</string>
+
+    <string name="shop_design_fragment_name">케이크 디자인</string>
+    <string name="shop_inform_fragment_name">가게 상세</string>
 </resources>
