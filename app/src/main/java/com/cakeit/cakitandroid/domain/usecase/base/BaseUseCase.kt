@@ -6,16 +6,16 @@ import io.reactivex.schedulers.Schedulers
 
 abstract class BaseUseCase<T> : UseCase() {
 
-    internal abstract fun buildUseCase(vararg args : Any?): Single<T>
+    internal abstract fun buildUseCase(vararg vars: Any?): Single<T>
 
     fun execute(
-        vararg args: Any?,
+        vararg vars: Any?,
         onSuccess: ((t: T) -> Unit),
         onError: ((t: Throwable) -> Unit),
         onFinished: () -> Unit = {}
     ) {
         disposeLast()
-        lastDisposable = buildUseCase(args)
+        lastDisposable = buildUseCase(vars)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doAfterTerminate(onFinished)
