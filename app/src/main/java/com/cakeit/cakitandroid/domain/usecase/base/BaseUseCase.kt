@@ -15,7 +15,7 @@ abstract class BaseUseCase<T> : UseCase() {
         onFinished: () -> Unit = {}
     ) {
         disposeLast()
-        lastDisposable = buildUseCase(args)
+        lastDisposable = buildUseCase(*args)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doAfterTerminate(onFinished)
