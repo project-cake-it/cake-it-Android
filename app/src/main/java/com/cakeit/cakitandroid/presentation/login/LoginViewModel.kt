@@ -32,15 +32,13 @@ class LoginViewModel(application: Application) : BaseViewModel<Any?>(application
         registerState.value = false
 
         SocialLoginUsecase.execute(
-            args = {
-
-            } ,
+            authCode, socialType,
             onSuccess = {
                 registerMessage = it.message
                 registerState.value =
                     it.message == "회원가입 성공입니다" || it.message == "로그인 성공입니다"
             },
-            onFailure = {
+            onError = {
                 registerMessage = it.message.toString()
                 Log.d(TAG, "onFailure, $registerMessage")
                 it.printStackTrace()
