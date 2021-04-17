@@ -6,7 +6,7 @@ import com.cakeit.cakitandroid.domain.usecase.base.BaseUseCase
 import io.reactivex.Single
 
 class SampleUseCase : BaseUseCase<List<SampleRepo>>(){
-    override fun buildUseCase(): Single<List<SampleRepo>> {
+    override fun buildUseCase(vararg vars : Any?): Single<List<SampleRepo>> {
         return Single.just(listOf<SampleRepo>())
     }
 }
