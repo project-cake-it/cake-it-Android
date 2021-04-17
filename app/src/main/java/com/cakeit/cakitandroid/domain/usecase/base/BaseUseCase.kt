@@ -9,10 +9,10 @@ abstract class BaseUseCase<T> : UseCase() {
     internal abstract fun buildUseCase(vararg args: Any?): Single<T>
 
     fun execute(
+        vararg args: Any?,
         onSuccess: ((t: T) -> Unit),
         onError: ((t: Throwable) -> Unit),
-        onFinished: () -> Unit = {},
-        vararg args: Any?
+        onFinished: () -> Unit = {}
     ) {
         disposeLast()
         lastDisposable = buildUseCase(*args)
