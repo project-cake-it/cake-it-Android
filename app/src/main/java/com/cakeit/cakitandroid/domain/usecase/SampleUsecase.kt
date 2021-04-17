@@ -1,15 +1,12 @@
 package com.cakeit.cakitandroid.domain.usecase
 
-import com.cakeit.cakitandroid.domain.model.SampleModel
+import com.cakeit.cakitandroid.data.repository.SampleRepo
+import com.cakeit.cakitandroid.data.source.local.room.dao.SampleDao
+import com.cakeit.cakitandroid.domain.usecase.base.BaseUseCase
+import io.reactivex.Single
 
-
-class SampleUsecase : BaseUsecase<List<SampleModel>>(){
-
-    override suspend fun job(vararg args : Any?): List<SampleModel> {
-        // Do some data layer jobs
-//        val data_as_model = SampleRepo(SampleDao)
-
-
-        return listOf()
+class SampleUseCase : BaseUseCase<List<SampleRepo>>(){
+    override fun buildUseCase(): Single<List<SampleRepo>> {
+        return Single.just(listOf<SampleRepo>())
     }
 }
