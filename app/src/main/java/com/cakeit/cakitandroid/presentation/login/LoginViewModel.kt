@@ -31,22 +31,24 @@ class LoginViewModel(application: Application) : BaseViewModel<Any?>(application
         registerMessage = "Reset livedata"
         registerState.value = false
 
-        SocialLoginUsecase.run(
-                onSuccess = {
-                    registerMessage = it.message
-                    registerState.value =
-                            it.message == "회원가입 성공입니다" || it.message == "로그인 성공입니다"
-                },
-                onFailure = {
-                    registerMessage = it.message.toString()
-                    Log.d(TAG, "onFailure, $registerMessage")
-                    it.printStackTrace()
-                    registerState.value = false
-                },
-                onFinished = {
-                    Log.d(TAG, "Finished")
-                },
-                args = *arrayOf(authCode, socialType)
+        SocialLoginUsecase.execute(
+            args = {
+
+            } ,
+            onSuccess = {
+                registerMessage = it.message
+                registerState.value =
+                    it.message == "회원가입 성공입니다" || it.message == "로그인 성공입니다"
+            },
+            onFailure = {
+                registerMessage = it.message.toString()
+                Log.d(TAG, "onFailure, $registerMessage")
+                it.printStackTrace()
+                registerState.value = false
+            },
+            onFinished = {
+                Log.d(TAG, "Finished")
+            }
         )
     }
 }
