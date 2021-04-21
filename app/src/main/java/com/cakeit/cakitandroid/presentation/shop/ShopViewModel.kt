@@ -1,7 +1,6 @@
 package com.cakeit.cakitandroid.presentation.shop
 
 import android.app.Application
-import android.util.Log
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.ViewModel
@@ -22,14 +21,11 @@ class ShopViewModel(application: Application,
                   , val tabLayoutOnPageChangeListener : TabLayout.TabLayoutOnPageChangeListener
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-
-            Log.d("songjem", "here1")
             return ShopViewModel(application, fm, viewPagerOnTabSelectedListener, tabLayoutOnPageChangeListener) as T
         }
     }
 
     init {
-        Log.d("songjem", "here2")
         this.viewPagerOnTabSelectedListener = viewPagerOnTabSelectedListener
         this.tabLayoutOnPageChangeListener = tabLayoutOnPageChangeListener
         viewPagerAdapter = ContentsPagerAdapter(fm, 2)

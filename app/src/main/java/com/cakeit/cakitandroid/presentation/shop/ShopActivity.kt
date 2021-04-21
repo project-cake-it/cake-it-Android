@@ -28,7 +28,7 @@ class ShopActivity : BaseActivity<ActivityShopBinding, ShopViewModel>() {
         binding.tlShopTablayout.getTabAt(0)?.setText(R.string.shop_design_fragment_name)
         binding.tlShopTablayout.getTabAt(1)?.setText(R.string.shop_inform_fragment_name)
 
-        binding.vpShopViewpager.addOnPageChangeListener(object  : ViewPager.OnPageChangeListener{
+        /*binding.vpShopViewpager.addOnPageChangeListener(object  : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {
             }
 
@@ -48,7 +48,7 @@ class ShopActivity : BaseActivity<ActivityShopBinding, ShopViewModel>() {
                     1   ->    binding.tlShopTablayout.getTabAt(1)?.setText(R.string.shop_inform_fragment_name)
                 }
             }
-        })
+        })*/
     }
 
     override fun getLayoutId(): Int {
