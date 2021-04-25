@@ -8,18 +8,17 @@
     android:layout_marginBottom="8dp"
     >
 
-
     <ImageView
         android:id="@+id/iv_shop_list_major_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="123dp"
+        android:layout_height="123dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars"
+        android:background="@drawable/ic_heart"
         />
 
     <TextView
-        android:id="@+id/tv_shop_list_shop_name"
+        android:id="@+id/tv_shop_name_item_shop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@+id/iv_shop_list_major_img"
@@ -32,32 +31,32 @@
         />
 
     <TextView
-        android:id="@+id/tv_shop_list_shop_address"
+        android:id="@+id/tv_shop_address_item_shop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="@string/shop_title"
         android:textColor="#909090"
         android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_shop_list_shop_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_shop_list_shop_name"
+        app:layout_constraintStart_toStartOf="@+id/tv_shop_name_item_shop"
+        app:layout_constraintTop_toBottomOf="@+id/tv_shop_name_item_shop"
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_shop_list_shop_tag"
+        android:id="@+id/rv_shop_tag_item_shop"
         android:layout_width="wrap_content"
         android:layout_height="18dp"
         android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_shop_list_shop_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_shop_list_shop_address"
+        app:layout_constraintStart_toStartOf="@+id/tv_shop_name_item_shop"
+        app:layout_constraintTop_toBottomOf="@+id/tv_shop_address_item_shop"
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_shop_list_cake_size"
+        android:id="@+id/rv_cake_size_item_shop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_shop_list_shop_tag"
+        app:layout_constraintTop_toBottomOf="@+id/rv_shop_tag_item_shop"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="17dp"
         />

@@ -22,4 +22,9 @@
     <string name="shop_tag_name">가게 태그</string>
     <string name="shop_size_type">크기 1호</string>
     <string name="shop_size_price">18,000원</string>
+
+    <string name="shop_list_filter_refresh">초기화</string>
+    <string name="shop_list_filter_recommend">기본순</string>
+    <string name="shop_list_filter_pickup_region">픽업 지역</string>
+    <string name="shop_list_filter_pickup_availability_date">픽업 가능 날짜</string>
 </resources>

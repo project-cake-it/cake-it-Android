@@ -1,16 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="viewModel"
             type="com.cakeit.cakitandroid.presentation.shoplist.ShopListViewModel" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.shoplist.ShopListActivity">
+
+        <TextView
+            android:id="@+id/tv_shop_title_shop_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shop_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="33dp"
+            android:textSize="15sp"
+            android:textColor="#242424"
+            />
+
+        <ScrollView
+            android:id="@+id/sv_filter_btn_shop_list"
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:layout_marginTop="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_shop_title_shop_list">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/btn_filter_refresh_shop_list"
+                    android:layout_width="82dp"
+                    android:layout_height="35dp"
+                    android:text="@string/shop_list_filter_refresh"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="13sp"
+                    />
+
+                <View
+                    android:id="@+id/view_filter_first_shop_list"
+                    android:layout_width="1dp"
+                    android:layout_height="29dp"
+                    android:background="#eeeeee"
+                    app:layout_constraintStart_toEndOf="@+id/btn_filter_refresh_shop_list"
+                    android:layout_marginStart="7.5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <Button
+                    android:id="@+id/btn_filter_shop_list"
+                    android:layout_width="82dp"
+                    android:layout_height="35dp"
+                    android:text="@string/shop_list_filter_recommend"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/view_filter_first_shop_list"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="7.5dp"
+                    android:textSize="13sp"
+                    />
+
+                <Button
+                    android:id="@+id/btn_filter_recommend_shop_list"
+                    android:layout_width="82dp"
+                    android:layout_height="35dp"
+                    android:text="@string/shop_list_filter_recommend"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/view_filter_first_shop_list"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="7.5dp"
+                    android:textSize="13sp"
+                    />
+
+                <Button
+                    android:id="@+id/btn_filter_pickup_region_shop_list"
+                    android:layout_width="97dp"
+                    android:layout_height="35dp"
+                    android:text="@string/shop_list_filter_pickup_region"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btn_filter_recommend_shop_list"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="8dp"
+                    android:textSize="13sp"
+                    />
+
+                <Button
+                    android:id="@+id/btn_filter_pickup_date_shop_list"
+                    android:layout_width="124dp"
+                    android:layout_height="35dp"
+                    android:text="@string/shop_list_filter_pickup_availability_date"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btn_filter_pickup_region_shop_list"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="8dp"
+                    android:textSize="13sp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_shop_list_"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/sv_filter_btn_shop_list"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
