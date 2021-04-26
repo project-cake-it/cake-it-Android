@@ -5,11 +5,14 @@ import androidx.lifecycle.LiveData
 import com.cakeit.cakitandroid.base.BaseViewModel
 import com.cakeit.cakitandroid.data.repository.CakeShopRepo
 import com.cakeit.cakitandroid.data.source.local.entity.CakeShopData
+import io.reactivex.Observable
+import io.reactivex.Scheduler
+import io.reactivex.schedulers.Schedulers
 
 class ShopListViewModel(application : Application) : BaseViewModel<Any?>(application) {
 
     private val cakeShopRepo : CakeShopRepo
-    private val cakeShopItems : LiveData<List<CakeShopData>>
+    var cakeShopItems : LiveData<List<CakeShopData>>
 
     init {
         cakeShopRepo = CakeShopRepo(application)
@@ -17,7 +20,13 @@ class ShopListViewModel(application : Application) : BaseViewModel<Any?>(applica
     }
 
     fun insertCakeShop(cakeShop : CakeShopData) {
-        cakeShopRepo.insertCakeShop(cakeShop)
+        Observable.just(cakeShop)
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                cakeShopRepo.insertCakeShop(cakeShop)
+            }, {
+            // Handle error.
+        })
     }
 
     fun getCakeShopList() : LiveData<List<CakeShopData>> {

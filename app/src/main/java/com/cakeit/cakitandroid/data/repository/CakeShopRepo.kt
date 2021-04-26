@@ -1,6 +1,7 @@
 package com.cakeit.cakitandroid.data.repository
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.cakeit.cakitandroid.data.source.local.entity.CakeShopData
 import com.cakeit.cakitandroid.data.source.local.room.CakeItDatabase
@@ -22,6 +23,7 @@ class CakeShopRepo(application: Application) {
     }
 
     fun getCakeShopList() : LiveData<List<CakeShopData>> {
+        Log.d("songjem", "CakeShopRepo getCakeShopList()")
         return cakeShopItems
     }
 

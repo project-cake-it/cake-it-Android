@@ -32,7 +32,7 @@
             android:layout_marginTop="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_shop_title_shop_list">
+            app:layout_constraintTop_toBottomOf="@id/tv_shop_title_shop_list">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                     android:layout_width="1dp"
                     android:layout_height="29dp"
                     android:background="#eeeeee"
-                    app:layout_constraintStart_toEndOf="@+id/btn_filter_refresh_shop_list"
+                    app:layout_constraintStart_toEndOf="@id/btn_filter_refresh_shop_list"
                     android:layout_marginStart="7.5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -66,7 +66,7 @@
                     android:layout_height="35dp"
                     android:text="@string/shop_list_filter_recommend"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/view_filter_first_shop_list"
+                    app:layout_constraintStart_toEndOf="@id/view_filter_first_shop_list"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginStart="7.5dp"
                     android:textSize="13sp"
@@ -78,7 +78,7 @@
                     android:layout_height="35dp"
                     android:text="@string/shop_list_filter_recommend"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/view_filter_first_shop_list"
+                    app:layout_constraintStart_toEndOf="@id/view_filter_first_shop_list"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginStart="7.5dp"
                     android:textSize="13sp"
@@ -90,7 +90,7 @@
                     android:layout_height="35dp"
                     android:text="@string/shop_list_filter_pickup_region"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/btn_filter_recommend_shop_list"
+                    app:layout_constraintStart_toEndOf="@id/btn_filter_recommend_shop_list"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginStart="8dp"
                     android:textSize="13sp"
@@ -102,7 +102,7 @@
                     android:layout_height="35dp"
                     android:text="@string/shop_list_filter_pickup_availability_date"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/btn_filter_pickup_region_shop_list"
+                    app:layout_constraintStart_toEndOf="@id/btn_filter_pickup_region_shop_list"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginStart="8dp"
                     android:textSize="13sp"
@@ -116,7 +116,7 @@
             android:id="@+id/rv_shop_list_"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/sv_filter_btn_shop_list"
+            app:layout_constraintTop_toBottomOf="@id/sv_filter_btn_shop_list"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

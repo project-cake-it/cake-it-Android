@@ -11,9 +11,9 @@
         android:text="@string/shop_size_type"
         android:textColor="#909090"
         android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_shop_size_price"
+        app:layout_constraintBottom_toBottomOf="@id/tv_shop_size_price"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_shop_size_price"
+        app:layout_constraintTop_toTopOf="@id/tv_shop_size_price"
         />
 
     <TextView
@@ -23,7 +23,7 @@
         android:text="@string/shop_size_price"
         android:textColor="#3d3d3d"
         android:textSize="13sp"
-        app:layout_constraintStart_toEndOf="@+id/tv_shop_size_type"
+        app:layout_constraintStart_toEndOf="@id/tv_shop_size_type"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="8dp"
         />
