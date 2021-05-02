@@ -7,7 +7,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 
-abstract class SingleBaseUseCase<P> : BaseUseCase() {
+abstract class SingleUseCase<P> : BaseUseCase() {
 
     internal abstract fun buildUseCase(request: BaseRequest): Single<P>?
 
