@@ -1,29 +1,26 @@
 package com.cakeit.cakitandroid.domain.usecase.base
 
+import com.cakeit.cakitandroid.domain.usecase.BaseRequest
+import com.cakeit.cakitandroid.domain.usecase.BaseUseCase
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-abstract class BaseRequest {
 
-}
+abstract class SingleBaseUseCase<P> : BaseUseCase() {
 
-abstract class SingleUseCase<T> : UseCase() {
-
-    internal abstract fun buildUseCase(request: BaseRequest): Single<T>
+    internal abstract fun buildUseCase(request: BaseRequest): Single<P>?
 
     fun execute(
         request: BaseRequest,
-        onSuccess: ((t: T) -> Unit),
+        onSuccess: ((t: P) -> Unit),
         onError: ((t: Throwable) -> Unit),
         onFinished: () -> Unit = {}
     ) {
         disposeLast()
         lastDisposable = buildUseCase(request)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doAfterTerminate(onFinished)
-            .subscribe(onSuccess, onError)
+            ?.doAfterTerminate(onFinished)
+            ?.subscribe(onSuccess, onError)
 
         lastDisposable?.let {
             compositeDisposable.add(it)

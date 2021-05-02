@@ -2,13 +2,11 @@ package com.cakeit.cakitandroid.presentation.login
 
 import android.app.Application
 import android.util.Log
-import androidx.annotation.UiThread
 import androidx.lifecycle.MutableLiveData
 import com.cakeit.cakitandroid.base.BaseViewModel
-import com.cakeit.cakitandroid.domain.usecase.SocialLoginUsecase
+import com.cakeit.cakitandroid.domain.usecase.SocialLoginUseCase
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.kakao.sdk.auth.model.OAuthToken
-import kotlinx.coroutines.*
 
 
 class LoginViewModel(application: Application) : BaseViewModel<Any?>(application) {
@@ -31,8 +29,8 @@ class LoginViewModel(application: Application) : BaseViewModel<Any?>(application
         registerMessage = "Reset livedata"
         registerState.value = false
 
-        SocialLoginUsecase.execute(
-            authCode, socialType,
+        SocialLoginUseCase.execute(
+            SocialLoginUseCase.Request(authCode, socialType),
             onSuccess = {
                 registerMessage = it.message
                 registerState.value =

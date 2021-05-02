@@ -1,6 +1,7 @@
 package com.cakeit.cakitandroid.di.api
 import com.cakeit.cakitandroid.di.api.data.PostSocialLoginData
-import retrofit2.Call
+import com.cakeit.cakitandroid.di.api.responses.SocialLoginResponse
+import io.reactivex.Flowable
 import retrofit2.http.*
 
 //SWAGGER : http://13.124.173.58:8080/swagger-ui.html#/
@@ -11,5 +12,5 @@ interface CakeApi {
     @POST("${BASE_API_URL}/login")
     fun postSocialLogin(
             @Body body : PostSocialLoginData
-    ) : Call<CakeItServerResponse>
+    ) : Flowable<SocialLoginResponse>
 }

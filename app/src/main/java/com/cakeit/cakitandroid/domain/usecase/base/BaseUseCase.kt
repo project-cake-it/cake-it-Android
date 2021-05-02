@@ -1,9 +1,13 @@
-package com.cakeit.cakitandroid.domain.usecase.base
+package com.cakeit.cakitandroid.domain.usecase
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-abstract class UseCase {
+abstract class BaseRequest {
+
+}
+
+abstract class BaseUseCase {
     val TAG = this.javaClass.simpleName
 
     protected var lastDisposable: Disposable? = null
