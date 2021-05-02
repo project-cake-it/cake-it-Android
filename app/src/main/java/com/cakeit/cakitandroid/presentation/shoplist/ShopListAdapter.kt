@@ -15,8 +15,8 @@ import kotlinx.android.synthetic.main.item_shop_list.view.*
 
 class ShopListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-//    private var shopListItems : List<CakeShopData> = listOf()
-    private val shopListItems = mutableListOf<CakeShopData>()
+    private var shopListItems : List<CakeShopData> = listOf()
+//    private val shopListItems = mutableListOf<CakeShopData>()
 
     interface OnShopItemClickListener {
         fun onShopItemClick(position: Int)
@@ -43,15 +43,15 @@ class ShopListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     fun setShopListItems(shopItems: List<CakeShopData>) {
 
-//        shopListItems = shopItems
-//        notifyDataSetChanged()
+        shopListItems = shopItems
+        notifyDataSetChanged()
 
-        val diffCallback = ShopListDiffCallback(shopListItems, shopItems)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        shopListItems.clear()
-        shopListItems.addAll(shopItems)
-
-        diffResult.dispatchUpdatesTo(this)
+//        val diffCallback = ShopListDiffCallback(shopListItems, shopItems)
+//        val diffResult = DiffUtil.calculateDiff(diffCallback)
+//        shopListItems.clear()
+//        shopListItems.addAll(shopItems)
+//
+//        diffResult.dispatchUpdatesTo(this)
 
 //        Observable.just(shopItems)
 //            .subscribeOn(AndroidSchedulers.mainThread())
