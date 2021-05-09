@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.base.BaseViewModel
 import com.google.android.material.tabs.TabLayout
 
-class ShopViewModel(application: Application,
+class ShopDetailViewModel(application: Application,
                     fm: FragmentManager,
                     viewPagerOnTabSelectedListener: TabLayout.ViewPagerOnTabSelectedListener,
                     tabLayoutOnPageChangeListener: TabLayout.TabLayoutOnPageChangeListener) : BaseViewModel<Any?>(application) {
@@ -21,7 +21,7 @@ class ShopViewModel(application: Application,
                   , val tabLayoutOnPageChangeListener : TabLayout.TabLayoutOnPageChangeListener
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return ShopViewModel(application, fm, viewPagerOnTabSelectedListener, tabLayoutOnPageChangeListener) as T
+            return ShopDetailViewModel(application, fm, viewPagerOnTabSelectedListener, tabLayoutOnPageChangeListener) as T
         }
     }
 

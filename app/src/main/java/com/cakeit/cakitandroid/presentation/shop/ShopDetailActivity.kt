@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
-import com.cakeit.cakitandroid.databinding.ActivityShopBinding
+import com.cakeit.cakitandroid.databinding.ActivityShopDetailBinding
 import com.google.android.material.tabs.TabLayout
 
-class ShopActivity : BaseActivity<ActivityShopBinding, ShopViewModel>() {
+class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailViewModel>() {
 
     private val adapter by lazy { ContentsPagerAdapter(supportFragmentManager, 2) }
-    private lateinit var binding : ActivityShopBinding
-    private lateinit var shopViewModel: ShopViewModel
+    private lateinit var binding : ActivityShopDetailBinding
+    private lateinit var shopDetailViewModel: ShopDetailViewModel
 
     companion object {
         const val TAG: String = "ShopActivityTAG"
@@ -23,10 +23,10 @@ class ShopActivity : BaseActivity<ActivityShopBinding, ShopViewModel>() {
 
         dataBinding()
         binding = getViewDataBinding()
-        binding.viewModel = getViewModel()
+        binding.vm = getViewModel()
 
-        binding.tlShopTablayout.getTabAt(0)?.setText(R.string.shop_design_fragment_name)
-        binding.tlShopTablayout.getTabAt(1)?.setText(R.string.shop_inform_fragment_name)
+        binding.tlShopDetailTabLayout.getTabAt(0)?.setText(R.string.shop_design_fragment_name)
+        binding.tlShopDetailTabLayout.getTabAt(1)?.setText(R.string.shop_inform_fragment_name)
 
         /*binding.vpShopViewpager.addOnPageChangeListener(object  : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {
@@ -52,20 +52,20 @@ class ShopActivity : BaseActivity<ActivityShopBinding, ShopViewModel>() {
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.activity_shop
+        return R.layout.activity_shop_detail
     }
 
-    override fun getViewModel(): ShopViewModel {
+    override fun getViewModel(): ShopDetailViewModel {
         // 뷰페이저 어댑터 연결
-        binding.vpShopViewpager.adapter = ShopActivity@adapter
+        binding.vpShopDetailViewpager.adapter = ShopActivity@adapter
 
         // 탭 레이아웃에 뷰페이저 연결
-        binding.tlShopTablayout.setupWithViewPager(binding.vpShopViewpager)
+        binding.tlShopDetailTabLayout.setupWithViewPager(binding.vpShopDetailViewpager)
 
-        shopViewModel = ViewModelProvider(this, ShopViewModel.Factory(application, supportFragmentManager, TabLayout.ViewPagerOnTabSelectedListener(binding.vpShopViewpager)
-        , TabLayout.TabLayoutOnPageChangeListener(binding.tlShopTablayout)
-        )).get(ShopViewModel::class.java)
+        shopDetailViewModel = ViewModelProvider(this, ShopDetailViewModel.Factory(application, supportFragmentManager, TabLayout.ViewPagerOnTabSelectedListener(binding.vpShopDetailViewpager)
+        , TabLayout.TabLayoutOnPageChangeListener(binding.tlShopDetailTabLayout)
+        )).get(ShopDetailViewModel::class.java)
 
-        return shopViewModel
+        return shopDetailViewModel
     }
 }

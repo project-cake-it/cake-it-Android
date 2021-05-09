@@ -113,4 +113,9 @@ dependencies {
 
     // Material CalendarView (커스텀 캘린더)
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
+
+    // ConstraintLayout
+    implementation "androidx.constraintlayout:constraintlayout:2.0.4"
+    // To use constraintlayout in compose
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha05"
 }
