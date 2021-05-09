@@ -42,9 +42,10 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="20sp"
-                    android:textColor="#242424"
+                    android:fontFamily="@font/spoqa_han_sans_bold"
+                    android:textColor="@color/accentText"
                     android:letterSpacing="-0.03"
-                    android:text="케이크가게이름"
+                    android:text="@string/shop_title"
                     android:layout_marginTop="21dp"
                     app:layout_constraintTop_toBottomOf="@id/btn_shop_detail_back"
                     app:layout_constraintLeft_toLeftOf="@id/left_vertical_guideline"/>
