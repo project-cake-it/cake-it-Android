@@ -8,7 +8,7 @@
     <data>
         <variable
             name="vm"
-            type="com.cakeit.cakitandroid.presentation.shop.ShopDetailViewModel" />
+            type="com.cakeit.cakitandroid.presentation.design.DesignViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -97,18 +97,17 @@
 
             <Button
                 android:id="@+id/btn_cake_detail_order_date"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginHorizontal="20dp"
-                android:text="주문 가능 날짜 보기"
-                android:textStyle="normal"
-                android:textSize="12sp"
-                android:textColor="@color/white"
                 android:background="@drawable/bg_order_date"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_cake_detail_address"/>
+                android:layout_marginHorizontal="20dp"
+                android:text="@string/shop_order_availability_date"
+                android:textColor="#577399"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cake_detail_address" />
+
 
             <View
                 android:id="@+id/view_first"
