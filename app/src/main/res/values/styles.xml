@@ -7,15 +7,11 @@
     </style>
 
     <style name="TabTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#ffffff</item>                                <!-- 배경 -->
-
-        <item name="android:textColorPrimary">@color/colorPrimary</item>       <!-- 탭바 선택된 텍스트 -->
-        <item name="android:textColorSecondary">@color/colorPrimary</item>     <!-- 탭바 텍스트 -->
-
+        <item name="colorPrimary">#ffffff</item>                                <!-- 배경 -->s
         <item name="colorAccent">@color/colorPrimary</item>                    <!-- 하단 움직이는 바 색-->
     </style>
 
-    <style name="tab_text" parent="TextAppearance.Design.Tab">
-        <item name="android:textStyle">bold</item>
+    <style name="TabText" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/spoqa_han_sans_bold</item>
     </style>
 </resources>
