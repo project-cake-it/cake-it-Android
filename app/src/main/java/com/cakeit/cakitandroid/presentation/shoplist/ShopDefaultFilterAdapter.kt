@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cakeit.cakitandroid.R
 import kotlinx.android.synthetic.main.item_shop_list_filter.view.*
 
-class ShopListFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class ShopDefaultFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     private var filterItems : List<String> = listOf()
 
@@ -20,7 +20,8 @@ class ShopListFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_shop_list_filter, parent, false)
-        val viewHolder = ShopListFilterViewHolder(view, listener)
+        val viewHolder = ShopDefaultFilterViewHolder(view, listener)
+
         return viewHolder
     }
 
@@ -31,23 +32,25 @@ class ShopListFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val filterListItem = filterItems[position]
 
-        val shopListFilterViewHolder = holder as ShopListFilterViewHolder
+        val shopListFilterViewHolder = holder as ShopDefaultFilterViewHolder
         shopListFilterViewHolder.bind(filterListItem)
     }
 
-    fun setShopListItems(listItem: List<String>) {
+    fun setDefaultListItems(listItem: List<String>) {
         filterItems = listItem
         notifyDataSetChanged()
     }
 
-    class ShopListFilterViewHolder(view : View, listener : OnShopFilterItemClickListener?) : RecyclerView.ViewHolder(view) {
+    class ShopDefaultFilterViewHolder(view : View, listener : OnShopFilterItemClickListener?) : RecyclerView.ViewHolder(view) {
 
         val filterListItem = view.tv_filter_item_list_filter
+        val btnChekedFilterItem = view.btn_filter_check_list_filter
 
         init {
             view.setOnClickListener {
                 listener?.onShopFilterItemClick(adapterPosition)
             }
+            btnChekedFilterItem.visibility = View.GONE
         }
 
         fun bind(filterItem : String) {

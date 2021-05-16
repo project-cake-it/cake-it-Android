@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_filter_item_list_filter"
     android:layout_width="match_parent"
     android:layout_height="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -23,6 +24,7 @@
             />
 
         <Button
+            android:id="@+id/btn_filter_check_list_filter"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:background="@drawable/ic_check"
