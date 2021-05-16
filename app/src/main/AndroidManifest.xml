@@ -14,7 +14,8 @@
         <activity android:name=".presentation.main.MainActivity"></activity>
         <activity android:name=".presentation.design.DesignActivity"></activity>
         <activity android:name=".presentation.main.test.SampleActivity" />
-        <activity android:name=".presentation.shop.ShopDetailActivity">
+        <activity android:name=".presentation.shop.ShopDetailActivity"/>
+        <activity android:name=".presentation.shoplist.ShopListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,5 +23,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
