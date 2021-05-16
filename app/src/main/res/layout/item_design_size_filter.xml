@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_filter_item_size_filter"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ffffff"
+    android:layout_marginVertical="10dp"
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            >
+            <TextView
+                android:id="@+id/tv_size_name_size_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="미니"
+                android:textColor="@color/accentText"
+                android:textSize="14sp"
+                />
+
+            <Button
+                android:id="@+id/btn_size_check_size_filter"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_check"
+                android:layout_marginStart="3dp"
+                />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_size_hint_size_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10-11cm, 1-2인용"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/subText"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>

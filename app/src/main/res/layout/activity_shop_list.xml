@@ -5,12 +5,12 @@
     <data>
         <variable
             name="viewModel"
-            type="com.cakeit.cakitandroid.presentation.shoplist.ShopListViewModel" />
+            type="com.cakeit.cakitandroid.presentation.list.shoplist.ShopListViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.shoplist.ShopListActivity"
+        tools:context=".presentation.list.shoplist.ShopListActivity"
         android:background="#ffffff"
         >
 

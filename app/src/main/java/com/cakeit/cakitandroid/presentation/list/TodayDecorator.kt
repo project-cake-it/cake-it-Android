@@ -1,4 +1,4 @@
-package com.cakeit.cakitandroid.presentation.shoplist
+package com.cakeit.cakitandroid.presentation.list
 
 import android.content.Context
 import android.graphics.Color
@@ -7,13 +7,13 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 
-class MinDecorator(context: Context): DayViewDecorator {
-    val toDay = CalendarDay.today()
+class TodayDecorator(context: Context): DayViewDecorator {
+    private var date = CalendarDay.today()
+//    val drawable = context.resources.getDrawable(R.drawable.style_only_radius_10)
     override fun shouldDecorate(day: CalendarDay?): Boolean {
-        return (day?.month == toDay.month && day.day < toDay.day)
+        return day?.equals(date)!!
     }
     override fun decorate(view: DayViewFacade?) {
-        view?.addSpan(object: ForegroundColorSpan(Color.parseColor("#d2d2d2")){})
-        view?.setDaysDisabled(true)
+        view?.addSpan(object: ForegroundColorSpan(Color.BLUE){})
     }
 }

@@ -1,4 +1,4 @@
-package com.cakeit.cakitandroid.presentation.shoplist
+package com.cakeit.cakitandroid.presentation.list.designlist.filter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,20 +8,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cakeit.cakitandroid.R
 import kotlinx.android.synthetic.main.item_shop_list_filter.view.*
 
-class ShopDefaultFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class DesignDefaultFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     private var filterItems : List<String> = listOf()
 
-    interface OnShopFilterItemClickListener {
-        fun onShopFilterItemClick(position: Int)
+    interface OnDesignFilterItemClickListener {
+        fun onDesignFilterItemClick(position: Int)
     }
 
-    var listener : OnShopFilterItemClickListener? = null
+    var listener : OnDesignFilterItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_shop_list_filter, parent, false)
-        val viewHolder = ShopDefaultFilterViewHolder(view, listener)
-
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_design_list_filter, parent, false)
+        val viewHolder =
+            ShopDefaultFilterViewHolder(
+                view,
+                listener
+            )
         return viewHolder
     }
 
@@ -41,14 +44,14 @@ class ShopDefaultFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
         notifyDataSetChanged()
     }
 
-    class ShopDefaultFilterViewHolder(view : View, listener : OnShopFilterItemClickListener?) : RecyclerView.ViewHolder(view) {
+    class ShopDefaultFilterViewHolder(view : View, listener : OnDesignFilterItemClickListener?) : RecyclerView.ViewHolder(view) {
 
         val filterListItem = view.tv_filter_item_list_filter
         val btnChekedFilterItem = view.btn_filter_check_list_filter
 
         init {
             view.setOnClickListener {
-                listener?.onShopFilterItemClick(adapterPosition)
+                listener?.onDesignFilterItemClick(adapterPosition)
             }
             btnChekedFilterItem.visibility = View.GONE
         }

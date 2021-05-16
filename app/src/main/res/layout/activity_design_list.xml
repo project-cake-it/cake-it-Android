@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.cakeit.cakitandroid.presentation.list.designlist.DesignListViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.list.designlist.DesignListActivity"
+        android:background="#ffffff"
+        >
+
+        <Button
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/ic_arrow_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="7dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_design_title_design_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="생일"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="14dp"
+            android:textSize="16sp"
+            android:textColor="#242424"
+            android:textStyle="bold"
+            />
+        <Button
+            android:id="@+id/btn_design_name_design_list"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_chevron_compact_down"
+            app:layout_constraintBottom_toBottomOf="@id/tv_design_title_design_list"
+            app:layout_constraintStart_toEndOf="@id/tv_design_title_design_list"
+            android:layout_marginStart="1dp"
+            />
+
+        <HorizontalScrollView
+            android:id="@+id/sv_filter_btn_design_list"
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_design_title_design_list">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/btn_filter_refresh_design_list"
+                    android:layout_width="82dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/background_filter_btn_effect"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_refresh_title_design_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="초기화"
+                    android:textColor="#242424"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_filter_refresh_design_list"
+                    app:layout_constraintEnd_toStartOf="@id/btn_refresh_design_list"
+                    app:layout_constraintStart_toStartOf="@id/btn_filter_refresh_design_list"
+                    app:layout_constraintTop_toTopOf="@id/btn_filter_refresh_design_list" />
+
+                <Button
+                    android:id="@+id/btn_refresh_design_list"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/ic_reset"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_filter_refresh_design_list"
+                    app:layout_constraintEnd_toEndOf="@id/btn_filter_refresh_design_list"
+                    app:layout_constraintStart_toEndOf="@id/tv_refresh_title_design_list"
+                    app:layout_constraintTop_toTopOf="@id/btn_filter_refresh_design_list" />
+
+                <View
+                    android:id="@+id/view_filter_first_design_list"
+                    android:layout_width="1dp"
+                    android:layout_height="29dp"
+                    android:layout_marginStart="7.5dp"
+                    android:background="#eeeeee"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btn_filter_refresh_design_list"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btn_filter_default_design_list"
+                    android:layout_width="82dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="7.5dp"
+                    android:background="@drawable/background_filter_btn_effect"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/view_filter_first_design_list"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_filter_default_title_design_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="기본순"
+                    android:textColor="#242424"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_filter_default_design_list"
+                    app:layout_constraintEnd_toStartOf="@id/btn_filter_default_compact_design_list"
+                    app:layout_constraintStart_toStartOf="@id/btn_filter_default_design_list"
+                    app:layout_constraintTop_toTopOf="@id/btn_filter_default_design_list" />
+
+                <Button
+                    android:id="@+id/btn_filter_default_compact_design_list"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/ic_chevron_compact_down"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_filter_default_design_list"
+                    app:layout_constraintEnd_toEndOf="@id/btn_filter_default_design_list"
+                    app:layout_constraintStart_toEndOf="@id/tv_filter_default_title_design_list"
+                    app:layout_constraintTop_toTopOf="@id/btn_filter_default_design_list" />
+
+                <Button
+                    android:id="@+id/btn_filter_pickup_region_design_list"
+                    android:layout_width="97dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/background_filter_btn_effect"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btn_filter_default_design_list"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_filter_pickup_region_title_design_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="픽업 지역"
+                    android:textColor="#242424"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_filter_pickup_region_design_list"
+                    app:layout_constraintEnd_toStartOf="@id/btn_filter_pickup_region_compact_design_list"
+                    app:layout_constraintStart_toStartOf="@id/btn_filter_pickup_region_design_list"
+                    app:layout_constraintTop_toTopOf="@id/btn_filter_pickup_region_design_list" />
+
+                <Button
+                    android:id="@+id/btn_filter_pickup_region_compact_design_list"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/ic_chevron_compact_down"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_filter_pickup_region_design_list"
+                    app:layout_constraintEnd_toEndOf="@id/btn_filter_pickup_region_design_list"
+                    app:layout_constraintStart_toEndOf="@id/tv_filter_pickup_region_title_design_list"
+                    app:layout_constraintTop_toTopOf="@id/btn_filter_pickup_region_design_list" />
+
+                <Button
+                    android:id="@+id/btn_filter_size_design_list"
+                    android:layout_width="66dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/background_filter_btn_effect"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btn_filter_pickup_region_design_list"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_filter_size_title_design_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="크기"
+                    android:textColor="#242424"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_filter_size_design_list"
+                    app:layout_constraintEnd_toStartOf="@id/btn_filter_size_compact_design_list"
+                    app:layout_constraintStart_toStartOf="@id/btn_filter_size_design_list"
+                    app:layout_constraintTop_toTopOf="@id/btn_filter_size_design_list" />
+
+                <Button
+                    android:id="@+id/btn_filter_size_compact_design_list"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/ic_chevron_compact_down"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_filter_size_design_list"
+                    app:layout_constraintEnd_toEndOf="@id/btn_filter_size_design_list"
+                    app:layout_constraintStart_toEndOf="@id/tv_filter_size_title_design_list"
+                    app:layout_constraintTop_toTopOf="@id/btn_filter_size_design_list" />
+
+                <Button
+                    android:id="@+id/btn_filter_color_design_list"
+                    android:layout_width="66dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/background_filter_btn_effect"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btn_filter_size_design_list"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_filter_color_title_design_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="색깔"
+                    android:textColor="#242424"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_filter_color_design_list"
+                    app:layout_constraintEnd_toStartOf="@id/btn_filter_color_compact_design_list"
+                    app:layout_constraintStart_toStartOf="@id/btn_filter_color_design_list"
+                    app:layout_constraintTop_toTopOf="@id/btn_filter_color_design_list" />
+
+                <Button
+                    android:id="@+id/btn_filter_color_compact_design_list"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/ic_chevron_compact_down"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_filter_color_design_list"
+                    app:layout_constraintEnd_toEndOf="@id/btn_filter_color_design_list"
+                    app:layout_constraintStart_toEndOf="@id/tv_filter_color_title_design_list"
+                    app:layout_constraintTop_toTopOf="@id/btn_filter_color_design_list" />
+
+                <Button
+                    android:id="@+id/btn_filter_category_design_list"
+                    android:layout_width="94dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/background_filter_btn_effect"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btn_filter_color_design_list"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_filter_category_title_design_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="카테고리"
+                    android:textColor="#242424"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_filter_category_design_list"
+                    app:layout_constraintEnd_toStartOf="@id/btn_filter_category_compact_design_list"
+                    app:layout_constraintStart_toStartOf="@id/btn_filter_category_design_list"
+                    app:layout_constraintTop_toTopOf="@id/btn_filter_category_design_list" />
+                <Button
+                    android:id="@+id/btn_filter_category_compact_design_list"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/ic_chevron_compact_down"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_filter_category_design_list"
+                    app:layout_constraintEnd_toEndOf="@id/btn_filter_category_design_list"
+                    app:layout_constraintStart_toEndOf="@id/tv_filter_category_title_design_list"
+                    app:layout_constraintTop_toTopOf="@id/btn_filter_category_design_list" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </HorizontalScrollView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_design_list_design_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/sv_filter_btn_design_list"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_filter_content_design_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_filter_layer"
+            app:layout_constraintTop_toBottomOf="@id/sv_filter_btn_design_list"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_filter_default_list_design_list"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="gone"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_filter_region_list_design_list"
+                android:layout_width="match_parent"
+                android:layout_height="309dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="gone"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_filter_size_list_design_list"
+                android:layout_width="match_parent"
+                android:layout_height="387dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="gone"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_filter_color_list_design_list"
+                android:layout_width="match_parent"
+                android:layout_height="353dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="gone"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_filter_category_list_design_list"
+                android:layout_width="match_parent"
+                android:layout_height="233dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="gone"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,4 +1,4 @@
-package com.cakeit.cakitandroid.presentation.shoplist
+package com.cakeit.cakitandroid.presentation.list.shoplist
 
 import android.app.Application
 import androidx.lifecycle.LiveData
@@ -6,7 +6,6 @@ import com.cakeit.cakitandroid.base.BaseViewModel
 import com.cakeit.cakitandroid.data.repository.CakeShopRepo
 import com.cakeit.cakitandroid.data.source.local.entity.CakeShopData
 import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
 
 class ShopListViewModel(application : Application) : BaseViewModel<Any?>(application) {

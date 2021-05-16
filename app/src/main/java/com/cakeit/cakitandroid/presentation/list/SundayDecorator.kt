@@ -1,4 +1,4 @@
-package com.cakeit.cakitandroid.presentation.shoplist
+package com.cakeit.cakitandroid.presentation.list
 
 import android.graphics.Color
 import android.text.style.ForegroundColorSpan

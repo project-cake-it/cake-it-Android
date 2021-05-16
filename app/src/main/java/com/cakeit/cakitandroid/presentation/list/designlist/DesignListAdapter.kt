@@ -1,49 +1,46 @@
-package com.cakeit.cakitandroid.presentation.shoplist
+package com.cakeit.cakitandroid.presentation.list.designlist
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.cakeit.cakitandroid.R
+import com.cakeit.cakitandroid.data.source.local.entity.CakeDesignData
 import com.cakeit.cakitandroid.data.source.local.entity.CakeShopData
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.item_shop_list.view.*
 
-class ShopListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class DesignListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    private var shopListItems : List<CakeShopData> = listOf()
-//    private val shopListItems = mutableListOf<CakeShopData>()
+    private var designListItems : List<CakeDesignData> = listOf()
+//    private val designListItems = mutableListOf<CakeDesignData>()
 
-    interface OnShopItemClickListener {
-        fun onShopItemClick(position: Int)
+    interface OnDesignItemClickListener {
+        fun onDesignItemClick(position: Int)
     }
 
-    var listener : OnShopItemClickListener? = null
+    var listener : OnDesignItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_shop_list, parent, false)
-        val viewHolder = ShopListViewHolder(view, listener)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_design_list, parent, false)
+        val viewHolder = DesignListViewHolder(view, listener)
         return viewHolder
     }
 
     override fun getItemCount(): Int {
-        return shopListItems.size
+        return designListItems.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val cakeShop = shopListItems[position]
+        val cakeDesign = designListItems[position]
 
-        val shopListViewHolder = holder as ShopListViewHolder
-        shopListViewHolder.bind(cakeShop)
+        val designListViewHolder = holder as DesignListViewHolder
+        designListViewHolder.bind(cakeDesign)
     }
 
-    fun setShopListItems(shopItems: List<CakeShopData>) {
+    fun setDesignListItems(designItems: List<CakeDesignData>) {
 
-        shopListItems = shopItems
+        designListItems = designItems
         notifyDataSetChanged()
 
 //        val diffCallback = ShopListDiffCallback(shopListItems, shopItems)
@@ -69,21 +66,16 @@ class ShopListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 //            })
     }
 
-    class ShopListViewHolder(view : View, listener : OnShopItemClickListener?) : RecyclerView.ViewHolder(view) {
-
-        val cakeShopName = view.tv_shop_name_item_shop
-        val cakeShopAddress = view.tv_shop_address_item_shop
+    class DesignListViewHolder(view : View, listener : OnDesignItemClickListener?) : RecyclerView.ViewHolder(view) {
 
         init {
             view.setOnClickListener {
-                listener?.onShopItemClick(adapterPosition)
+                listener?.onDesignItemClick(adapterPosition)
             }
         }
 
-        fun bind(cakeShop : CakeShopData) {
-            Log.d("songjem", "onBind = " + cakeShop.shopName)
-            cakeShopName.text = cakeShop.shopName
-            cakeShopAddress.text = cakeShop.shopAddress
+        fun bind(cakeDesign : CakeDesignData) {
+            Log.d("songjem", "onBind = " + cakeDesign.shopName)
         }
     }
 }

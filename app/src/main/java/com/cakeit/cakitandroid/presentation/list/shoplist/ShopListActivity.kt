@@ -1,4 +1,4 @@
-package com.cakeit.cakitandroid.presentation.shoplist
+package com.cakeit.cakitandroid.presentation.list.shoplist
 
 import android.graphics.Color
 import android.os.Bundle
@@ -14,8 +14,8 @@ import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.data.source.local.entity.CakeShopData
 import com.cakeit.cakitandroid.databinding.ActivityShopListBinding
 import com.cakeit.cakitandroid.domain.model.CakeSizeAndrPrice
-import com.prolificinteractive.materialcalendarview.CalendarDay
-import com.prolificinteractive.materialcalendarview.CalendarMode
+import com.cakeit.cakitandroid.presentation.list.TodayDecorator
+import com.cakeit.cakitandroid.presentation.list.MinDecorator
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import kotlinx.android.synthetic.main.activity_shop_list.*
 import java.util.*
@@ -79,8 +79,12 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
 //            .commit()
 
         cv_pickup_calendar_shop_list.addDecorators(
-            MinDecorator(applicationContext),
-            TodayDecorator(applicationContext)
+            MinDecorator(
+                applicationContext
+            ),
+            TodayDecorator(
+                applicationContext
+            )
         )
 
         // 달력 날짜 선택

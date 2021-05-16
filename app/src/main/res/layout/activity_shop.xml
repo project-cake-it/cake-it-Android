@@ -5,12 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".presentation.shop.ShopActivity">
     
-    <data>
-        <variable
-            name="viewModel"
-            type="com.cakeit.cakitandroid.presentation.shop.ShopViewModel" />
-    </data>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -86,7 +80,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:background="@drawable/background_order_availability_date"
                 android:layout_marginHorizontal="20dp"
                 android:text="@string/shop_order_availability_date"
                 android:textColor="#577399"
