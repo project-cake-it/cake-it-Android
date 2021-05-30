@@ -13,7 +13,7 @@
         <activity android:name=".presentation.shop.ShopActivity"></activity>
         <activity android:name=".presentation.main.MainActivity" />
         <activity android:name=".presentation.main.test.SampleActivity" />
-        <activity android:name=".presentation.shop.ShopActivity">
+        <activity android:name=".presentation.mypage.MyPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
