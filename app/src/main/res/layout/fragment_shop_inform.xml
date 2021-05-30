@@ -10,180 +10,154 @@
             name="viewModel"
             type="com.cakeit.cakitandroid.presentation.shop.inform.ShopInformFragmentViewModel" />
     </data>
-
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_shop_inform_guide_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            >
+            app:layout_constraintGuide_begin="20dp"
+            app:layout_constraintGuide_end="20dp"
+            />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_shop_inform_guide_start"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="20dp"
-                app:layout_constraintGuide_end="20dp"
-                />
+        <TextView
+            android:id="@+id/tv_shop_inform_notice_title"
+            android:text="@string/shop_inform_notice_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="#3d3d3d"
+            android:letterSpacing="-0.03"
+            tools:text="가게 안내사항"
+            android:layout_marginTop="19.5dp"
+            app:layout_constraintStart_toEndOf="@id/gl_shop_inform_guide_start"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_shop_inform_guide_end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="20dp"
-                />
+        <TextView
+            android:id="@+id/tv_shop_inform_notice_content"
+            android:text="다음주 월/화는 휴무이며, 월요일은 상담 쉬어갑니다.\n\n*현재~3/14(일)까지 주문 가능(2월 마감)"
+            android:layout_width="wrap_content"
+            android:layout_height="57dp"
+            android:textSize="13sp"
+            android:textColor="#3d3d3d"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toEndOf="@id/gl_shop_inform_guide_start"
+            app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_notice_title"
+            />
 
-            <TextView
-                android:id="@+id/tv_shop_inform_notice_title"
-                android:text="@string/shop_inform_notice_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="#3d3d3d"
-                android:layout_marginTop="19.5dp"
-                app:layout_constraintStart_toEndOf="@id/gl_shop_inform_guide_start"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textStyle="bold"
-                />
+        <View
+            android:id="@+id/view_shop_inform_top"
+            android:layout_width="match_parent"
+            android:layout_height="9dp"
+            android:layout_marginTop="24dp"
+            android:background="#f5f5f5"
+            app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_notice_content"
+            tools:layout_editor_absoluteX="0dp"
+            />
 
-            <TextView
-                android:id="@+id/tv_shop_inform_notice_content"
-                android:text=""
-                android:layout_width="wrap_content"
-                android:layout_height="57dp"
-                android:textSize="13sp"
-                android:textColor="#3d3d3d"
-                android:layout_marginTop="12dp"
-                app:layout_constraintStart_toEndOf="@id/gl_shop_inform_guide_start"
-                app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_notice_title"
-                />
+        <TextView
+            android:id="@+id/tv_shop_inform_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shop_inform_notice_time"
+            app:layout_constraintStart_toEndOf="@+id/gl_shop_inform_guide_start"
+            android:layout_marginTop="20dp"
+            android:textColor="#909090"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/view_shop_inform_top"
+            />
 
-            <View
-                android:id="@+id/view_shop_inform_top"
-                android:layout_width="match_parent"
-                android:layout_height="9dp"
-                android:layout_marginTop="24dp"
-                android:background="#f5f5f5"
-                app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_notice_content"
-                tools:layout_editor_absoluteX="0dp"
-                />
+        <TextView
+            android:id="@+id/tv_shop_inform_time_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text=""
+            android:textColor="#3d3d3d"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_shop_inform_pickup_time"
+            app:layout_constraintTop_toTopOf="@+id/tv_shop_inform_time" />
 
-            <TextView
-                android:id="@+id/tv_shop_inform_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/shop_inform_notice_time"
-                app:layout_constraintStart_toEndOf="@+id/gl_shop_inform_guide_start"
-                android:layout_marginTop="20dp"
-                android:textColor="#909090"
-                android:textSize="12sp"
-                app:layout_constraintTop_toBottomOf="@+id/view_shop_inform_top"
-                />
+        <TextView
+            android:id="@+id/tv_shop_inform_pickup_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shop_inform_notice_pickup_time"
+            android:textColor="#909090"
+            android:textSize="12sp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toEndOf="@+id/gl_shop_inform_guide_start"
+            app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_time" />
 
-            <TextView
-                android:id="@+id/tv_shop_inform_time_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text=""
-                android:textColor="#3d3d3d"
-                android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/tv_shop_inform_pickup_time"
-                app:layout_constraintTop_toTopOf="@+id/tv_shop_inform_time" />
+        <TextView
+            android:id="@+id/tv_shop_inform_pickup_time_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#3d3d3d"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_shop_inform_time_content"
+            app:layout_constraintTop_toTopOf="@+id/tv_shop_inform_pickup_time" />
 
-            <TextView
-                android:id="@+id/tv_shop_inform_pickup_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/shop_inform_notice_pickup_time"
-                android:textColor="#909090"
-                android:textSize="12sp"
-                android:layout_marginTop="12dp"
-                app:layout_constraintStart_toEndOf="@+id/gl_shop_inform_guide_start"
-                app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_time" />
+        <TextView
+            android:id="@+id/tv_shop_inform_closed_days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shop_inform_notice_closed_days"
+            android:textColor="#909090"
+            android:textSize="12sp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toEndOf="@+id/gl_shop_inform_guide_start"
+            app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_pickup_time_content" />
 
-            <TextView
-                android:id="@+id/tv_shop_inform_pickup_time_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="#3d3d3d"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@+id/tv_shop_inform_time_content"
-                app:layout_constraintTop_toTopOf="@+id/tv_shop_inform_pickup_time" />
-
-            <TextView
-                android:id="@+id/tv_shop_inform_closed_days"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/shop_inform_notice_closed_days"
-                android:textColor="#909090"
-                android:textSize="12sp"
-                android:layout_marginTop="12dp"
-                app:layout_constraintStart_toEndOf="@+id/gl_shop_inform_guide_start"
-                app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_pickup_time_content" />
-
-            <TextView
-                android:id="@+id/tv_shop_inform_closed_days_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="#3d3d3d"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@+id/tv_shop_inform_time_content"
-                app:layout_constraintTop_toTopOf="@+id/tv_shop_inform_closed_days" />
+        <TextView
+            android:id="@+id/tv_shop_inform_closed_days_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#3d3d3d"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_shop_inform_time_content"
+            app:layout_constraintTop_toTopOf="@+id/tv_shop_inform_closed_days" />
 
 
-            <TextView
-                android:id="@+id/tv_shop_inform_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/shop_inform_notice_phone"
-                android:textColor="#909090"
-                android:textSize="12sp"
-                android:layout_marginTop="12dp"
-                app:layout_constraintStart_toEndOf="@+id/gl_shop_inform_guide_start"
-                app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_closed_days" />
+        <TextView
+            android:id="@+id/tv_shop_inform_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shop_inform_notice_phone"
+            android:textColor="#909090"
+            android:textSize="12sp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toEndOf="@+id/gl_shop_inform_guide_start"
+            app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_closed_days" />
 
-            <TextView
-                android:id="@+id/tv_shop_inform_phone_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="#3d3d3d"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@+id/tv_shop_inform_time_content"
-                app:layout_constraintTop_toTopOf="@+id/tv_shop_inform_phone" />
+        <TextView
+            android:id="@+id/tv_shop_inform_phone_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#3d3d3d"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_shop_inform_time_content"
+            app:layout_constraintTop_toTopOf="@+id/tv_shop_inform_phone" />
 
-            <ImageView
-                android:id="@+id/iv_shop_inform_map"
-                android:layout_width="match_parent"
-                android:layout_height="226dp"
-                android:layout_marginTop="17dp"
-                android:layout_marginHorizontal="20dp"
-                app:layout_constraintEnd_toEndOf="@+id/view_shop_inform_top"
-                app:layout_constraintStart_toStartOf="@+id/gl_shop_inform_guide_start"
-                app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_phone_content" />
-
-            <Button
-                android:id="@+id/btn_shop_inform_connect"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginTop="40dp"
-                android:text="@string/shop_connect"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginHorizontal="20dp"
-                app:layout_constraintTop_toBottomOf="@+id/iv_shop_inform_map"
-                android:layout_marginBottom="16dp"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
+        <ImageView
+            android:id="@+id/iv_shop_inform_map"
+            android:layout_width="match_parent"
+            android:layout_height="226dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginHorizontal="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/view_shop_inform_top"
+            app:layout_constraintStart_toStartOf="@+id/gl_shop_inform_guide_start"
+            app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_phone_content" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
