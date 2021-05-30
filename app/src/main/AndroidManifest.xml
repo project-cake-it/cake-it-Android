@@ -10,11 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-        <activity android:name=".presentation.main.MainActivity"></activity>
-        <activity android:name=".presentation.design.DesignActivity"></activity>
+        <activity android:name=".presentation.shop.ShopActivity"></activity>
+        <activity android:name=".presentation.main.MainActivity" />
         <activity android:name=".presentation.main.test.SampleActivity" />
-        <activity android:name=".presentation.shop.ShopDetailActivity">
+        <activity android:name=".presentation.shop.ShopActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
