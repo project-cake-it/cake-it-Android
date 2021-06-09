@@ -5,4 +5,5 @@ import com.cakeit.cakitandroid.base.BaseViewModel
 
 class ShopDesignFragmentViewModel(application: Application) : BaseViewModel<Any?>(application) {
 
+
 }

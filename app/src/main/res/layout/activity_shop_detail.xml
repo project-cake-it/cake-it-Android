@@ -17,7 +17,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
             <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/left_vertical_guideline"
@@ -272,21 +273,25 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/vp_shop_detail_viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="600dp"
+                android:layout_height="429dp"
+                android:background="@android:color/white"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/abl_shop_detail_tab_layout"/>
-            
+            <!--
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_marginHorizontal="20dp"
                 android:fontFamily="@font/spoqa_han_sans_bold"
                 android:textSize="16sp"
-                android:textColor="#ffffff"
+                android:textColor="@color/white"
                 android:letterSpacing="-0.03"
                 android:text="가게 연결"
                 android:background="@drawable/bg_connect_shop"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="40dp"
                 app:layout_constraintBottom_toBottomOf="@id/vp_shop_detail_viewpager"/>
+-->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>
