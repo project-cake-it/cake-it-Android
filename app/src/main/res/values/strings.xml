@@ -19,4 +19,7 @@
 
     <string name="shop_design_fragment_name">케이크 디자인</string>
     <string name="shop_inform_fragment_name">가게 상세</string>
+
+    <string name="shop_info_address">주소복사</string>
+    <string name="shop_info_map">지도보기</string>
 </resources>

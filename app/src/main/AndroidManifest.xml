@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cakeit.cakitandroid">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name=".di.applicationModule.GlobalApplication"
         android:allowBackup="true"
@@ -9,10 +12,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-        <activity android:name=".presentation.main.MainActivity"></activity>
-        <activity android:name=".presentation.design.DesignActivity"></activity>
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".presentation.shop.inform.TestActivity"></activity>
+        <activity android:name=".presentation.main.MainActivity" />
+        <activity android:name=".presentation.design.DesignActivity" />
         <activity android:name=".presentation.main.test.SampleActivity" />
         <activity android:name=".presentation.shop.ShopDetailActivity">
             <intent-filter>
@@ -21,6 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="336e5fa0e2a8c916ffda94b2b64f5c8d" />
     </application>
 
 </manifest>

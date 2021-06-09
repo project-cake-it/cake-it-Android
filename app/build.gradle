@@ -96,6 +96,8 @@ dependencies {
 
     // KAKAO
     implementation "com.kakao.sdk:v2-user:2.0.5"
+
+    // KAKAO MAP
     implementation files('libs/libDaumMapAndroid.jar')
 
     // NAVER
