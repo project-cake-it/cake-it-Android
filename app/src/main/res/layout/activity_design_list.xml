@@ -8,6 +8,7 @@
             type="com.cakeit.cakitandroid.presentation.list.designlist.DesignListViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_design_list_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.list.designlist.DesignListActivity"
@@ -66,7 +67,7 @@
                     android:layout_width="82dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="16dp"
-                    android:background="@drawable/background_filter_btn_effect"
+                    android:background="@drawable/background_filter_btn_effect_before"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -105,12 +106,12 @@
                     app:layout_constraintStart_toEndOf="@id/btn_filter_refresh_design_list"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <Button
+                <RelativeLayout
                     android:id="@+id/btn_filter_default_design_list"
                     android:layout_width="82dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="7.5dp"
-                    android:background="@drawable/background_filter_btn_effect"
+                    android:background="@drawable/background_filter_btn_effect_before"
                     android:textSize="13sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/view_filter_first_design_list"
@@ -134,18 +135,19 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="10dp"
-                    android:background="@drawable/ic_chevron_compact_down"
+                    android:background="@drawable/background_filter_compact_before"
                     app:layout_constraintBottom_toBottomOf="@id/btn_filter_default_design_list"
                     app:layout_constraintEnd_toEndOf="@id/btn_filter_default_design_list"
                     app:layout_constraintStart_toEndOf="@id/tv_filter_default_title_design_list"
+                    android:enabled="false"
                     app:layout_constraintTop_toTopOf="@id/btn_filter_default_design_list" />
 
-                <Button
+                <RelativeLayout
                     android:id="@+id/btn_filter_pickup_region_design_list"
                     android:layout_width="97dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="8dp"
-                    android:background="@drawable/background_filter_btn_effect"
+                    android:background="@drawable/background_filter_btn_effect_before"
                     android:textSize="13sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/btn_filter_default_design_list"
@@ -169,18 +171,19 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="10dp"
-                    android:background="@drawable/ic_chevron_compact_down"
+                    android:background="@drawable/background_filter_compact_before"
+                    android:enabled="false"
                     app:layout_constraintBottom_toBottomOf="@id/btn_filter_pickup_region_design_list"
                     app:layout_constraintEnd_toEndOf="@id/btn_filter_pickup_region_design_list"
                     app:layout_constraintStart_toEndOf="@id/tv_filter_pickup_region_title_design_list"
                     app:layout_constraintTop_toTopOf="@id/btn_filter_pickup_region_design_list" />
 
-                <Button
+                <RelativeLayout
                     android:id="@+id/btn_filter_size_design_list"
                     android:layout_width="66dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="8dp"
-                    android:background="@drawable/background_filter_btn_effect"
+                    android:background="@drawable/background_filter_btn_effect_before"
                     android:textSize="13sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/btn_filter_pickup_region_design_list"
@@ -204,18 +207,19 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="10dp"
-                    android:background="@drawable/ic_chevron_compact_down"
+                    android:background="@drawable/background_filter_compact_before"
+                    android:enabled="false"
                     app:layout_constraintBottom_toBottomOf="@id/btn_filter_size_design_list"
                     app:layout_constraintEnd_toEndOf="@id/btn_filter_size_design_list"
                     app:layout_constraintStart_toEndOf="@id/tv_filter_size_title_design_list"
                     app:layout_constraintTop_toTopOf="@id/btn_filter_size_design_list" />
 
-                <Button
+                <RelativeLayout
                     android:id="@+id/btn_filter_color_design_list"
                     android:layout_width="66dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="8dp"
-                    android:background="@drawable/background_filter_btn_effect"
+                    android:background="@drawable/background_filter_btn_effect_before"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/btn_filter_size_design_list"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -238,18 +242,19 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="10dp"
-                    android:background="@drawable/ic_chevron_compact_down"
+                    android:background="@drawable/background_filter_compact_before"
+                    android:enabled="false"
                     app:layout_constraintBottom_toBottomOf="@id/btn_filter_color_design_list"
                     app:layout_constraintEnd_toEndOf="@id/btn_filter_color_design_list"
                     app:layout_constraintStart_toEndOf="@id/tv_filter_color_title_design_list"
                     app:layout_constraintTop_toTopOf="@id/btn_filter_color_design_list" />
 
-                <Button
+                <RelativeLayout
                     android:id="@+id/btn_filter_category_design_list"
                     android:layout_width="94dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="8dp"
-                    android:background="@drawable/background_filter_btn_effect"
+                    android:background="@drawable/background_filter_btn_effect_before"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/btn_filter_color_design_list"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -271,7 +276,8 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="10dp"
-                    android:background="@drawable/ic_chevron_compact_down"
+                    android:background="@drawable/background_filter_compact_before"
+                    android:enabled="false"
                     app:layout_constraintBottom_toBottomOf="@id/btn_filter_category_design_list"
                     app:layout_constraintEnd_toEndOf="@id/btn_filter_category_design_list"
                     app:layout_constraintStart_toEndOf="@id/tv_filter_category_title_design_list"
@@ -282,11 +288,41 @@
 
         </HorizontalScrollView>
 
+        <HorizontalScrollView
+            android:id="@+id/sv_choice_tag_design_list"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            app:layout_constraintTop_toBottomOf="@+id/sv_filter_btn_design_list"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_choice_tag_design_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    />
+
+            </RelativeLayout>
+
+        </HorizontalScrollView>
+
+        <View
+            android:id="@+id/view_background_design_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#d5d5d5"
+            app:layout_constraintTop_toBottomOf="@id/sv_choice_tag_design_list"
+            android:visibility="invisible"
+            />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_design_list_design_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/sv_filter_btn_design_list"
+            app:layout_constraintTop_toBottomOf="@id/sv_choice_tag_design_list"
             />
 
         <androidx.constraintlayout.widget.ConstraintLayout

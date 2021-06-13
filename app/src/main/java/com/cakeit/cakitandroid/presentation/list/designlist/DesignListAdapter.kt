@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.data.source.local.entity.CakeDesignData
-import com.cakeit.cakitandroid.data.source.local.entity.CakeShopData
-import kotlinx.android.synthetic.main.item_shop_list.view.*
+import kotlinx.android.synthetic.main.item_design_list.view.*
 
 class DesignListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
@@ -68,6 +67,12 @@ class DesignListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     class DesignListViewHolder(view : View, listener : OnDesignItemClickListener?) : RecyclerView.ViewHolder(view) {
 
+        val designImg = view.iv_design_img_item_design_list
+        val designLoc = view.tv_shop_loc_item_design_list
+        val designSize = view.tv_size_item_design_list
+        val designShop = view.tv_shop_name_item_design_list
+        val designPrice = view.tv_design_price_item_design_list
+
         init {
             view.setOnClickListener {
                 listener?.onDesignItemClick(adapterPosition)
@@ -75,7 +80,10 @@ class DesignListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         }
 
         fun bind(cakeDesign : CakeDesignData) {
-            Log.d("songjem", "onBind = " + cakeDesign.shopName)
+            designLoc.text = cakeDesign.designShopLoc
+            designSize.text = cakeDesign.designSize
+            designShop.text = cakeDesign.designShopName
+            designPrice.text = cakeDesign.designPrice.toString()
         }
     }
 }

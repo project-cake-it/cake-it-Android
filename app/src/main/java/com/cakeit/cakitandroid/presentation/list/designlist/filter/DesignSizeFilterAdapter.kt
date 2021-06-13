@@ -31,7 +31,22 @@ class DesignSizeFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         if(checkedPosition.size == 0) checkedPosition.add(0)
         return viewHolder
     }
+    fun getCheckedCnt() : Int {
+        return checkedPosition.size
+    }
 
+    fun getChoiceTagIndex() : ArrayList<Int> {
+        var list = ArrayList<Int>(checkedPosition)
+        return list
+    }
+
+    fun getClickedItem() : String {
+        var clickedData = ""
+        var list = ArrayList(checkedPosition)
+
+        clickedData = designSizeItems[list.get(0)].sizeName
+        return clickedData
+    }
     override fun getItemCount(): Int {
         return designSizeItems.size
     }

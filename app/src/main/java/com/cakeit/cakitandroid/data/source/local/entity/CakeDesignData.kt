@@ -7,7 +7,9 @@ import com.cakeit.cakitandroid.domain.model.CakeSizeAndrPrice
 @Entity(tableName="CakeDesign")
 data class CakeDesignData (
      @PrimaryKey(autoGenerate = true)
-     var shopIndex : Long?,
-     var shopName : String,
-     var shopAddress : String
+     var designIndex : Long?,
+     var designShopLoc : String,
+     var designSize : String,
+     var designShopName : String,
+     var designPrice : Long
 )

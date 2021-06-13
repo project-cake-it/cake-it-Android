@@ -6,7 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cakeit.cakitandroid.R
 import kotlinx.android.synthetic.main.item_design_list_filter.view.*
-import java.util.HashSet
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.List
+import kotlin.collections.listOf
 
 
 class DesignRegionFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -32,6 +35,23 @@ class DesignRegionFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
         return viewHolder
     }
 
+    fun getCheckedCnt() : Int {
+        return checkedPosition.size
+    }
+
+    fun getChoiceTagIndex() : ArrayList<Int> {
+        var list = ArrayList<Int>(checkedPosition)
+        return list
+    }
+
+    fun getClickedItem() : String {
+        var clickedData = ""
+        var list = ArrayList(checkedPosition)
+
+        clickedData = regionItems[list.get(0)]
+        return clickedData
+    }
+
     override fun getItemCount(): Int {
         return regionItems.size
     }
@@ -48,7 +68,6 @@ class DesignRegionFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
             if(position == 0) {
                 checkedPosition.clear()
                 checkedPosition.add(0)
-
             }
             // 특정 구 선택 시(중복 가능)
             else {

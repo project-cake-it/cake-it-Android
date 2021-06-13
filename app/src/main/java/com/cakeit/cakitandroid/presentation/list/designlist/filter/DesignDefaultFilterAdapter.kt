@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cakeit.cakitandroid.R
-import kotlinx.android.synthetic.main.item_shop_list_filter.view.*
+import kotlinx.android.synthetic.main.item_design_list_filter.view.*
+import java.util.HashSet
 
 class DesignDefaultFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     private var filterItems : List<String> = listOf()
+    private var checkedPosition = HashSet<Int>()
 
     interface OnDesignFilterItemClickListener {
         fun onDesignFilterItemClick(position: Int)
@@ -21,11 +23,28 @@ class DesignDefaultFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_design_list_filter, parent, false)
         val viewHolder =
-            ShopDefaultFilterViewHolder(
+                DesignDefaultFilterViewHolder(
                 view,
                 listener
             )
+        if(checkedPosition.size == 0) checkedPosition.add(0)
         return viewHolder
+    }
+
+    fun getCheckedCnt() : Int {
+        return checkedPosition.size
+    }
+
+    fun getClickedItem() : String {
+        var clickedData = ""
+        var list = ArrayList(checkedPosition)
+
+        clickedData = filterItems[list.get(0)]
+        return clickedData
+    }
+
+    fun setChecked() {
+
     }
 
     override fun getItemCount(): Int {
@@ -35,8 +54,19 @@ class DesignDefaultFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val filterListItem = filterItems[position]
 
-        val shopListFilterViewHolder = holder as ShopDefaultFilterViewHolder
+        val shopListFilterViewHolder = holder as DesignDefaultFilterViewHolder
+        if(checkedPosition.contains(position)) shopListFilterViewHolder.btnChekedFilterItem.visibility = View.VISIBLE
+        else shopListFilterViewHolder.btnChekedFilterItem.visibility = View.GONE
         shopListFilterViewHolder.bind(filterListItem)
+
+        shopListFilterViewHolder.rlFilterListItem.setOnClickListener {
+
+            if(shopListFilterViewHolder.btnChekedFilterItem.visibility == View.GONE) shopListFilterViewHolder.btnChekedFilterItem.visibility = View.VISIBLE
+            else shopListFilterViewHolder.btnChekedFilterItem.visibility = View.GONE
+            checkedPosition.clear()
+            checkedPosition.add(position)
+            notifyDataSetChanged()
+        }
     }
 
     fun setDefaultListItems(listItem: List<String>) {
@@ -44,10 +74,11 @@ class DesignDefaultFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
         notifyDataSetChanged()
     }
 
-    class ShopDefaultFilterViewHolder(view : View, listener : OnDesignFilterItemClickListener?) : RecyclerView.ViewHolder(view) {
+    class DesignDefaultFilterViewHolder(view : View, listener : OnDesignFilterItemClickListener?) : RecyclerView.ViewHolder(view) {
 
         val filterListItem = view.tv_filter_item_list_filter
         val btnChekedFilterItem = view.btn_filter_check_list_filter
+        val rlFilterListItem = view.rl_filter_item_list_filter
 
         init {
             view.setOnClickListener {
@@ -57,7 +88,6 @@ class DesignDefaultFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
 
         fun bind(filterItem : String) {
-            Log.d("songjem", "onBind = " + filterItem)
             filterListItem.text = filterItem
         }
     }

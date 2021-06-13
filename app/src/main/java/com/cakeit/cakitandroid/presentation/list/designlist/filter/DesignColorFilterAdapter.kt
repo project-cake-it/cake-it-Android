@@ -75,6 +75,23 @@ class DesignColorFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
         notifyDataSetChanged()
     }
 
+    fun getCheckedCnt() : Int {
+        return checkedPosition.size
+    }
+
+    fun getChoiceTagIndex() : ArrayList<Int> {
+        var list = ArrayList<Int>(checkedPosition)
+        return list
+    }
+
+    fun getClickedItem() : String {
+        var clickedData = ""
+        var list = ArrayList(checkedPosition)
+
+        clickedData = designColorItems[list.get(0)]
+        return clickedData
+    }
+
     class DesignColorFilterViewHolder(view : View, listener : OnDesignColorItemClickListener?) : RecyclerView.ViewHolder(view) {
 
         val designColorItem = view.tv_filter_item_color_filter

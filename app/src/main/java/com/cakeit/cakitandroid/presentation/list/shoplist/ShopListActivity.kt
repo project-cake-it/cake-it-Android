@@ -261,7 +261,7 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
 
                     rv_filter_region_list_shop_list.visibility = View.GONE
                     tv_filter_default_title_shop_list.setTextColor(Color.parseColor("#577399"))
-                    btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_chevron_compact_up))
+                    btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.chevron_compact_up))
 
                     tv_filter_pickup_region_title_shop_list.setTextColor(Color.parseColor("#242424"))
                     btn_filter_pickup_region_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_chevron_compact_down))
@@ -282,7 +282,7 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
 
                     rv_filter_default_list_shop_list.visibility = View.GONE
                     tv_filter_pickup_region_title_shop_list.setTextColor(Color.parseColor("#577399"))
-                    btn_filter_pickup_region_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_chevron_compact_up))
+                    btn_filter_pickup_region_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.chevron_compact_up))
 
                     tv_filter_default_title_shop_list.setTextColor(Color.parseColor("#242424"))
                     btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_chevron_compact_down))
@@ -308,7 +308,7 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
             cv_pickup_calendar_shop_list.visibility = View.VISIBLE
 
             tv_filter_pickup_date_title_shop_list.setTextColor(Color.parseColor("#577399"))
-            btn_filter_pickup_date_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_chevron_compact_up))
+            btn_filter_pickup_date_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.chevron_compact_up))
         }
         else {
             cl_filter_content_shop_list.visibility = View.GONE

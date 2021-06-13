@@ -11,7 +11,7 @@ import com.cakeit.cakitandroid.data.source.local.room.dao.CakeDesignDao
 import com.cakeit.cakitandroid.data.source.local.room.dao.CakeShopDao
 import com.cakeit.cakitandroid.data.source.local.room.dao.SampleDao
 
-@Database(entities = arrayOf(SampleData::class, CakeShopData::class, CakeDesignData::class), version = 2, exportSchema = false)
+@Database(entities = arrayOf(SampleData::class, CakeShopData::class, CakeDesignData::class), version = 3, exportSchema = false)
 abstract class CakeItDatabase : RoomDatabase() {
     abstract fun sampleDao() : SampleDao
     abstract fun cakeShopDao() : CakeShopDao
