@@ -13,7 +13,7 @@ class DesignSizeFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     private var designSizeItems : List<CakeDesignSize> = listOf()
     private var checkCnt = 0
-    private var checkedPosition = HashSet<Int>()
+    var checkedPosition = HashSet<Int>()
 
     interface OnDesignSizeItemClickListener {
         fun onDesignSizeFilterItemClick(position: Int)

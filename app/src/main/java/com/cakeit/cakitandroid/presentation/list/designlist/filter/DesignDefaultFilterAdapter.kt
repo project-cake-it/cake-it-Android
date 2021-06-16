@@ -1,6 +1,5 @@
 package com.cakeit.cakitandroid.presentation.list.designlist.filter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import java.util.HashSet
 class DesignDefaultFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     private var filterItems : List<String> = listOf()
-    private var checkedPosition = HashSet<Int>()
+    var checkedPosition = HashSet<Int>()
 
     interface OnDesignFilterItemClickListener {
         fun onDesignFilterItemClick(position: Int)
@@ -31,20 +30,12 @@ class DesignDefaultFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
         return viewHolder
     }
 
-    fun getCheckedCnt() : Int {
-        return checkedPosition.size
-    }
-
     fun getClickedItem() : String {
         var clickedData = ""
         var list = ArrayList(checkedPosition)
 
         clickedData = filterItems[list.get(0)]
         return clickedData
-    }
-
-    fun setChecked() {
-
     }
 
     override fun getItemCount(): Int {

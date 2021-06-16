@@ -11,7 +11,7 @@ import java.util.HashSet
 class DesignCategoryFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     private var designCategoryItems : List<String> = listOf()
-    private var checkedPosition = HashSet<Int>()
+    var checkedPosition = HashSet<Int>()
     private var checkCnt = 0
 
     interface OnDesignCategoryItemClickListener {

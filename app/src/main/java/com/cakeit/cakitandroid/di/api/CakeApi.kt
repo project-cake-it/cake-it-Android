@@ -1,9 +1,12 @@
 package com.cakeit.cakitandroid.di.api
+import com.cakeit.cakitandroid.di.api.data.PostSocialLoginData
+import com.cakeit.cakitandroid.di.api.responses.DesignListResponse
+import com.cakeit.cakitandroid.di.api.responses.SocialLoginResponse
+import io.reactivex.Flowable
+import retrofit2.http.*
 
-import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+//SWAGGER : http://13.124.173.58:8080/swagger-ui.html#/
+const val BASE_API_URL = "/api/v2"
 
 interface CakeApi {
 //    @GET("/api/v1/shops/{shopId}")
@@ -11,13 +14,20 @@ interface CakeApi {
 //        @Path("shopId") shopId : Int
 //    ) : Call<GetShopDetailResponse>
 
-//    @GET("/api/v2/designs")
-//    fun getDesignList(
-//            @Query("theme") theme : String,
-//            @Query("location") location : List<String>,
-//            @Query("size") size : List<String>,
-//            @Query("color") color : List<String>,
-//            @Query("category") category : List<String>,
-//            @Query("order") order : String
-//    ) : Call<GetDesginListResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("${BASE_API_URL}/login")
+    fun postSocialLogin(
+            @Body body : PostSocialLoginData
+    ) : Flowable<SocialLoginResponse>
+
+    @GET("/api/v2/designs")
+    fun getDesignList(
+            @Query("theme") theme : String?,
+            @Query("location", encoded = true) location : List<String>?,
+            @Query("size", encoded = true) size : List<String>?,
+            @Query("color") color : List<String>?,
+            @Query("category") category : List<String>?,
+            @Query("order") order : String?
+    ) : Flowable<DesignListResponse>
 }

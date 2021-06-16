@@ -12,7 +12,7 @@ class DesignColorFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 
     private var designColorItems : List<String> = listOf()
     private var checkCnt = 0
-    private var checkedPosition = HashSet<Int>()
+    var checkedPosition = HashSet<Int>()
 
     interface OnDesignColorItemClickListener {
         fun onDesignColorFilterItemClick(position: Int)
@@ -95,7 +95,6 @@ class DesignColorFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
     class DesignColorFilterViewHolder(view : View, listener : OnDesignColorItemClickListener?) : RecyclerView.ViewHolder(view) {
 
         val designColorItem = view.tv_filter_item_color_filter
-        val designColorBackground = view.iv_filter_color_color_filter
         val designColorCheckBtn = view.btn_filter_check_color_filter
         val rlFilterListItem = view.rl_filter_item_color_filter
 

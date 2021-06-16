@@ -5,12 +5,15 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.content.Intent
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.databinding.ActivityMainBinding
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import com.cakeit.cakitandroid.presentation.login.LoginActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
@@ -23,6 +26,18 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         binding = getViewDataBinding()
         binding.viewModel = getViewModel()
         getHashKey()
+        //MainActivity 진입시 로그인 되어있는지 확인후 분기
+        binding.lifecycleOwner?.let {
+            binding.viewModel?.isRegistered?.observe(it, Observer{ isLoggedIn ->
+                if(!isLoggedIn){
+                    val appContext = this
+                    val loginActivityIntent = Intent(appContext, LoginActivity::class.java)
+                    appContext.startActivity(loginActivityIntent)
+                    finish()
+                }
+            })
+        }
+        binding.viewModel?.checkIsRegistered()
     }
     override fun getLayoutId(): Int {
         return R.layout.activity_main

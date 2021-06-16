@@ -34,6 +34,7 @@
                 android:layout_height="20dp"
                 android:background="@drawable/ic_check"
                 android:layout_marginStart="3dp"
+                android:visibility="gone"
                 />
         </LinearLayout>
         <TextView

@@ -31,6 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_filter_item_list_filter"
             app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"
             />
     </LinearLayout>
 

@@ -11,12 +11,11 @@ import kotlin.collections.ArrayList
 import kotlin.collections.List
 import kotlin.collections.listOf
 
-
 class DesignRegionFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     private var regionItems : List<String> = listOf()
     private var checkCnt = 0
-    private var checkedPosition = HashSet<Int>()
+    var checkedPosition = HashSet<Int>()
 
     interface OnDesignFilterItemClickListener {
         fun onDesignFilterItemClick(position: Int)
@@ -35,21 +34,9 @@ class DesignRegionFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
         return viewHolder
     }
 
-    fun getCheckedCnt() : Int {
-        return checkedPosition.size
-    }
-
     fun getChoiceTagIndex() : ArrayList<Int> {
         var list = ArrayList<Int>(checkedPosition)
         return list
-    }
-
-    fun getClickedItem() : String {
-        var clickedData = ""
-        var list = ArrayList(checkedPosition)
-
-        clickedData = regionItems[list.get(0)]
-        return clickedData
     }
 
     override fun getItemCount(): Int {

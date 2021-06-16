@@ -11,5 +11,6 @@ data class CakeDesignData (
      var designShopLoc : String,
      var designSize : String,
      var designShopName : String,
-     var designPrice : Long
+     var designPrice : Long,
+     var designImagUrl : String?
 )
