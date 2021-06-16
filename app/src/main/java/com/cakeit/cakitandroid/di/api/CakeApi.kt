@@ -1,6 +1,7 @@
 package com.cakeit.cakitandroid.di.api
 import com.cakeit.cakitandroid.di.api.data.PostSocialLoginData
 import com.cakeit.cakitandroid.di.api.responses.DesignListResponse
+import com.cakeit.cakitandroid.di.api.responses.ShopListResponse
 import com.cakeit.cakitandroid.di.api.responses.SocialLoginResponse
 import io.reactivex.Flowable
 import retrofit2.http.*
@@ -30,4 +31,10 @@ interface CakeApi {
             @Query("category") category : List<String>?,
             @Query("order") order : String?
     ) : Flowable<DesignListResponse>
+
+    @GET("/api/v2/shops")
+    fun getShopList(
+            @Query("order") theme : String?,
+            @Query("location", encoded = true) location : List<String>?
+    ) : Flowable<ShopListResponse>
 }

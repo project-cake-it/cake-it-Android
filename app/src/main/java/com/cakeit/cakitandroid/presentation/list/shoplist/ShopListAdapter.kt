@@ -1,13 +1,12 @@
 package com.cakeit.cakitandroid.presentation.list.shoplist
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cakeit.cakitandroid.R
-import com.cakeit.cakitandroid.data.source.local.entity.CakeShopData
+import com.cakeit.cakitandroid.data.source.remote.entity.CakeShopData
 import kotlinx.android.synthetic.main.item_shop_list.view.*
 
 class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -79,8 +78,7 @@ class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.Vie
         }
 
         fun bind(cakeShop : CakeShopData) {
-            Log.d("songjem", "onBind = " + cakeShop.shopName)
-            cakeShopName.text = cakeShop.shopName
+            cakeShopName.text = cakeShop.shopId.toString()
             cakeShopAddress.text = cakeShop.shopAddress
         }
     }

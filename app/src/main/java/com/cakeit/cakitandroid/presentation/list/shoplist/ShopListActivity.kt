@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -41,14 +40,12 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
     private var clickedPosition = -1;
 
     private val filterList = listOf<String>("기본순", "찜순", "가격 높은 순", "가격 낮은 순")
-    private val filterTransList = listOf<String>("DEFAULT", "ZZIM", "HIGH_PRICE", "LOW_PRICE")
     private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구", "서대문구"
             , "송파구", "노원구", "성북구", "중구", "중랑구")
     private lateinit var selectedDate : String
     var listSelected = mutableListOf<Boolean>(false, false, false)
 
     lateinit var selecedLocList : ArrayList<String>
-    var selectedTheme : String? = null
     var selectedOrder : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,15 +92,14 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
 
     fun getshopList() {
 
-        selectedTheme = "NONE"
         selecedLocList = ArrayList<String>()
-        selectedOrder = "DEFAULT"
+        selectedOrder = "기본"
         selectedDate = ""
+        selecedLocList.add("전체")
 
-        Log.d("songjem", "theme = " + selectedTheme)
         Log.d("songjem", "locList = " + selecedLocList.toString())
         Log.d("songjem", "order = " + selectedOrder)
-        shopListViewModel.sendParamsForShopList(selectedTheme, selecedLocList, selectedDate, selectedOrder)
+        shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList) // 추후 픽업 날짜도 추가 예정
     }
 
     fun initRecyclerview() {
@@ -184,12 +180,8 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
 
         // 데이터 가져오기
         for(i in 0.. choiceTagItems.size - 1) {
-            // ORDER
-            if(choiceTagItems[i].filterCode == 0) {
-                selecedLocList.add(filterTransList[choiceTagItems[i].choiceCode])
-            }
             // 지역
-            else if(choiceTagItems[i].filterCode == 1) {
+            if(choiceTagItems[i].filterCode == 1) {
                 // 전체
                 if(choiceTagItems[i].choiceCode == 0) {
                     for(i in 1.. choiceTagItems.size - 1) {
@@ -199,10 +191,9 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
                 else selecedLocList.add(choiceTagItems[i].choiceName)
             }
         }
-        Log.d("songjem", "theme = " + selectedTheme)
         Log.d("songjem", "locList = " + selecedLocList.toString())
         Log.d("songjem", "order = " + selectedOrder)
-        shopListViewModel.sendParamsForShopList(selectedTheme, selecedLocList, selectedDate, selectedOrder)
+        shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList)  // 추후 픽업 날짜도 추가 예정
 
     }
     override fun onClick(view: View?) {
@@ -219,11 +210,6 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
                     defaultFilterOff()
                     selectedOrder = shopDefaultFilterAdapter.getClickedItem()
                     tv_filter_default_title_shop_list.text = selectedOrder
-
-                    if(selectedOrder.equals("기본순")) selectedOrder = "DEFAULT"
-                    else if(selectedOrder.equals("찜순")) selectedOrder = "ZZIM"
-                    else if(selectedOrder.equals("가격 높은 순")) selectedOrder = "HIGH_PRICE"
-                    else if(selectedOrder.equals("가격 낮은 순")) selectedOrder = "LOW_PRICE"
 
                     getShopListByNetwork(choiceTagItems)
                 }

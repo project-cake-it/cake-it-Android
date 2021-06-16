@@ -2,9 +2,7 @@ package com.cakeit.cakitandroid.domain.usecase
 
 import android.util.Log
 import com.cakeit.cakitandroid.data.repository.DesignListRepo
-import com.cakeit.cakitandroid.data.repository.SocialLoginRepo
 import com.cakeit.cakitandroid.domain.model.DesignListResponseModel
-import com.cakeit.cakitandroid.domain.model.SocialLoginResponseModel
 import com.cakeit.cakitandroid.domain.usecase.base.SingleUseCase
 import io.reactivex.Single
 
