@@ -1,5 +1,6 @@
 package com.cakeit.cakitandroid.presentation.list.shoplist
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +10,11 @@ import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.data.source.local.entity.CakeShopData
 import kotlinx.android.synthetic.main.item_shop_list.view.*
 
-class ShopListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     private var shopListItems : List<CakeShopData> = listOf()
 //    private val shopListItems = mutableListOf<CakeShopData>()
+    private var context = context
 
     interface OnShopItemClickListener {
         fun onShopItemClick(position: Int)

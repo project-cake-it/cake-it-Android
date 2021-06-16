@@ -18,7 +18,7 @@
         <activity android:name=".presentation.design.DesignActivity"></activity>
         <activity android:name=".presentation.main.test.SampleActivity" />
         <activity android:name=".presentation.shop.ShopDetailActivity"/>
-        <activity android:name="com.cakeit.cakitandroid.presentation.list.shoplist.ShopListActivity"/>
+        <activity android:name=".presentation.list.designlist.DesignListActivity"/>
 
         <activity android:name=".presentation.login.LoginActivity"></activity>
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".presentation.list.designlist.DesignListActivity">
+        <activity android:name=".presentation.list.shoplist.ShopListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,4 +1,4 @@
-package com.cakeit.cakitandroid.presentation.list.shoplist
+package com.cakeit.cakitandroid.presentation.list.shoplist.filter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,14 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cakeit.cakitandroid.R
 import kotlinx.android.synthetic.main.item_shop_list_filter.view.*
-import java.util.HashSet
-
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.List
+import kotlin.collections.listOf
 
 class ShopRegionFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     private var regionItems : List<String> = listOf()
     private var checkCnt = 0
-    private var checkedPosition = HashSet<Int>()
+    var checkedPosition = HashSet<Int>()
 
     interface OnShopFilterItemClickListener {
         fun onShopFilterItemClick(position: Int)
@@ -23,9 +25,18 @@ class ShopRegionFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_shop_list_filter, parent, false)
-        val viewHolder = ShopRegionFilterViewHolder(view, listener)
-        checkedPosition.add(0)
+        val viewHolder =
+                ShopRegionFilterViewHolder(
+                        view,
+                        listener
+                )
+        if(checkedPosition.size == 0) checkedPosition.add(0)
         return viewHolder
+    }
+
+    fun getChoiceTagIndex() : ArrayList<Int> {
+        var list = ArrayList<Int>(checkedPosition)
+        return list
     }
 
     override fun getItemCount(): Int {
@@ -44,7 +55,6 @@ class ShopRegionFilterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             if(position == 0) {
                 checkedPosition.clear()
                 checkedPosition.add(0)
-
             }
             // 특정 구 선택 시(중복 가능)
             else {

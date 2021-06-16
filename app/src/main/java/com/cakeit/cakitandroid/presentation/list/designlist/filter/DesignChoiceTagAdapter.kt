@@ -1,6 +1,5 @@
 package com.cakeit.cakitandroid.presentation.list.designlist.filter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,7 @@ class DesignChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_filter_tag, parent, false)
-        val viewHolder = DesignSizeFilterViewHolder(view)
+        val viewHolder = DesignChoiceTagViewHolder(view)
         return viewHolder
     }
 
@@ -26,9 +25,9 @@ class DesignChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val choiceItem = choiceItems[position]
-        val designSizeFilterViewHolder = holder as DesignSizeFilterViewHolder
+        val designChoiceTagViewHolder = holder as DesignChoiceTagViewHolder
 
-        designSizeFilterViewHolder.btnDeleteTag.setOnClickListener {
+        designChoiceTagViewHolder.btnDeleteTag.setOnClickListener {
             // 1:지역, 2:크기, 3:색깔, 4:카테고리
             var filterCode = DesignListActivity.designListActivity.choiceTagItems[position].filterCode
             var choiceCode = DesignListActivity.designListActivity.choiceTagItems[position].choiceCode
@@ -70,7 +69,7 @@ class DesignChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             DesignListActivity.designListActivity.getDesignListByNetwork(DesignListActivity.designListActivity.choiceTagItems)
             notifyDataSetChanged()
         }
-        designSizeFilterViewHolder.bind(choiceItem)
+        designChoiceTagViewHolder.bind(choiceItem)
     }
 
     fun setChoiceTagItem(listItem: ArrayList<ChoiceTag>) {
@@ -78,7 +77,7 @@ class DesignChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         notifyDataSetChanged()
     }
 
-    class DesignSizeFilterViewHolder(view : View) : RecyclerView.ViewHolder(view) {
+    class DesignChoiceTagViewHolder(view : View) : RecyclerView.ViewHolder(view) {
 
         val tagName = view.tv_name_item_tag
         val btnDeleteTag = view.btn_delete_item_tag

@@ -18,6 +18,10 @@ class ShopListViewModel(application : Application) : BaseViewModel<Any?>(applica
         cakeShopItems = cakeShopRepo.getCakeShopList()
     }
 
+    fun sendParamsForShopList(theme : String?, locList : ArrayList<String>, selectedDate: String
+                                , order : String) {
+    }
+
     fun insertCakeShop(cakeShop : CakeShopData) {
         Observable.just(cakeShop)
             .subscribeOn(Schedulers.io())
