@@ -14,7 +14,7 @@ import com.cakeit.cakitandroid.R
 class DesignGridAdapter(context: Context) : RecyclerView.Adapter<DesignGridAdapter.ItemViewHolder>() {
 
     private lateinit var onItemClick : View.OnClickListener
-    private var designPhotoDatas = emptyList<String>()
+    private var designPhotoDatas = ArrayList<String>()
     private val context = context
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -25,11 +25,8 @@ class DesignGridAdapter(context: Context) : RecyclerView.Adapter<DesignGridAdapt
         {
             if(!data.isNullOrEmpty())
             {
-//                if(!data.imgUrl.isNullOrEmpty())
-//                {
-//                    Glide.with(context).load(data.imgUrl).into(designPhoto)
-//                }
-                Glide.with(context).load(R.drawable.test).into(designPhoto)
+                Glide.with(context).load(data).into(designPhoto)
+//                Glide.with(context).load(R.drawable.test).into(designPhoto)
             }
         }
     }

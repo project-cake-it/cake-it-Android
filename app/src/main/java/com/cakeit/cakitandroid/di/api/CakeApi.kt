@@ -1,5 +1,6 @@
 package com.cakeit.cakitandroid.di.api
 import com.cakeit.cakitandroid.di.api.data.PostSocialLoginData
+import com.cakeit.cakitandroid.di.api.responses.ShopDetailResponse
 import com.cakeit.cakitandroid.di.api.responses.SocialLoginResponse
 import io.reactivex.Flowable
 import retrofit2.http.*
@@ -13,4 +14,9 @@ interface CakeApi {
     fun postSocialLogin(
             @Body body : PostSocialLoginData
     ) : Flowable<SocialLoginResponse>
+
+    @GET("${BASE_API_URL}/shops/{shopId}")
+    fun getShopDetail(
+        @Path("shopId") shopId : Int
+    ) : Flowable<ShopDetailResponse>
 }

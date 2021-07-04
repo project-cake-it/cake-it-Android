@@ -1,6 +1,4 @@
-<!DOCTYPE resources [
-<!ENTITY AUTHCODE_KAKAO_NATIVEAPPKEY "336e5fa0e2a8c916ffda94b2b64f5c8d">
-]>
+<!DOCTYPE resources [<!ENTITY AUTHCODE_KAKAO_NATIVEAPPKEY "336e5fa0e2a8c916ffda94b2b64f5c8d">]>
 <resources>
     <string name="app_name">CakeItReboot</string>
     <string name="shop_title">케이크가게이름</string>

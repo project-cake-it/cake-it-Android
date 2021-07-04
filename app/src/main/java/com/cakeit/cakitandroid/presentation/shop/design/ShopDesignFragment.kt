@@ -6,60 +6,59 @@ import android.os.Debug
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseFragment
 import com.cakeit.cakitandroid.databinding.FragmentShopDesignBinding
+import com.cakeit.cakitandroid.presentation.shop.ShopDetailViewModel
 import kotlinx.android.synthetic.main.activity_shop_detail.*
+import kotlinx.android.synthetic.main.activity_shop_detail.tv_cake_detail_size_price_contents
 import kotlinx.android.synthetic.main.activity_shop_detail.view.*
+import kotlinx.android.synthetic.main.activity_test.*
 import kotlinx.android.synthetic.main.fragment_shop_design.*
 import kotlinx.android.synthetic.main.fragment_shop_design.view.*
 
-class ShopDesignFragment : BaseFragment<FragmentShopDesignBinding, ShopDesignFragmentViewModel>(), View.OnClickListener {
+class ShopDesignFragment : BaseFragment<FragmentShopDesignBinding, ShopDetailViewModel>(), View.OnClickListener {
 
     lateinit var binding : FragmentShopDesignBinding
-    lateinit var shopDesignFragmentViewModel : ShopDesignFragmentViewModel
+    lateinit var shopDetailViewModel : ShopDetailViewModel
 
     lateinit var designGridAdapter: DesignGridAdapter
 
     companion object {
         const val TAG: String = "ShopDesignFragment.TAG"
-        var viewPagerSize = 406
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = getViewDataBinding()
-        binding.viewModel = getViewModel()
+        binding.vm = getViewModel()
 
-        recyclerInit(view)
+        setRecycler(view)
 
-        //TODO : 서버에서 데이터 세팅 필요
-        var data = ArrayList<String>()
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        designGridAdapter.setRefresh(data)
-
+        shopDetailViewModel.shopDetailData.observe(requireActivity(), Observer { datas ->
+            if(datas != null) {
+                var designImages = ArrayList<String>()
+                for(design in datas.designs) {
+                    designImages.add(design.designImage.designImageUrl)
+                }
+                designGridAdapter.setRefresh(designImages)
+            }
+            else {
+                Log.d("nulkong", "get shopDetail size == 0")
+            }
+        })
     }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_shop_design
     }
 
-    override fun getViewModel(): ShopDesignFragmentViewModel {
-        shopDesignFragmentViewModel = ViewModelProvider(this).get(ShopDesignFragmentViewModel::class.java)
-        return shopDesignFragmentViewModel
+    override fun getViewModel(): ShopDetailViewModel {
+        shopDetailViewModel = ViewModelProvider(requireActivity()).get(ShopDetailViewModel::class.java)
+        return shopDetailViewModel
     }
 
     override fun onClick(view: View) {
@@ -71,7 +70,7 @@ class ShopDesignFragment : BaseFragment<FragmentShopDesignBinding, ShopDesignFra
     }
 
     // recyclerview 초기화
-    fun recyclerInit(v: View) {
+    fun setRecycler(v: View) {
         designGridAdapter = DesignGridAdapter(context!!)
         designGridAdapter.setOnItemClickListener(this)
 

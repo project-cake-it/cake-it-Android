@@ -7,8 +7,8 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="com.cakeit.cakitandroid.presentation.shop.design.ShopDesignFragmentViewModel" />
+            name="vm"
+            type="com.cakeit.cakitandroid.presentation.shop.ShopDetailViewModel" />
     </data>
 
     <LinearLayout
