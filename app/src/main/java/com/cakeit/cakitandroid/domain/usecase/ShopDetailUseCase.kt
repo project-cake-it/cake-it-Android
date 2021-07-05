@@ -1,9 +1,8 @@
-package com.cakeit.cakitandroid.domain.usecase.base
+package com.cakeit.cakitandroid.domain.usecase
 
 import android.util.Log
 import com.cakeit.cakitandroid.data.repository.ShopDetailRepo
 import com.cakeit.cakitandroid.domain.model.ShopDetailResponseModel
-import com.cakeit.cakitandroid.domain.usecase.BaseRequest
 import com.cakeit.cakitandroid.domain.usecase.base.SingleUseCase
 import io.reactivex.Single
 

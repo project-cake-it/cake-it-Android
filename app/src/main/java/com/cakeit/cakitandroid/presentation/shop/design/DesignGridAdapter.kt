@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cakeit.cakitandroid.R
 
-// TODO : cakeShopDatas  >  emptyList 제네릭 타입 수정 필
-
 class DesignGridAdapter(context: Context) : RecyclerView.Adapter<DesignGridAdapter.ItemViewHolder>() {
 
     private lateinit var onItemClick : View.OnClickListener

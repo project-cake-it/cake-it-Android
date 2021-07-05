@@ -1,5 +1,6 @@
 package com.cakeit.cakitandroid.di.api
 import com.cakeit.cakitandroid.di.api.data.PostSocialLoginData
+import com.cakeit.cakitandroid.di.api.responses.DesignDetailResponse
 import com.cakeit.cakitandroid.di.api.responses.ShopDetailResponse
 import com.cakeit.cakitandroid.di.api.responses.SocialLoginResponse
 import io.reactivex.Flowable
@@ -19,4 +20,9 @@ interface CakeApi {
     fun getShopDetail(
         @Path("shopId") shopId : Int
     ) : Flowable<ShopDetailResponse>
+
+    @GET("${BASE_API_URL}/designs/{designId}")
+    fun getDesignDetail(
+        @Path("designId") designId : Int
+    ) : Flowable<DesignDetailResponse>
 }

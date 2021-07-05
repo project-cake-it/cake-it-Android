@@ -10,6 +10,7 @@ import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.databinding.ActivityShopDetailBinding
 import com.cakeit.cakitandroid.di.api.responses.ShopDetailResponseData
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_shop_detail.*
 import kotlinx.android.synthetic.main.activity_test.*
 import kotlin.properties.Delegates
 
@@ -37,7 +38,7 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
                 var sizeDataAll : String = ""
                 for (i in datas.sizes.indices)
                 {
-                    sizeDataAll += "${datas.sizes[i].name}"
+                    sizeDataAll += datas.sizes[i].name
                     if(datas.sizes[i].size.isNotEmpty()) sizeDataAll += "(${datas.sizes[i].size})"
                     sizeDataAll += "/${datas.sizes[i].price}원"
                     if(i < datas.sizes.size) sizeDataAll += "\n"

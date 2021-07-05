@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.base.BaseViewModel
 import com.cakeit.cakitandroid.di.api.responses.ShopDetailData
 import com.cakeit.cakitandroid.di.api.responses.ShopDetailResponseData
-import com.cakeit.cakitandroid.domain.usecase.base.ShopDetailUseCase
+import com.cakeit.cakitandroid.domain.usecase.ShopDetailUseCase
 import com.google.android.material.tabs.TabLayout
 
 class ShopDetailViewModel(application: Application,
