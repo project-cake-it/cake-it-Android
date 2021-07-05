@@ -27,7 +27,7 @@ data class ShopDetailData(
     var id : Int,
     var name : String,
     var address : String,
-    var pullAddress : String,
+    var fullAddress : String,
     var information : String,
     var operationTime : String,
     var pickupTime : String,
