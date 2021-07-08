@@ -81,7 +81,7 @@
                         android:textColor="@color/subText"
                         android:letterSpacing="-0.03"
                         android:layout_marginTop="4dp"
-                        android:text="@{vm.shopDetailData.pullAddress}"
+                        android:text="@{vm.shopDetailData.fullAddress}"
                         app:layout_constraintTop_toBottomOf="@id/tv_shop_detail_name"
                         app:layout_constraintLeft_toLeftOf="@id/left_vertical_guideline"/>
 
