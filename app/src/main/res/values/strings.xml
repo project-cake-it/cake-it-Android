@@ -1,6 +1,4 @@
-<!DOCTYPE resources [
-<!ENTITY AUTHCODE_KAKAO_NATIVEAPPKEY "336e5fa0e2a8c916ffda94b2b64f5c8d">
-]>
+<!DOCTYPE resources [<!ENTITY AUTHCODE_KAKAO_NATIVEAPPKEY "336e5fa0e2a8c916ffda94b2b64f5c8d">]>
 <resources>
     <string name="app_name">CakeItReboot</string>
     <string name="shop_title">케이크가게</string>
@@ -31,6 +29,8 @@
     <string name="shop_list_filter_pickup_availability_date">픽업 가능 날짜</string>
 
     <string name="filter_list_name">필터 리스트 아이템</string>
+    <string name="shop_info_address">주소복사</string>
+    <string name="shop_info_map">지도보기</string>
     <string name="kakao_login">카카오 로그인</string>
     <string name="naver_login">네이버 로그인</string>
     <string name="google_login">구글 로그인</string>

@@ -2,42 +2,51 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cakeit.cakitandroid">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".di.applicationModule.GlobalApplication"
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:usesCleartextTraffic="true">
 
         <activity android:name=".presentation.main.MainActivity"></activity>
-        <activity android:name=".presentation.design.DesignActivity"></activity>
         <activity android:name=".presentation.main.test.SampleActivity" />
         <activity android:name=".presentation.shop.ShopDetailActivity"/>
         <activity android:name="com.cakeit.cakitandroid.presentation.list.shoplist.ShopListActivity"/>
-
         <activity android:name=".presentation.login.LoginActivity"></activity>
+
+        <activity android:name=".TestActivity"></activity>
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:host="oauth"
+                <data
+                    android:host="oauth"
                     android:scheme="@string/AUTHCODE_KAKAO_REDIRECTURI" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".presentation.list.designlist.DesignListActivity">
+        <activity android:name=".presentation.list.designlist.DesignListActivity"></activity>
+        <activity android:name=".presentation.design.DesignDetailActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="336e5fa0e2a8c916ffda94b2b64f5c8d" />
     </application>
 </manifest>
