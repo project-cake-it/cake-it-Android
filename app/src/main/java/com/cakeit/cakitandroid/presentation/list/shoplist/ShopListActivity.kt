@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
@@ -15,6 +14,7 @@ import com.cakeit.cakitandroid.data.source.local.entity.ChoiceTag
 import com.cakeit.cakitandroid.databinding.ActivityShopListBinding
 import com.cakeit.cakitandroid.presentation.list.MinDecorator
 import com.cakeit.cakitandroid.presentation.list.TodayDecorator
+import com.cakeit.cakitandroid.presentation.list.designlist.filter.DesignChoiceTagAdapter
 import com.cakeit.cakitandroid.presentation.list.shoplist.filter.ShopChoiceTagAdapter
 import com.cakeit.cakitandroid.presentation.list.shoplist.filter.ShopDefaultFilterAdapter
 import com.cakeit.cakitandroid.presentation.list.shoplist.filter.ShopRegionFilterAdapter
@@ -104,12 +104,11 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
 
     fun initRecyclerview() {
 
-        shopListAdapter = ShopListAdapter(applicationContext)
-
         shopChoiceTagAdapter = ShopChoiceTagAdapter().apply {
 
         }
 
+        shopListAdapter = ShopListAdapter(applicationContext)
         shopDefaultFilterAdapter = ShopDefaultFilterAdapter()
                 .apply {
                     listener = object : ShopDefaultFilterAdapter.OnShopFilterItemClickListener {
@@ -136,7 +135,7 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
 
         rv_shop_list_shop_list.run {
             setHasFixedSize(true)
-            layoutManager = GridLayoutManager(this@ShopListActivity, 2)
+            layoutManager = LinearLayoutManager(this@ShopListActivity)
             adapter = shopListAdapter
         }
 

@@ -28,8 +28,10 @@ class ShopListViewModel(application : Application) : BaseViewModel<Any?>(applica
 
                     var cakeShops = ArrayList<CakeShopData>()
                     for(i in 0 .. it.data.size-1 ) {
-                        if(it.data[i].shopImage != null) cakeShops.add(CakeShopData(it.data[i].shopId, it.data[i].shopAddress, it.data[i].shopImage, it.data[i].hashTag, it.data[i].prices))
-                        else cakeShops.add(CakeShopData(it.data[i].shopId, it.data[i].shopAddress, null, it.data[i].hashTag, it.data[i].prices))
+                        if(it.data[i].shopImages[0] == null) Log.d("songjem", "image is null")
+                        else if(it.data[i].hashtags == null ) Log.d("songjem", "tag is null")
+                        else if(it.data[i].sizes == null)  Log.d("songjem", "size is null")
+                        else cakeShops.add(CakeShopData(it.data[i].id, it.data[i].name, it.data[i].address, it.data[i].shopImages[0].shopImageUrl, it.data[i].hashtags!!, it.data[i].sizes!!))
                     }
                     _cakeShopItems.value = cakeShops
                     Log.d("songjem", "ShopList onSuccess")

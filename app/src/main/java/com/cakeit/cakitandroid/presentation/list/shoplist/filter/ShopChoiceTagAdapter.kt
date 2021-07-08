@@ -1,6 +1,5 @@
 package com.cakeit.cakitandroid.presentation.list.shoplist.filter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,10 +25,10 @@ class ShopChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val choiceItem = choiceItems[position]
-        val shopChoiceTagViewHolder = holder as ShopChoiceTagViewHolder
+        val shopChoiceTagViewHolder = holder as ShopChoiceTagAdapter.ShopChoiceTagViewHolder
 
         shopChoiceTagViewHolder.btnDeleteTag.setOnClickListener {
-            // 1:지역, 2:크기
+            // 1:지역
             var filterCode = ShopListActivity.shopListActivity.choiceTagItems[position].filterCode
             var choiceCode = ShopListActivity.shopListActivity.choiceTagItems[position].choiceCode
 

@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -70,10 +69,6 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         designListBinding = getViewDataBinding()
         designListBinding.viewModel = getViewModel()
 
-        designTagItems.add("태그1")
-        designTagItems.add("태그2")
-        designSizeAndPriceItems.add(CakeSizeAndrPrice("미니", 18000))
-        designSizeAndPriceItems.add(CakeSizeAndrPrice("1호", 34000))
         choiceTagItems = ArrayList()
 
         view_background_design_list.setOnClickListener(this)

@@ -1,6 +1,8 @@
 package com.cakeit.cakitandroid.domain.model
 
 data class CakeSizeAndrPrice (
-    var cakeSizeType : String,
-    var cakeSizePrice : Int
+        var id : Int,
+        var name : String,
+        var size : String,
+        var price : Int
 )
