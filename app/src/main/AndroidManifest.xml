@@ -15,8 +15,9 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".TestActivity"></activity>
-        <activity android:name=".presentation.shop.ShopDetailActivity"/>
+        <activity android:name=".presentation.design.DesignDetailActivity"/>
+        <activity android:name=".TestActivity" />
+        <activity android:name=".presentation.shop.ShopDetailActivity" />
         <activity android:name=".presentation.main.test.SampleActivity" />
         <activity android:name=".presentation.main.MainActivity" />
         <activity android:name=".presentation.login.LoginActivity" />
@@ -32,7 +33,9 @@
                     android:scheme="@string/AUTHCODE_KAKAO_REDIRECTURI" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.design.DesignDetailActivity">
+
+
+        <activity android:name=".presentation.zzim.ZzimActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

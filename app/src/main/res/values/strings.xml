@@ -20,12 +20,18 @@
     <string name="shop_design_fragment_name">케이크 디자인</string>
     <string name="shop_inform_fragment_name">가게 상세</string>
 
+
     <string name="shop_info_address">주소복사</string>
     <string name="shop_info_map">지도보기</string>
     <string name="kakao_login">카카오 로그인</string>
     <string name="naver_login">네이버 로그인</string>
     <string name="google_login">구글 로그인</string>
     <string name="apple_login">애플 로그인</string>
+
+    <!-- ZZIM TAB -->
+    <string name="zzim_title">찜한 아이템</string>
+    <string name="zzim_design_fragment_name">케이크</string>
+    <string name="zzim_shop_fragment_name">가게</string>
 
     <!-- Login auth code -->
     <!-- kakao -->

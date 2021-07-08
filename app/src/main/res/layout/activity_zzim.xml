@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.zzim.ZzimActivity">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.cakeit.cakitandroid.presentation.zzim.ZzimViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_zzim_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zzim_title"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
+            android:textSize="15sp"
+            android:textColor="@color/defaultText"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/abl_zzim_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:theme="@style/TabTheme"
+            android:layout_marginTop="19dp">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tl_zzim_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                app:tabTextColor="@color/defaultText"
+                app:tabSelectedTextColor="@color/colorPrimary"
+                app:tabTextAppearance="@style/TabText"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_zzim_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"/>
+    </LinearLayout>
+</layout>
