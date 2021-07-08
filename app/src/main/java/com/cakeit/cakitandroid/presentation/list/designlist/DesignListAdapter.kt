@@ -72,7 +72,6 @@ class DesignListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.V
             val designPriceComma: String = df.format(cakeDesign.designPrice) + "원"
 
             designPrice.text = designPriceComma
-
         }
     }
 }

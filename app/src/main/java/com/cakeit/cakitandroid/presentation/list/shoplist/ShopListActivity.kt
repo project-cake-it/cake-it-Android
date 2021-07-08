@@ -1,5 +1,4 @@
 package com.cakeit.cakitandroid.presentation.list.shoplist
-
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -11,37 +10,43 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
-import com.cakeit.cakitandroid.data.source.local.entity.CakeShopData
+import com.cakeit.cakitandroid.data.source.local.entity.ChoiceTag
 import com.cakeit.cakitandroid.databinding.ActivityShopListBinding
-import com.cakeit.cakitandroid.domain.model.CakeSizeAndrPrice
-import com.cakeit.cakitandroid.presentation.list.TodayDecorator
 import com.cakeit.cakitandroid.presentation.list.MinDecorator
+import com.cakeit.cakitandroid.presentation.list.TodayDecorator
+import com.cakeit.cakitandroid.presentation.list.designlist.filter.DesignChoiceTagAdapter
+import com.cakeit.cakitandroid.presentation.list.shoplist.filter.ShopChoiceTagAdapter
+import com.cakeit.cakitandroid.presentation.list.shoplist.filter.ShopDefaultFilterAdapter
+import com.cakeit.cakitandroid.presentation.list.shoplist.filter.ShopRegionFilterAdapter
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import kotlinx.android.synthetic.main.activity_shop_list.*
-import java.util.*
 import kotlin.collections.ArrayList
 
-
 class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel>(),
-    View.OnClickListener {
+        View.OnClickListener {
 
     lateinit var shopListViewModel: ShopListViewModel
     lateinit var shopListBinding: ActivityShopListBinding
 
-    private lateinit var shopListAdapter: ShopListAdapter
-    private lateinit var shopDefaultFilterAdapter: ShopDefaultFilterAdapter
-    private lateinit var shopRegionFilterAdapter: ShopRegionFilterAdapter
-    private val shopTagItems : ArrayList<String> = ArrayList()
-    private val shopSizeAndPriceItems : ArrayList<CakeSizeAndrPrice> = ArrayList()
-    private lateinit var filterItems : ArrayList<String>
-    private lateinit var regionItems : ArrayList<String>
+    lateinit var shopListAdapter: ShopListAdapter
+    lateinit var shopChoiceTagAdapter : ShopChoiceTagAdapter
+    lateinit var shopDefaultFilterAdapter: ShopDefaultFilterAdapter
+    lateinit var shopRegionFilterAdapter: ShopRegionFilterAdapter
 
-    private val DEFAULT_FILTER_CODE : Int = 0
-    private val REGION_FILTER_CODE : Int = 1
-    private val REFRESH_FILTER_CODE : Int = 2
+    private lateinit var regionItems: ArrayList<String>
+    lateinit var choiceTagItems: ArrayList<ChoiceTag>
+    private lateinit var filterItems: ArrayList<String>
 
+    private var clickedPosition = -1;
+
+    private val filterList = listOf<String>("기본순", "찜순", "가격 높은 순", "가격 낮은 순")
     private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구", "서대문구"
-    , "송파구", "노원구", "성북구", "중구", "중랑구")
+            , "송파구", "노원구", "성북구", "중구", "중랑구")
+    private lateinit var selectedDate : String
+    var listSelected = mutableListOf<Boolean>(false, false, false)
+
+    lateinit var selecedLocList : ArrayList<String>
+    var selectedOrder : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,11 +54,9 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
         shopListBinding = getViewDataBinding()
         shopListBinding.viewModel = getViewModel()
 
-        shopTagItems.add("태그1")
-        shopTagItems.add("태그2")
-        shopSizeAndPriceItems.add(CakeSizeAndrPrice("미니", 18000))
-        shopSizeAndPriceItems.add(CakeSizeAndrPrice("1호", 34000))
+        choiceTagItems = ArrayList()
 
+        view_background_shop_list.setOnClickListener(this)
         btn_filter_refresh_shop_list.setOnClickListener(this)
         btn_filter_default_shop_list.setOnClickListener(this)
         btn_filter_pickup_region_shop_list.setOnClickListener(this)
@@ -61,81 +64,73 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
 
         initRecyclerview()
 
-        // 현재 Year
-        fun getCurrentYear(): Int = Calendar.getInstance().get(Calendar.YEAR)
-        // 현재 Month
-        fun getCurrentMonth(): Int = Calendar.getInstance().get(Calendar.MONTH) + 1
-        // 현재 Day
-        fun getCurrentDay(): Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-
-//        cv_pickup_calendar_shop_list.state().edit()
-//            .setMinimumDate(
-//                CalendarDay.from(
-//                    getCurrentYear(),
-//                    getCurrentMonth(),
-//                    getCurrentDay() + 1
-//                )
-//            )
-//            .commit()
+        shopListViewModel.cakeShopItems.observe(this, Observer { datas ->
+            if(datas.size > 0) {
+            }
+            else {
+                Log.d("songjem", "get shopList size == 0")
+            }
+            shopListAdapter.setShopListItems(datas)
+        })
+        getshopList()
+        shopListActivity = this
 
         cv_pickup_calendar_shop_list.addDecorators(
-            MinDecorator(
-                applicationContext
-            ),
-            TodayDecorator(
-                applicationContext
-            )
+                MinDecorator(
+                        applicationContext
+                ),
+                TodayDecorator(
+                        applicationContext
+                )
         )
 
         // 달력 날짜 선택
         cv_pickup_calendar_shop_list.setOnDateChangedListener(OnDateSelectedListener { widget, date, selected ->
-
-            var selectedDate = date.month.toString() + "월 " + date.day.toString() + "일"
-            tv_filter_pickup_date_title_shop_list.text = selectedDate
-            Log.d("song", "selectedDate = " + selectedDate)
-            visiblePickUpCalendar(false)
-            btn_filter_pickup_date_shop_list.isSelected = false
+            selectedDate = date.month.toString() + "월 " + date.day.toString() + "일"
         })
     }
 
-    // 임시 메서드
-    fun insertTempData() {
-        shopListViewModel.insertCakeShop(CakeShopData(0,"케이크 매장명1", "서울시 노원구 마들로 31"))
-        shopListViewModel.insertCakeShop(CakeShopData(1, "케이크 매장명2", "서울시 서초구 마들로 31"))
-        shopListViewModel.insertCakeShop(CakeShopData(2, "케이크 매장명3", "서울시 중구 마들로 31"))
-        shopListViewModel.insertCakeShop(CakeShopData(3, "케이크 매장명4", "서울시 강북구 마들로 31"))
-        shopListViewModel.insertCakeShop(CakeShopData(4, "케이크 매장명5", "서울시 도봉구 마들로 31"))
-        shopListViewModel.insertCakeShop(CakeShopData(5, "케이크 매장명6", "서울시 강남구 마들로 31"))
-        shopListViewModel.insertCakeShop(CakeShopData(6, "케이크 매장명7", "서울시 성북구 마들로 31"))
-        shopListViewModel.insertCakeShop(CakeShopData(7, "케이크 매장명8", "서울시 마포구 마들로 31"))
+    fun getshopList() {
+
+        selecedLocList = ArrayList<String>()
+        selectedOrder = "기본"
+        selectedDate = ""
+        selecedLocList.add("전체")
+
+        Log.d("songjem", "locList = " + selecedLocList.toString())
+        Log.d("songjem", "order = " + selectedOrder)
+        shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList) // 추후 픽업 날짜도 추가 예정
     }
 
     fun initRecyclerview() {
-        shopListAdapter = ShopListAdapter().apply {
-            listener = object : ShopListAdapter.OnShopItemClickListener {
-                override fun onShopItemClick(position: Int) {
-                    Toast.makeText(applicationContext, "shop list item" + position + " is clicked", Toast.LENGTH_LONG).show()
-                }
-            }
+
+        shopChoiceTagAdapter = ShopChoiceTagAdapter().apply {
+
         }
 
-        shopDefaultFilterAdapter = ShopDefaultFilterAdapter().apply {
-            listener = object : ShopDefaultFilterAdapter.OnShopFilterItemClickListener {
-                override fun onShopFilterItemClick(position: Int) {
-                    Toast.makeText(applicationContext, "filter item" + position + " is clicked", Toast.LENGTH_LONG).show()
-                    tv_filter_default_title_shop_list.text = filterItems[position]
-                    visibleFilterList(false, DEFAULT_FILTER_CODE)
-                    btn_filter_default_shop_list.isSelected = false
+        shopListAdapter = ShopListAdapter(applicationContext)
+        shopDefaultFilterAdapter = ShopDefaultFilterAdapter()
+                .apply {
+                    listener = object : ShopDefaultFilterAdapter.OnShopFilterItemClickListener {
+                        override fun onShopFilterItemClick(position: Int) {
+                            Toast.makeText(applicationContext, "filter item" + position + " is clicked", Toast.LENGTH_LONG).show()
+                        }
+                    }
                 }
-            }
-        }
 
-        shopRegionFilterAdapter = ShopRegionFilterAdapter().apply {
-            listener = object : ShopRegionFilterAdapter.OnShopFilterItemClickListener {
-                override fun onShopFilterItemClick(position: Int) {
-                    Toast.makeText(applicationContext, "region item" + position + " is clicked", Toast.LENGTH_LONG).show()
+        shopRegionFilterAdapter = ShopRegionFilterAdapter()
+                .apply {
+                    listener = object : ShopRegionFilterAdapter.OnShopFilterItemClickListener {
+                        override fun onShopFilterItemClick(position: Int) {
+                            Toast.makeText(applicationContext, "region item" + position + " is clicked", Toast.LENGTH_LONG).show()
+                        }
+                    }
                 }
-            }
+
+        rv_choice_tag_shop_list.run {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@ShopListActivity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = shopChoiceTagAdapter
         }
 
         rv_shop_list_shop_list.run {
@@ -163,167 +158,302 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
 
     override fun getViewModel(): ShopListViewModel {
         shopListViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(ShopListViewModel::class.java)
-        shopListViewModel.getCakeShopList().observe(this, Observer {
-            shopListAdapter.setShopListItems(it)
-        })
         return shopListViewModel
     }
 
+    fun deleteChoiceTag(index : Int) {
+
+        var backUpTagItems = ArrayList<ChoiceTag>()
+
+        for(i in 0 .. choiceTagItems.size-1) {
+            if(choiceTagItems[i].filterCode != index) {
+                backUpTagItems.add(choiceTagItems[i])
+            }
+        }
+        choiceTagItems = backUpTagItems
+    }
+
+    fun getShopListByNetwork(choiceTagItems : ArrayList<ChoiceTag>) {
+        // 데이터 초기화
+        selecedLocList = ArrayList<String>()
+
+        // 데이터 가져오기
+        for(i in 0.. choiceTagItems.size - 1) {
+            // 지역
+            if(choiceTagItems[i].filterCode == 1) {
+                // 전체
+                if(choiceTagItems[i].choiceCode == 0) {
+                    for(i in 1.. choiceTagItems.size - 1) {
+                        selecedLocList.add(choiceTagItems[i].choiceName)
+                    }
+                }
+                else selecedLocList.add(choiceTagItems[i].choiceName)
+            }
+        }
+        Log.d("songjem", "locList = " + selecedLocList.toString())
+        Log.d("songjem", "order = " + selectedOrder)
+        shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList)  // 추후 픽업 날짜도 추가 예정
+
+    }
     override fun onClick(view: View?) {
-        when(view?.id){
+        when (view?.id) {
+            R.id.view_background_shop_list -> {
+                Log.d("songjem", "background is touched")
+                view_background_shop_list.visibility = View.INVISIBLE
+                rv_shop_list_shop_list.visibility = View.VISIBLE
+                if(clickedPosition == 0) {
+                    btn_filter_default_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_btn_effect))
+                    btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_compact))
+
+                    listSelected[0] = true
+                    defaultFilterOff()
+                    selectedOrder = shopDefaultFilterAdapter.getClickedItem()
+                    tv_filter_default_title_shop_list.text = selectedOrder
+
+                    getShopListByNetwork(choiceTagItems)
+                }
+                else if(clickedPosition == 1) {
+                    btn_filter_pickup_region_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_btn_effect))
+                    btn_filter_pickup_region_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_compact))
+
+                    listSelected[1] = true
+                    regionFilterOff()
+
+                    // 기존 장소 값(초이스) 지우기
+                    deleteChoiceTag(1)
+
+                    // 추가한 리스트 가져와서 리스트에 넣어야 함
+                    var tagList = shopRegionFilterAdapter.getChoiceTagIndex()
+
+                    // 전체 선택
+                    if(tagList[0] == 0) {
+                        for(i in 1.. regionList.size-1) {
+                            choiceTagItems.add(ChoiceTag(1, i, regionList[i]))
+                        }
+                    }
+                    else {
+                        for(i in 0.. tagList.size-1) {
+                            choiceTagItems.add(ChoiceTag(1, tagList[i], regionList[tagList[i]]))
+                        }
+                    }
+
+                    shopChoiceTagAdapter.setChoiceTagItem(choiceTagItems)
+                    getShopListByNetwork(choiceTagItems)
+                }
+                else if(clickedPosition == 2) {
+                    btn_filter_pickup_date_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_btn_effect))
+                    btn_filter_pickup_date_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_compact))
+                    listSelected[2] = true
+
+                    tv_filter_pickup_date_title_shop_list.text = selectedDate
+                    Log.d("song", "selectedDate = " + selectedDate)
+                    dateFilterOff()
+                    btn_filter_pickup_date_shop_list.isSelected = false
+
+                    getShopListByNetwork(choiceTagItems)
+                }
+            }
             R.id.btn_filter_refresh_shop_list -> {
-                visibleFilterList(false, REFRESH_FILTER_CODE)
-                visiblePickUpCalendar(false)
-                tv_filter_default_title_shop_list.text = getString(R.string.shop_list_filter_recommend)
-                tv_filter_pickup_date_title_shop_list.text = getString(R.string.shop_list_filter_pickup_availability_date)
-                tv_filter_pickup_date_title_shop_list.text = getString(R.string.shop_list_filter_pickup_availability_date)
+                view_background_shop_list.visibility = View.INVISIBLE
+                rv_shop_list_shop_list.visibility = View.VISIBLE
+
+                for(i in 0 .. 2) {
+                    listSelected[i] = false
+                }
+                cl_filter_content_shop_list.visibility = View.GONE
+                rv_filter_default_list_shop_list.visibility = View.GONE
+
+                clearDefault()
+                clearRegion()
+                clearDate()
+
+                choiceTagItems = ArrayList()
+                shopChoiceTagAdapter.setChoiceTagItem(choiceTagItems)
+                getShopListByNetwork(choiceTagItems)
             }
             R.id.btn_filter_default_shop_list -> {
-                if(btn_filter_default_shop_list.isSelected) {
-                    visibleFilterList(false, DEFAULT_FILTER_CODE)
+                if(!btn_filter_default_shop_list.isSelected) {
+                    setFilterItem(0)
+                    regionFilterOff()
+                    dateFilterOff()
+                    defaultFilterOn()
+                    view_background_shop_list.visibility = View.VISIBLE
+                    rv_shop_list_shop_list.visibility = View.GONE
                 }
                 else {
-                    setFilterItem(0)
-                    visibleFilterList(true, DEFAULT_FILTER_CODE)
+                    defaultFilterOff()
+                    view_background_shop_list.visibility = View.INVISIBLE
+                    rv_shop_list_shop_list.visibility = View.VISIBLE
                 }
-                btn_filter_default_shop_list.isSelected = !btn_filter_default_shop_list.isSelected
             }
             R.id.btn_filter_pickup_region_shop_list -> {
-                if(btn_filter_pickup_region_shop_list.isSelected) {
-                    visibleFilterList(false, REGION_FILTER_CODE)
-                     }
-                else {
+                if(!btn_filter_pickup_region_shop_list.isSelected) {
                     setFilterItem(1)
-                    visibleFilterList(true, REGION_FILTER_CODE)
+                    defaultFilterOff()
+                    dateFilterOff()
+                    regionFilterOn()
+                    view_background_shop_list.visibility = View.VISIBLE
+                    rv_shop_list_shop_list.visibility = View.GONE
                 }
-                btn_filter_pickup_region_shop_list.isSelected = !btn_filter_pickup_region_shop_list.isSelected
+                else {
+                    regionFilterOff()
+                    view_background_shop_list.visibility = View.INVISIBLE
+                    rv_shop_list_shop_list.visibility = View.VISIBLE
+                }
             }
             R.id.btn_filter_pickup_date_shop_list -> {
-                if(btn_filter_pickup_date_shop_list.isSelected) {
-                    visiblePickUpCalendar(false)
+                if(!btn_filter_pickup_date_shop_list.isSelected) {
+                    defaultFilterOff()
+                    regionFilterOff()
+                    dateFilterOn()
+                    view_background_shop_list.visibility = View.VISIBLE
+                    rv_shop_list_shop_list.visibility = View.GONE
                 }
                 else {
-                    setFilterItem(2)
-                    visiblePickUpCalendar(true)
+                    dateFilterOff()
+                    view_background_shop_list.visibility = View.INVISIBLE
+                    rv_shop_list_shop_list.visibility = View.VISIBLE
                 }
-                btn_filter_pickup_date_shop_list.isSelected = !btn_filter_pickup_date_shop_list.isSelected
             }
+        }
+    }
+    // 기본순 초기화
+    fun clearDefault() {
+        btn_filter_default_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_btn))
+        btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_compact_before))
+        btn_filter_default_shop_list.isSelected = false
+        btn_filter_default_compact_shop_list.isSelected = false
+        tv_filter_default_title_shop_list.setTextColor(Color.parseColor("#000000"))
+        tv_filter_default_title_shop_list.text = "기본순"
+        shopDefaultFilterAdapter.checkedPosition.clear()
+    }
+    // 장소 선택 초기화
+    fun clearRegion() {
+        btn_filter_pickup_region_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_btn))
+        btn_filter_pickup_region_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_compact_before))
+        btn_filter_pickup_region_shop_list.isSelected = false
+        btn_filter_pickup_region_compact_shop_list.isSelected = false
+        tv_filter_pickup_region_title_shop_list.setTextColor(Color.parseColor("#000000"))
+        tv_filter_pickup_region_title_shop_list.text = "픽업 지역"
+        shopRegionFilterAdapter.checkedPosition.clear()
+    }
+    // 날짜 선택 초기화
+    fun clearDate() {
+        btn_filter_pickup_date_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_btn))
+        btn_filter_pickup_date_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_compact_before))
+        btn_filter_pickup_date_shop_list.isSelected = false
+        btn_filter_pickup_date_compact_shop_list.isSelected = false
+        tv_filter_pickup_date_title_shop_list.setTextColor(Color.parseColor("#000000"))
+        tv_filter_pickup_date_title_shop_list.text = "픽업 날짜"
+    }
+
+    // 기본순 필터링 ON
+    fun defaultFilterOn() {
+        setFilterItem(0)
+        tv_filter_default_title_shop_list.setTextColor(Color.parseColor("#577399"))
+        cl_filter_content_shop_list.visibility = View.VISIBLE
+        rv_filter_default_list_shop_list.visibility = View.VISIBLE
+        btn_filter_default_shop_list.isSelected = true
+        btn_filter_default_compact_shop_list.isSelected = true
+
+        clickedPosition = 0
+    }
+
+    // 기본순 필터링 OFF
+    fun defaultFilterOff() {
+        cl_filter_content_shop_list.visibility = View.GONE
+        rv_filter_default_list_shop_list.visibility = View.GONE
+        btn_filter_default_shop_list.isSelected = false
+        btn_filter_default_compact_shop_list.isSelected = false
+
+        if(listSelected[0] == false){
+            tv_filter_default_title_shop_list.setTextColor(Color.parseColor("#000000"))
+        }
+        else {
+            tv_filter_default_title_shop_list.setTextColor(Color.parseColor("#ffffff"))
+        }
+    }
+
+    // 지역별 필터링 ON
+    fun regionFilterOn() {
+        setFilterItem(1)
+        tv_filter_pickup_region_title_shop_list.setTextColor(Color.parseColor("#577399"))
+
+        cl_filter_content_shop_list.visibility = View.VISIBLE
+        rv_filter_region_list_shop_list.visibility = View.VISIBLE
+        btn_filter_pickup_region_shop_list.isSelected = true
+        btn_filter_pickup_region_compact_shop_list.isSelected = true
+
+        clickedPosition = 1
+    }
+
+    // 지역별 필터링 OFF
+    fun regionFilterOff() {
+        cl_filter_content_shop_list.visibility = View.GONE
+        rv_filter_region_list_shop_list.visibility = View.GONE
+        btn_filter_pickup_region_shop_list.isSelected = false
+        btn_filter_pickup_region_compact_shop_list.isSelected = false
+
+        if(listSelected[1] == false){
+            tv_filter_pickup_region_title_shop_list.setTextColor(Color.parseColor("#000000"))
+        }
+        else {
+            tv_filter_pickup_region_title_shop_list.setTextColor(Color.parseColor("#ffffff"))
+        }
+    }
+
+    // 날짜 필터링 ON
+    fun dateFilterOn() {
+        tv_filter_pickup_date_title_shop_list.setTextColor(Color.parseColor("#577399"))
+
+        cl_filter_content_shop_list.visibility = View.VISIBLE
+        cv_pickup_calendar_shop_list.visibility = View.VISIBLE
+        btn_filter_pickup_date_shop_list.isSelected = true
+        btn_filter_pickup_date_compact_shop_list.isSelected = true
+
+        clickedPosition = 2
+    }
+
+    // 지역별 필터링 OFF
+    fun dateFilterOff() {
+        Log.d("songjem", "dateFilterOff")
+        cl_filter_content_shop_list.visibility = View.GONE
+        cv_pickup_calendar_shop_list.visibility = View.GONE
+        btn_filter_pickup_date_shop_list.isSelected = false
+        btn_filter_pickup_date_compact_shop_list.isSelected = false
+
+        if(listSelected[2] == false){
+            tv_filter_pickup_date_title_shop_list.setTextColor(Color.parseColor("#000000"))
+        }
+        else {
+            tv_filter_pickup_date_title_shop_list.setTextColor(Color.parseColor("#ffffff"))
         }
     }
 
     // 필터 리스트 세팅
-    fun setFilterItem(position : Int) {
+    fun setFilterItem(position: Int) {
 
-        when(position) {
+        when (position) {
             // 기본순, 찜순, 가격 낮은 순 필터
             0 -> {
                 filterItems = ArrayList<String>()
-                filterItems.add("기본순")
-                filterItems.add("찜순")
-                filterItems.add("가격 낮은 순")
+                for (i in 0..filterList.size - 1) {
+                    filterItems.add(filterList[i])
+                }
                 shopDefaultFilterAdapter.setDefaultListItems(filterItems)
             }
             // 픽업 지역 필터
             1 -> {
                 regionItems = ArrayList<String>()
-                for(i in 0 .. regionList.size - 1) {
+                for (i in 0..regionList.size - 1) {
                     regionItems.add(regionList[i])
                 }
                 shopRegionFilterAdapter.setRegionListItems(regionItems)
             }
-            // 픽업 가능 날짜 필터
-            2 -> {
-            }
         }
     }
 
-    fun visibleFilterList(choice : Boolean, filterCode : Int) {
-
-        if(filterCode == REFRESH_FILTER_CODE) {
-            cl_filter_content_shop_list.visibility = View.GONE
-            rv_filter_default_list_shop_list.visibility = View.GONE
-            rv_filter_region_list_shop_list.visibility = View.GONE
-
-            btn_filter_default_shop_list.isSelected =  false
-            btn_filter_pickup_region_shop_list.isSelected =  false
-
-            tv_filter_default_title_shop_list.setTextColor(Color.parseColor("#242424"))
-            btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_chevron_compact_down))
-            tv_filter_pickup_region_title_shop_list.setTextColor(Color.parseColor("#242424"))
-            btn_filter_pickup_region_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_chevron_compact_down))
-        }
-        else {
-            if(filterCode == DEFAULT_FILTER_CODE) {
-                if(choice == true) {
-                    btn_filter_pickup_region_shop_list.isSelected =  false
-                    cl_filter_content_shop_list.visibility = View.VISIBLE
-                    rv_filter_default_list_shop_list.visibility = View.VISIBLE
-
-                    rv_filter_region_list_shop_list.visibility = View.GONE
-                    tv_filter_default_title_shop_list.setTextColor(Color.parseColor("#577399"))
-                    btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.chevron_compact_up))
-
-                    tv_filter_pickup_region_title_shop_list.setTextColor(Color.parseColor("#242424"))
-                    btn_filter_pickup_region_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_chevron_compact_down))
-                }
-                else {
-                    cl_filter_content_shop_list.visibility = View.GONE
-                    rv_filter_default_list_shop_list.visibility = View.GONE
-
-                    tv_filter_default_title_shop_list.setTextColor(Color.parseColor("#242424"))
-                    btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_chevron_compact_down))
-                }
-            }
-            else {
-                if(choice == true) {
-                    btn_filter_default_shop_list.isSelected =  false
-                    cl_filter_content_shop_list.visibility = View.VISIBLE
-                    rv_filter_region_list_shop_list.visibility = View.VISIBLE
-
-                    rv_filter_default_list_shop_list.visibility = View.GONE
-                    tv_filter_pickup_region_title_shop_list.setTextColor(Color.parseColor("#577399"))
-                    btn_filter_pickup_region_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.chevron_compact_up))
-
-                    tv_filter_default_title_shop_list.setTextColor(Color.parseColor("#242424"))
-                    btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_chevron_compact_down))
-                }
-                else {
-                    cl_filter_content_shop_list.visibility = View.GONE
-                    rv_filter_region_list_shop_list.visibility = View.GONE
-
-                    tv_filter_pickup_region_title_shop_list.setTextColor(Color.parseColor("#242424"))
-                    btn_filter_pickup_region_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_chevron_compact_down))
-                }
-            }
-        }
-        btn_filter_pickup_date_shop_list.isSelected =  false
-        cv_pickup_calendar_shop_list.visibility = View.GONE
-        tv_filter_pickup_date_title_shop_list.setTextColor(Color.parseColor("#242424"))
-        btn_filter_pickup_date_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_chevron_compact_down))
-    }
-
-    fun visiblePickUpCalendar(choice: Boolean) {
-        if(choice == true) {
-            cl_filter_content_shop_list.visibility = View.VISIBLE
-            cv_pickup_calendar_shop_list.visibility = View.VISIBLE
-
-            tv_filter_pickup_date_title_shop_list.setTextColor(Color.parseColor("#577399"))
-            btn_filter_pickup_date_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.chevron_compact_up))
-        }
-        else {
-            cl_filter_content_shop_list.visibility = View.GONE
-            cv_pickup_calendar_shop_list.visibility = View.GONE
-
-            tv_filter_pickup_date_title_shop_list.setTextColor(Color.parseColor("#242424"))
-            btn_filter_pickup_date_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_chevron_compact_down))
-        }
-        btn_filter_default_shop_list.isSelected =  false
-        btn_filter_pickup_region_shop_list.isSelected =  false
-        rv_filter_default_list_shop_list.visibility = View.GONE
-        rv_filter_region_list_shop_list.visibility = View.GONE
-        tv_filter_default_title_shop_list.setTextColor(Color.parseColor("#242424"))
-        btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_chevron_compact_down))
-        tv_filter_pickup_region_title_shop_list.setTextColor(Color.parseColor("#242424"))
-        btn_filter_pickup_region_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_chevron_compact_down))
+    companion object {
+        lateinit var shopListActivity : ShopListActivity
     }
 }

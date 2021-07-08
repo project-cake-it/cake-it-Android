@@ -1,18 +1,26 @@
 package com.cakeit.cakitandroid.presentation.list.shoplist
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.cakeit.cakitandroid.R
-import com.cakeit.cakitandroid.data.source.local.entity.CakeShopData
+import com.cakeit.cakitandroid.data.source.remote.entity.CakeShopData
+import com.cakeit.cakitandroid.presentation.list.shoplist.filter.CakeShopPriceAdapter
+import com.cakeit.cakitandroid.presentation.list.shoplist.filter.CakeShopTagAdapter
 import kotlinx.android.synthetic.main.item_shop_list.view.*
 
-class ShopListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     private var shopListItems : List<CakeShopData> = listOf()
 //    private val shopListItems = mutableListOf<CakeShopData>()
+    private var context = context
+    private lateinit var cakeShopTagAdapter : CakeShopTagAdapter
+    private lateinit var cakeShopPriceAdapter : CakeShopPriceAdapter
 
     interface OnShopItemClickListener {
         fun onShopItemClick(position: Int)
@@ -34,6 +42,13 @@ class ShopListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         val cakeShop = shopListItems[position]
 
         val shopListViewHolder = holder as ShopListViewHolder
+        cakeShopTagAdapter = CakeShopTagAdapter(cakeShop.hashTag!!)
+        cakeShopPriceAdapter = CakeShopPriceAdapter(cakeShop.prices!!)
+        shopListViewHolder.shopTagRv.adapter = cakeShopTagAdapter
+        shopListViewHolder.shopTagRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        shopListViewHolder.shopPriceRv.adapter = cakeShopPriceAdapter
+        shopListViewHolder.shopPriceRv.layoutManager = LinearLayoutManager(context)
+        Glide.with(context).load(cakeShop.shopImage).fallback(R.drawable.strawberry_cake_img).centerCrop().into(shopListViewHolder.shopImg)
         shopListViewHolder.bind(cakeShop)
     }
 
@@ -41,32 +56,13 @@ class ShopListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
         shopListItems = shopItems
         notifyDataSetChanged()
-
-//        val diffCallback = ShopListDiffCallback(shopListItems, shopItems)
-//        val diffResult = DiffUtil.calculateDiff(diffCallback)
-//        shopListItems.clear()
-//        shopListItems.addAll(shopItems)
-//
-//        diffResult.dispatchUpdatesTo(this)
-
-//        Observable.just(shopItems)
-//            .subscribeOn(AndroidSchedulers.mainThread())
-//            .observeOn(Schedulers.io())
-//            .map { DiffUtil.calculateDiff(ShopListDiffCallback(shopListItems, shopItems)) }
-//            .subscribe({
-//                Log.d("songjem", "subscribe, old shopListItems size = " + shopListItems.size
-//                 + "new shopListItems size = " + shopItems.size)
-////                shopListItems = shopItems
-//                // 리스트 변경한 후 rv 업데이트
-//                shopListItems = shopItems
-//                it.dispatchUpdatesTo(this)
-//            }, {
-//                Log.d("songjem", "Error = " + it.message)
-//            })
     }
 
     class ShopListViewHolder(view : View, listener : OnShopItemClickListener?) : RecyclerView.ViewHolder(view) {
 
+        val shopTagRv = view.rv_shop_tag_item_shop
+        val shopPriceRv = view.rv_cake_size_item_shop
+        val shopImg = view.iv_shop_list_major_img
         val cakeShopName = view.tv_shop_name_item_shop
         val cakeShopAddress = view.tv_shop_address_item_shop
 
@@ -77,7 +73,6 @@ class ShopListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         }
 
         fun bind(cakeShop : CakeShopData) {
-            Log.d("songjem", "onBind = " + cakeShop.shopName)
             cakeShopName.text = cakeShop.shopName
             cakeShopAddress.text = cakeShop.shopAddress
         }
