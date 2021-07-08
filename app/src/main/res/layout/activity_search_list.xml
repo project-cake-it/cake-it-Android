@@ -1,9 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".presentation.search.searchlist.SearchListActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.cakeit.cakitandroid.presentation.search.searchlist.SearchListViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            >
+            <Button
+                android:id="@+id/btn_searchlist_back"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:background="@drawable/ic_arrow_left"
+                android:layout_marginStart="12dp"
+                android:layout_centerVertical="true"
+                />
+            <TextView
+                android:id="@+id/tv_searchlist_keyword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="검색어 입력 시"
+                android:textColor="#242424"
+                android:textSize="14sp"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:layout_marginStart="4dp"
+                android:layout_toEndOf="@+id/btn_searchlist_back"
+                android:layout_centerVertical="true"
+                />
+
+            <Button
+                android:id="@+id/btn_searchlist_clear"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:background="@drawable/ic_clear"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="2dp"
+                />
+        </RelativeLayout>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/abl_searchlist_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:theme="@style/TabTheme">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tl_searchlist_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                app:tabTextColor="@color/defaultText"
+                app:tabSelectedTextColor="@color/colorPrimary"
+                app:tabTextAppearance="@style/TabText"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_searchlist_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"/>
+    </LinearLayout>
+</layout>
