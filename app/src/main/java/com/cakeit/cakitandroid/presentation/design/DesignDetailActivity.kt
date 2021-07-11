@@ -58,8 +58,6 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
             }
         })
 
-
-
         sendDesignIdToServer()
     }
 

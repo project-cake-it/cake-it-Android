@@ -10,14 +10,14 @@ import com.cakeit.cakitandroid.domain.usecase.PromotionUseCase
 
 class HomeViewModel (application: Application) : BaseViewModel<Any?>(application) {
 
-    private val  _homeData = MutableLiveData<ArrayList<PromotionResponseData>>()
-    val homeData : LiveData<ArrayList<PromotionResponseData>> get() = _homeData
+    private val  _promotionsData = MutableLiveData<ArrayList<PromotionResponseData>>()
+    val promotionsData : LiveData<ArrayList<PromotionResponseData>> get() = _promotionsData
 
     fun getPromotion() {
         PromotionUseCase.execute(
             onSuccess = {
-                var homeData : ArrayList<PromotionResponseData> = it.data
-                _homeData.value = homeData
+                var promotionsData : ArrayList<PromotionResponseData> = it.data
+                _promotionsData.value = promotionsData
                 Log.d("nulkong", "Home Network onSuccess")
             },
             onError = {
