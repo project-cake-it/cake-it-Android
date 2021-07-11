@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.cakeit.cakitandroid">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".di.applicationModule.GlobalApplication"
@@ -13,12 +14,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".presentation.zzim.ZzimActivity"></activity>
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
 
-        <activity android:name=".presentation.design.DesignDetailActivity"/>
+
+        <activity android:name=".presentation.shop.ShopDetailActivity"/>
+        <activity android:name=".presentation.search.searchlist.SearchListActivity" />
+        <activity android:name=".presentation.search.SearchActivity" />
+        <activity android:name=".presentation.design.DesignDetailActivity" />
         <activity android:name=".TestActivity" />
-        <activity android:name=".presentation.shop.ShopDetailActivity" />
+        <activity android:name=".presentation.zzim.ZzimActivity" />
         <activity android:name=".presentation.main.test.SampleActivity" />
         <activity android:name=".presentation.main.MainActivity" />
         <activity android:name=".presentation.login.LoginActivity" />
@@ -37,10 +42,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".presentation.search.SearchActivity"/>
-
-
-        <activity android:name=".presentation.search.searchlist.SearchListActivity">
+        <activity android:name=".presentation.home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
