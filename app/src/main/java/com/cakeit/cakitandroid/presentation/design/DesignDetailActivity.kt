@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager.widget.ViewPager
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.databinding.ActivityDesignDetailBinding
@@ -38,10 +39,32 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
                 for(image in datas.designImages)
                 {
                     data.add(image.designImageUrl)
+                    data.add(image.designImageUrl)
+                    data.add(image.designImageUrl)
+                    data.add(image.designImageUrl)
+                    data.add(image.designImageUrl)
+                    data.add(image.designImageUrl)
                 }
 
+                pb_cake_detail_progress_bar.progress = 100/data.size
                 designPagerAdapter = DesignPagerAdapter(applicationContext,  data)
                 vp_cake_detail_img.adapter = designPagerAdapter
+                vp_cake_detail_img.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+                    override fun onPageScrollStateChanged(state: Int) {
+                    }
+
+                    override fun onPageScrolled(
+                        position: Int,
+                        positionOffset: Float,
+                        positionOffsetPixels: Int
+                    ) {
+                    }
+
+                    override fun onPageSelected(position: Int) {
+                        if(position == data.size-1) pb_cake_detail_progress_bar.progress = 100
+                        else pb_cake_detail_progress_bar.progress = 100/data.size*(position+1)
+                    }
+                })
 
                 var sizeDataAll : String = ""
                 for (i in datas.sizes.indices)
