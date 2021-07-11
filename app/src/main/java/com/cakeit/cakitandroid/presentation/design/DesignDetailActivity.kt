@@ -48,8 +48,8 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
                 {
                     sizeDataAll += datas.sizes[i].name
                     if(datas.sizes[i].size.isNotEmpty()) sizeDataAll += "(${datas.sizes[i].size})"
-                    sizeDataAll += "/${datas.sizes[i].price}원"
-                    if(i < datas.sizes.size) sizeDataAll += "\n"
+                    sizeDataAll += " / ${datas.sizes[i].price}원"
+                    if(i < datas.sizes.size-1) sizeDataAll += "\n"
                 }
                 tv_cake_detail_size_price_contents.text = sizeDataAll
             }
