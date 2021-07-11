@@ -22,4 +22,8 @@ object ShopDetailUseCase : SingleUseCase<ShopDetailResponseModel>(){
     data class Request(
         val shopId : Int
     ) : BaseRequest()
+
+    override fun buildUseCase(): Single<ShopDetailResponseModel>? {
+        return null
+    }
 }

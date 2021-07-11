@@ -21,4 +21,8 @@ object ShopListUseCase : SingleUseCase<ShopListResponseModel>(){
             val order : String?,
             val locList : ArrayList<String>
     ) : BaseRequest()
+
+    override fun buildUseCase(): Single<ShopListResponseModel>? {
+        return null
+    }
 }

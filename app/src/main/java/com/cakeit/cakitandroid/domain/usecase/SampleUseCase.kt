@@ -15,4 +15,8 @@ object SampleUseCase : SingleUseCase<List<SampleRepo>>(){
     data class Request(
         val sampleDao : SampleDao
     ) : BaseRequest()
+
+    override fun buildUseCase(): Single<List<SampleRepo>>? {
+        return null
+    }
 }

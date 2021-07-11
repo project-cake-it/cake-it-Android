@@ -1,9 +1,7 @@
 package com.cakeit.cakitandroid.domain.usecase
 
 import android.util.Log
-import com.cakeit.cakitandroid.data.repository.DesignDetailRepo
 import com.cakeit.cakitandroid.data.repository.PromotionRepo
-import com.cakeit.cakitandroid.domain.model.DesignDetailResponseModel
 import com.cakeit.cakitandroid.domain.model.PromotionResponseModel
 import com.cakeit.cakitandroid.domain.usecase.base.SingleUseCase
 import io.reactivex.Single
@@ -11,6 +9,10 @@ import io.reactivex.Single
 object PromotionUseCase: SingleUseCase<PromotionResponseModel>() {
 
     override fun buildUseCase(baseRequest: BaseRequest): Single<PromotionResponseModel>? {
+        return null
+    }
+
+    override fun buildUseCase(): Single<PromotionResponseModel>? {
 
         return PromotionRepo.getPromotion()
             ?.map {
