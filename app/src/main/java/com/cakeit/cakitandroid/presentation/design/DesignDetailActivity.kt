@@ -39,11 +39,6 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
                 for(image in datas.designImages)
                 {
                     data.add(image.designImageUrl)
-                    data.add(image.designImageUrl)
-                    data.add(image.designImageUrl)
-                    data.add(image.designImageUrl)
-                    data.add(image.designImageUrl)
-                    data.add(image.designImageUrl)
                 }
 
                 pb_cake_detail_progress_bar.progress = 100/data.size
