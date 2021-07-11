@@ -1,7 +1,6 @@
 package com.cakeit.cakitandroid.presentation.home
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import com.bumptech.glide.Glide
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.di.api.responses.DesignListResponseData
 import kotlinx.android.synthetic.main.item_design_list.view.*
-import java.text.DecimalFormat
 
 class PopularCakeAdapter(private var context: Context) : RecyclerView.Adapter<PopularCakeAdapter.DesignListViewHolder>(){
 
@@ -31,12 +29,6 @@ class PopularCakeAdapter(private var context: Context) : RecyclerView.Adapter<Po
 
     override fun onBindViewHolder(holder: DesignListViewHolder, position: Int) {
         holder.bind(designListItems[position], context)
-//        val cakeDesign = designListItems[position]
-//
-//        val designListViewHolder = holder as DesignListViewHolder
-//        designListViewHolder.bind(cakeDesign)
-//
-//        Glide.with(context).load(cakeDesign.designImages[0].designImageUrl).fallback(R.drawable.strawberry_cake_img).centerCrop().into(designListViewHolder.designImg)
     }
 
     inner class DesignListViewHolder(view: View) : RecyclerView.ViewHolder(view)

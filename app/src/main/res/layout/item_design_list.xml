@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="301dp"
-    android:orientation="vertical"
-    android:layout_marginHorizontal="1dp"
+    android:layout_height="wrap_content"
     >
 
     <ImageView
         android:id="@+id/iv_design_img_item_design_list"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:src="@drawable/ic_heart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginHorizontal="12dp"
+        app:layout_constraintTop_toBottomOf="@id/iv_design_img_item_design_list"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="17dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:orientation="horizontal"
             >
 
@@ -35,14 +38,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="강동구"
-                android:textColor="#909090"
+                android:fontFamily="@font/spoqa_han_sans_regular"
+                android:textSize="12sp"
+                android:textColor="@color/subText"
+                android:lineSpacingExtra="5sp"
                 />
 
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="#909090"
-                android:layout_marginHorizontal="4dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" | "
+                android:fontFamily="@font/spoqa_han_sans_regular"
+                android:textSize="12sp"
+                android:textColor="@color/subText"
+                android:lineSpacingExtra="5sp"
                 />
 
             <TextView
@@ -50,7 +59,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1호 13cm"
-                android:textColor="#909090"
+                android:fontFamily="@font/spoqa_han_sans_regular"
+                android:textSize="12sp"
+                android:textColor="@color/subText"
+                android:lineSpacingExtra="5sp"
                 />
         </LinearLayout>
 
@@ -59,8 +71,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textColor="#242424"
             android:textSize="14sp"
+            android:fontFamily="@font/spoqa_han_sans_regular"
+            android:textColor="@color/accentText"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="7sp"
             android:text="케이크 가게 이름이 두줄일 경우"
             />
         <TextView
@@ -69,9 +84,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="32,000원"
-            android:textColor="#242424"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/spoqa_han_sans_bold"
+            android:textColor="@color/accentText"
             android:textSize="14sp"
             />
 
     </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
