@@ -21,4 +21,8 @@ object DesignDetailUseCase: SingleUseCase<DesignDetailResponseModel>() {
     data class Request(
         val designId: Int
     ) : BaseRequest()
+
+    override fun buildUseCase(): Single<DesignDetailResponseModel>? {
+        return null
+    }
 }

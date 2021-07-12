@@ -27,4 +27,8 @@ object SearchDesignUseCase : SingleUseCase<SearchDesignResponseModel>(){
         var categoryList : ArrayList<String>,
         var order : String
     ) : BaseRequest()
+
+    override fun buildUseCase(): Single<SearchDesignResponseModel>? {
+        return null
+    }
 }

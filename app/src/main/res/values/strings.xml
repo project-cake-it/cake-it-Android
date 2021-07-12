@@ -41,6 +41,20 @@
     <string name="zzim_design_fragment_name">케이크</string>
     <string name="zzim_shop_fragment_name">가게</string>
 
+    <!-- HOME TAB -->
+    <string name="home_theme">테마로 찾기</string>
+    <string name="home_hide_theme">테마 숨기기</string>
+    <string name="home_birth">생일</string>
+    <string name="home_anniversary">기념일</string>
+    <string name="home_wedding">웨딩</string>
+    <string name="home_company_1">입사/승진</string>
+    <string name="home_company_2">복직/퇴사</string>
+    <string name="home_military">전역</string>
+    <string name="home_meeting">동아리/모임</string>
+    <string name="home_view_more">더보기</string>
+    <string name="home_etc">기타</string>
+    <string name="home_popular_cake">인기 많은 케이크</string>
+
     <!-- SEARCH LIST -->
     <string name="searchlist_design_fragment_name">케이크</string>
     <string name="searchlist_shop_fragment_name">가게</string>

@@ -57,4 +57,13 @@ interface CakeApi {
             @Query("order") theme : String?,
             @Query("location", encoded = true) location : List<String>?
     ) : Flowable<ShopListResponse>
+
+    @GET("${BASE_API_URL}/promotions")
+    fun getPromotions(
+    ) : Flowable<PromotionResponse>
+
+    @GET("${BASE_API_URL}/designs")
+    fun getPopularCake(
+        @Query("order") theme : String
+    ) : Flowable<PopularCakeResponse>
 }

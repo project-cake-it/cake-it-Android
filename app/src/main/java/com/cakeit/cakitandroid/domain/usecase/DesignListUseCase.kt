@@ -25,4 +25,8 @@ object DesignListUseCase : SingleUseCase<DesignListResponseModel>(){
             var categoryList : ArrayList<String>,
             var order : String
     ) : BaseRequest()
+
+    override fun buildUseCase(): Single<DesignListResponseModel>? {
+        return null
+    }
 }
