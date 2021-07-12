@@ -1,7 +1,7 @@
 package com.cakeit.cakitandroid.di.api.responses
 
 data class ImageData(
-    var  id : Int,
+    var id : Int,
     var designImageUrl : String
 )
 

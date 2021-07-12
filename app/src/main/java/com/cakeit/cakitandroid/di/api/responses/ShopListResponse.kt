@@ -13,7 +13,7 @@ data class ShopListResponseData(
         var id : Int,
         var name : String,
         var address: String,
-        var pullAddress : String,
+        var fullAddress : String,
         var information : String,
         var operationTime : String,
         var pickupTime : String,
@@ -27,7 +27,7 @@ data class ShopListResponseData(
         var sizes : ArrayList<CakeSizeAndrPrice>,
         var creamNames : String,
         var sheetNames : String,
-        var ziimCount : Int,
+        var zzimCount : Int,
         var designs : ArrayList<CakeShopDesign>,
         var zzim : Boolean
 )

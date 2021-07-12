@@ -35,15 +35,13 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
     lateinit var designColorFilterAdapter: DesignColorFilterAdapter
     lateinit var designCategoryFilterAdapter: DesignCategoryFilterAdapter
 
-    private val designTagItems: ArrayList<String> = ArrayList()
-    private val designSizeAndPriceItems: ArrayList<CakeSizeAndrPrice> = ArrayList()
     private lateinit var regionItems: ArrayList<String>
     private lateinit var colorItems: ArrayList<String>
     private lateinit var categoryItems: ArrayList<String>
     lateinit var choiceTagItems: ArrayList<ChoiceTag>
     private lateinit var filterItems: ArrayList<String>
 
-    private var clickedPosition = -1;
+    private var clickedPosition = -1
 
     private val filterList = listOf<String>("기본순", "찜순", "가격 높은 순", "가격 낮은 순")
     private val filterTransList = listOf<String>("DEFAULT", "ZZIM", "HIGH_PRICE", "LOW_PRICE")
@@ -294,7 +292,6 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         Log.d("songjem", "categoryList = " + selecedCategoryList.toString())
         Log.d("songjem", "order = " + selectedOrder)
         designListViewModel.sendParamsForDesignList(selectedTheme, selecedLocList, seleceSizeList, selecedColorList, selecedCategoryList, selectedOrder)
-
     }
     override fun onClick(view: View?) {
         when (view?.id) {

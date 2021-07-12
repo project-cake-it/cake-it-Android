@@ -2,6 +2,7 @@ package com.cakeit.cakitandroid.presentation.search.searchlist
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
@@ -13,9 +14,10 @@ import kotlinx.android.synthetic.main.activity_search_list.*
 
 class SearchListActivity : BaseActivity<ActivitySearchListBinding, SearchListViewModel>() {
 
-    private val adapter by lazy { SearchListPagerAdapter(supportFragmentManager, 2) }
+    private val adapter by lazy { SearchListPagerAdapter(supportFragmentManager, 2, keyword) }
     private lateinit var binding : ActivitySearchListBinding
     private lateinit var searchListViewModel: SearchListViewModel
+    var keyword : String = ""
 
     companion object {
         const val TAG: String = "SearchListActivityTAG"
@@ -23,18 +25,18 @@ class SearchListActivity : BaseActivity<ActivitySearchListBinding, SearchListVie
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        keyword = intent.getStringExtra("keyword")!!
         dataBinding()
         binding = getViewDataBinding()
         binding.viewModel = getViewModel()
 
+        Log.d("songjem", "songjem 2, keyword = " + keyword)
         setTabLayout()
 
         btn_searchlist_back.setOnClickListener {
             var intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
         }
-
     }
     override fun getLayoutId(): Int {
         return R.layout.activity_search_list
@@ -49,7 +51,7 @@ class SearchListActivity : BaseActivity<ActivitySearchListBinding, SearchListVie
 
         searchListViewModel = ViewModelProvider(this, SearchListViewModel.Factory(application, supportFragmentManager, TabLayout.ViewPagerOnTabSelectedListener(binding.vpSearchlistViewpager)
             , TabLayout.TabLayoutOnPageChangeListener(binding.tlSearchlistTabLayout)
-        )).get(SearchListViewModel::class.java)
+        , keyword)).get(SearchListViewModel::class.java)
 
         return searchListViewModel
     }

@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.item_shop_list.view.*
 class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     private var shopListItems : List<CakeShopData> = listOf()
-//    private val shopListItems = mutableListOf<CakeShopData>()
     private var context = context
     private lateinit var cakeShopTagAdapter : CakeShopTagAdapter
     private lateinit var cakeShopPriceAdapter : CakeShopPriceAdapter

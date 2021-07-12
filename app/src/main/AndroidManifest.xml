@@ -37,10 +37,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".presentation.search.SearchActivity"/>
+        <activity android:name=".presentation.search.searchlist.SearchListActivity"/>
 
 
-        <activity android:name=".presentation.search.searchlist.SearchListActivity">
+        <activity android:name=".presentation.search.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

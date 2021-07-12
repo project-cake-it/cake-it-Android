@@ -17,7 +17,7 @@ data class DesignListResponseData(
         var shopId : Int,
         var shopName : String,
         var shopAddress : String,
-        var shopPullAddress : String,
+        var shopFullAddress : String,
         var sizes : ArrayList<DesignSize>,
         var creamNames : String,
         var sheetNames : String,
