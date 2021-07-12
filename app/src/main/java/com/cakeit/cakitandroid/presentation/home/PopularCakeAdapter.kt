@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.di.api.responses.DesignListResponseData
 import kotlinx.android.synthetic.main.item_design_list.view.*
+import java.text.DecimalFormat
 
 class PopularCakeAdapter(private var context: Context) : RecyclerView.Adapter<PopularCakeAdapter.DesignListViewHolder>(){
 
@@ -46,10 +47,10 @@ class PopularCakeAdapter(private var context: Context) : RecyclerView.Adapter<Po
             designShop.text = data.shopName
 
             if(data.sizes.size > 0) {
-//                val df = DecimalFormat("###,###")
-//                val designPriceComma: String = df.format(data.sizes[0].price) + "원"
+                val dec = DecimalFormat("#,###")
+                var commaPrice = dec.format(data.sizes[0].price.toLong()) + "원"
 
-                designPrice.text = data.sizes[0].price
+                designPrice.text = commaPrice
             }
 
                 Glide.with(context).load(data.designImages[0].designImageUrl).into(designImg)

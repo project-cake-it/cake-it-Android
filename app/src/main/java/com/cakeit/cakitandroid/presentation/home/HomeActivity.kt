@@ -2,7 +2,6 @@ package com.cakeit.cakitandroid.presentation.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Debug
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
@@ -35,6 +34,7 @@ class HomeActivity  : BaseActivity<ActivityHomeBinding, HomeViewModel>(), View.O
         binding = getViewDataBinding()
         binding.vm = getViewModel()
 
+        setListener()
         initRecycler()
         getPromotion()
         getPopularCake()
@@ -93,6 +93,12 @@ class HomeActivity  : BaseActivity<ActivityHomeBinding, HomeViewModel>(), View.O
         return homeViewModel
     }
 
+    fun setListener()
+    {
+        tv_home_hide_theme.setOnClickListener(this)
+        rl_home_view_more.setOnClickListener(this)
+    }
+
     fun getPromotion()
     {
         homeViewModel.getPromotion()
@@ -112,7 +118,24 @@ class HomeActivity  : BaseActivity<ActivityHomeBinding, HomeViewModel>(), View.O
 
     }
 
-    override fun onClick(p0: View?) {
-        TODO("Not yet implemented")
+    override fun onClick(v: View?) {
+        when(v!!.id)
+        {
+            R.id.tv_home_hide_theme -> {
+                tv_home_hide_theme.visibility = View.GONE
+                rl_home_company1_theme.visibility = View.GONE
+                rl_home_view_more.visibility = View.VISIBLE
+                ll_home_third_theme_line.visibility = View.GONE
+                ll_home_fourth_theme_line.visibility = View.GONE
+            }
+
+            R.id.rl_home_view_more -> {
+                tv_home_hide_theme.visibility = View.VISIBLE
+                rl_home_company1_theme.visibility = View.VISIBLE
+                rl_home_view_more.visibility = View.GONE
+                ll_home_third_theme_line.visibility = View.VISIBLE
+                ll_home_fourth_theme_line.visibility = View.VISIBLE
+            }
+        }
     }
 }
