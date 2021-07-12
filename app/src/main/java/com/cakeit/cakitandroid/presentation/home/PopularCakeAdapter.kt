@@ -62,7 +62,7 @@ class PopularCakeAdapter(private var context: Context) : RecyclerView.Adapter<Po
         this.designListItems = designListItems
         notifyDataSetChanged()
     }
-    fun setOnItemClickListener(l: HomeActivity) {
+    fun setOnItemClickListener(l: HomeFragment) {
         onItemClick = l
     }
 

@@ -7,7 +7,6 @@ import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.databinding.ActivitySearchListBinding
 import com.cakeit.cakitandroid.presentation.search.SearchActivity
-import com.cakeit.cakitandroid.presentation.zzim.ZzimActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_search_list.*
 
