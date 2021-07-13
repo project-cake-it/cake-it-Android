@@ -1,6 +1,7 @@
 package com.cakeit.cakitandroid.presentation.zzim
 
 import android.app.Application
+import android.content.Context
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.ViewModel
@@ -17,8 +18,9 @@ class ZzimViewModel(application: Application,
     private val viewPagerOnTabSelectedListener: TabLayout.ViewPagerOnTabSelectedListener
     private val tabLayoutOnPageChangeListener: TabLayout.TabLayoutOnPageChangeListener
 
-    class Factory(val application: Application, val fm: FragmentManager, val viewPagerOnTabSelectedListener : TabLayout.ViewPagerOnTabSelectedListener
-                  , val tabLayoutOnPageChangeListener : TabLayout.TabLayoutOnPageChangeListener
+    class Factory(
+        val application: Application, val fm: FragmentManager, val viewPagerOnTabSelectedListener: TabLayout.ViewPagerOnTabSelectedListener
+        , val tabLayoutOnPageChangeListener: TabLayout.TabLayoutOnPageChangeListener
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return ZzimViewModel(application, fm, viewPagerOnTabSelectedListener, tabLayoutOnPageChangeListener) as T

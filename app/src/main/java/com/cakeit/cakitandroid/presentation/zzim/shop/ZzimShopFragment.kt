@@ -17,7 +17,7 @@ class ZzimShopFragment : BaseFragment<FragmentZzimShopBinding, ZzimViewModel>() 
         super.onViewCreated(view, savedInstanceState)
 
         binding = getViewDataBinding()
-        binding.vm = getViewModel()
+//        binding.vm = getViewModel()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -29,7 +29,7 @@ class ZzimShopFragment : BaseFragment<FragmentZzimShopBinding, ZzimViewModel>() 
     }
 
     override fun getViewModel(): ZzimViewModel {
-        zzimViewModel = ViewModelProvider(requireActivity()).get(ZzimViewModel::class.java)
+        zzimViewModel = ViewModelProvider(parentFragment!!).get(ZzimViewModel::class.java)
         return zzimViewModel
     }
 }

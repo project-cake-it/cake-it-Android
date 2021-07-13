@@ -46,16 +46,12 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
 
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
     override fun getLayoutId(): Int {
         return R.layout.fragment_zzim_design
     }
 
     override fun getViewModel(): ZzimViewModel {
-        zzimViewModel = ViewModelProvider(requireActivity()).get(ZzimViewModel::class.java)
+        zzimViewModel = ViewModelProvider(parentFragment!!).get(ZzimViewModel::class.java)
         return zzimViewModel
     }
 

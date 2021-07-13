@@ -1,34 +1,35 @@
 package com.cakeit.cakitandroid.presentation.zzim
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Application
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.R
-import com.cakeit.cakitandroid.base.BaseActivity
-import com.cakeit.cakitandroid.databinding.ActivityZzimBinding
+import com.cakeit.cakitandroid.base.BaseFragment
+import com.cakeit.cakitandroid.databinding.FragmentZzimBinding
+import com.cakeit.cakitandroid.presentation.main.MainActivity
 import com.google.android.material.tabs.TabLayout
 
-class ZzimActivity : BaseActivity<ActivityZzimBinding, ZzimViewModel>() {
+class ZzimFragment : BaseFragment<FragmentZzimBinding, ZzimViewModel>() {
 
-    private val adapter by lazy { ZzimContentsPagerAdapter(supportFragmentManager, 2) }
-    private lateinit var binding : ActivityZzimBinding
+    private val adapter by lazy { ZzimContentsPagerAdapter(childFragmentManager, 2) }
+    private lateinit var binding : FragmentZzimBinding
     private lateinit var zzimViewModel: ZzimViewModel
 
     companion object {
         const val TAG: String = "ZzimActivityTAG"
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        dataBinding()
         binding = getViewDataBinding()
         binding.vm = getViewModel()
 
         setTabLayout()
     }
     override fun getLayoutId(): Int {
-        return R.layout.activity_zzim
+        return R.layout.fragment_zzim
     }
 
 
@@ -39,7 +40,8 @@ class ZzimActivity : BaseActivity<ActivityZzimBinding, ZzimViewModel>() {
         // 탭 레이아웃에 뷰페이저 연결
         binding.tlZzimTabLayout.setupWithViewPager(binding.vpZzimViewpager)
 
-        zzimViewModel = ViewModelProvider(this, ZzimViewModel.Factory(application, supportFragmentManager, TabLayout.ViewPagerOnTabSelectedListener(binding.vpZzimViewpager)
+        zzimViewModel = ViewModelProvider(this, ZzimViewModel.Factory(
+            activity!!.application, childFragmentManager, TabLayout.ViewPagerOnTabSelectedListener(binding.vpZzimViewpager)
             , TabLayout.TabLayoutOnPageChangeListener(binding.tlZzimTabLayout)
         )).get(ZzimViewModel::class.java)
 
@@ -52,6 +54,4 @@ class ZzimActivity : BaseActivity<ActivityZzimBinding, ZzimViewModel>() {
         binding.tlZzimTabLayout.getTabAt(1)?.setText(R.string.zzim_shop_fragment_name)
 
     }
-
-
 }
