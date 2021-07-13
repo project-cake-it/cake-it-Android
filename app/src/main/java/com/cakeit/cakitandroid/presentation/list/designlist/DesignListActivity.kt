@@ -78,7 +78,6 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         btn_filter_category_design_list.setOnClickListener(this)
 
         initRecyclerview()
-//        insertTempData()
 
         designListViewModel.cakeDesignItems.observe(this, Observer { datas ->
             if(datas.size > 0) {
@@ -100,7 +99,6 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         selecedColorList = ArrayList<String>()
         selecedCategoryList = ArrayList<String>()
         selectedOrder = "DEFAULT"
-
 
         Log.d("songjem", "theme = " + selectedTheme)
         Log.d("songjem", "locList = " + selecedLocList.toString())

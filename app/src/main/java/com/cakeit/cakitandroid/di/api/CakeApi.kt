@@ -42,6 +42,10 @@ interface CakeApi {
         @Query("order") order : String?
     ) : Flowable<KeywordSearchResponse>
 
+    @GET("/api/v2/zzim/shops")
+    fun getZzimShopList(
+    ) : Flowable<ShopListResponse>
+
     @GET("${BASE_API_URL}/shops/{shopId}")
     fun getShopDetail(
         @Path("shopId") shopId : Int

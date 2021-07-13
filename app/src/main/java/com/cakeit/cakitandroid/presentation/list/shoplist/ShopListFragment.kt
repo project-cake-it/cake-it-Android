@@ -10,23 +10,23 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
+import com.cakeit.cakitandroid.base.BaseFragment
 import com.cakeit.cakitandroid.data.source.local.entity.ChoiceTag
-import com.cakeit.cakitandroid.databinding.ActivityShopListBinding
+import com.cakeit.cakitandroid.databinding.FragmentShopListBinding
 import com.cakeit.cakitandroid.presentation.list.MinDecorator
 import com.cakeit.cakitandroid.presentation.list.TodayDecorator
-import com.cakeit.cakitandroid.presentation.list.designlist.filter.DesignChoiceTagAdapter
 import com.cakeit.cakitandroid.presentation.list.shoplist.filter.ShopChoiceTagAdapter
 import com.cakeit.cakitandroid.presentation.list.shoplist.filter.ShopDefaultFilterAdapter
 import com.cakeit.cakitandroid.presentation.list.shoplist.filter.ShopRegionFilterAdapter
+import com.cakeit.cakitandroid.presentation.search.searchlist.shop.SearchShopViewModel
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
-import kotlinx.android.synthetic.main.activity_shop_list.*
+import kotlinx.android.synthetic.main.fragment_shop_list.*
 import kotlin.collections.ArrayList
 
-class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel>(),
-        View.OnClickListener {
+class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel>(), View.OnClickListener {
 
     lateinit var shopListViewModel: ShopListViewModel
-    lateinit var shopListBinding: ActivityShopListBinding
+    lateinit var shopListBinding: FragmentShopListBinding
 
     lateinit var shopListAdapter: ShopListAdapter
     lateinit var shopChoiceTagAdapter : ShopChoiceTagAdapter
@@ -48,9 +48,9 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
     lateinit var selecedLocList : ArrayList<String>
     var selectedOrder : String = ""
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        dataBinding()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         shopListBinding = getViewDataBinding()
         shopListBinding.viewModel = getViewModel()
 
@@ -64,7 +64,7 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
 
         initRecyclerview()
 
-        shopListViewModel.cakeShopItems.observe(this, Observer { datas ->
+        shopListViewModel.cakeShopItems.observe(viewLifecycleOwner, Observer { datas ->
             if(datas.size > 0) {
             }
             else {
@@ -72,33 +72,28 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
             }
             shopListAdapter.setShopListItems(datas)
         })
+
         getshopList()
-        shopListActivity = this
+        shopListFragment = this
 
         cv_pickup_calendar_shop_list.addDecorators(
-                MinDecorator(
-                        applicationContext
-                ),
-                TodayDecorator(
-                        applicationContext
-                )
+            MinDecorator(
+                context!!
+            ),
+            TodayDecorator(
+                context!!
+            )
         )
 
         // 달력 날짜 선택
         cv_pickup_calendar_shop_list.setOnDateChangedListener(OnDateSelectedListener { widget, date, selected ->
             selectedDate = date.month.toString() + "월 " + date.day.toString() + "일"
         })
+
     }
 
     fun getshopList() {
-
         selecedLocList = ArrayList<String>()
-        selectedOrder = "기본"
-        selectedDate = ""
-        selecedLocList.add("전체")
-
-        Log.d("songjem", "locList = " + selecedLocList.toString())
-        Log.d("songjem", "order = " + selectedOrder)
         shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList) // 추후 픽업 날짜도 추가 예정
     }
 
@@ -108,12 +103,12 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
 
         }
 
-        shopListAdapter = ShopListAdapter(applicationContext)
+        shopListAdapter = ShopListAdapter(context!!)
         shopDefaultFilterAdapter = ShopDefaultFilterAdapter()
                 .apply {
                     listener = object : ShopDefaultFilterAdapter.OnShopFilterItemClickListener {
                         override fun onShopFilterItemClick(position: Int) {
-                            Toast.makeText(applicationContext, "filter item" + position + " is clicked", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context!!, "filter item" + position + " is clicked", Toast.LENGTH_LONG).show()
                         }
                     }
                 }
@@ -122,42 +117,42 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
                 .apply {
                     listener = object : ShopRegionFilterAdapter.OnShopFilterItemClickListener {
                         override fun onShopFilterItemClick(position: Int) {
-                            Toast.makeText(applicationContext, "region item" + position + " is clicked", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context!!, "region item" + position + " is clicked", Toast.LENGTH_LONG).show()
                         }
                     }
                 }
 
         rv_choice_tag_shop_list.run {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@ShopListActivity, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
             adapter = shopChoiceTagAdapter
         }
 
         rv_shop_list_shop_list.run {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@ShopListActivity)
+            layoutManager = LinearLayoutManager(context!!)
             adapter = shopListAdapter
         }
 
         rv_filter_default_list_shop_list.run {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@ShopListActivity)
+            layoutManager = LinearLayoutManager(context!!)
             adapter = shopDefaultFilterAdapter
         }
 
         rv_filter_region_list_shop_list.run {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@ShopListActivity)
+            layoutManager = LinearLayoutManager(context!!)
             adapter = shopRegionFilterAdapter
         }
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.activity_shop_list
+        return R.layout.fragment_shop_list
     }
 
     override fun getViewModel(): ShopListViewModel {
-        shopListViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(ShopListViewModel::class.java)
+        shopListViewModel = ViewModelProvider(this).get(ShopListViewModel::class.java)
         return shopListViewModel
     }
 
@@ -202,8 +197,8 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
                 view_background_shop_list.visibility = View.INVISIBLE
                 rv_shop_list_shop_list.visibility = View.VISIBLE
                 if(clickedPosition == 0) {
-                    btn_filter_default_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_btn_effect))
-                    btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_compact))
+                    btn_filter_default_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
+                    btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact))
 
                     listSelected[0] = true
                     defaultFilterOff()
@@ -213,8 +208,8 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
                     getShopListByNetwork(choiceTagItems)
                 }
                 else if(clickedPosition == 1) {
-                    btn_filter_pickup_region_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_btn_effect))
-                    btn_filter_pickup_region_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_compact))
+                    btn_filter_pickup_region_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
+                    btn_filter_pickup_region_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact))
 
                     listSelected[1] = true
                     regionFilterOff()
@@ -241,8 +236,8 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
                     getShopListByNetwork(choiceTagItems)
                 }
                 else if(clickedPosition == 2) {
-                    btn_filter_pickup_date_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_btn_effect))
-                    btn_filter_pickup_date_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_compact))
+                    btn_filter_pickup_date_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
+                    btn_filter_pickup_date_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact))
                     listSelected[2] = true
 
                     tv_filter_pickup_date_title_shop_list.text = selectedDate
@@ -319,8 +314,8 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
     }
     // 기본순 초기화
     fun clearDefault() {
-        btn_filter_default_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_btn))
-        btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_compact_before))
+        btn_filter_default_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn))
+        btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact_before))
         btn_filter_default_shop_list.isSelected = false
         btn_filter_default_compact_shop_list.isSelected = false
         tv_filter_default_title_shop_list.setTextColor(Color.parseColor("#000000"))
@@ -329,8 +324,8 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
     }
     // 장소 선택 초기화
     fun clearRegion() {
-        btn_filter_pickup_region_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_btn))
-        btn_filter_pickup_region_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_compact_before))
+        btn_filter_pickup_region_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn))
+        btn_filter_pickup_region_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact_before))
         btn_filter_pickup_region_shop_list.isSelected = false
         btn_filter_pickup_region_compact_shop_list.isSelected = false
         tv_filter_pickup_region_title_shop_list.setTextColor(Color.parseColor("#000000"))
@@ -339,8 +334,8 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
     }
     // 날짜 선택 초기화
     fun clearDate() {
-        btn_filter_pickup_date_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_btn))
-        btn_filter_pickup_date_compact_shop_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_compact_before))
+        btn_filter_pickup_date_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn))
+        btn_filter_pickup_date_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact_before))
         btn_filter_pickup_date_shop_list.isSelected = false
         btn_filter_pickup_date_compact_shop_list.isSelected = false
         tv_filter_pickup_date_title_shop_list.setTextColor(Color.parseColor("#000000"))
@@ -350,7 +345,7 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
     // 기본순 필터링 ON
     fun defaultFilterOn() {
         setFilterItem(0)
-        tv_filter_default_title_shop_list.setTextColor(Color.parseColor("#577399"))
+        tv_filter_default_title_shop_list.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
         cl_filter_content_shop_list.visibility = View.VISIBLE
         rv_filter_default_list_shop_list.visibility = View.VISIBLE
         btn_filter_default_shop_list.isSelected = true
@@ -377,7 +372,7 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
     // 지역별 필터링 ON
     fun regionFilterOn() {
         setFilterItem(1)
-        tv_filter_pickup_region_title_shop_list.setTextColor(Color.parseColor("#577399"))
+        tv_filter_pickup_region_title_shop_list.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
 
         cl_filter_content_shop_list.visibility = View.VISIBLE
         rv_filter_region_list_shop_list.visibility = View.VISIBLE
@@ -404,7 +399,7 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
 
     // 날짜 필터링 ON
     fun dateFilterOn() {
-        tv_filter_pickup_date_title_shop_list.setTextColor(Color.parseColor("#577399"))
+        tv_filter_pickup_date_title_shop_list.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
 
         cl_filter_content_shop_list.visibility = View.VISIBLE
         cv_pickup_calendar_shop_list.visibility = View.VISIBLE
@@ -454,6 +449,6 @@ class ShopListActivity : BaseActivity<ActivityShopListBinding, ShopListViewModel
     }
 
     companion object {
-        lateinit var shopListActivity : ShopListActivity
+        lateinit var shopListFragment : ShopListFragment
     }
 }

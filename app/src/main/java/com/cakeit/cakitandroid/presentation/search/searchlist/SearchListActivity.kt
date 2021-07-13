@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.databinding.ActivitySearchListBinding
-import com.cakeit.cakitandroid.presentation.search.SearchActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_search_list.*
 
@@ -33,8 +32,7 @@ class SearchListActivity : BaseActivity<ActivitySearchListBinding, SearchListVie
         setTabLayout()
 
         btn_searchlist_back.setOnClickListener {
-            var intent = Intent(this, SearchActivity::class.java)
-            startActivity(intent)
+            finish()
         }
     }
     override fun getLayoutId(): Int {

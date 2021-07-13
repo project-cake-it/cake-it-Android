@@ -81,11 +81,11 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
 
         searchDesignViewModel.cakeDesignItems.observe(viewLifecycleOwner, Observer { datas ->
             if(datas.size > 0) {
-                cl_search_design_background.visibility = View.VISIBLE
+                rl_search_design_not_empty.visibility = View.VISIBLE
                 rl_search_design_empty.visibility = View.GONE
             }
             else {
-                cl_search_design_background.visibility = View.GONE
+                rl_search_design_not_empty.visibility = View.GONE
                 rl_search_design_empty.visibility = View.VISIBLE
                 Log.d("songjem", "get search designs size == 0")
             }

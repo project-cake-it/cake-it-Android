@@ -2,10 +2,8 @@ package com.cakeit.cakitandroid.presentation.search.searchlist
 
 import android.app.Application
 import android.util.Log
-import androidx.compose.runtime.key
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.base.BaseViewModel
@@ -25,7 +23,6 @@ class SearchListViewModel(application: Application,
                   , val tabLayoutOnPageChangeListener : TabLayout.TabLayoutOnPageChangeListener, val keyword: String
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            Log.d("songjem", "keyword123123, = " + keyword)
             return SearchListViewModel(application, fm, viewPagerOnTabSelectedListener, tabLayoutOnPageChangeListener, keyword) as T
         }
     }

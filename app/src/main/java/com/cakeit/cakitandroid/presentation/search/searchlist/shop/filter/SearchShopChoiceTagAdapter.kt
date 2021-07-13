@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.data.source.local.entity.ChoiceTag
-import com.cakeit.cakitandroid.presentation.list.shoplist.ShopListActivity
+import com.cakeit.cakitandroid.presentation.search.searchlist.shop.SearchShopFragment
 import kotlinx.android.synthetic.main.item_filter_tag.view.*
 
 class SearchShopChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -29,19 +29,19 @@ class SearchShopChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         shopChoiceTagViewHolder.btnDeleteTag.setOnClickListener {
             // 1:지역
-            var filterCode = ShopListActivity.shopListActivity.choiceTagItems[position].filterCode
-            var choiceCode = ShopListActivity.shopListActivity.choiceTagItems[position].choiceCode
+            var filterCode = SearchShopFragment.searchShopFragment.choiceTagItems[position].filterCode
+            var choiceCode = SearchShopFragment.searchShopFragment.choiceTagItems[position].choiceCode
 
             // 지역
             if(filterCode == 1) {
-                ShopListActivity.shopListActivity.shopRegionFilterAdapter.checkedPosition.remove(choiceCode)
-                if(ShopListActivity.shopListActivity.shopRegionFilterAdapter.checkedPosition.size == 0) {
-                    ShopListActivity.shopListActivity.listSelected[1] = false
-                    ShopListActivity.shopListActivity.clearRegion()
+                SearchShopFragment.searchShopFragment.searchShopRegionAdapter.checkedPosition.remove(choiceCode)
+                if(SearchShopFragment.searchShopFragment.searchShopRegionAdapter.checkedPosition.size == 0) {
+                    SearchShopFragment.searchShopFragment.listSelected[1] = false
+                    SearchShopFragment.searchShopFragment.clearRegion()
                 }
             }
             choiceItems.removeAt(position)
-            ShopListActivity.shopListActivity.getShopListByNetwork(ShopListActivity.shopListActivity.choiceTagItems)
+            SearchShopFragment.searchShopFragment.getShopListByNetwork(SearchShopFragment.searchShopFragment.choiceTagItems)
             notifyDataSetChanged()
         }
         shopChoiceTagViewHolder.bind(choiceItem)

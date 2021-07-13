@@ -80,11 +80,11 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
 
         searchShopViewModel.cakeShopItems.observe(viewLifecycleOwner, Observer { datas ->
             if(datas.size > 0) {
-                cl_search_shop_background.visibility = View.VISIBLE
+                rl_search_shop_not_empty.visibility = View.VISIBLE
                 rl_search_shop_empty.visibility = View.GONE
             }
             else {
-                cl_search_shop_background.visibility = View.GONE
+                rl_search_shop_not_empty.visibility = View.GONE
                 rl_search_shop_empty.visibility = View.VISIBLE
                 Log.d("songjem", "get search shops size == 0")
             }
