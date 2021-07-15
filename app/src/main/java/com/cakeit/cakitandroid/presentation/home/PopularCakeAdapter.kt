@@ -29,7 +29,7 @@ class PopularCakeAdapter(private var context: Context) : RecyclerView.Adapter<Po
 
 
     override fun onBindViewHolder(holder: DesignListViewHolder, position: Int) {
-        holder.bind(designListItems[position], context)
+        holder.bind(designListItems[position], context, position)
     }
 
     inner class DesignListViewHolder(view: View) : RecyclerView.ViewHolder(view)
@@ -40,7 +40,7 @@ class PopularCakeAdapter(private var context: Context) : RecyclerView.Adapter<Po
         val designShop = view.tv_shop_name_item_design_list
         val designPrice = view.tv_design_price_item_design_list
 
-        fun bind(data: DesignListResponseData,  context: Context)
+        fun bind(data: DesignListResponseData,  context: Context, position: Int)
         {
             designLoc.text = data.shopAddress
             if(data.sizes.size > 0) designSize.text = data.sizes[0].name
@@ -58,12 +58,14 @@ class PopularCakeAdapter(private var context: Context) : RecyclerView.Adapter<Po
         }
     }
 
+
+    fun setOnItemClickListener(l: View.OnClickListener) {
+        onItemClick = l
+    }
+
     internal fun setRefresh(designListItems: ArrayList<DesignListResponseData>) {
         this.designListItems = designListItems
         notifyDataSetChanged()
-    }
-    fun setOnItemClickListener(l: HomeFragment) {
-        onItemClick = l
     }
 
 }

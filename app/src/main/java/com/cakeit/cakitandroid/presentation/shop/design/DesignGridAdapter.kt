@@ -11,7 +11,7 @@ import com.cakeit.cakitandroid.R
 
 class DesignGridAdapter(context: Context) : RecyclerView.Adapter<DesignGridAdapter.ItemViewHolder>() {
 
-    private lateinit var onItemClick : View.OnClickListener
+    private lateinit var onItemClick : OnItemClickListener
     private var designPhotoDatas = ArrayList<String>()
     private val context = context
 
@@ -19,12 +19,15 @@ class DesignGridAdapter(context: Context) : RecyclerView.Adapter<DesignGridAdapt
     {
         private val designPhoto: ImageButton = itemView.findViewById(R.id.ib_design_grid_photo)
 
-        fun bind(data: String,  context: Context)
+        fun bind(data: String,  context: Context, position: Int)
         {
             if(!data.isNullOrEmpty())
             {
                 Glide.with(context).load(data).into(designPhoto)
 //                Glide.with(context).load(R.drawable.test).into(designPhoto)
+                designPhoto.setOnClickListener{
+                    onItemClick.OnClick(itemView, position)
+                }
             }
         }
     }
@@ -34,7 +37,11 @@ class DesignGridAdapter(context: Context) : RecyclerView.Adapter<DesignGridAdapt
         notifyDataSetChanged()
     }
 
-    fun setOnItemClickListener(l: View.OnClickListener) {
+    interface OnItemClickListener{
+        fun OnClick(view: View, position: Int)
+    }
+
+    fun setOnItemClickListener(l: OnItemClickListener) {
         onItemClick = l
     }
 
@@ -42,13 +49,11 @@ class DesignGridAdapter(context: Context) : RecyclerView.Adapter<DesignGridAdapt
         val view : View = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_design_grid, parent, false)
 
-        view.setOnClickListener(onItemClick)
-
         return ItemViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: DesignGridAdapter.ItemViewHolder, position: Int) {
-        holder.bind(designPhotoDatas[position], context)
+        holder.bind(designPhotoDatas[position], context, position)
     }
 
     override fun getItemCount(): Int = designPhotoDatas.size

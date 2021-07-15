@@ -17,6 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
 
+        <activity android:name=".presentation.design.DesignDetailActivity"/>
         <activity android:name=".presentation.shop.ShopDetailActivity"/>
         <activity android:name=".presentation.search.searchlist.SearchListActivity" />
         <activity android:name=".TestActivity" />

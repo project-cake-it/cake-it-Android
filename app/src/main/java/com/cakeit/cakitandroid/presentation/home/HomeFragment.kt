@@ -1,6 +1,7 @@
 package com.cakeit.cakitandroid.presentation.home
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,7 +12,12 @@ import androidx.viewpager.widget.ViewPager
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseFragment
 import com.cakeit.cakitandroid.databinding.FragmentHomeBinding
+import com.cakeit.cakitandroid.di.api.responses.DesignListResponseData
+import com.cakeit.cakitandroid.presentation.design.DesignDetailActivity
+import com.cakeit.cakitandroid.presentation.shop.design.DesignGridAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.item_home_promotion.*
+import kotlin.properties.Delegates
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.OnClickListener {
 
@@ -20,6 +26,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
 
     lateinit var promotionPagerAdapter : PromotionPagerAdapter
     lateinit var popularCakeListAdapter: PopularCakeAdapter
+
+    var designId by Delegates.notNull<Int>()
+    var promotionDesignId = ArrayList<Int>()
+    var popularDesignId = ArrayList<Int>()
 
     companion object {
         const val TAG: String = "HomeTabTAG"
@@ -44,12 +54,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
                 for(promotion in datas)
                 {
                     data.add(promotion.imageUrl)
+                    promotionDesignId.add(promotion.designId)
                 }
 
                 promotionPagerAdapter = PromotionPagerAdapter(context!!,  data)
+                promotionPagerAdapter.setOnItemClickListener(object : PromotionPagerAdapter.OnItemClickListener{
+                    override fun OnClick(view: View, position: Int) {
+                        val intent = Intent(context, DesignDetailActivity::class.java)
+                        intent.putExtra("designId", designId)
+                        startActivity(intent)
+                    }
+                })
 
                 tv_home_promotion_cnt.text = " / ${datas.size}"
                 vp_home_promotion.adapter = promotionPagerAdapter
+
                 vp_home_promotion.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
                     override fun onPageScrolled(
                         position: Int,
@@ -57,10 +76,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
                         positionOffsetPixels: Int
                     ) {
                         tv_home_promotion_current_num.text = (position+1).toString()
+                        designId = promotionDesignId[position]
                     }
 
                     override fun onPageSelected(position: Int) {
-                        //해당 디자인 상세로 넘어가
                     }
 
                     override fun onPageScrollStateChanged(position: Int) {
@@ -75,6 +94,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
             if(datas != null)
             {
                 popularCakeListAdapter.setRefresh(datas)
+                for(data in datas)
+                {
+                    popularDesignId.add(data.id)
+                }
             }
             else {
                 Log.d("nulkong", "get popularCakeList size == 0")
@@ -116,6 +139,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
     }
 
     override fun onClick(v: View?) {
+        Log.d("TEST","SUCCESS")
         when(v!!.id)
         {
             R.id.tv_home_hide_theme -> {
@@ -132,6 +156,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
                 rl_home_view_more.visibility = View.GONE
                 ll_home_third_theme_line.visibility = View.VISIBLE
                 ll_home_fourth_theme_line.visibility = View.VISIBLE
+            }
+
+            else -> {
+                var position: Int = rv_home_cake_list.getChildAdapterPosition(v)
+                val intent = Intent(context, DesignDetailActivity::class.java)
+                intent.putExtra("designId", popularDesignId[position])
+                startActivity(intent)
             }
         }
     }

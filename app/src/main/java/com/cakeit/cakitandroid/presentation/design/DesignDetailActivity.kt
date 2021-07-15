@@ -90,7 +90,7 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
 
     fun sendDesignIdToServer()
     {
-        designId = 1;
+        designId = intent.extras!!.getInt("designId")
 
         designDetailViewModel.sendDesignIdForDesignDetail(designId)
     }
