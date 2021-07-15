@@ -8,11 +8,6 @@ import retrofit2.http.*
 const val BASE_API_URL = "/api/v2"
 
 interface CakeApi {
-//    @GET("/api/v1/shops/{shopId}")
-//    fun getShopDetail(
-//        @Path("shopId") shopId : Int
-//    ) : Call<GetShopDetailResponse>
-
 
     @Headers("Content-Type: application/json")
     @POST("${BASE_API_URL}/login")
@@ -70,4 +65,8 @@ interface CakeApi {
     fun getPopularCake(
         @Query("order") theme : String
     ) : Flowable<PopularCakeResponse>
+
+    @GET("${BASE_API_URL}/zzim/designs")
+    fun getZzimDesigns(
+    ) : Flowable<DesignListResponse>
 }

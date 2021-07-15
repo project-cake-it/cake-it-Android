@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.base.BaseViewModel
 import com.cakeit.cakitandroid.data.source.remote.entity.CakeShopData
+import com.cakeit.cakitandroid.di.api.responses.DesignDetailData
 import com.cakeit.cakitandroid.domain.usecase.SearchDesignUseCase
+import com.cakeit.cakitandroid.domain.usecase.ZzimDesignsUseCase
 import com.cakeit.cakitandroid.domain.usecase.ZzimShopListUseCase
 import com.google.android.material.tabs.TabLayout
 
@@ -24,7 +26,9 @@ class ZzimViewModel(application: Application,
     private val tabLayoutOnPageChangeListener: TabLayout.TabLayoutOnPageChangeListener
 
     private val _cakeShopItems = MutableLiveData<ArrayList<CakeShopData>>()
+    private val _designDatas = MutableLiveData<ArrayList<DesignDetailData>>()
     val cakeShopItems : LiveData<ArrayList<CakeShopData>> get() = _cakeShopItems
+    val desigDatas : LiveData<ArrayList<DesignDetailData>> get() = _designDatas
 
     class Factory(
         val application: Application, val fm: FragmentManager, val viewPagerOnTabSelectedListener: TabLayout.ViewPagerOnTabSelectedListener
@@ -62,6 +66,23 @@ class ZzimViewModel(application: Application,
             },
             onFinished = {
                 Log.d("songjem", "zzimShop Finished")
+            }
+        )
+    }
+
+    fun getZzimDesign()
+    {
+        ZzimDesignsUseCase.execute(
+            onSuccess = {
+                var designDatas : ArrayList<DesignDetailData> = it.data
+                _designDatas.value = designDatas
+                Log.d("nulkong", "ZzimDesigns Network onSuccess")
+            },
+            onError = {
+                Log.d("nulkong", "ZzimDesigns Network onError")
+            },
+            onFinished = {
+                Log.d("nulkong", "ZzimDesigns Network Finished")
             }
         )
     }

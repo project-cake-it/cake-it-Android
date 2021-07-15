@@ -26,6 +26,8 @@ data class DesignDetailData(
     var creamNames : String,
     var sheetNames : String,
     var zzimCount : Int,
+    var shopChannel : String,
+    var displaySize : SizeData,
     var zzim : Boolean,
     var displayImage : String
 )

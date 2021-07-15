@@ -3,7 +3,7 @@ package com.cakeit.cakitandroid.di.api.responses
 data class DesignListResponse(
         var status : Int,
         var message : String,
-        var data : ArrayList<DesignListResponseData>
+        var data : ArrayList<DesignDetailData>
 )
 
 data class DesignListResponseData(

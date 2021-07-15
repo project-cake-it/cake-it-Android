@@ -52,6 +52,5 @@ class ZzimFragment : BaseFragment<FragmentZzimBinding, ZzimViewModel>() {
     {
         binding.tlZzimTabLayout.getTabAt(0)?.setText(R.string.zzim_design_fragment_name)
         binding.tlZzimTabLayout.getTabAt(1)?.setText(R.string.zzim_shop_fragment_name)
-
     }
 }

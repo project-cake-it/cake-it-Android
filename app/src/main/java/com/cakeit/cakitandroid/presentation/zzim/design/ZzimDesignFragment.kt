@@ -3,6 +3,7 @@ package com.cakeit.cakitandroid.presentation.zzim.design
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.cakeit.cakitandroid.R
@@ -28,22 +29,23 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
 
         initRecycler(view)
 
-        //TODO : 서버에서 데이터 세팅 필요
-        var data = ArrayList<String>()
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        data.add("test")
-        designGridAdapter.setRefresh(data)
+        getZzimDesigns()
 
+        zzimViewModel.desigDatas.observe(viewLifecycleOwner, Observer { datas ->
+            if(datas != null)
+            {
+                var designs = ArrayList<String>()
+
+                for(data in datas)
+                {
+                    designs.add(data.displayImage)
+                }
+                designGridAdapter.setRefresh(designs)
+            }
+            else {
+                Log.d("nulkong", "get zzim designs size == 0")
+            }
+        })
     }
 
     override fun getLayoutId(): Int {
@@ -67,6 +69,11 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
 
         v.rv_zzim_design_item.adapter = designGridAdapter
         v.rv_zzim_design_item.layoutManager = GridLayoutManager(context, 2)
+    }
+
+    fun getZzimDesigns()
+    {
+        zzimViewModel.getZzimDesign()
     }
 
 }
