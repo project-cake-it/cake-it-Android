@@ -42,7 +42,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
     private val filterList = listOf<String>("기본순", "찜순", "가격 높은 순", "가격 낮은 순")
     private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구", "서대문구"
             , "송파구", "노원구", "성북구", "중구", "중랑구")
-    private lateinit var selectedDate : String
+    private var selectedDate : String = ""
     var listSelected = mutableListOf<Boolean>(false, false, false)
 
     lateinit var selecedLocList : ArrayList<String>
@@ -255,8 +255,11 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
                     btn_filter_pickup_date_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact))
                     listSelected[2] = true
 
-                    tv_filter_pickup_date_title_shop_list.text = selectedDate
-                    Log.d("song", "selectedDate = " + selectedDate)
+                    if(selectedDate.equals("")) tv_filter_pickup_date_title_shop_list.text = "픽업 날짜"
+                    else {
+                        tv_filter_pickup_date_title_shop_list.text = selectedDate
+                        Log.d("song", "selectedDate = " + selectedDate)
+                    }
                     dateFilterOff()
                     btn_filter_pickup_date_shop_list.isSelected = false
 

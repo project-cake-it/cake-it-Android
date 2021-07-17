@@ -23,6 +23,7 @@ import com.cakeit.cakitandroid.presentation.search.searchlist.shop.filter.Search
 import com.cakeit.cakitandroid.presentation.shop.ShopDetailActivity
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import kotlinx.android.synthetic.main.fragment_search_shop.*
+import kotlinx.android.synthetic.main.fragment_shop_list.*
 
 class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopViewModel>(), View.OnClickListener {
 
@@ -43,7 +44,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
     private val filterList = listOf<String>("기본순", "찜순", "가격 높은 순", "가격 낮은 순")
     private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구", "서대문구"
         , "송파구", "노원구", "성북구", "중구", "중랑구")
-    private lateinit var selectedDate : String
+    private var selectedDate : String = ""
     var listSelected = mutableListOf<Boolean>(false, false, false)
 
     lateinit var selecedLocList : ArrayList<String>
@@ -274,8 +275,10 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
                     btn_filter_pickup_date_compact_search_shop.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact))
                     listSelected[2] = true
 
-                    tv_filter_pickup_date_title_search_shop.text = selectedDate
-                    Log.d("song", "selectedDate = " + selectedDate)
+                    if(selectedDate.equals("")) tv_filter_pickup_date_title_search_shop.text = "픽업 날짜"
+                    else {
+                        tv_filter_pickup_date_title_search_shop.text = selectedDate
+                    }
                     dateFilterOff()
                     btn_filter_pickup_date_search_shop.isSelected = false
 
@@ -361,7 +364,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
     // 기본순 필터링 ON
     fun defaultFilterOn() {
         setFilterItem(0)
-        tv_filter_default_title_search_shop.setTextColor(Color.parseColor("#577399"))
+        tv_filter_default_title_search_shop.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
         cl_filter_content_search_shop.visibility = View.VISIBLE
         rv_filter_default_list_search_shop.visibility = View.VISIBLE
         btn_filter_default_search_shop.isSelected = true
@@ -388,7 +391,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
     // 지역별 필터링 ON
     fun regionFilterOn() {
         setFilterItem(1)
-        tv_filter_pickup_region_title_search_shop.setTextColor(Color.parseColor("#577399"))
+        tv_filter_pickup_region_title_search_shop.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
 
         cl_filter_content_search_shop.visibility = View.VISIBLE
         rv_filter_region_list_search_shop.visibility = View.VISIBLE
@@ -415,7 +418,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
 
     // 날짜 필터링 ON
     fun dateFilterOn() {
-        tv_filter_pickup_date_title_search_shop.setTextColor(Color.parseColor("#577399"))
+        tv_filter_pickup_date_title_search_shop.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
 
         cl_filter_content_search_shop.visibility = View.VISIBLE
         cv_pickup_calendar_search_shop.visibility = View.VISIBLE

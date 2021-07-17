@@ -583,7 +583,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     // 기본순 필터링 ON
     fun defaultFilterOn() {
         setFilterItem(0)
-        tv_filter_default_title_search_design.setTextColor(Color.parseColor("#577399"))
+        tv_filter_default_title_search_design.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
         cl_filter_content_search_design.visibility = View.VISIBLE
         rv_filter_default_list_search_design.visibility = View.VISIBLE
         btn_filter_default_search_design.isSelected = true
@@ -610,7 +610,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     // 지역별 필터링 ON
     fun regionFilterOn() {
         setFilterItem(1)
-        tv_filter_pickup_region_title_search_design.setTextColor(Color.parseColor("#577399"))
+        tv_filter_pickup_region_title_search_design.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
 
         cl_filter_content_search_design.visibility = View.VISIBLE
         rv_filter_region_list_search_design.visibility = View.VISIBLE
@@ -639,7 +639,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     // 크기별 필터링 ON
     fun sizeFilterOn() {
         setFilterItem(2)
-        tv_filter_size_title_search_design.setTextColor(Color.parseColor("#577399"))
+        tv_filter_size_title_search_design.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
 
         cl_filter_content_search_design.visibility = View.VISIBLE
         rv_filter_size_list_search_design.visibility = View.VISIBLE
@@ -667,7 +667,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     // 색깔별 필터링 ON
     fun colorFilterOn() {
         setFilterItem(3)
-        tv_filter_color_title_search_design.setTextColor(Color.parseColor("#577399"))
+        tv_filter_color_title_search_design.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
 
         cl_filter_content_search_design.visibility = View.VISIBLE
         rv_filter_color_list_search_design.visibility = View.VISIBLE
@@ -695,7 +695,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     // 카테고리별 필터링 ON
     fun categoryFilterOn() {
         setFilterItem(4)
-        tv_filter_category_title_search_design.setTextColor(Color.parseColor("#577399"))
+        tv_filter_category_title_search_design.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
 
         cl_filter_content_search_design.visibility = View.VISIBLE
         rv_filter_category_list_search_design.visibility = View.VISIBLE

@@ -103,7 +103,7 @@
 
                 <RelativeLayout
                     android:id="@+id/btn_filter_pickup_date_search_shop"
-                    android:layout_width="124dp"
+                    android:layout_width="97dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="8dp"
                     android:background="@drawable/background_filter_btn_effect_before"
@@ -117,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="픽업 가능 날짜"
+                    android:text="픽업 날짜"
                     android:textColor="#242424"
                     android:textSize="13sp"
                     app:layout_constraintBottom_toBottomOf="@id/btn_filter_pickup_date_search_shop"
