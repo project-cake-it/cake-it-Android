@@ -15,6 +15,26 @@ interface CakeApi {
             @Body body : PostSocialLoginData
     ) : Flowable<SocialLoginResponse>
 
+    @POST("${BASE_API_URL}/zzim/shops/{shopId}")
+    fun postShopZzim(
+        @Path("shopId") shopId : Int
+    ) : Flowable<ZzimResponse>
+
+    @DELETE("${BASE_API_URL}/zzim/shops/{shopId}")
+    fun deleteShopZzim(
+        @Path("shopId") shopId : Int
+    ) : Flowable<ZzimResponse>
+
+    @POST("${BASE_API_URL}/zzim/designs/{designId}")
+    fun postDesignZzim(
+        @Path("designId") designId : Int
+    ) : Flowable<ZzimResponse>
+
+    @DELETE("${BASE_API_URL}/zzim/designs/{designId}")
+    fun deleteDesignZzim(
+        @Path("designId") designId : Int
+    ) : Flowable<ZzimResponse>
+
     @GET("/api/v2/designs")
     fun getDesignList(
             @Query("theme") theme : String?,

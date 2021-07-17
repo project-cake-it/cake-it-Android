@@ -10,6 +10,7 @@ import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.databinding.ActivityShopDetailBinding
 import com.cakeit.cakitandroid.di.api.responses.ShopDetailResponseData
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_shop.*
 import kotlinx.android.synthetic.main.activity_shop_detail.*
 import kotlinx.android.synthetic.main.activity_test.*
 import kotlin.properties.Delegates
@@ -19,6 +20,7 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
     private val adapter by lazy { ContentsPagerAdapter(supportFragmentManager, 2) }
     private lateinit var binding : ActivityShopDetailBinding
     private lateinit var shopDetailViewModel: ShopDetailViewModel
+    private var zzim : Boolean = false
 
     var shopId by Delegates.notNull<Int>()
 
@@ -35,6 +37,13 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
 
         shopDetailViewModel.shopDetailData.observe(this, Observer { datas ->
             if(datas != null) {
+                zzim = datas.zzim
+                if(zzim) btn_shop_detail_zzim.isSelected = true
+                else btn_shop_detail_zzim.isSelected = false
+
+                Log.d("songjem", "zzimCount = " + datas.zzimCount)
+                tv_shop_detail_zzim_cnt.text = datas.zzimCount.toString()
+
                 var sizeDataAll : String = ""
                 for (i in datas.sizes.indices)
                 {
@@ -49,6 +58,28 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
                 Log.d("nulkong", "get shopDetail size == 0")
             }
         })
+
+        shopDetailViewModel.zzim.observe(this, Observer { datas ->
+            Log.d("songjem", "observe, zzim = " + datas)
+            if(datas != null) {
+                zzim = datas
+                if(zzim) {
+                    btn_shop_detail_zzim.isSelected = true
+                    tv_shop_detail_zzim_cnt.text = (Integer.parseInt(tv_shop_detail_zzim_cnt.text.toString()) + 1).toString()
+                }
+                else {
+                    btn_shop_detail_zzim.isSelected = false
+                    tv_shop_detail_zzim_cnt.text = (Integer.parseInt(tv_shop_detail_zzim_cnt.text.toString()) - 1).toString()
+                }
+            }
+            else {
+                Log.d("songjem", "zzim shop error")
+            }
+        })
+
+        btn_shop_detail_zzim.setOnClickListener {
+            shopDetailViewModel.clickZzimBtn(shopId, zzim)
+        }
 
         setTabLayout()
         sendShopIdToServer()

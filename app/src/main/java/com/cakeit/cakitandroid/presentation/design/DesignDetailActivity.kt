@@ -10,6 +10,7 @@ import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.databinding.ActivityDesignDetailBinding
 import kotlinx.android.synthetic.main.activity_design_detail.*
 import kotlinx.android.synthetic.main.activity_design_detail.tv_cake_detail_size_price_contents
+import kotlinx.android.synthetic.main.activity_shop_detail.*
 import kotlin.properties.Delegates
 
 class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDetailViewModel>() {
@@ -19,6 +20,8 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
 
     var designId by Delegates.notNull<Int>()
     lateinit var designPagerAdapter : DesignPagerAdapter
+
+    private var zzim : Boolean = false
 
     companion object {
         const val TAG: String = "DesignDetailActivityTAG"
@@ -32,9 +35,30 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
         binding = getViewDataBinding()
         binding.vm = getViewModel()
 
+        btn_cake_detail_zzim.setOnClickListener {
+            designDetailViewModel.clickZzimBtn(designId, zzim)
+        }
+
+        designDetailViewModel.zzim.observe(this, Observer { datas ->
+            Log.d("songjem", "observe, zzim = " + datas)
+            if(datas != null) {
+                zzim = datas
+                if(datas) btn_cake_detail_zzim.isSelected = true
+                else btn_cake_detail_zzim.isSelected = false
+            }
+            else {
+                Log.d("songjem", "design zzim error")
+            }
+        })
+
         designDetailViewModel.designDetailData.observe(this, Observer { datas ->
             if(datas != null)
             {
+                zzim = datas.zzim
+                Log.d("songjem", "가게 디자인, zzim = " + zzim)
+                if(zzim) btn_cake_detail_zzim.isSelected = true
+                else btn_cake_detail_zzim.isSelected = false
+
                 var data = ArrayList<String>()
                 for(image in datas.designImages)
                 {
