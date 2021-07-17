@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseFragment
 import com.cakeit.cakitandroid.databinding.FragmentZzimShopBinding
-import com.cakeit.cakitandroid.presentation.design.DesignDetailActivity
 import com.cakeit.cakitandroid.presentation.list.shoplist.ShopListAdapter
+import com.cakeit.cakitandroid.presentation.shop.ShopDetailActivity
 import com.cakeit.cakitandroid.presentation.zzim.ZzimViewModel
 import kotlinx.android.synthetic.main.fragment_zzim_shop.*
 
@@ -33,8 +33,8 @@ class ZzimShopFragment : BaseFragment<FragmentZzimShopBinding, ZzimViewModel>() 
         shopListAdapter.setOnItemClickListener(object : ShopListAdapter.OnShopItemClickListener{
 
             override fun onShopItemClick(position: Int) {
-                Log.d("songjem", "position = " + position)
-                val intent = Intent(context, DesignDetailActivity::class.java)
+                Log.d("songjem", "position = " + position + "zzimCakeShopIds = " + zzimCakeShopIds[position])
+                val intent = Intent(context, ShopDetailActivity::class.java)
                 intent.putExtra("cakeShopId", zzimCakeShopIds[position])
                 startActivity(intent)
             }
