@@ -20,6 +20,7 @@ class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.Vie
     private var context = context
     private lateinit var cakeShopTagAdapter : CakeShopTagAdapter
     private lateinit var cakeShopPriceAdapter : CakeShopPriceAdapter
+    private lateinit var onItemClick : OnShopItemClickListener
 
     interface OnShopItemClickListener {
         fun onShopItemClick(position: Int)
@@ -35,6 +36,10 @@ class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.Vie
 
     override fun getItemCount(): Int {
         return shopListItems.size
+    }
+
+    fun setOnItemClickListener(l: OnShopItemClickListener) {
+        onItemClick = l
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -57,23 +62,23 @@ class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.Vie
         notifyDataSetChanged()
     }
 
-    class ShopListViewHolder(view : View, listener : OnShopItemClickListener?) : RecyclerView.ViewHolder(view) {
+    inner class ShopListViewHolder(view : View, listener : OnShopItemClickListener?) : RecyclerView.ViewHolder(view) {
 
+        val shopListItem = view.cl_shop_list_item
         val shopTagRv = view.rv_shop_tag_item_shop
         val shopPriceRv = view.rv_cake_size_item_shop
         val shopImg = view.iv_shop_list_major_img
         val cakeShopName = view.tv_shop_name_item_shop
         val cakeShopAddress = view.tv_shop_address_item_shop
 
-        init {
-            view.setOnClickListener {
-                listener?.onShopItemClick(adapterPosition)
-            }
-        }
-
         fun bind(cakeShop : CakeShopData) {
             cakeShopName.text = cakeShop.shopName
             cakeShopAddress.text = cakeShop.shopAddress
+
+            shopListItem.setOnClickListener {
+                Log.d("songjem", "adapter position = " + adapterPosition)
+                onItemClick.onShopItemClick(adapterPosition)
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.cakeit.cakitandroid.presentation.search.searchlist.shop
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -19,8 +20,8 @@ import com.cakeit.cakitandroid.presentation.list.shoplist.ShopListAdapter
 import com.cakeit.cakitandroid.presentation.search.searchlist.shop.filter.SearchShopChoiceTagAdapter
 import com.cakeit.cakitandroid.presentation.search.searchlist.shop.filter.SearchShopDefaultAdapter
 import com.cakeit.cakitandroid.presentation.search.searchlist.shop.filter.SearchShopRegionAdapter
+import com.cakeit.cakitandroid.presentation.shop.ShopDetailActivity
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
-import kotlinx.android.synthetic.main.fragment_search_design.*
 import kotlinx.android.synthetic.main.fragment_search_shop.*
 
 class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopViewModel>(), View.OnClickListener {
@@ -52,6 +53,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
     var selectedTheme : String? = null
     var selectedOrder : String = ""
     lateinit var keyword : String
+    lateinit var searchCakeShopIds : ArrayList<Int>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -78,8 +80,22 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
 
         initRecyclerview()
 
+        shopListAdapter.setOnItemClickListener(object : ShopListAdapter.OnShopItemClickListener{
+
+            override fun onShopItemClick(position: Int) {
+                val intent = Intent(context, ShopDetailActivity::class.java)
+                Log.d("songjem", "position = " + position + ", cakeShopID = " + searchCakeShopIds[position])
+                intent.putExtra("cakeShopId", searchCakeShopIds[position])
+                startActivity(intent)
+            }
+        })
+
         searchShopViewModel.cakeShopItems.observe(viewLifecycleOwner, Observer { datas ->
+            searchCakeShopIds = ArrayList<Int>()
             if(datas.size > 0) {
+                for(data in datas) {
+                    searchCakeShopIds.add(data.shopId!!)
+                }
                 rl_search_shop_not_empty.visibility = View.VISIBLE
                 rl_search_shop_empty.visibility = View.GONE
             }
@@ -128,7 +144,6 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
     fun initRecyclerview() {
 
         searchShopChoiceTagAdapter = SearchShopChoiceTagAdapter().apply {
-
         }
 
         shopListAdapter = ShopListAdapter(context!!)
@@ -156,7 +171,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
             adapter = searchShopChoiceTagAdapter
         }
 
-        rv_search_shop_search_shop.run {
+        rv_shop_list_search_shop.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context!!)
             adapter = shopListAdapter
@@ -214,7 +229,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
             R.id.view_background_search_shop -> {
                 Log.d("songjem", "background is touched")
                 view_background_search_shop.visibility = View.INVISIBLE
-                rv_search_shop_search_shop.visibility = View.VISIBLE
+                rv_shop_list_search_shop.visibility = View.VISIBLE
                 if(clickedPosition == 0) {
                     btn_filter_default_search_shop.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
                     btn_filter_default_compact_search_shop.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact))
@@ -274,12 +289,12 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
                     dateFilterOff()
                     defaultFilterOn()
                     view_background_search_shop.visibility = View.VISIBLE
-                    rv_search_shop_search_shop.visibility = View.GONE
+                    rv_shop_list_search_shop.visibility = View.GONE
                 }
                 else {
                     defaultFilterOff()
                     view_background_search_shop.visibility = View.INVISIBLE
-                    rv_search_shop_search_shop.visibility = View.VISIBLE
+                    rv_shop_list_search_shop.visibility = View.VISIBLE
                 }
             }
             R.id.btn_filter_pickup_region_search_shop -> {
@@ -289,12 +304,12 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
                     dateFilterOff()
                     regionFilterOn()
                     view_background_search_shop.visibility = View.VISIBLE
-                    rv_search_shop_search_shop.visibility = View.GONE
+                    rv_shop_list_search_shop.visibility = View.GONE
                 }
                 else {
                     regionFilterOff()
                     view_background_search_shop.visibility = View.INVISIBLE
-                    rv_search_shop_search_shop.visibility = View.VISIBLE
+                    rv_shop_list_search_shop.visibility = View.VISIBLE
                 }
             }
             R.id.btn_filter_pickup_date_search_shop -> {
@@ -303,12 +318,12 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
                     regionFilterOff()
                     dateFilterOn()
                     view_background_search_shop.visibility = View.VISIBLE
-                    rv_search_shop_search_shop.visibility = View.GONE
+                    rv_shop_list_search_shop.visibility = View.GONE
                 }
                 else {
                     dateFilterOff()
                     view_background_search_shop.visibility = View.INVISIBLE
-                    rv_search_shop_search_shop.visibility = View.VISIBLE
+                    rv_shop_list_search_shop.visibility = View.VISIBLE
                 }
             }
         }

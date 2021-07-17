@@ -1,6 +1,7 @@
 package com.cakeit.cakitandroid.presentation.list.designlist
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,18 +16,14 @@ class DesignListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.V
 
     private var designListItems : List<CakeDesignData> = listOf()
 //    private val designListItems = mutableListOf<CakeDesignData>()
+    private lateinit var onItemClick : View.OnClickListener
 
     private var context = context
 
-    interface OnDesignItemClickListener {
-        fun onDesignItemClick(position: Int)
-    }
-
-    var listener : OnDesignItemClickListener? = null
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_design_list, parent, false)
-        val viewHolder = DesignListViewHolder(view, listener)
+        val viewHolder = DesignListViewHolder(view)
+        view.setOnClickListener(onItemClick)
         return viewHolder
     }
 
@@ -49,19 +46,17 @@ class DesignListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.V
         notifyDataSetChanged()
     }
 
-    class DesignListViewHolder(view : View, listener : OnDesignItemClickListener?) : RecyclerView.ViewHolder(view) {
+    fun setOnItemClickListener(l: View.OnClickListener) {
+        onItemClick = l
+    }
+
+    class DesignListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
 
         val designImg = view.iv_design_img_item_design_list
         val designLoc = view.tv_shop_loc_item_design_list
         val designSize = view.tv_size_item_design_list
         val designShop = view.tv_shop_name_item_design_list
         val designPrice = view.tv_design_price_item_design_list
-
-        init {
-            view.setOnClickListener {
-                listener?.onDesignItemClick(adapterPosition)
-            }
-        }
 
         fun bind(cakeDesign : CakeDesignData) {
             designLoc.text = cakeDesign.designShopLoc

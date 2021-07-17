@@ -1,5 +1,6 @@
 package com.cakeit.cakitandroid.presentation.list.designlist
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -17,8 +18,10 @@ import com.cakeit.cakitandroid.data.source.local.entity.CakeDesignSize
 import com.cakeit.cakitandroid.data.source.local.entity.ChoiceTag
 import com.cakeit.cakitandroid.databinding.ActivityDesignListBinding
 import com.cakeit.cakitandroid.domain.model.CakeSizeAndrPrice
+import com.cakeit.cakitandroid.presentation.design.DesignDetailActivity
 import com.cakeit.cakitandroid.presentation.list.designlist.filter.*
 import kotlinx.android.synthetic.main.activity_design_list.*
+import kotlinx.android.synthetic.main.fragment_search_design.*
 import kotlin.collections.ArrayList
 
 class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListViewModel>(),
@@ -60,6 +63,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
     lateinit var selecedCategoryList : ArrayList<String>
     var selectedTheme : String? = null
     var selectedOrder : String = ""
+    lateinit var cakeDesignIds : ArrayList<Long>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,9 +82,22 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         btn_filter_category_design_list.setOnClickListener(this)
 
         initRecyclerview()
+        selectedTheme = intent.getStringExtra("theme")
+        if(selectedTheme.equals("BIRTHDAY")) tv_design_title_design_list.text = "생일"
+        else if(selectedTheme.equals("ANNIVERSARY")) tv_design_title_design_list.text = "기념일"
+        else if(selectedTheme.equals("WEDDING")) tv_design_title_design_list.text = "웨딩"
+        else if(selectedTheme.equals("EMPLOYMENT")) tv_design_title_design_list.text = "입사/승진"
+        else if(selectedTheme.equals("LEAVE")) tv_design_title_design_list.text = "퇴사"
+        else if(selectedTheme.equals("DISCHARGE")) tv_design_title_design_list.text = "전역"
+        else if(selectedTheme.equals("GRADUATED")) tv_design_title_design_list.text = "동아리/모임"
+        else if(selectedTheme.equals("NONE")) tv_design_title_design_list.text = "기타"
 
         designListViewModel.cakeDesignItems.observe(this, Observer { datas ->
+            cakeDesignIds = ArrayList<Long>()
             if(datas.size > 0) {
+                for(data in datas) {
+                    cakeDesignIds.add(data.designIndex!!)
+                }
             }
             else {
                 Log.d("songjem", "get designList size == 0")
@@ -93,7 +110,6 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
 
     fun getDesignList() {
 
-        selectedTheme = "NONE"
         selecedLocList = ArrayList<String>()
         seleceSizeList = ArrayList<String>()
         selecedColorList = ArrayList<String>()
@@ -112,9 +128,8 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
     fun initRecyclerview() {
 
         designListAdapter = DesignListAdapter(applicationContext)
-
+        designListAdapter.setOnItemClickListener(this)
         designChoiceTagAdapter = DesignChoiceTagAdapter().apply {
-
         }
 
         designDefaultFilterAdapter = DesignDefaultFilterAdapter()
@@ -528,6 +543,13 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
                     view_background_design_list.visibility = View.INVISIBLE
                     rv_design_list_design_list.visibility = View.VISIBLE
                 }
+            }
+            else -> {
+                var position: Int = rv_design_list_design_list.getChildAdapterPosition(view!!)
+                val intent = Intent(this, DesignDetailActivity::class.java)
+                Log.d("songjem", "position = " + position + ", cakeDesignID = " + cakeDesignIds[position])
+                intent.putExtra("designId", cakeDesignIds[position].toInt())
+                startActivity(intent)
             }
         }
     }

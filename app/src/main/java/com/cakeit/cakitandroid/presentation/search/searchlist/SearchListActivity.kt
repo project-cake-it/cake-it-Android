@@ -1,6 +1,5 @@
 package com.cakeit.cakitandroid.presentation.search.searchlist
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider

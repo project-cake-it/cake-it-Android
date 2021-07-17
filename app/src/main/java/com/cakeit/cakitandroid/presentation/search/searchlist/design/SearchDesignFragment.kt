@@ -1,5 +1,6 @@
 package com.cakeit.cakitandroid.presentation.search.searchlist.design
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -15,10 +16,10 @@ import com.cakeit.cakitandroid.base.BaseFragment
 import com.cakeit.cakitandroid.data.source.local.entity.CakeDesignSize
 import com.cakeit.cakitandroid.data.source.local.entity.ChoiceTag
 import com.cakeit.cakitandroid.databinding.FragmentSearchDesignBinding
+import com.cakeit.cakitandroid.presentation.design.DesignDetailActivity
 import com.cakeit.cakitandroid.presentation.list.designlist.DesignListAdapter
 import com.cakeit.cakitandroid.presentation.search.searchlist.design.filter.*
 import kotlinx.android.synthetic.main.fragment_search_design.*
-
 class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDesignViewModel>(),  View.OnClickListener {
 
     lateinit var binding : FragmentSearchDesignBinding
@@ -59,6 +60,8 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     var selectedOrder : String = ""
     lateinit var keyword : String
 
+    lateinit var searchCakeDesignIds : ArrayList<Long>
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -80,7 +83,11 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
         initRecyclerview()
 
         searchDesignViewModel.cakeDesignItems.observe(viewLifecycleOwner, Observer { datas ->
+            searchCakeDesignIds = ArrayList<Long>()
             if(datas.size > 0) {
+                for(data in datas) {
+                    searchCakeDesignIds.add(data.designIndex!!)
+                }
                 rl_search_design_not_empty.visibility = View.VISIBLE
                 rl_search_design_empty.visibility = View.GONE
             }
@@ -94,6 +101,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
         searchDesignFragment = this
         getSearchDesign()
     }
+
 
     fun getSearchDesign() {
 
@@ -116,7 +124,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     fun initRecyclerview() {
 
         designListAdapter = DesignListAdapter(context!!)
-
+        designListAdapter.setOnItemClickListener(this)
         searchDesignChoiceTagAdapter = SearchDesignChoiceTagAdapter().apply {
 
         }
@@ -511,6 +519,13 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                     view_background_search_design.visibility = View.INVISIBLE
                     rv_design_list_search_design.visibility = View.VISIBLE
                 }
+            }
+            else -> {
+                var position: Int = rv_design_list_search_design.getChildAdapterPosition(view!!)
+                val intent = Intent(context, DesignDetailActivity::class.java)
+                Log.d("songjem", "position = " + position + ", cakeDesignID = " + searchCakeDesignIds[position])
+                intent.putExtra("designId", searchCakeDesignIds[position].toInt())
+                startActivity(intent)
             }
         }
     }

@@ -14,6 +14,7 @@ import com.cakeit.cakitandroid.base.BaseFragment
 import com.cakeit.cakitandroid.databinding.FragmentHomeBinding
 import com.cakeit.cakitandroid.di.api.responses.DesignListResponseData
 import com.cakeit.cakitandroid.presentation.design.DesignDetailActivity
+import com.cakeit.cakitandroid.presentation.list.designlist.DesignListActivity
 import com.cakeit.cakitandroid.presentation.shop.design.DesignGridAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.item_home_promotion.*
@@ -117,6 +118,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
     {
         tv_home_hide_theme.setOnClickListener(this)
         rl_home_view_more.setOnClickListener(this)
+        rl_home_theme_birthday.setOnClickListener(this)
+        rl_home_theme_anniv.setOnClickListener(this)
+        rl_home_theme_wedding.setOnClickListener(this)
+        rl_home_company1_theme.setOnClickListener(this)
+        rl_home_theme_retire.setOnClickListener(this)
+        rl_home_theme_discharge.setOnClickListener(this)
+        rl_home_theme_club.setOnClickListener(this)
+        rl_home_theme_etc.setOnClickListener(this)
     }
 
     fun getPromotion()
@@ -156,6 +165,54 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
                 rl_home_view_more.visibility = View.GONE
                 ll_home_third_theme_line.visibility = View.VISIBLE
                 ll_home_fourth_theme_line.visibility = View.VISIBLE
+            }
+
+            R.id.rl_home_theme_birthday -> {
+                var intent = Intent(context, DesignListActivity::class.java)
+                intent.putExtra("theme", "BIRTHDAY")
+                startActivity(intent)
+            }
+
+            R.id.rl_home_theme_anniv -> {
+                var intent = Intent(context, DesignListActivity::class.java)
+                intent.putExtra("theme", "ANNIVERSARY")
+                startActivity(intent)
+            }
+
+            R.id.rl_home_theme_wedding -> {
+                var intent = Intent(context, DesignListActivity::class.java)
+                intent.putExtra("theme", "WEDDING")
+                startActivity(intent)
+            }
+
+            R.id.rl_home_company1_theme -> {
+                var intent = Intent(context, DesignListActivity::class.java)
+                intent.putExtra("theme", "EMPLOYMENT")
+                startActivity(intent)
+            }
+
+            R.id.rl_home_theme_retire -> {
+                var intent = Intent(context, DesignListActivity::class.java)
+                intent.putExtra("theme", "LEAVE")
+                startActivity(intent)
+            }
+
+            R.id.rl_home_theme_discharge -> {
+                var intent = Intent(context, DesignListActivity::class.java)
+                intent.putExtra("theme", "DISCHARGE")
+                startActivity(intent)
+            }
+
+            R.id.rl_home_theme_club -> {
+                var intent = Intent(context, DesignListActivity::class.java)
+                intent.putExtra("theme", "GRADUATED")
+                startActivity(intent)
+            }
+
+            R.id.rl_home_theme_etc -> {
+                var intent = Intent(context, DesignListActivity::class.java)
+                intent.putExtra("theme", "NONE")
+                startActivity(intent)
             }
 
             else -> {

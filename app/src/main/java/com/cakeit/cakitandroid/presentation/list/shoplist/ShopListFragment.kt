@@ -1,4 +1,5 @@
 package com.cakeit.cakitandroid.presentation.list.shoplist
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cakeit.cakitandroid.R
-import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.base.BaseFragment
 import com.cakeit.cakitandroid.data.source.local.entity.ChoiceTag
 import com.cakeit.cakitandroid.databinding.FragmentShopListBinding
@@ -18,7 +18,7 @@ import com.cakeit.cakitandroid.presentation.list.TodayDecorator
 import com.cakeit.cakitandroid.presentation.list.shoplist.filter.ShopChoiceTagAdapter
 import com.cakeit.cakitandroid.presentation.list.shoplist.filter.ShopDefaultFilterAdapter
 import com.cakeit.cakitandroid.presentation.list.shoplist.filter.ShopRegionFilterAdapter
-import com.cakeit.cakitandroid.presentation.search.searchlist.shop.SearchShopViewModel
+import com.cakeit.cakitandroid.presentation.shop.ShopDetailActivity
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import kotlinx.android.synthetic.main.fragment_shop_list.*
 import kotlin.collections.ArrayList
@@ -47,6 +47,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
 
     lateinit var selecedLocList : ArrayList<String>
     var selectedOrder : String = ""
+    lateinit var cakeShopIds : ArrayList<Int>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,6 +56,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
         shopListBinding.viewModel = getViewModel()
 
         choiceTagItems = ArrayList()
+        initRecyclerview()
 
         view_background_shop_list.setOnClickListener(this)
         btn_filter_refresh_shop_list.setOnClickListener(this)
@@ -62,10 +64,24 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
         btn_filter_pickup_region_shop_list.setOnClickListener(this)
         btn_filter_pickup_date_shop_list.setOnClickListener(this)
 
-        initRecyclerview()
+        shopListAdapter.setOnItemClickListener(object : ShopListAdapter.OnShopItemClickListener{
+
+            override fun onShopItemClick(position: Int) {
+                Log.d("songjem", "onShopImtemClick = " + position)
+
+                val intent = Intent(context!!, ShopDetailActivity::class.java)
+                Log.d("songjem", "position = " + position + ", cakeShopID = " + cakeShopIds[position])
+                intent.putExtra("cakeShopId", cakeShopIds[position])
+                startActivity(intent)
+            }
+        })
 
         shopListViewModel.cakeShopItems.observe(viewLifecycleOwner, Observer { datas ->
+            cakeShopIds = ArrayList<Int>()
             if(datas.size > 0) {
+                for(data in datas) {
+                    cakeShopIds.add(data!!.shopId)
+                }
             }
             else {
                 Log.d("songjem", "get shopList size == 0")
@@ -100,10 +116,9 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
     fun initRecyclerview() {
 
         shopChoiceTagAdapter = ShopChoiceTagAdapter().apply {
-
         }
-
         shopListAdapter = ShopListAdapter(context!!)
+
         shopDefaultFilterAdapter = ShopDefaultFilterAdapter()
                 .apply {
                     listener = object : ShopDefaultFilterAdapter.OnShopFilterItemClickListener {

@@ -213,7 +213,7 @@
                 android:layout_height="wrap_content">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_search_shop_search_shop"
+                    android:id="@+id/rv_shop_list_search_shop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
