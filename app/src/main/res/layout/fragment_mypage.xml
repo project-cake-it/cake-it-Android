@@ -63,13 +63,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_mypage_welcome" />
 
-        <Button
-            android:id="@+id/btn_mypage_service_center"
-            style="@style/Widget.AppCompat.Button.Borderless"
+        <TextView
+            android:id="@+id/tv_mypage_service_center"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:backgroundTint="@color/white"
-            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:gravity="center"
             android:paddingLeft="16dp"
             android:paddingTop="0dp"
             android:paddingBottom="0dp"
@@ -94,7 +94,32 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_mypage_service_center" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_mypage_service_center" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_mypage_announcement"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/btn_mypage_announcement"
+            app:layout_constraintTop_toBottomOf="@+id/tv_mypage_service_center"
+            app:srcCompat="@drawable/ic_chevron_compact_right" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:tint="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/view_mypage_qna_bottom_border"
+            app:layout_constraintEnd_toEndOf="@+id/btn_mypage_qna"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/btn_mypage_qna"
+            app:layout_constraintTop_toTopOf="@+id/btn_mypage_qna"
+            app:srcCompat="@drawable/ic_chevron_compact_right" />
 
         <Button
             android:id="@+id/btn_mypage_qna"
@@ -116,7 +141,6 @@
             android:id="@+id/view_mypage_qna_bottom_border"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="4dp"
             android:background="@color/solidLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -134,14 +158,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_mypage_version_info" />
 
-        <Button
-            android:id="@+id/btn_mypage_info"
-            style="@style/Widget.AppCompat.Button.Borderless"
+        <TextView
+            android:id="@+id/tv_mypage_info"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_height="50dp"
             android:backgroundTint="@color/white"
-            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:gravity="center"
             android:paddingLeft="16dp"
             android:text="@string/mypage_info"
             android:textAlignment="viewStart"
@@ -150,6 +173,32 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_mypage_qna" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_mypage_terms_of_service"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/btn_mypage_terms_of_service"
+            app:layout_constraintTop_toTopOf="@+id/btn_mypage_terms_of_service"
+            app:srcCompat="@drawable/ic_chevron_compact_right" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            app:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_mypage_terms_of_private_info"
+            app:layout_constraintEnd_toEndOf="@+id/btn_mypage_terms_of_private_info"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/btn_mypage_terms_of_private_info"
+            app:layout_constraintTop_toBottomOf="@+id/btn_mypage_terms_of_service"
+            app:srcCompat="@drawable/ic_chevron_compact_right" />
 
         <Button
             android:id="@+id/btn_mypage_terms_of_service"
@@ -165,7 +214,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_mypage_info" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_mypage_info" />
 
         <Button
             android:id="@+id/btn_mypage_version_info"
@@ -182,6 +231,32 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_mypage_opensource_license" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            app:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_mypage_opensource_license"
+            app:layout_constraintEnd_toEndOf="@+id/btn_mypage_opensource_license"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_mypage_opensource_license"
+            app:srcCompat="@drawable/ic_chevron_compact_right" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_mypage_version_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/btn_mypage_version_info"
+            app:layout_constraintTop_toTopOf="@+id/btn_mypage_version_info"
+            app:srcCompat="@drawable/ic_chevron_compact_right" />
 
         <Button
             android:id="@+id/btn_mypage_opensource_license"
