@@ -5,15 +5,22 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.content.Intent
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.databinding.ActivityMainBinding
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import com.cakeit.cakitandroid.presentation.login.LoginActivity
+import com.cakeit.cakitandroid.presentation.zzim.ZzimContentsPagerAdapter
+import com.cakeit.cakitandroid.presentation.zzim.ZzimViewModel
+import com.google.android.material.tabs.TabLayout
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
+    private val adapter by lazy { MainPagerAdapter(supportFragmentManager, 5) }
     private lateinit var binding : ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
 
@@ -22,14 +29,38 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         dataBinding()
         binding = getViewDataBinding()
         binding.viewModel = getViewModel()
+
+        setTabLayout()
         getHashKey()
+//        //MainActivity 진입시 로그인 되어있는지 확인후 분기
+//        binding.lifecycleOwner?.let {
+//            binding.viewModel?.isRegistered?.observe(it, Observer{ isLoggedIn ->
+//                if(!isLoggedIn){
+//                    val appContext = this
+//                    val loginActivityIntent = Intent(appContext, LoginActivity::class.java)
+//                    appContext.startActivity(loginActivityIntent)
+//                    finish()
+//                }
+//            })
+//        }
+//        binding.viewModel?.checkIsRegistered()
     }
     override fun getLayoutId(): Int {
         return R.layout.activity_main
     }
 
     override fun getViewModel(): MainViewModel {
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        // 뷰페이저 어댑터 연결
+        binding.vpMainViewpager.adapter = adapter
+
+        // 탭 레이아웃에 뷰페이저 연결
+        binding.tlMainTablayout.setupWithViewPager(binding.vpMainViewpager)
+
+        mainViewModel = ViewModelProvider(this
+            , MainViewModel.Factory(application,supportFragmentManager
+            , TabLayout.ViewPagerOnTabSelectedListener(binding.vpMainViewpager)
+            , TabLayout.TabLayoutOnPageChangeListener(binding.tlMainTablayout)
+            )).get(MainViewModel::class.java)
         return mainViewModel
     }
 
@@ -50,5 +81,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                 Log.e("KeyHash", "Unable to get MessageDigest. signature=$signature", e)
             }
         }
+    }
+
+    fun setTabLayout()
+    {
+        binding.tlMainTablayout.getTabAt(0)?.setText(R.string.tab_home)
+        binding.tlMainTablayout.getTabAt(1)?.setText(R.string.tab_search)
+        binding.tlMainTablayout.getTabAt(2)?.setText(R.string.tab_shop)
+        binding.tlMainTablayout.getTabAt(3)?.setText(R.string.tab_zzim)
+        binding.tlMainTablayout.getTabAt(4)?.setText(R.string.tab_mypage)
     }
 }

@@ -2,11 +2,21 @@ package com.cakeit.cakitandroid.domain.usecase
 
 import com.cakeit.cakitandroid.data.repository.SampleRepo
 import com.cakeit.cakitandroid.data.source.local.room.dao.SampleDao
-import com.cakeit.cakitandroid.domain.usecase.base.BaseUseCase
+import com.cakeit.cakitandroid.domain.usecase.base.SingleUseCase
 import io.reactivex.Single
 
-class SampleUseCase : BaseUseCase<List<SampleRepo>>(){
-    override fun buildUseCase(vararg args : Any?): Single<List<SampleRepo>> {
-        return Single.just(listOf<SampleRepo>())
+object SampleUseCase : SingleUseCase<List<SampleRepo>>(){
+    override fun buildUseCase(baseRequest: BaseRequest): Single<List<SampleRepo>> {
+        var req = baseRequest as Request
+
+        return Single.just(listOf())
+    }
+
+    data class Request(
+        val sampleDao : SampleDao
+    ) : BaseRequest()
+
+    override fun buildUseCase(): Single<List<SampleRepo>>? {
+        return null
     }
 }

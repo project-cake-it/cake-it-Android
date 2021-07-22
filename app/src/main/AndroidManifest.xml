@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.cakeit.cakitandroid">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".di.applicationModule.GlobalApplication"
@@ -9,17 +13,41 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".presentation.shop.ShopActivity"></activity>
-        <activity android:name=".presentation.main.MainActivity" />
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+
+        <activity android:name=".presentation.design.DesignDetailActivity"/>
+        <activity android:name=".presentation.shop.ShopDetailActivity"/>
+        <activity android:name=".presentation.search.searchlist.SearchListActivity" />
+        <activity android:name=".TestActivity" />
         <activity android:name=".presentation.main.test.SampleActivity" />
-        <activity android:name=".presentation.mypage.MyPageActivity">
+        <activity android:name=".presentation.login.LoginActivity" />
+        <activity android:name=".presentation.list.designlist.DesignListActivity" />
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="oauth"
+                    android:scheme="@string/AUTHCODE_KAKAO_REDIRECTURI" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".presentation.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="336e5fa0e2a8c916ffda94b2b64f5c8d" />
     </application>
 
 </manifest>
