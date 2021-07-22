@@ -18,7 +18,7 @@ class MyPageActivity : BaseActivity<ActivityMypageBinding, MyPageViewModel>() {
         binding.viewModel = getViewModel()
     }
     override fun getLayoutId(): Int {
-        return R.layout.activity_mypage
+        return R.layout.fragment_mypage
     }
 
     override fun getViewModel(): MyPageViewModel {
