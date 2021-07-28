@@ -9,6 +9,7 @@ import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseFragment
 import com.cakeit.cakitandroid.databinding.FragmentMypageBinding
 import com.cakeit.cakitandroid.presentation.mypage.announcement.AnnouncementListActivity
+import com.cakeit.cakitandroid.presentation.mypage.textboard.TextboardActivity
 import kotlinx.android.synthetic.main.fragment_mypage.view.*
 
 class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), View.OnClickListener {
@@ -40,51 +41,42 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
         return myPageViewModel
     }
 
+    fun startTextBoardActivityWithData(boardTitle : String, body : String){
+        var intent = Intent(context, TextboardActivity::class.java)
+
+        intent.putExtra("boardTitle", boardTitle)
+        intent.putExtra("preload", true)
+        intent.putExtra("body", body)
+        startActivity(intent)
+    }
+
     override fun onClick(v: View?) {
         Log.d(TAG, v!!.id.toString())
         when(v!!.id)
         {
             R.id.btn_mypage_announcement -> {
-                Log.d(TAG, "announcement")
                 var intent = Intent(context, AnnouncementListActivity::class.java)
                 startActivity(intent)
             }
 
             R.id.btn_mypage_qna -> {
-                Log.d(TAG, "announcement")
-                var intent = Intent(context, AnnouncementListActivity::class.java)
-                startActivity(intent)
+                startTextBoardActivityWithData(getString(R.string.mypage_qna), getString(R.string.mypage_qna))
             }
 
             R.id.btn_mypage_terms_of_service -> {
-                Log.d(TAG, "announcement")
-                var intent = Intent(context, AnnouncementListActivity::class.java)
-                startActivity(intent)
+                startTextBoardActivityWithData(getString(R.string.mypage_terms_of_service), getString(R.string.mypage_terms_of_service))
             }
 
             R.id.btn_mypage_terms_of_private_info -> {
-                Log.d(TAG, "announcement")
-                var intent = Intent(context, AnnouncementListActivity::class.java)
-                startActivity(intent)
+                startTextBoardActivityWithData(getString(R.string.mypage_terms_of_private_info), getString(R.string.mypage_terms_of_private_info))
             }
 
             R.id.btn_mypage_opensource_license -> {
-                Log.d(TAG, "announcement")
-                var intent = Intent(context, AnnouncementListActivity::class.java)
-                startActivity(intent)
+                startTextBoardActivityWithData(getString(R.string.mypage_opensource_license), getString(R.string.mypage_opensource_license))
             }
 
             R.id.btn_mypage_version_info -> {
-                Log.d(TAG, "announcement")
-                var intent = Intent(context, AnnouncementListActivity::class.java)
-                startActivity(intent)
-            }
-
-            else -> {
-//                var position: Int = rv_home_cake_list.getChildAdapterPosition(v)
-//                val intent = Intent(context, DesignDetailActivity::class.java)
-//                intent.putExtra("designId", popularDesignId[position])
-//                startActivity(intent)
+                startTextBoardActivityWithData(getString(R.string.mypage_version_info), getString(R.string.mypage_version_info))
             }
         }
     }

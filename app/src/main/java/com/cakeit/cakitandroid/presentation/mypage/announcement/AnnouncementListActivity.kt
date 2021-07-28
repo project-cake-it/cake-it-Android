@@ -65,7 +65,6 @@ class AnnouncementListActivity : BaseActivity<ActivityAnnouncementListBinding, A
                 var position: Int = rv_announcement_list_items.getChildAdapterPosition(v!!)
                 val intent = Intent(this, TextboardActivity::class.java)
                 val data = announcementListViewModel.announcementListItems.value?.get(position)
-                Log.d("sungmin", "position = " + position + ", textTitle = " + data?.title)
                 intent.putExtra("boardTitle", getString(R.string.mypage_announcement))
                 intent.putExtra("preload", true)
                 intent.putExtra("title", data?.title)
