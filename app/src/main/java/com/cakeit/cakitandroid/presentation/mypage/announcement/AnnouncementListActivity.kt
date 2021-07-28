@@ -48,9 +48,9 @@ class AnnouncementListActivity : BaseActivity<ActivityAnnouncementListBinding, A
             announcementListAdapter.setAnnouncementListItems(datas)
         })
 
-        announcementListActivity = this
+        announcementListViewModel.getAnnouncementListFromServer()
 
-        announcementListViewModel.add()
+        announcementListActivity = this
 
     }
 
