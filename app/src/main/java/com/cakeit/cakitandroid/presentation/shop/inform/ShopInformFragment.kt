@@ -3,7 +3,9 @@ package com.cakeit.cakitandroid.presentation.shop.inform
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.location.Geocoder
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -103,7 +105,11 @@ class ShopInformFragment : BaseFragment<FragmentShopInformBinding, ShopDetailVie
                 Toast.makeText(activity, "주소를 복사하였습니다",Toast.LENGTH_SHORT).show()
             }
             R.id.btn_shop_inform_show_map -> {
-
+                var intent = Intent(Intent.ACTION_VIEW)
+                intent.addCategory(Intent.CATEGORY_DEFAULT)
+                intent.addCategory(Intent.CATEGORY_BROWSABLE)
+                intent.setData(Uri.parse("kakaomap://look?p=${x},${y}"))
+                startActivity(intent)
             }
         }
     }

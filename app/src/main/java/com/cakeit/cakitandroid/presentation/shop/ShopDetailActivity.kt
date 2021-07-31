@@ -130,8 +130,8 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
 
     fun sendShopIdToServer()
     {
-        //shopId = intent.extras!!.getInt("cakeShopId")
-        shopId = 1
+        shopId = intent.extras!!.getInt("cakeShopId")
+
         shopDetailViewModel.sendShopIdForShopDetail(shopId)
     }
 }
