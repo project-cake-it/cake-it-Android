@@ -38,10 +38,8 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
         shopDetailViewModel.shopDetailData.observe(this, Observer { datas ->
             if(datas != null) {
                 zzim = datas.zzim
-                if(zzim) btn_shop_detail_zzim.isSelected = true
-                else btn_shop_detail_zzim.isSelected = false
+                btn_shop_detail_zzim.isSelected = zzim
 
-                Log.d("songjem", "zzimCount = " + datas.zzimCount)
                 tv_shop_detail_zzim_cnt.text = datas.zzimCount.toString()
 
                 var sizeDataAll : String = ""
@@ -132,8 +130,8 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
 
     fun sendShopIdToServer()
     {
-        shopId = intent.extras!!.getInt("cakeShopId")
-
+        //shopId = intent.extras!!.getInt("cakeShopId")
+        shopId = 1
         shopDetailViewModel.sendShopIdForShopDetail(shopId)
     }
 }

@@ -28,6 +28,13 @@
             android:orientation="vertical"
             app:layout_constraintGuide_begin="20dp"
             />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_shop_inform_guide_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="20dp"
+            />
 
         <TextView
             android:id="@+id/tv_shop_inform_notice_title"
@@ -53,10 +60,9 @@
             android:textColor="@color/defaultText"
             android:lineSpacingExtra="4dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/gl_shop_inform_guide_end"
             app:layout_constraintStart_toStartOf="@id/gl_shop_inform_guide_start"
-            app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_notice_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_shop_inform_notice_title"
             />
 
             <View
@@ -65,7 +71,7 @@
                 android:layout_height="9dp"
                 android:layout_marginTop="24dp"
                 android:background="@color/solidLine"
-                app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_notice_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_shop_inform_notice_content"
                 tools:layout_editor_absoluteX="-180dp" />
 
             <TextView
@@ -77,8 +83,8 @@
             android:fontFamily="@font/spoqa_han_sans_regular"
             android:textColor="@color/subText"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/gl_shop_inform_guide_start"
-            app:layout_constraintTop_toBottomOf="@+id/view_shop_inform_first"
+            app:layout_constraintStart_toStartOf="@id/gl_shop_inform_guide_start"
+            app:layout_constraintTop_toBottomOf="@id/view_shop_inform_first"
             />
 
         <TextView
@@ -91,10 +97,9 @@
             android:fontFamily="@font/spoqa_han_sans_regular"
             android:textSize="12sp"
             android:lineSpacingExtra="4dp"
-            android:layout_marginEnd="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_shop_inform_pickup_time"
-            app:layout_constraintTop_toTopOf="@+id/tv_shop_inform_time" />
+            app:layout_constraintEnd_toEndOf="@id/gl_shop_inform_guide_end"
+            app:layout_constraintStart_toEndOf="@id/tv_shop_inform_pickup_time"
+            app:layout_constraintTop_toTopOf="@id/tv_shop_inform_time" />
 
         <TextView
             android:id="@+id/tv_shop_inform_pickup_time"
@@ -105,8 +110,8 @@
             android:fontFamily="@font/spoqa_han_sans_regular"
             android:textSize="12sp"
             android:layout_marginTop="12dp"
-            app:layout_constraintStart_toEndOf="@+id/gl_shop_inform_guide_start"
-            app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_time_content" />
+            app:layout_constraintStart_toEndOf="@id/gl_shop_inform_guide_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_shop_inform_time_content" />
 
         <TextView
             android:id="@+id/tv_shop_inform_pickup_time_content"
@@ -117,10 +122,9 @@
             android:fontFamily="@font/spoqa_han_sans_regular"
             android:textSize="12sp"
             android:lineSpacingExtra="4dp"
-            android:layout_marginEnd="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_shop_inform_time_content"
-            app:layout_constraintTop_toTopOf="@+id/tv_shop_inform_pickup_time" />
+            app:layout_constraintEnd_toEndOf="@id/gl_shop_inform_guide_end"
+            app:layout_constraintStart_toStartOf="@id/tv_shop_inform_time_content"
+            app:layout_constraintTop_toTopOf="@id/tv_shop_inform_pickup_time" />
 
         <TextView
             android:id="@+id/tv_shop_inform_closed_days"
@@ -131,8 +135,8 @@
             android:fontFamily="@font/spoqa_han_sans_regular"
             android:textSize="12sp"
             android:layout_marginTop="12dp"
-            app:layout_constraintStart_toEndOf="@+id/gl_shop_inform_guide_start"
-            app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_pickup_time_content" />
+            app:layout_constraintStart_toEndOf="@id/gl_shop_inform_guide_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_shop_inform_pickup_time_content" />
 
         <TextView
             android:id="@+id/tv_shop_inform_closed_days_content"
@@ -143,10 +147,9 @@
             android:textColor="@color/defaultText"
             android:textSize="12sp"
             android:lineSpacingExtra="4dp"
-            android:layout_marginEnd="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_shop_inform_time_content"
-            app:layout_constraintTop_toTopOf="@+id/tv_shop_inform_closed_days" />
+            app:layout_constraintEnd_toEndOf="@id/gl_shop_inform_guide_end"
+            app:layout_constraintStart_toStartOf="@id/tv_shop_inform_time_content"
+            app:layout_constraintTop_toTopOf="@id/tv_shop_inform_closed_days" />
 
 
         <TextView
@@ -158,8 +161,8 @@
             android:textColor="@color/subText"
             android:textSize="12sp"
             android:layout_marginTop="12dp"
-            app:layout_constraintStart_toEndOf="@+id/gl_shop_inform_guide_start"
-            app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_closed_days_content" />
+            app:layout_constraintStart_toEndOf="@id/gl_shop_inform_guide_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_shop_inform_closed_days_content" />
 
         <TextView
             android:id="@+id/tv_shop_inform_phone_content"
@@ -170,10 +173,9 @@
             android:textColor="@color/defaultText"
             android:textSize="12sp"
             android:lineSpacingExtra="4dp"
-            android:layout_marginEnd="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_shop_inform_time_content"
-            app:layout_constraintTop_toTopOf="@+id/tv_shop_inform_phone" />
+            app:layout_constraintEnd_toEndOf="@id/gl_shop_inform_guide_end"
+            app:layout_constraintStart_toStartOf="@id/tv_shop_inform_time_content"
+            app:layout_constraintTop_toTopOf="@id/tv_shop_inform_phone" />
 
         <RelativeLayout
             android:id="@+id/iv_shop_inform_map"
@@ -181,28 +183,48 @@
             android:layout_height="184dp"
             android:layout_marginTop="17dp"
             android:layout_marginHorizontal="20dp"
-            app:layout_constraintEnd_toEndOf="@+id/view_shop_inform_first"
-            app:layout_constraintStart_toStartOf="@+id/gl_shop_inform_guide_start"
-            app:layout_constraintTop_toBottomOf="@+id/tv_shop_inform_phone_content" />
-        
-        <Button
-            android:id="@+id/btn_shop_inform_copy_address"
-            android:layout_width="159.5dp"
-            android:layout_height="42dp"
-            android:text="@string/shop_info_address"
-            android:fontFamily="@font/spoqa_han_sans_regular"
-            android:textSize="12sp"
-            android:textColor="@color/defaultText"
-            app:layout_constraintTop_toBottomOf="@id/iv_shop_inform_map"
-            app:layout_constraintStart_toEndOf="@id/gl_shop_inform_guide_start"
-            />
+            app:layout_constraintEnd_toEndOf="@id/view_shop_inform_first"
+            app:layout_constraintStart_toStartOf="@id/gl_shop_inform_guide_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_shop_inform_phone_content" />
+            <LinearLayout
+                android:id="@+id/ll_shop_inform_linear"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                app:layout_constraintTop_toBottomOf="@id/iv_shop_inform_map"
+                app:layout_constraintStart_toStartOf="@id/gl_shop_inform_guide_start"
+                app:layout_constraintEnd_toEndOf="@id/gl_shop_inform_guide_end">
+
+                <Button
+                    android:id="@+id/btn_shop_inform_copy_address"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:text="@string/shop_info_address"
+                    android:fontFamily="@font/spoqa_han_sans_regular"
+                    android:textSize="12sp"
+                    android:textColor="@color/defaultText"
+                    android:background="@drawable/bg_map_button"/>
+                <Button
+                    android:id="@+id/btn_shop_inform_show_map"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:text="@string/shop_info_map"
+                    android:fontFamily="@font/spoqa_han_sans_regular"
+                    android:textSize="12sp"
+                    android:textColor="@color/defaultText"
+                    android:background="@drawable/bg_map_button"
+                    />
+            </LinearLayout>
             <View
                 android:id="@+id/view_shop_inform_second"
                 android:layout_width="match_parent"
                 android:layout_height="68dp"
                 android:layout_marginTop="40dp"
                 android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@+id/btn_shop_inform_copy_address"/>
+                app:layout_constraintTop_toBottomOf="@id/ll_shop_inform_linear"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

@@ -90,7 +90,7 @@ class ShopDetailViewModel(application: Application,
         ShopDetailUseCase.execute(
             ShopDetailUseCase.Request(shopId),
             onSuccess = {
-                var shopData : ShopDetailResponseData  = it.data
+                val shopData : ShopDetailResponseData  = it.data
                 _shopDetailData.value = shopData.shop
                 Log.d("nulkong", "ShopDetail Network onSuccess")
             },
