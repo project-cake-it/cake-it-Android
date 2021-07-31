@@ -41,7 +41,6 @@ class DesignDetailViewModel(application: Application) : BaseViewModel<Any?>(appl
             ZzimDesignDelUseCase.execute(
                 ZzimDesignDelUseCase.Request(shopId),
                 onSuccess = {
-                    Log.d("songjem", "찜 해제 성공")
                     _zzim.value = false
                     Log.d("songjem", "Zzim Design Delete onSuccess")
                 },

@@ -43,8 +43,7 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
             Log.d("songjem", "observe, zzim = " + datas)
             if(datas != null) {
                 zzim = datas
-                if(datas) btn_cake_detail_zzim.isSelected = true
-                else btn_cake_detail_zzim.isSelected = false
+                btn_cake_detail_zzim.isSelected = datas
             }
             else {
                 Log.d("songjem", "design zzim error")
@@ -55,11 +54,9 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
             if(datas != null)
             {
                 zzim = datas.zzim
-                Log.d("songjem", "가게 디자인, zzim = " + zzim)
-                if(zzim) btn_cake_detail_zzim.isSelected = true
-                else btn_cake_detail_zzim.isSelected = false
+                btn_cake_detail_zzim.isSelected = zzim
 
-                var data = ArrayList<String>()
+                val data = ArrayList<String>()
                 for(image in datas.designImages)
                 {
                     data.add(image.designImageUrl)
@@ -115,6 +112,7 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
     fun sendDesignIdToServer()
     {
         designId = intent.extras!!.getInt("designId")
+        //designId = 1
 
         designDetailViewModel.sendDesignIdForDesignDetail(designId)
     }
