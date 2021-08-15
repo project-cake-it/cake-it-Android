@@ -44,6 +44,7 @@ class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.Vie
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val cakeShop = shopListItems[position]
+        Log.d("songjem", "cakeShop = " + cakeShop)
 
         val shopListViewHolder = holder as ShopListViewHolder
         cakeShopTagAdapter = CakeShopTagAdapter(cakeShop.hashTag!!)
@@ -52,7 +53,14 @@ class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.Vie
         shopListViewHolder.shopTagRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         shopListViewHolder.shopPriceRv.adapter = cakeShopPriceAdapter
         shopListViewHolder.shopPriceRv.layoutManager = LinearLayoutManager(context)
-        Glide.with(context).load(cakeShop.shopImage).fallback(R.drawable.strawberry_cake_img).centerCrop().into(shopListViewHolder.shopImg)
+        Log.d("songjem", "cakeShop.shopImages.size = " + cakeShop.shopImages!!.size)
+        if(cakeShop.shopImages!!.size > 0) {
+            Log.d("songjem", "imageUrl = " + cakeShop.shopImages!![0].shopImageUrl)
+            Glide.with(context).load(cakeShop.shopImages!![0].shopImageUrl).fallback(R.drawable.strawberry_cake_img).centerCrop().into(shopListViewHolder.shopImg)
+        } else {
+            Glide.with(context).load(R.drawable.strawberry_cake_img).centerCrop().into(shopListViewHolder.shopImg)
+        }
+
         shopListViewHolder.bind(cakeShop)
     }
 

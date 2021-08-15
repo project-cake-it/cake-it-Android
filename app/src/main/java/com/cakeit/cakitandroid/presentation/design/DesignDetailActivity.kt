@@ -8,6 +8,8 @@ import androidx.viewpager.widget.ViewPager
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.databinding.ActivityDesignDetailBinding
+import com.kakao.sdk.common.util.KakaoCustomTabsClient
+import com.kakao.sdk.talk.TalkApiClient
 import kotlinx.android.synthetic.main.activity_design_detail.*
 import kotlinx.android.synthetic.main.activity_design_detail.tv_cake_detail_size_price_contents
 import kotlinx.android.synthetic.main.activity_shop_detail.*
@@ -22,6 +24,7 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
     lateinit var designPagerAdapter : DesignPagerAdapter
 
     private var zzim : Boolean = false
+    private lateinit var shopChannel : String
 
     companion object {
         const val TAG: String = "DesignDetailActivityTAG"
@@ -37,6 +40,10 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
 
         btn_cake_detail_zzim.setOnClickListener {
             designDetailViewModel.clickZzimBtn(designId, zzim)
+        }
+
+        btn_cake_detail_back.setOnClickListener {
+            super.onBackPressed()
         }
 
         designDetailViewModel.zzim.observe(this, Observer { datas ->
@@ -55,6 +62,15 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
             {
                 zzim = datas.zzim
                 btn_cake_detail_zzim.isSelected = zzim
+
+                if(datas.shopChannel != null) {
+                    shopChannel = datas.shopChannel
+                    if(shopChannel.contains("http://pf.kakao.com/")) {
+                        shopChannel = shopChannel.substring(shopChannel.indexOf("http://pf.kakao.com/") + 20)
+                    } else if(shopChannel.contains("https://pf.kakao.com/")) {
+                        shopChannel = shopChannel.substring(shopChannel.indexOf("https://pf.kakao.com/") + 21)
+                    }
+                }
 
                 val data = ArrayList<String>()
                 for(image in datas.designImages)
@@ -96,6 +112,17 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
                 Log.d("nulkong", "get designDetail size == 0")
             }
         })
+
+        rl_cake_detail_connect.setOnClickListener {
+            Log.d("songjem", "가게연결 클릭")
+            if(shopChannel != null) {
+                Log.d("songjem", "shopChannel = " + shopChannel)
+                // 카카오톡 채널 채팅 URL
+                val url = TalkApiClient.instance.channelChatUrl(shopChannel)
+                // CustomTabs 로 열기
+                KakaoCustomTabsClient.openWithDefault(this, url)
+            }
+        }
 
         sendDesignIdToServer()
     }
