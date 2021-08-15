@@ -346,6 +346,7 @@
                     android:textSize="16sp"
                     android:textColor="@color/white"
                     android:text="@string/shop_connect"
+                    android:layout_marginStart="6dp"
                     />
 
             </LinearLayout>
