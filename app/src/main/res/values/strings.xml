@@ -17,6 +17,17 @@
     <string name="shop_inform_notice_phone">전화번호</string>
     <string name="shop_connect">가게 연결</string>
 
+    <string name="mypage_title">마이페이지</string>
+    <string name="mypage_welcome">%1$s님, 환영합니다!</string>
+    <string name="mypage_service_center">고객센터</string>
+    <string name="mypage_announcement">공지사항</string>
+    <string name="mypage_qna">문의하기</string>
+    <string name="mypage_info">정보</string>
+    <string name="mypage_terms_of_service">서비스 이용약관</string>
+    <string name="mypage_terms_of_private_info">개인정보 수집 및 이용</string>
+    <string name="mypage_opensource_license">오픈소스 라이선스</string>
+    <string name="mypage_version_info">버전 정보</string>
+
     <string name="shop_design_fragment_name">케이크 디자인</string>
     <string name="shop_inform_fragment_name">가게 상세</string>
     <string name="shop_tag_name">가게 태그</string>
