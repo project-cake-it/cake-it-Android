@@ -341,6 +341,9 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
                     // 추가한 리스트 가져와서 리스트에 넣어야 함
                     var tagList = designRegionFilterAdapter.getChoiceTagIndex()
 
+                    if(tagList.size > 0) sv_choice_tag_design_list.visibility = View.VISIBLE
+                    else sv_choice_tag_design_list.visibility = View.GONE
+
                     // 전체 선택
                     if(tagList[0] == 0) {
                         for(i in 1.. regionList.size-1) {

@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.cakeit.cakitandroid">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name=".di.applicationModule.GlobalApplication"
         android:allowBackup="true"
@@ -13,11 +16,14 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+
         <activity android:name=".presentation.search.searchlist.SearchListActivity" />
         <activity android:name=".TestActivity" />
         <activity android:name=".presentation.main.test.SampleActivity" />
         <activity android:name=".presentation.login.LoginActivity" />
         <activity android:name=".presentation.list.designlist.DesignListActivity" />
+        <activity android:name=".presentation.mypage.announcement.AnnouncementListActivity"/>
+        <activity android:name=".presentation.mypage.textboard.TextboardActivity"/>
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -30,10 +36,11 @@
                     android:scheme="@string/AUTHCODE_KAKAO_REDIRECTURI" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.main.MainActivity"/>
-        <activity android:name=".presentation.design.DesignDetailActivity" />
+
+
         <activity android:name=".presentation.shop.ShopDetailActivity"/>
-        <activity android:name=".presentation.shop.calendar.CalendarActivity">
+        <activity android:name=".presentation.design.DesignDetailActivity"/>
+        <activity android:name=".presentation.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,8 +52,5 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="336e5fa0e2a8c916ffda94b2b64f5c8d" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

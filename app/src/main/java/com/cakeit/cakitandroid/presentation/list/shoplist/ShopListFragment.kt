@@ -200,6 +200,11 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
                 else selecedLocList.add(choiceTagItems[i].choiceName)
             }
         }
+        if(selecedLocList.size > 0) {
+            sv_choice_tag_shop_list.visibility = View.VISIBLE
+        } else {
+            sv_choice_tag_shop_list.visibility = View.GONE
+        }
         Log.d("songjem", "locList = " + selecedLocList.toString())
         Log.d("songjem", "order = " + selectedOrder)
         shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList)  // 추후 픽업 날짜도 추가 예정

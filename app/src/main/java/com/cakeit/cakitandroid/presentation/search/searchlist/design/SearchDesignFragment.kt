@@ -245,6 +245,9 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
         selecedColorList = ArrayList<String>()
         selecedCategoryList = ArrayList<String>()
 
+        if(choiceTagItems.size > 0) sv_choice_tag_search_design.visibility = View.VISIBLE
+        else sv_choice_tag_search_design.visibility = View.GONE
+
         // 데이터 가져오기
         for(i in 0.. choiceTagItems.size - 1) {
             // ORDER

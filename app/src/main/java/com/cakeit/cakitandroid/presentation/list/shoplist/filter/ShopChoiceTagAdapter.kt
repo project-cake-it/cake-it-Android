@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.data.source.local.entity.ChoiceTag
 import com.cakeit.cakitandroid.presentation.list.shoplist.ShopListFragment
+import kotlinx.android.synthetic.main.fragment_shop_list.*
 import kotlinx.android.synthetic.main.item_filter_tag.view.*
 
 class ShopChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -41,6 +42,7 @@ class ShopChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                 }
             }
             choiceItems.removeAt(position)
+
             ShopListFragment.shopListFragment.getShopListByNetwork(ShopListFragment.shopListFragment.choiceTagItems)
             notifyDataSetChanged()
         }

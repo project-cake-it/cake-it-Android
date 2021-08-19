@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.cakeit.cakitandroid.presentation.mypage.MyPageViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.mypage.MyPageActivity"
+        android:background="#ffffff"
+        >
+
+        <TextView
+            android:id="@+id/tv_mypage_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
+            android:text="@string/mypage_title"
+            android:textColor="#242424"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_mypage_title_bottom_border"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="19dp"
+            android:background="@color/solidLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_title" />
+
+        <TextView
+            android:id="@+id/tv_mypage_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:gravity="center_vertical"
+            android:text="@string/mypage_welcome"
+            android:textAlignment="viewStart"
+            android:textColor="#242424"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_title_bottom_border" />
+
+        <View
+            android:id="@+id/view_mypage_welcome_bottom_border"
+            android:layout_width="0dp"
+            android:layout_height="9dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/solidLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_mypage_welcome" />
+
+        <TextView
+            android:id="@+id/tv_mypage_service_center"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:text="@string/mypage_service_center"
+            android:textAlignment="viewStart"
+            android:textColor="#242424"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_welcome_bottom_border" />
+
+        <Button
+            android:id="@+id/btn_mypage_announcement"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:paddingLeft="16dp"
+            android:text="@string/mypage_announcement"
+            android:textAlignment="viewStart"
+            android:textColor="#242424"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_mypage_service_center" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_mypage_announcement"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/btn_mypage_announcement"
+            app:layout_constraintTop_toBottomOf="@+id/tv_mypage_service_center"
+            app:srcCompat="@drawable/ic_chevron_compact_right"
+            app:tint="@color/black" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:tint="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/view_mypage_qna_bottom_border"
+            app:layout_constraintEnd_toEndOf="@+id/btn_mypage_qna"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/btn_mypage_qna"
+            app:layout_constraintTop_toTopOf="@+id/btn_mypage_qna"
+            app:srcCompat="@drawable/ic_chevron_compact_right" />
+
+        <Button
+            android:id="@+id/btn_mypage_qna"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:paddingLeft="16dp"
+            android:text="@string/mypage_qna"
+            android:textAlignment="viewStart"
+            android:textColor="#242424"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_mypage_announcement" />
+
+        <View
+            android:id="@+id/view_mypage_qna_bottom_border"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/solidLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_mypage_qna" />
+
+        <View
+            android:id="@+id/view_mypage_qna_bottom_border2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/solidLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_mypage_version_info" />
+
+        <TextView
+            android:id="@+id/tv_mypage_info"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:text="@string/mypage_info"
+            android:textAlignment="viewStart"
+            android:textColor="#242424"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_mypage_qna" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_mypage_terms_of_service"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/btn_mypage_terms_of_service"
+            app:layout_constraintTop_toTopOf="@+id/btn_mypage_terms_of_service"
+            app:srcCompat="@drawable/ic_chevron_compact_right" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            app:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_mypage_terms_of_private_info"
+            app:layout_constraintEnd_toEndOf="@+id/btn_mypage_terms_of_private_info"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/btn_mypage_terms_of_private_info"
+            app:layout_constraintTop_toBottomOf="@+id/btn_mypage_terms_of_service"
+            app:srcCompat="@drawable/ic_chevron_compact_right" />
+
+        <Button
+            android:id="@+id/btn_mypage_terms_of_service"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:paddingLeft="16dp"
+            android:text="@string/mypage_terms_of_service"
+            android:textAlignment="viewStart"
+            android:textColor="#242424"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_mypage_info" />
+
+        <Button
+            android:id="@+id/btn_mypage_version_info"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:paddingLeft="16dp"
+            android:text="@string/mypage_version_info"
+            android:textAlignment="viewStart"
+            android:textColor="#242424"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_mypage_opensource_license" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            app:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_mypage_opensource_license"
+            app:layout_constraintEnd_toEndOf="@+id/btn_mypage_opensource_license"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_mypage_opensource_license"
+            app:srcCompat="@drawable/ic_chevron_compact_right" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_mypage_version_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/btn_mypage_version_info"
+            app:layout_constraintTop_toTopOf="@+id/btn_mypage_version_info"
+            app:srcCompat="@drawable/ic_chevron_compact_right" />
+
+        <Button
+            android:id="@+id/btn_mypage_opensource_license"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:paddingLeft="16dp"
+            android:text="@string/mypage_opensource_license"
+            android:textAlignment="viewStart"
+            android:textColor="#242424"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_mypage_terms_of_private_info" />
+
+        <Button
+            android:id="@+id/btn_mypage_terms_of_private_info"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:paddingLeft="16dp"
+            android:text="@string/mypage_terms_of_private_info"
+            android:textAlignment="viewStart"
+            android:textColor="#242424"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_mypage_terms_of_service" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

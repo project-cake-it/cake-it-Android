@@ -89,4 +89,9 @@ interface CakeApi {
     @GET("${BASE_API_URL}/zzim/designs")
     fun getZzimDesigns(
     ) : Flowable<DesignListResponse>
+
+    @Headers("Content-Type: application/json")
+    @GET("${BASE_API_URL}/notices")
+    fun getAnnouncementList(
+    ) : Flowable<AnnouncementListResponse>
 }
