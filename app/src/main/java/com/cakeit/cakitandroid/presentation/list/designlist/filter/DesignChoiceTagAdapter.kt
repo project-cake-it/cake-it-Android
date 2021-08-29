@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.data.source.local.entity.ChoiceTag
 import com.cakeit.cakitandroid.presentation.list.designlist.DesignListActivity
+import kotlinx.android.synthetic.main.activity_design_list.*
 import kotlinx.android.synthetic.main.item_filter_tag.view.*
 
 class DesignChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){

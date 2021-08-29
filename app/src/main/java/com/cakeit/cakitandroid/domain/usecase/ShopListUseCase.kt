@@ -10,7 +10,7 @@ object ShopListUseCase : SingleUseCase<ShopListResponseModel>(){
     override fun buildUseCase(baseRequest: BaseRequest): Single<ShopListResponseModel>? {
         var req = baseRequest as Request
 
-        return ShopListRepo.sendParams(req.order, req.locList)
+        return ShopListRepo.sendParams(req.order, req.locList, req.pickup)
                 ?.map {
                     Log.d("songjem", "getShopList, message = " + it.message)
                     ShopListResponseModel(it.message, it.data)
@@ -19,7 +19,8 @@ object ShopListUseCase : SingleUseCase<ShopListResponseModel>(){
 
     data class Request(
             val order : String?,
-            val locList : ArrayList<String>
+            val locList : ArrayList<String>,
+            val pickup : String?
     ) : BaseRequest()
 
     override fun buildUseCase(): Single<ShopListResponseModel>? {

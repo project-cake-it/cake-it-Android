@@ -80,6 +80,7 @@ class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.Vie
         val cakeShopAddress = view.tv_shop_address_item_shop
 
         fun bind(cakeShop : CakeShopData) {
+            Log.d("songjem", "zzim Cake Shop, cakeShop = " + cakeShop)
             cakeShopName.text = cakeShop.shopName
             cakeShopAddress.text = cakeShop.shopAddress
 

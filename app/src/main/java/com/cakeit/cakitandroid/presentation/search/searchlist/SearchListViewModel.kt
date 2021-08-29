@@ -30,7 +30,6 @@ class SearchListViewModel(application: Application,
     init {
         this.viewPagerOnTabSelectedListener = viewPagerOnTabSelectedListener
         this.tabLayoutOnPageChangeListener = tabLayoutOnPageChangeListener
-        Log.d("songjem", "keyword123 = " + keyword)
         this.keyword = keyword
         viewPagerAdapter = SearchListPagerAdapter(fm, 2, keyword)
     }

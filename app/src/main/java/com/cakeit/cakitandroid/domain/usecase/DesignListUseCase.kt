@@ -23,7 +23,7 @@ object DesignListUseCase : SingleUseCase<DesignListResponseModel>(){
             var sizeList : ArrayList<String>,
             var colorList : ArrayList<String>,
             var categoryList : ArrayList<String>,
-            var order : String
+            var order : String?
     ) : BaseRequest()
 
     override fun buildUseCase(): Single<DesignListResponseModel>? {

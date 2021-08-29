@@ -11,7 +11,7 @@ object DesignListRepo {
     val TAG = this.javaClass.simpleName
     fun sendParams(theme : String?, locList : ArrayList<String>, sizeList : ArrayList<String>,
                    colorList : ArrayList<String>, categoryList : ArrayList<String>
-                   , order : String) : Single<DesignListResponse>? {
+                   , order : String?) : Single<DesignListResponse>? {
 
         return ApiClient.provideCakeApi()
             .getDesignList(theme, locList, sizeList, colorList, categoryList, order)

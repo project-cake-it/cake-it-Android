@@ -16,6 +16,7 @@
         >
 
         <Button
+            android:id="@+id/btn_back_design_list"
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:background="@drawable/ic_arrow_left"

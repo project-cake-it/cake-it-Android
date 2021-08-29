@@ -10,7 +10,7 @@ object SearchShopUseCase : SingleUseCase<SearchShopResponseModel>(){
     override fun buildUseCase(baseRequest: BaseRequest): Single<SearchShopResponseModel>? {
         var req = baseRequest as Request
 
-        return SearchShopRepo.sendParams(req.keyword!!, req.name!!, req.locList, req.theme, req.sizeList, req.colorList, req.categoryList, req.order)
+        return SearchShopRepo.sendParams(req.keyword, req.name, req.locList, req.theme, req.sizeList, req.colorList, req.categoryList, req.order)
             ?.map {
                 Log.d("songjem", "getSearchShop, message = " + it.message)
                 SearchShopResponseModel(it.message, it.data)

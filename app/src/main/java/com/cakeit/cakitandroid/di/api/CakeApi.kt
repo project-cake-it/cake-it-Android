@@ -47,7 +47,7 @@ interface CakeApi {
 
     @GET("/api/v2/search")
     fun getKeywordSearch(
-//        @Query("keyword") keyword : String?,
+        @Query("keyword") keyword : String?,
         @Query("name") name : String?,
         @Query("location", encoded = true) location : List<String>?,
         @Query("theme") theme : String?,
@@ -74,7 +74,8 @@ interface CakeApi {
     @GET("/api/v2/shops")
     fun getShopList(
             @Query("order") theme : String?,
-            @Query("location", encoded = true) location : List<String>?
+            @Query("location", encoded = true) location : List<String>?,
+            @Query("pickup") pickup : String?
     ) : Flowable<ShopListResponse>
 
     @GET("${BASE_API_URL}/promotions")
