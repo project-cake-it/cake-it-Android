@@ -143,12 +143,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
         popularCakeListAdapter.setOnItemClickListener(this)
 
         rv_home_cake_list.adapter = popularCakeListAdapter
+        rv_home_cake_list.addItemDecoration(PopularCakeListDeco(context!!))
         rv_home_cake_list.layoutManager = GridLayoutManager(context!!, 2)
 
     }
 
     override fun onClick(v: View?) {
-        Log.d("TEST","SUCCESS")
         when(v!!.id)
         {
             R.id.tv_home_hide_theme -> {

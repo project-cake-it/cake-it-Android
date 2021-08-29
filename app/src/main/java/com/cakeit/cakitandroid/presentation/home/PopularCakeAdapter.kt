@@ -44,7 +44,7 @@ class PopularCakeAdapter(private var context: Context) : RecyclerView.Adapter<Po
         {
             designLoc.text = data.shopAddress
             if(data.sizes.size > 0) designSize.text = data.sizes[0].name
-            designShop.text = data.shopName
+            designShop.text = data.name
 
             if(data.sizes.size > 0) {
                 val dec = DecimalFormat("#,###")
