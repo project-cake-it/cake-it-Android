@@ -23,7 +23,7 @@ class DesignGridAdapter(context: Context) : RecyclerView.Adapter<DesignGridAdapt
         {
             if(!data.isNullOrEmpty())
             {
-                Glide.with(context).load(data).into(designPhoto)
+                Glide.with(context).load(data).centerCrop().into(designPhoto)
 //                Glide.with(context).load(R.drawable.test).into(designPhoto)
                 designPhoto.setOnClickListener{
                     onItemClick.OnClick(itemView, position)

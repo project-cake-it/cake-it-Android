@@ -23,9 +23,10 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/vp_home_promotion"
                 android:layout_width="match_parent"
-                android:layout_height="360dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1:1"
                 android:background="#d8d8d8"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/tv_home_promotion_cnt"
