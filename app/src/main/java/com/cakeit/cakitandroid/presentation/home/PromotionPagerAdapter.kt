@@ -29,7 +29,7 @@ class PromotionPagerAdapter(context: Context, imageList: ArrayList<String>) : Pa
         val promotionImg = v!!.findViewById<ImageView>(R.id.iv_home_promotion_img)
 
         container.addView(v)
-        Glide.with(v).load(imageList[position]).centerCrop().into(promotionImg)
+        Glide.with(v).load(imageList[position]).override(600).centerCrop().into(promotionImg)
 
         promotionImg.setOnClickListener{
             onItemClick.OnClick(v, position)
