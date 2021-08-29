@@ -1,5 +1,7 @@
 package com.cakeit.cakitandroid.presentation.shop.calendar
 
+import android.content.Intent
+import android.graphics.Color
 import android.icu.util.Calendar
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +13,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.CalendarMode
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import kotlinx.android.synthetic.main.activity_calendar.*
+import kotlinx.android.synthetic.main.activity_design_detail.*
 
 class CalendarActivity : AppCompatActivity() {
 
@@ -41,5 +44,10 @@ class CalendarActivity : AppCompatActivity() {
 
         calendarView.addDecorator(TodayDecorator(applicationContext))
         calendarView.addDecorator(RangeDecorator(applicationContext, startDay, endDay))
+
+
+        ib_calendar_close.setOnClickListener{
+            finish()
+        }
     }
 }

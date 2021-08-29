@@ -6,17 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.shop.calendar.CalendarActivity"
-    android:background="#28000000"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:id="@+id/ll_calendar_background">
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/bg_calendar_border">
+        android:background="@drawable/bg_calendar_border"
+        android:gravity="center">
+
         <RelativeLayout
             android:id="@+id/ll_calendar_linear"
             android:layout_width="match_parent"
@@ -30,6 +31,7 @@
                 android:textSize="14.4sp"
                 android:textColor="@color/defaultText"/>
             <ImageButton
+                android:id="@+id/ib_calendar_close"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_marginEnd="12dp"
