@@ -143,7 +143,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
         popularCakeListAdapter.setOnItemClickListener(this)
 
         rv_home_cake_list.adapter = popularCakeListAdapter
-        rv_home_cake_list.addItemDecoration(PopularCakeListDeco(context!!))
+        rv_home_cake_list.addItemDecoration(CakeListDeco(context!!, "home"))
         rv_home_cake_list.layoutManager = GridLayoutManager(context!!, 2)
 
     }

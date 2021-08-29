@@ -11,6 +11,7 @@ import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseFragment
 import com.cakeit.cakitandroid.databinding.FragmentZzimDesignBinding
 import com.cakeit.cakitandroid.presentation.design.DesignDetailActivity
+import com.cakeit.cakitandroid.presentation.home.CakeListDeco
 import com.cakeit.cakitandroid.presentation.shop.design.DesignGridAdapter
 import com.cakeit.cakitandroid.presentation.zzim.ZzimViewModel
 import kotlinx.android.synthetic.main.fragment_zzim_design.*
@@ -73,6 +74,7 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
         })
 
         v.rv_zzim_design_item.adapter = designGridAdapter
+        v.rv_zzim_design_item.addItemDecoration(CakeListDeco(context!!, "zzim"))
         v.rv_zzim_design_item.layoutManager = GridLayoutManager(context, 2)
     }
 
