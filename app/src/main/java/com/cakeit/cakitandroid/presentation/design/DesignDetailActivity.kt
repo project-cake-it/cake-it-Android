@@ -1,5 +1,6 @@
 package com.cakeit.cakitandroid.presentation.design
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
@@ -8,6 +9,8 @@ import androidx.viewpager.widget.ViewPager
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.databinding.ActivityDesignDetailBinding
+import com.cakeit.cakitandroid.presentation.list.designlist.DesignListActivity
+import com.cakeit.cakitandroid.presentation.shop.calendar.CalendarActivity
 import com.kakao.sdk.common.util.KakaoCustomTabsClient
 import com.kakao.sdk.talk.TalkApiClient
 import kotlinx.android.synthetic.main.activity_design_detail.*
@@ -124,6 +127,11 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
             }
         }
 
+        btn_cake_detail_order_date.setOnClickListener{
+            var intent = Intent(applicationContext, CalendarActivity::class.java)
+            startActivity(intent)
+        }
+
         sendDesignIdToServer()
     }
 
@@ -139,7 +147,6 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
     fun sendDesignIdToServer()
     {
         designId = intent.extras!!.getInt("designId")
-        //designId = 1
 
         designDetailViewModel.sendDesignIdForDesignDetail(designId)
     }

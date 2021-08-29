@@ -37,7 +37,8 @@
             </intent-filter>
         </activity>
 
-
+        <activity android:name=".presentation.shop.calendar.CalendarActivity"
+            android:theme="@style/Transparent"/>
         <activity android:name=".presentation.shop.ShopDetailActivity"/>
         <activity android:name=".presentation.design.DesignDetailActivity"/>
         <activity android:name=".presentation.main.MainActivity">

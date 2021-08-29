@@ -53,7 +53,7 @@ class PopularCakeAdapter(private var context: Context) : RecyclerView.Adapter<Po
                 designPrice.text = commaPrice
             }
 
-            if(data.designImages.size > 0) Glide.with(context).load(data.designImages[0].designImageUrl).centerCrop().into(designImg)
+            if(data.designImages.size > 0) Glide.with(context).load(data.designImages[0].designImageUrl).override(300).centerCrop().into(designImg)
 
 //            Glide.with(context).load(R.drawable.test).into(designImg)
         }

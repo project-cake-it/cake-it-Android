@@ -11,6 +11,7 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade
 class RangeDecorator(private val context: Context, val start: CalendarDay, val  end: CalendarDay): DayViewDecorator {
     override fun shouldDecorate(day: CalendarDay?): Boolean {
         return ((day?.month!! == start.month && day.day < start.day)
+                || day?.month < start.month || day?.month > end.month
                 || (day?.month == end.month && day.day > end.day))
     }
 
