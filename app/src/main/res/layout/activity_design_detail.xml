@@ -90,7 +90,8 @@
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/vp_cake_detail_img"
                     android:layout_width="match_parent"
-                    android:layout_height="359dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="1:1"
                     android:background="#d8d8d8"
                     app:layout_constraintTop_toTopOf="parent"
                     />
