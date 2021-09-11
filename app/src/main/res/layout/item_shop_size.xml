@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tv_shop_size_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shop_size_type"
+        android:textColor="#909090"
+        android:textSize="11sp"
+        android:layout_toStartOf="@+id/tv_shop_size_price"
+        android:layout_marginEnd="8dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_shop_size_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shop_size_price"
+        android:textColor="#3d3d3d"
+        android:textSize="13sp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="13dp"
+        />
+
+</RelativeLayout>

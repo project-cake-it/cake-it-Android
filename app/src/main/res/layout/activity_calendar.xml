@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.shop.calendar.CalendarActivity"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:id="@+id/ll_calendar_background">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_calendar_border"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:id="@+id/ll_calendar_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="주문 가능 날짜"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                android:textSize="14.4sp"
+                android:textColor="@color/defaultText"/>
+            <ImageButton
+                android:id="@+id/ib_calendar_close"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_dismiss"
+                android:layout_alignParentEnd="true"
+                android:background="@color/white"
+                />
+        </RelativeLayout>
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/cv_calendar"
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:paddingTop="10dp"
+            app:mcv_selectionMode="single"
+            app:mcv_selectionColor="@color/colorPrimary"
+            app:mcv_showOtherDates="defaults"
+            />
+    </LinearLayout>
+</LinearLayout>

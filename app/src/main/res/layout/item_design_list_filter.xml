@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_filter_item_list_filter"
+    android:layout_width="match_parent"
+    android:layout_height="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ffffff"
+    android:layout_marginVertical="20dp"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_centerInParent="true"
+        >
+        <TextView
+            android:id="@+id/tv_filter_item_list_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_list_name"
+            android:textColor="#3d3d3d"
+            android:textSize="14sp"
+            />
+
+        <Button
+            android:id="@+id/btn_filter_check_list_filter"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_check"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_filter_item_list_filter"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

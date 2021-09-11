@@ -19,4 +19,8 @@ object SocialLoginUseCase : SingleUseCase<SocialLoginResponseModel>(){
         val authCode : String,
         val socialType : String
     ) : BaseRequest()
+
+    override fun buildUseCase(): Single<SocialLoginResponseModel>? {
+        return null
+    }
 }

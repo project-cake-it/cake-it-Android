@@ -9,16 +9,30 @@
             name="viewModel"
             type="com.cakeit.cakitandroid.presentation.main.MainViewModel" />
     </data>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_main_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/abl_main_tablayout"
             />
-    </LinearLayout>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/abl_main_tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:theme="@style/TabTheme"
+            android:layout_alignParentBottom="true">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tl_main_tablayout"
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                />
+
+        </com.google.android.material.appbar.AppBarLayout>
+    </RelativeLayout>
 </layout>

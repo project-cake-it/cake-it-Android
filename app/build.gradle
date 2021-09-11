@@ -101,6 +101,7 @@ dependencies {
     // KAKAO
     implementation "com.kakao.sdk:v2-user:2.4.1"
     implementation files('libs/libDaumMapAndroid.jar')
+    implementation "com.kakao.sdk:v2-talk:2.6.0" // 친구, 메시지(카카오톡)
 
     // NAVER
     implementation "com.naver.nid:naveridlogin-android-sdk:4.2.6"
@@ -119,5 +120,17 @@ dependencies {
     implementation 'com.github.pzienowicz:androidx-auto-scroll-view-pager:1.1.0'
 
     // Material CalendarView (커스텀 캘린더)
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
+
+    // ConstraintLayout
+    implementation "androidx.constraintlayout:constraintlayout:2.0.4"
+    // To use constraintlayout in compose
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha05"
+
+    // rx
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.4.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+    // Material CalendarView
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
 }
