@@ -42,10 +42,6 @@
     <string name="filter_list_name">필터 리스트 아이템</string>
     <string name="shop_info_address">주소복사</string>
     <string name="shop_info_map">지도보기</string>
-    <string name="kakao_login">카카오 로그인</string>
-    <string name="naver_login">네이버 로그인</string>
-    <string name="google_login">구글 로그인</string>
-    <string name="apple_login">애플 로그인</string>
 
     <!-- ZZIM TAB -->
     <string name="zzim_title">찜한 아이템</string>
@@ -77,10 +73,16 @@
     <string name="searchlist_design_fragment_name">케이크</string>
     <string name="searchlist_shop_fragment_name">가게</string>
 
+
+    <!-- LOGIN -->
+    <string name="login_welcome">마음을 전하는 가장 달콤한 방법</string>
     <!-- Login auth code -->
     <!-- kakao -->
     <string name="AUTHCODE_KAKAO_NATIVEAPPKEY">&AUTHCODE_KAKAO_NATIVEAPPKEY;</string>
     <string name="AUTHCODE_KAKAO_REDIRECTURI">kakao&AUTHCODE_KAKAO_NATIVEAPPKEY;</string>
+    <!-- naver -->
+    <string name="AUTHCODE_NAVER_CLIENTID">N2SMwopXbdrTDABqVn1m</string>
+    <string name="AUTHCODE_NAVER_SECRET">PFv_FX3EsN</string>
     <!-- google-->
     <string name="AUTHCODE_GOOGLE_CLIENTID">911891330500-f586aevn27sktah813pncac2qa5na15v.apps.googleusercontent.com</string>
 </resources>

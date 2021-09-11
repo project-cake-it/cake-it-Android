@@ -12,7 +12,7 @@ object SocialLoginRepo {
     val TAG = this.javaClass.simpleName
     fun sendAuthCode(authCode : String, socialType : String) : Single<SocialLoginResponse>? {
         val postData = PostSocialLoginData(authCode, socialType)
-        Log.e(TAG, "3 $authCode, $socialType, $postData")
+        Log.d(TAG, "3 $authCode, $socialType, $postData")
 
         return ApiClient.provideCakeApi()
             .postSocialLogin(postData)

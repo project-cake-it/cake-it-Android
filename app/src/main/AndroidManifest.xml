@@ -51,7 +51,7 @@
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="336e5fa0e2a8c916ffda94b2b64f5c8d" />
+            android:value="@string/AUTHCODE_KAKAO_NATIVEAPPKEY" />
     </application>
 
 </manifest>
