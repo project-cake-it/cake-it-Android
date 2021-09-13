@@ -9,10 +9,10 @@ import io.reactivex.schedulers.Schedulers
 
 object ZzimDesignDelRepo {
     val TAG = this.javaClass.simpleName
-    fun sendDesignId(designId : Int) : Single<ZzimResponse>? {
+    fun sendDesignId(authorization : String, designId : Int) : Single<ZzimResponse>? {
 
         return ApiClient.provideCakeApi()
-            .deleteDesignZzim(designId)
+            .deleteDesignZzim(authorization, designId)
             .map {
                 if (it.status.div(100) == 2) {
                     it

@@ -39,6 +39,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
     lateinit var designCategoryFilterAdapter: DesignCategoryFilterAdapter
 
     private lateinit var regionItems: ArrayList<String>
+    private lateinit var colorValItems: ArrayList<Int>
     private lateinit var colorItems: ArrayList<String>
     private lateinit var categoryItems: ArrayList<String>
     lateinit var choiceTagItems: ArrayList<ChoiceTag>
@@ -51,6 +52,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
     private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구", "서대문구"
             , "송파구", "노원구", "성북구", "중구", "중랑구")
     private var designSizeItems = ArrayList<CakeDesignSize>()
+    private val colorValList = listOf<Int>(0, Color.parseColor("#F4F3EF"), Color.BLACK, Color.parseColor("#fb319c"), Color.YELLOW, Color.RED, Color.BLUE, Color.parseColor("#7033AD"), Color.parseColor("#909090"))
     private val colorList = listOf<String>("전체", "화이트", "블랙", "핑크", "옐로우", "레드", "블루", "퍼플", "기타")
     private val categoryList = listOf<String>("없음", "문구", "이미지", "캐릭터", "개성")
     var listSelected = mutableListOf<Boolean>(false, false, false, false, false)
@@ -115,12 +117,6 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         else if(selectedOrder.equals(filterList[2])) selectedOrder = "cheap"
         else if(selectedOrder.equals(filterList[3])) selectedOrder = "best"
 
-        Log.d("songjem", "theme = " + selectedTheme)
-        Log.d("songjem", "locList = " + selectedLocList.toString())
-        Log.d("songjem", "sizeList = " + selectedSizeList.toString())
-        Log.d("songjem", "colorList = " + selectedColorList.toString())
-        Log.d("songjem", "categoryList = " + selectedCategoryList.toString())
-        Log.d("songjem", "order = " + selectedOrder)
         designListViewModel.sendParamsForDesignList(selectedTheme, selectedLocList, selectedSizeList, selectedColorList, selectedCategoryList, selectedOrder)
     }
 
@@ -158,7 +154,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
                     }
                 }
 
-        designColorFilterAdapter = DesignColorFilterAdapter()
+        designColorFilterAdapter = DesignColorFilterAdapter(applicationContext)
                 .apply {
                     listener = object : DesignColorFilterAdapter.OnDesignColorItemClickListener {
                         override fun onDesignColorFilterItemClick(position: Int) {
@@ -297,12 +293,6 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         }
         if((selectedLocList.size + selectedSizeList.size + selectedColorList.size + selectedCategoryList.size) == 0) sv_choice_tag_design_list.visibility = View.GONE
 
-        Log.d("songjem", "theme = " + selectedTheme)
-        Log.d("songjem", "locList = " + selectedLocList.toString())
-        Log.d("songjem", "sizeList = " + selectedSizeList.toString())
-        Log.d("songjem", "colorList = " + selectedColorList.toString())
-        Log.d("songjem", "categoryList = " + selectedCategoryList.toString())
-        Log.d("songjem", "order = " + selectedOrder)
         designListViewModel.sendParamsForDesignList(selectedTheme, selectedLocList, selectedSizeList, selectedColorList, selectedCategoryList, selectedOrder)
     }
     override fun onClick(view: View?) {
@@ -794,11 +784,13 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
             }
             // 색깔 필터
             3 -> {
+                colorValItems = ArrayList<Int>()
                 colorItems = ArrayList<String>()
                 for (i in 0..colorList.size - 1) {
+                    colorValItems.add(colorValList[i])
                     colorItems.add(colorList[i])
                 }
-                designColorFilterAdapter.setDesignColorItems(colorItems)
+                designColorFilterAdapter.setDesignColorItems(colorValItems, colorItems)
             }
             // 카테고리 필터
             4 -> {

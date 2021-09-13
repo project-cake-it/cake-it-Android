@@ -11,7 +11,7 @@ object ZzimDesignDelUseCase : SingleUseCase<ZzimResponseModel>(){
     override fun buildUseCase(baseRequest: BaseRequest): Single<ZzimResponseModel>? {
         var req = baseRequest as Request
 
-        return ZzimDesignDelRepo.sendDesignId(req.designId)
+        return ZzimDesignDelRepo.sendDesignId(req.authorization, req.designId)
             ?.map {
                 Log.d("songjem", "deleteZziDesignRepo, message = " + it.message)
                 ZzimResponseModel(it.message, it.data)
@@ -19,6 +19,7 @@ object ZzimDesignDelUseCase : SingleUseCase<ZzimResponseModel>(){
     }
 
     data class Request(
+        val authorization : String,
         val designId : Int
     ) : BaseRequest()
 

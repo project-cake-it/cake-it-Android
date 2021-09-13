@@ -1,8 +1,11 @@
 package com.cakeit.cakitandroid.presentation.main
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Process
 import android.util.Base64
 import android.util.Log
 import android.widget.TextView
@@ -49,6 +52,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun getViewModel(): MainViewModel {
         // 뷰페이저 어댑터 연결
         binding.vpMainViewpager.adapter = adapter
+        binding.vpMainViewpager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tlMainTablayout))
 
         // 탭 레이아웃에 뷰페이저 연결
         binding.tlMainTablayout.setupWithViewPager(binding.vpMainViewpager)
@@ -104,11 +108,23 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
             tab?.setCustomView(customTabView)
         }
+    }
 
-//        binding.tlMainTablayout.getTabAt(0)?.setText(R.string.tab_home)
-//        binding.tlMainTablayout.getTabAt(1)?.setText(R.string.tab_search)
-//        binding.tlMainTablayout.getTabAt(2)?.setText(R.string.tab_shop)
-//        binding.tlMainTablayout.getTabAt(3)?.setText(R.string.tab_zzim)
-//        binding.tlMainTablayout.getTabAt(4)?.setText(R.string.tab_mypage)
+    fun showExitDialog() {
+        val dialog = AlertDialog.Builder(this)
+        dialog.setMessage("CakeIt을 종료할까요?")
+        dialog.setPositiveButton(
+            "확인"
+        ) { dialogInterface, i ->
+            moveTaskToBack(true)
+            finish()
+            Process.killProcess(Process.myPid())
+        }
+        dialog.setNegativeButton("취소", null)
+        dialog.show()
+    }
+
+    override fun onBackPressed() {
+        showExitDialog()
     }
 }

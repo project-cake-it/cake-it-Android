@@ -52,7 +52,6 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         shopListBinding = getViewDataBinding()
         shopListBinding.viewModel = getViewModel()
 
@@ -68,10 +67,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
         shopListAdapter.setOnItemClickListener(object : ShopListAdapter.OnShopItemClickListener{
 
             override fun onShopItemClick(position: Int) {
-                Log.d("songjem", "onShopImtemClick = " + position)
-
                 val intent = Intent(context!!, ShopDetailActivity::class.java)
-                Log.d("songjem", "position = " + position + ", cakeShopID = " + cakeShopIds[position])
                 intent.putExtra("cakeShopId", cakeShopIds[position])
                 startActivity(intent)
             }
@@ -79,7 +75,6 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
 
         shopListViewModel.cakeShopItems.observe(viewLifecycleOwner, Observer { datas ->
             cakeShopIds = ArrayList<Int>()
-            Log.d("songjem", "shopList datas = " + datas)
             if(datas.size > 0) {
                 for(data in datas) {
                     cakeShopIds.add(data!!.shopId)

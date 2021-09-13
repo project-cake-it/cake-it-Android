@@ -1,6 +1,8 @@
 package com.cakeit.cakitandroid.domain.usecase
 
+import android.util.Log
 import com.cakeit.cakitandroid.data.repository.SocialLoginRepo
+import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 import com.cakeit.cakitandroid.domain.model.SocialLoginResponseModel
 import com.cakeit.cakitandroid.domain.usecase.base.SingleUseCase
 import io.reactivex.Single
@@ -11,6 +13,8 @@ object SocialLoginUseCase : SingleUseCase<SocialLoginResponseModel>(){
 
         return SocialLoginRepo.sendAuthCode(req.authCode, req.socialType)
             ?.map {
+                Log.d("songjem", "accessToken Login = " + it.data.accessToken)
+
                 SocialLoginResponseModel(it.message, it.data.accessToken)
             }
     }

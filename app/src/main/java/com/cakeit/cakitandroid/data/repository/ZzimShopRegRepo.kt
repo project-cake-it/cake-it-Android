@@ -9,10 +9,10 @@ import io.reactivex.schedulers.Schedulers
 
 object ZzimShopRegRepo {
     val TAG = this.javaClass.simpleName
-    fun sendShopId(cakeShopId : Int) : Single<ZzimResponse>? {
+    fun sendShopId(authorization : String, cakeShopId : Int) : Single<ZzimResponse>? {
 
         return ApiClient.provideCakeApi()
-            .postShopZzim(cakeShopId)
+            .postShopZzim(authorization, cakeShopId)
             .map {
                 if (it.status.div(100) == 2) {
                     it

@@ -17,21 +17,25 @@ interface CakeApi {
 
     @POST("${BASE_API_URL}/zzim/shops/{shopId}")
     fun postShopZzim(
+        @Header("Authorization") Authorization : String,
         @Path("shopId") shopId : Int
     ) : Flowable<ZzimResponse>
 
     @DELETE("${BASE_API_URL}/zzim/shops/{shopId}")
     fun deleteShopZzim(
+        @Header("Authorization") Authorization : String,
         @Path("shopId") shopId : Int
     ) : Flowable<ZzimResponse>
 
     @POST("${BASE_API_URL}/zzim/designs/{designId}")
     fun postDesignZzim(
+        @Header("Authorization") Authorization : String,
         @Path("designId") designId : Int
     ) : Flowable<ZzimResponse>
 
     @DELETE("${BASE_API_URL}/zzim/designs/{designId}")
     fun deleteDesignZzim(
+        @Header("Authorization") Authorization : String,
         @Path("designId") designId : Int
     ) : Flowable<ZzimResponse>
 
@@ -59,6 +63,7 @@ interface CakeApi {
 
     @GET("/api/v2/zzim/shops")
     fun getZzimShopList(
+        @Header("Authorization") Authorization : String
     ) : Flowable<ShopListResponse>
 
     @GET("${BASE_API_URL}/shops/{shopId}")
@@ -89,6 +94,7 @@ interface CakeApi {
 
     @GET("${BASE_API_URL}/zzim/designs")
     fun getZzimDesigns(
+        @Header("Authorization") Authorization : String
     ) : Flowable<DesignListResponse>
 
     @Headers("Content-Type: application/json")

@@ -1,5 +1,6 @@
 package com.cakeit.cakitandroid.presentation.zzim.design
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,12 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseFragment
+import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 import com.cakeit.cakitandroid.databinding.FragmentZzimDesignBinding
 import com.cakeit.cakitandroid.presentation.design.DesignDetailActivity
 import com.cakeit.cakitandroid.presentation.home.CakeListDeco
 import com.cakeit.cakitandroid.presentation.shop.design.DesignGridAdapter
 import com.cakeit.cakitandroid.presentation.zzim.ZzimViewModel
-import kotlinx.android.synthetic.main.fragment_zzim_design.*
+import com.cakeit.cakitandroid.presentation.zzim.shop.ZzimShopFragment
 import kotlinx.android.synthetic.main.fragment_zzim_design.view.*
 
 class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel>() {
@@ -24,6 +26,9 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
 
     lateinit var designGridAdapter: DesignGridAdapter
 
+    private lateinit var authorization : String
+    val REQUEST_CODE = 1
+
     var designId = ArrayList<Int>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,17 +37,23 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
         binding = getViewDataBinding()
         binding.vm = getViewModel()
 
+        authorization = SharedPreferenceController.getToken(context!!)
         initRecycler(view)
 
+        zzimDesignFragment = this
         getZzimDesigns()
 
         zzimViewModel.desigDatas.observe(viewLifecycleOwner, Observer { datas ->
             if(datas != null)
             {
                 var designs = ArrayList<String>()
+                designId = ArrayList()
 
                 for(data in datas)
                 {
+                    // 프롬마틸다 디자인 임시 제거
+                    if(data.id == 1) continue
+
                     designs.add(data.displayImage)
                     designId.add(data.id)
                 }
@@ -69,7 +80,8 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
             override fun OnClick(view: View, position: Int) {
                 val intent = Intent(context, DesignDetailActivity::class.java)
                 intent.putExtra("designId", designId[position])
-                startActivity(intent)
+                intent.putExtra("fromToZzim", true)
+                startActivityForResult(intent, REQUEST_CODE)
             }
         })
 
@@ -78,9 +90,20 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
         v.rv_zzim_design_item.layoutManager = GridLayoutManager(context, 2)
     }
 
-    fun getZzimDesigns()
-    {
-        zzimViewModel.getZzimDesign()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == RESULT_OK) {
+            getZzimDesigns()
+        }
     }
 
+    fun getZzimDesigns()
+    {
+        zzimViewModel.getZzimDesign(authorization)
+    }
+
+    companion object {
+        var zzimDesignFragment : ZzimDesignFragment? = null
+    }
 }

@@ -25,8 +25,6 @@ class SearchShopPriceAdapter(var sizeAndrPrices : ArrayList<CakeSizeAndrPrice>) 
         val sizeAndrPrice = sizeAndrPrices[position]
         val cakeShopTagViewHolder = holder as CakeShopPriceViewHolder
 
-        Log.d("songjem", "sizeAndrPrice = " + sizeAndrPrice)
-
         cakeShopTagViewHolder.bind(sizeAndrPrice)
     }
 

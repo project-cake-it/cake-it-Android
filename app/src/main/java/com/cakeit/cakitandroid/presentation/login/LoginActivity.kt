@@ -2,6 +2,7 @@ package com.cakeit.cakitandroid.presentation.login
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.AsyncTask
@@ -33,6 +34,8 @@ import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.nhn.android.naverlogin.OAuthLogin
 import android.widget.Toast
+import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
+import com.cakeit.cakitandroid.presentation.main.MainActivity
 
 import com.nhn.android.naverlogin.OAuthLoginHandler
 import org.json.JSONException
@@ -57,10 +60,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 //filtering reset :: is this necessary?
                 val message = binding.viewModel?.registerMessage!!
                 if(it || message != "Reset livedata"){
+                    val intent = Intent(applicationContext, MainActivity::class.java)
+                    startActivity(intent)
                     showToast(message, true)
                 }
 
 //                TODO("미/완료시 logic 짜기")
+            })
+
+            binding.viewModel?.accessToken?.observe(it, Observer{ token ->
+                SharedPreferenceController.setToken(applicationContext, token)
             })
         }
 
