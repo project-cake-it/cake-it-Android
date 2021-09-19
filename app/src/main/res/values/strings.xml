@@ -27,6 +27,7 @@
     <string name="mypage_terms_of_private_info">개인정보 수집 및 이용</string>
     <string name="mypage_opensource_license">오픈소스 라이선스</string>
     <string name="mypage_version_info">버전 정보</string>
+    <string name="mypage_cakeit_pfchannel_id">_xcpvHK</string>
 
     <string name="shop_design_fragment_name">케이크 디자인</string>
     <string name="shop_inform_fragment_name">가게 상세</string>
