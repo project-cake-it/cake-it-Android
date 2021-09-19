@@ -41,7 +41,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
 
     private var clickedPosition = -1;
 
-    private val filterList = listOf<String>("기본순", "찜순", "가격 높은 순", "가격 낮은 순")
+    private val filterList = listOf<String>("기본순", "찜순", "가격 낮은 순")
     private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구", "서대문구"
         , "송파구", "노원구", "성북구", "중구", "중랑구")
     private var selectedDate : String = ""
@@ -53,6 +53,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
     lateinit var selecedCategoryList : ArrayList<String>
     var selectedTheme : String? = null
     var selectedOrder : String = ""
+    var name : String? = null
     lateinit var keyword : String
     lateinit var searchCakeShopIds : ArrayList<Int>
 
@@ -127,10 +128,6 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
 
     fun getshopList() {
 
-//        selecedLocList = ArrayList<String>()
-//        selectedOrder = "기본"
-//        selectedDate = ""
-//        selecedLocList.add("전체")
         selectedTheme = "NONE"
         selecedLocList = ArrayList<String>()
         seleceSizeList = ArrayList<String>()
@@ -138,7 +135,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
         selecedCategoryList = ArrayList<String>()
         selectedOrder = "DEFAULT"
 
-        searchShopViewModel.sendParamsForSearchShop(keyword, keyword, selectedTheme, selecedLocList, seleceSizeList, selecedColorList, selecedCategoryList, selectedOrder)
+        searchShopViewModel.sendParamsForSearchShop(keyword, name, selectedTheme, selecedLocList, seleceSizeList, selecedColorList, selecedCategoryList, selectedOrder)
     }
 
 
@@ -220,9 +217,16 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
                 else selecedLocList.add(choiceTagItems[i].choiceName)
             }
         }
+
+        if(selecedLocList.size > 0) {
+            sv_choice_tag_search_shop.visibility = View.VISIBLE
+        } else {
+            sv_choice_tag_search_shop.visibility = View.GONE
+        }
+
         Log.d("songjem", "locList = " + selecedLocList.toString())
         Log.d("songjem", "order = " + selectedOrder)
-        searchShopViewModel.sendParamsForSearchShop(keyword, keyword, selectedTheme, selecedLocList, seleceSizeList, selecedColorList, selecedCategoryList, selectedOrder)
+        searchShopViewModel.sendParamsForSearchShop(keyword, name, selectedTheme, selecedLocList, seleceSizeList, selecedColorList, selecedCategoryList, selectedOrder)
 
     }
     override fun onClick(view: View?) {
@@ -254,6 +258,9 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
 
                     // 추가한 리스트 가져와서 리스트에 넣어야 함
                     var tagList = searchShopRegionAdapter.getChoiceTagIndex()
+
+                    if(tagList.size > 0) sv_choice_tag_search_shop.visibility = View.VISIBLE
+                    else sv_choice_tag_search_shop.visibility = View.GONE
 
                     // 전체 선택
                     if(tagList[0] == 0) {

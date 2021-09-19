@@ -11,15 +11,20 @@ import io.reactivex.Single
 object ZzimDesignsUseCase : SingleUseCase<ZzimDesignsResponseModel>(){
 
     override fun buildUseCase(baseRequest: BaseRequest): Single<ZzimDesignsResponseModel>? {
-        return null
-    }
+        var req = baseRequest as Request
 
-    override fun buildUseCase(): Single<ZzimDesignsResponseModel>? {
-
-        return ZzimDesignsRepo.getDesigns()
+        return ZzimDesignsRepo.getDesigns(req.authorization)
             ?.map {
                 Log.d("nulkong", "getDesigns, message = " + it.message)
                 ZzimDesignsResponseModel(it.message, it.data)
             }
+    }
+
+    data class Request(
+        val authorization : String
+    ) : BaseRequest()
+
+    override fun buildUseCase(): Single<ZzimDesignsResponseModel>? {
+        return null
     }
 }

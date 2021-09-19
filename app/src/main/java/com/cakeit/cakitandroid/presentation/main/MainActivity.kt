@@ -1,22 +1,22 @@
 package com.cakeit.cakitandroid.presentation.main
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Process
 import android.util.Base64
 import android.util.Log
-import android.content.Intent
-import androidx.lifecycle.Observer
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.databinding.ActivityMainBinding
+import com.google.android.material.tabs.TabLayout
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
-import com.cakeit.cakitandroid.presentation.login.LoginActivity
-import com.cakeit.cakitandroid.presentation.zzim.ZzimContentsPagerAdapter
-import com.cakeit.cakitandroid.presentation.zzim.ZzimViewModel
-import com.google.android.material.tabs.TabLayout
+
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
@@ -52,6 +52,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun getViewModel(): MainViewModel {
         // 뷰페이저 어댑터 연결
         binding.vpMainViewpager.adapter = adapter
+        binding.vpMainViewpager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tlMainTablayout))
 
         // 탭 레이아웃에 뷰페이저 연결
         binding.tlMainTablayout.setupWithViewPager(binding.vpMainViewpager)
@@ -85,10 +86,45 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     fun setTabLayout()
     {
-        binding.tlMainTablayout.getTabAt(0)?.setText(R.string.tab_home)
-        binding.tlMainTablayout.getTabAt(1)?.setText(R.string.tab_search)
-        binding.tlMainTablayout.getTabAt(2)?.setText(R.string.tab_shop)
-        binding.tlMainTablayout.getTabAt(3)?.setText(R.string.tab_zzim)
-        binding.tlMainTablayout.getTabAt(4)?.setText(R.string.tab_mypage)
+
+        //Tab 아이콘 설정
+        binding.tlMainTablayout.getTabAt(0)?.setIcon(R.drawable.isclick_tab_home)
+        binding.tlMainTablayout.getTabAt(1)?.setIcon(R.drawable.isclick_tab_search)
+        binding.tlMainTablayout.getTabAt(2)?.setIcon(R.drawable.isclick_tab_store)
+        binding.tlMainTablayout.getTabAt(3)?.setIcon(R.drawable.isclick_tab_zzim)
+        binding.tlMainTablayout.getTabAt(4)?.setIcon(R.drawable.isclick_tab_mypage)
+
+        for (i in 0 until binding.tlMainTablayout.getTabCount()) {
+            val tab: TabLayout.Tab = binding.tlMainTablayout.getTabAt(i)!!
+
+            var customTabView = getLayoutInflater().inflate(R.layout.view_tab_icon_home, null)
+            var txtTabName = customTabView.findViewById(R.id.tv_name_tab_icon) as TextView
+
+            if(i == 0) txtTabName.setText("홈")
+            else if(i == 1) txtTabName.setText("검색")
+            else if(i == 2) txtTabName.setText("케이크 가게")
+            else if(i == 3) txtTabName.setText("찜")
+            else if(i == 4) txtTabName.setText("마이페이지")
+
+            tab?.setCustomView(customTabView)
+        }
+    }
+
+    fun showExitDialog() {
+        val dialog = AlertDialog.Builder(this)
+        dialog.setMessage("CakeIt을 종료할까요?")
+        dialog.setPositiveButton(
+            "확인"
+        ) { dialogInterface, i ->
+            moveTaskToBack(true)
+            finish()
+            Process.killProcess(Process.myPid())
+        }
+        dialog.setNegativeButton("취소", null)
+        dialog.show()
+    }
+
+    override fun onBackPressed() {
+        showExitDialog()
     }
 }

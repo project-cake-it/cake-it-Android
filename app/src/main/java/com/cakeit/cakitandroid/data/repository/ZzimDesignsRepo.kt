@@ -11,9 +11,9 @@ import io.reactivex.schedulers.Schedulers
 object ZzimDesignsRepo {
     val TAG = this.javaClass.simpleName
 
-    fun getDesigns() : Single<DesignListResponse>? {
+    fun getDesigns(authorization : String) : Single<DesignListResponse>? {
         return ApiClient.provideCakeApi()
-            .getZzimDesigns()
+            .getZzimDesigns(authorization)
             .map {
                 Log.d(TAG, "getZzimDesigns status = " + it.status)
                 if (it.status.div(100) == 2) {

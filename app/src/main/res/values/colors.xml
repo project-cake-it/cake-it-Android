@@ -14,5 +14,5 @@
     <color name="subText">#909090</color>
     <color name="lightText">#c2c2c2</color>
     <color name="accentText">#242424</color>
-    <color name="transparent">#00000000</color>
+    <color name="transparent">#1A000000</color>
 </resources>

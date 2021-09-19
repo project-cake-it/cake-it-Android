@@ -47,15 +47,13 @@ class ShopDetailViewModel(application: Application,
         viewPagerAdapter = ContentsPagerAdapter(fm, 2)
     }
 
-    fun clickZzimBtn(shopId : Int, zzim : Boolean) {
-        Log.d("songjem", "zzim, shopId = " + shopId + ", zzim = " + zzim)
+    fun clickZzimBtn(authorization : String, shopId : Int, zzim : Boolean) {
         // 찜되어있는 가게일 경우
         if(zzim) {
             // 찜 해제
             ZzimShopDelUseCase.execute(
-                ZzimShopDelUseCase.Request(shopId),
+                ZzimShopDelUseCase.Request(authorization, shopId),
                 onSuccess = {
-                    Log.d("songjem", "찜 해제 성공")
                     _zzim.value = false
                     Log.d("songjem", "Zzim Shop Delete onSuccess")
                 },
@@ -70,9 +68,8 @@ class ShopDetailViewModel(application: Application,
         else {
             // 찜 등록
             ZzimShopRegUseCase.execute(
-                ZzimShopRegUseCase.Request(shopId),
+                ZzimShopRegUseCase.Request(authorization, shopId),
                 onSuccess = {
-                    Log.d("songjem", "찜 등록 성공")
                     _zzim.value = true
                     Log.d("songjem", "Zzim Shop Register onSuccess")
                 },

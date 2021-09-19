@@ -25,7 +25,7 @@ class DesignListViewModel(application : Application) : BaseViewModel<Any?>(appli
 
     fun sendParamsForDesignList(theme : String?, locList : ArrayList<String>, sizeList : ArrayList<String>,
                                 colorList : ArrayList<String>, categoryList : ArrayList<String>
-                                , order : String) {
+                                , order : String?) {
 
         DesignListUseCase.execute(
                 DesignListUseCase.Request(theme, locList, sizeList, colorList, categoryList, order),

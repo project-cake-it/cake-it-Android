@@ -1,5 +1,6 @@
 package com.cakeit.cakitandroid.presentation.design
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
@@ -7,7 +8,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
+import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 import com.cakeit.cakitandroid.databinding.ActivityDesignDetailBinding
+import com.cakeit.cakitandroid.presentation.list.designlist.DesignListActivity
+import com.cakeit.cakitandroid.presentation.shop.calendar.CalendarActivity
+import com.kakao.sdk.common.util.KakaoCustomTabsClient
+import com.kakao.sdk.talk.TalkApiClient
 import kotlinx.android.synthetic.main.activity_design_detail.*
 import kotlinx.android.synthetic.main.activity_design_detail.tv_cake_detail_size_price_contents
 import kotlinx.android.synthetic.main.activity_shop_detail.*
@@ -22,6 +28,9 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
     lateinit var designPagerAdapter : DesignPagerAdapter
 
     private var zzim : Boolean = false
+    private var fromToZzim : Boolean = false
+    private lateinit var shopChannel : String
+    private lateinit var authorization : String
 
     companion object {
         const val TAG: String = "DesignDetailActivityTAG"
@@ -35,8 +44,19 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
         binding = getViewDataBinding()
         binding.vm = getViewModel()
 
+        authorization = SharedPreferenceController.getToken(applicationContext)
+        fromToZzim = intent.getBooleanExtra("fromToZzim", false)
+
         btn_cake_detail_zzim.setOnClickListener {
-            designDetailViewModel.clickZzimBtn(designId, zzim)
+            designDetailViewModel.clickZzimBtn(authorization, designId, zzim)
+        }
+
+        btn_cake_detail_back.setOnClickListener {
+            if(fromToZzim) {
+                setResult(RESULT_OK, intent);
+                finish()
+            }
+            else super.onBackPressed()
         }
 
         designDetailViewModel.zzim.observe(this, Observer { datas ->
@@ -55,6 +75,15 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
             {
                 zzim = datas.zzim
                 btn_cake_detail_zzim.isSelected = zzim
+
+                if(datas.shopChannel != null) {
+                    shopChannel = datas.shopChannel
+                    if(shopChannel.contains("http://pf.kakao.com/")) {
+                        shopChannel = shopChannel.substring(shopChannel.indexOf("http://pf.kakao.com/") + 20)
+                    } else if(shopChannel.contains("https://pf.kakao.com/")) {
+                        shopChannel = shopChannel.substring(shopChannel.indexOf("https://pf.kakao.com/") + 21)
+                    }
+                }
 
                 val data = ArrayList<String>()
                 for(image in datas.designImages)
@@ -97,6 +126,21 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
             }
         })
 
+        rl_cake_detail_connect.setOnClickListener {
+            if(shopChannel != null) {
+                Log.d("songjem", "shopChannel = " + shopChannel)
+                // 카카오톡 채널 채팅 URL
+                val url = TalkApiClient.instance.channelChatUrl(shopChannel)
+                // CustomTabs 로 열기
+                KakaoCustomTabsClient.openWithDefault(this, url)
+            }
+        }
+
+        btn_cake_detail_order_date.setOnClickListener{
+            var intent = Intent(applicationContext, CalendarActivity::class.java)
+            startActivity(intent)
+        }
+
         sendDesignIdToServer()
     }
 
@@ -109,12 +153,18 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
         return designDetailViewModel
     }
 
+    override fun onBackPressed() {
+        if(fromToZzim) {
+            setResult(RESULT_OK, intent);
+            finish()
+        }
+        else super.onBackPressed()
+    }
+
     fun sendDesignIdToServer()
     {
         designId = intent.extras!!.getInt("designId")
-        //designId = 1
 
         designDetailViewModel.sendDesignIdForDesignDetail(designId)
     }
-
 }

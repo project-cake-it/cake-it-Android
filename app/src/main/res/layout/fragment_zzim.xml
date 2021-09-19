@@ -51,6 +51,6 @@
             android:id="@+id/vp_zzim_viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#d8d8d8"/>
+            android:background="@color/white"/>
     </LinearLayout>
 </layout>

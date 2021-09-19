@@ -17,7 +17,6 @@ import com.cakeit.cakitandroid.presentation.shop.ShopDetailViewModel
 import kotlinx.android.synthetic.main.activity_shop_detail.*
 import kotlinx.android.synthetic.main.activity_shop_detail.tv_cake_detail_size_price_contents
 import kotlinx.android.synthetic.main.activity_shop_detail.view.*
-import kotlinx.android.synthetic.main.activity_test.*
 import kotlinx.android.synthetic.main.fragment_shop_design.*
 import kotlinx.android.synthetic.main.fragment_shop_design.view.*
 

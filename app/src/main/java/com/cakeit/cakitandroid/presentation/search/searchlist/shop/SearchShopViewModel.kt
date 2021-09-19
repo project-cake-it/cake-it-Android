@@ -24,10 +24,7 @@ class SearchShopViewModel(application: Application) : BaseViewModel<Any?>(applic
 
                 var cakeShops = ArrayList<CakeShopData>()
                 for(i in 0 .. it.data.shops.size-1 ) {
-                    if(it.data.shops[i].shopImages[0] == null) Log.d("songjem", "image is null")
-                    else if(it.data.shops[i].hashtags == null ) Log.d("songjem", "tag is null")
-                    else if(it.data.shops[i].sizes == null)  Log.d("songjem", "size is null")
-                    else cakeShops.add(CakeShopData(it.data.shops[i].id, it.data.shops[i].name, it.data.shops[i].address, it.data.shops[i].shopImages[0].shopImageUrl, it.data.shops[i].hashtags!!, it.data.shops[i].sizes!!))
+                    cakeShops.add(CakeShopData(it.data.shops[i].id, it.data.shops[i].name, it.data.shops[i].address, it.data.shops[i].shopImages, it.data.shops[i].hashtags!!, it.data.shops[i].sizes!!))
                 }
                 _cakeShopItems.value = cakeShops
                 Log.d("songjem", "SearchShop onSuccess")

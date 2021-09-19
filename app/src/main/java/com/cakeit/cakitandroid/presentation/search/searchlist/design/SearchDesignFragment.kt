@@ -19,6 +19,7 @@ import com.cakeit.cakitandroid.databinding.FragmentSearchDesignBinding
 import com.cakeit.cakitandroid.presentation.design.DesignDetailActivity
 import com.cakeit.cakitandroid.presentation.list.designlist.DesignListAdapter
 import com.cakeit.cakitandroid.presentation.search.searchlist.design.filter.*
+import kotlinx.android.synthetic.main.activity_design_list.*
 import kotlinx.android.synthetic.main.fragment_search_design.*
 class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDesignViewModel>(),  View.OnClickListener {
 
@@ -34,28 +35,31 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     lateinit var searchDesignCategoryAdapter: SearchDesignCategoryAdapter
 
     private lateinit var regionItems: ArrayList<String>
+    private lateinit var colorValItems: ArrayList<Int>
     private lateinit var colorItems: ArrayList<String>
     private lateinit var categoryItems: ArrayList<String>
     lateinit var choiceTagItems: ArrayList<ChoiceTag>
     private lateinit var filterItems: ArrayList<String>
 
     private var clickedPosition = -1
+    var name : String? = null
 
-    private val filterList = listOf<String>("기본순", "찜순", "가격 높은 순", "가격 낮은 순")
+    private val filterList = listOf<String>("기본순", "찜순", "가격 낮은 순")
     private val filterTransList = listOf<String>("DEFAULT", "ZZIM", "HIGH_PRICE", "LOW_PRICE")
     private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구", "서대문구"
         , "송파구", "노원구", "성북구", "중구", "중랑구")
     private var designSizeItems = ArrayList<CakeDesignSize>()
+    private val colorValList = listOf<Int>(0, Color.parseColor("#F4F3EF"), Color.BLACK, Color.parseColor("#fb319c"), Color.YELLOW, Color.RED, Color.BLUE, Color.parseColor("#7033AD"), Color.parseColor("#909090"))
     private val colorList = listOf<String>("전체", "화이트", "블랙", "핑크", "옐로우", "레드", "블루", "퍼플", "기타")
     private val colorTransList = listOf<String>("ALL", "WHITE", "BLACK", "PINK", "YELLOW", "RED", "BLUE", "PURPLE", "OTHER")
     private val categoryList = listOf<String>("전체", "문구", "이미지", "캐릭터", "개성")
     private val categoryTransList = listOf<String>("ALL", "WORDING", "IMAGE", "CHARACTERS", "INDIVIDUALITY")
     var listSelected = mutableListOf<Boolean>(false, false, false, false, false)
 
-    lateinit var selecedLocList : ArrayList<String>
-    lateinit var seleceSizeList : ArrayList<String>
-    lateinit var selecedColorList : ArrayList<String>
-    lateinit var selecedCategoryList : ArrayList<String>
+    lateinit var selectedLocList : ArrayList<String>
+    lateinit var selectedSizeList : ArrayList<String>
+    lateinit var selectedColorList : ArrayList<String>
+    lateinit var selectedCategoryList : ArrayList<String>
     var selectedTheme : String? = null
     var selectedOrder : String = ""
     lateinit var keyword : String
@@ -105,20 +109,13 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
 
     fun getSearchDesign() {
 
-        selectedTheme = "NONE"
-        selecedLocList = ArrayList<String>()
-        seleceSizeList = ArrayList<String>()
-        selecedColorList = ArrayList<String>()
-        selecedCategoryList = ArrayList<String>()
+        selectedTheme = null
+        selectedLocList = ArrayList<String>()
+        selectedSizeList = ArrayList<String>()
+        selectedColorList = ArrayList<String>()
+        selectedCategoryList = ArrayList<String>()
         selectedOrder = "DEFAULT"
-
-        Log.d("songjem", "theme = " + selectedTheme)
-        Log.d("songjem", "locList = " + selecedLocList.toString())
-        Log.d("songjem", "sizeList = " + seleceSizeList.toString())
-        Log.d("songjem", "colorList = " + selecedColorList.toString())
-        Log.d("songjem", "categoryList = " + selecedCategoryList.toString())
-        Log.d("songjem", "order = " + selectedOrder)
-        searchDesignViewModel.sendParamsForSearchDesign(keyword, keyword, selectedTheme, selecedLocList, seleceSizeList, selecedColorList, selecedCategoryList, selectedOrder)
+        searchDesignViewModel.sendParamsForSearchDesign(keyword, name, selectedTheme, selectedLocList, selectedSizeList, selectedColorList, selectedCategoryList, selectedOrder)
     }
 
     fun initRecyclerview() {
@@ -156,7 +153,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                 }
             }
 
-        searchDesignColorAdapter = SearchDesignColorAdapter()
+        searchDesignColorAdapter = SearchDesignColorAdapter(context!!)
             .apply {
                 listener = object : SearchDesignColorAdapter.OnDesignColorItemClickListener {
                     override fun onDesignColorFilterItemClick(position: Int) {
@@ -240,66 +237,64 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
 
     fun getSearchDesignByNetwork(keyword : String, name : String, choiceTagItems : ArrayList<ChoiceTag>) {
         // 데이터 초기화
-        selecedLocList = ArrayList<String>()
-        seleceSizeList = ArrayList<String>()
-        selecedColorList = ArrayList<String>()
-        selecedCategoryList = ArrayList<String>()
+        selectedLocList = ArrayList<String>()
+        selectedSizeList = ArrayList<String>()
+        selectedColorList = ArrayList<String>()
+        selectedCategoryList = ArrayList<String>()
+
+        if(choiceTagItems.size > 0) sv_choice_tag_search_design.visibility = View.VISIBLE
+        else sv_choice_tag_search_design.visibility = View.GONE
 
         // 데이터 가져오기
         for(i in 0.. choiceTagItems.size - 1) {
             // ORDER
             if(choiceTagItems[i].filterCode == 0) {
-                selecedLocList.add(filterTransList[choiceTagItems[i].choiceCode])
+                selectedLocList.add(filterTransList[choiceTagItems[i].choiceCode])
             }
             // 지역
             else if(choiceTagItems[i].filterCode == 1) {
                 // 전체
                 if(choiceTagItems[i].choiceCode == 0) {
                     for(i in 1.. choiceTagItems.size - 1) {
-                        selecedLocList.add(choiceTagItems[i].choiceName)
+                        selectedLocList.add(choiceTagItems[i].choiceName)
                     }
                 }
-                else selecedLocList.add(choiceTagItems[i].choiceName)
+                else selectedLocList.add(choiceTagItems[i].choiceName)
             }
             // 크기
             else if(choiceTagItems[i].filterCode == 2) {
                 // 전체
                 if(choiceTagItems[i].choiceCode == 0) {
                     for(i in 1.. choiceTagItems.size - 1) {
-                        selecedLocList.add(choiceTagItems[i].choiceName)
+                        selectedLocList.add(choiceTagItems[i].choiceName)
                     }
                 }
-                else selecedLocList.add(choiceTagItems[i].choiceName)
+                else selectedLocList.add(choiceTagItems[i].choiceName)
             }
             // 색깔
             else if(choiceTagItems[i].filterCode == 3) {
                 // 전체
                 if(choiceTagItems[i].choiceCode == 0) {
                     for(i in 1.. colorTransList.size - 1) {
-                        selecedLocList.add(colorTransList[i])
+                        selectedLocList.add(colorTransList[i])
                     }
                 }
-                else selecedLocList.add(colorTransList[choiceTagItems[i].choiceCode])
+                else selectedLocList.add(colorTransList[choiceTagItems[i].choiceCode])
             }
             // 카테고리
             else if(choiceTagItems[i].filterCode == 4) {
                 // 전체
                 if(choiceTagItems[i].choiceCode == 0) {
                     for(i in 1.. categoryTransList.size - 1) {
-                        selecedLocList.add(categoryTransList[i])
+                        selectedLocList.add(categoryTransList[i])
                     }
                 }
-                else selecedLocList.add(categoryTransList[choiceTagItems[i].choiceCode])
+                else selectedLocList.add(categoryTransList[choiceTagItems[i].choiceCode])
             }
         }
-        Log.d("songjem", "keyword = " + keyword)
-        Log.d("songjem", "theme = " + selectedTheme)
-        Log.d("songjem", "locList = " + selecedLocList.toString())
-        Log.d("songjem", "sizeList = " + seleceSizeList.toString())
-        Log.d("songjem", "colorList = " + selecedColorList.toString())
-        Log.d("songjem", "categoryList = " + selecedCategoryList.toString())
-        Log.d("songjem", "order = " + selectedOrder)
-        searchDesignViewModel.sendParamsForSearchDesign(keyword, keyword, selectedTheme, selecedLocList, seleceSizeList, selecedColorList, selecedCategoryList, selectedOrder)
+        if((selectedLocList.size + selectedSizeList.size + selectedColorList.size + selectedCategoryList.size) == 0) sv_choice_tag_search_design.visibility = View.GONE
+
+        searchDesignViewModel.sendParamsForSearchDesign(keyword, name, selectedTheme, selectedLocList, selectedSizeList, selectedColorList, selectedCategoryList, selectedOrder)
     }
 
     override fun onClick(view: View?) {
@@ -523,7 +518,6 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
             else -> {
                 var position: Int = rv_design_list_search_design.getChildAdapterPosition(view!!)
                 val intent = Intent(context, DesignDetailActivity::class.java)
-                Log.d("songjem", "position = " + position + ", cakeDesignID = " + searchCakeDesignIds[position])
                 intent.putExtra("designId", searchCakeDesignIds[position].toInt())
                 startActivity(intent)
             }
@@ -753,11 +747,13 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
             }
             // 색깔 필터
             3 -> {
+                colorValItems = ArrayList<Int>()
                 colorItems = ArrayList<String>()
                 for (i in 0..colorList.size - 1) {
+                    colorValItems.add(colorValList[i])
                     colorItems.add(colorList[i])
                 }
-                searchDesignColorAdapter.setDesignColorItems(colorItems)
+                searchDesignColorAdapter.setDesignColorItems(colorValItems, colorItems)
             }
             // 카테고리 필터
             4 -> {

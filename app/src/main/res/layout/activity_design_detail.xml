@@ -90,7 +90,8 @@
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/vp_cake_detail_img"
                     android:layout_width="match_parent"
-                    android:layout_height="359dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="1:1"
                     android:background="#d8d8d8"
                     app:layout_constraintTop_toTopOf="parent"
                     />
@@ -298,20 +299,46 @@
                     app:layout_constraintStart_toEndOf="@id/tv_cake_detail_theme"
                     app:layout_constraintEnd_toEndOf="parent"
                     />
-                <Button
+
+                <RelativeLayout
+                    android:id="@+id/rl_cake_detail_connect"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginHorizontal="20dp"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="#ffffff"
                     android:letterSpacing="-0.03"
-                    android:text="@string/shop_connect"
                     android:background="@drawable/bg_connect_shop"
                     android:layout_marginBottom="16dp"
                     android:layout_marginTop="14dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_cake_detail_sheet_type_contents"/>
+                    app:layout_constraintTop_toBottomOf="@id/tv_cake_detail_sheet_type_contents"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_centerInParent="true"
+                        >
+
+                        <ImageView
+                            android:layout_marginTop="2dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_kakao_channel"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:textColor="#ffffff"
+                            android:text="@string/shop_connect"
+                            android:layout_marginStart="6dp"
+                            />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>

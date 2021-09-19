@@ -16,8 +16,6 @@ class SearchDesignViewModel(application: Application) : BaseViewModel<Any?>(appl
     fun sendParamsForSearchDesign(keyword : String?, name : String?, theme : String?, locList : ArrayList<String>?, sizeList : ArrayList<String>?,
                                 colorList : ArrayList<String>?, categoryList : ArrayList<String>?
                                 , order : String) {
-        Log.d("songjem", "searchDesign, keyword = " + keyword + ", name = " + name)
-
         SearchDesignUseCase.execute(
             SearchDesignUseCase.Request(keyword!!, name, locList!!, theme, sizeList!!, colorList!!, categoryList!!, order),
             onSuccess = {

@@ -101,6 +101,7 @@ dependencies {
     // KAKAO
     implementation "com.kakao.sdk:v2-user:2.4.1"
     implementation files('libs/libDaumMapAndroid.jar')
+    implementation "com.kakao.sdk:v2-talk:2.6.0" // 친구, 메시지(카카오톡)
 
     // NAVER
     implementation "com.naver.nid:naveridlogin-android-sdk:4.2.6"

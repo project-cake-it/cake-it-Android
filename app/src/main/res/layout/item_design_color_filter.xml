@@ -16,9 +16,10 @@
         >
         <ImageView
             android:id="@+id/iv_filter_color_color_filter"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
             android:src="@drawable/color_circle"
+            android:layout_gravity="center_vertical"
             />
         <TextView
             android:id="@+id/tv_filter_item_color_filter"

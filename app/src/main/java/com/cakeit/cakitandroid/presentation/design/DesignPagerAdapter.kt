@@ -21,7 +21,7 @@ class DesignPagerAdapter(context: Context, imageList: ArrayList<String>) : Pager
         val designImage = v!!.findViewById<ImageView>(R.id.iv_design_image)
 
         container.addView(v)
-        Glide.with(v).load(imageList[position]).into(designImage)
+        Glide.with(v).load(imageList[position]).centerCrop().into(designImage)
 
         return v
     }

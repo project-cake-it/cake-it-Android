@@ -1,15 +1,20 @@
 package com.cakeit.cakitandroid.presentation.search.searchlist.design.filter
 
+import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cakeit.cakitandroid.R
 import kotlinx.android.synthetic.main.item_design_color_filter.view.*
 import java.util.HashSet
 
-class SearchDesignColorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class SearchDesignColorAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
+    var applicationContext = context
+    private var designColorValItems : List<Int> = listOf()
     private var designColorItems : List<String> = listOf()
     private var checkCnt = 0
     var checkedPosition = HashSet<Int>()
@@ -24,6 +29,7 @@ class SearchDesignColorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_design_color_filter, parent, false)
         val viewHolder =
             DesignColorFilterViewHolder(
+                applicationContext,
                 view,
                 listener
             )
@@ -36,6 +42,7 @@ class SearchDesignColorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val designColorValItem = designColorValItems[position]
         val designColorItem = designColorItems[position]
         val designColorFilterViewHolder = holder as DesignColorFilterViewHolder
 
@@ -67,16 +74,13 @@ class SearchDesignColorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
             }
             notifyDataSetChanged()
         }
-        designColorFilterViewHolder.bind(designColorItem)
+        designColorFilterViewHolder.bind(designColorValItem, designColorItem)
     }
 
-    fun setDesignColorItems(listItem: List<String>) {
+    fun setDesignColorItems(colorValItem: List<Int>, listItem: List<String>) {
+        designColorValItems = colorValItem
         designColorItems = listItem
         notifyDataSetChanged()
-    }
-
-    fun getCheckedCnt() : Int {
-        return checkedPosition.size
     }
 
     fun getChoiceTagIndex() : ArrayList<Int> {
@@ -84,8 +88,11 @@ class SearchDesignColorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
         return list
     }
 
-    class DesignColorFilterViewHolder(view : View, listener : OnDesignColorItemClickListener?) : RecyclerView.ViewHolder(view) {
+    class DesignColorFilterViewHolder(context: Context, view : View, listener : OnDesignColorItemClickListener?) : RecyclerView.ViewHolder(view) {
+        val drawable =
+            ContextCompat.getDrawable(context, R.drawable.color_circle) as GradientDrawable?
 
+        val designColorImg = view.iv_filter_color_color_filter
         val designColorItem = view.tv_filter_item_color_filter
         val designColorCheckBtn = view.btn_filter_check_color_filter
         val rlFilterListItem = view.rl_filter_item_color_filter
@@ -96,7 +103,9 @@ class SearchDesignColorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
             }
         }
 
-        fun bind(colorItem : String) {
+        fun bind(designColorValItem : Int, colorItem : String) {
+            drawable!!.setColor(designColorValItem);
+            designColorImg.setImageDrawable(drawable)
             designColorItem.text = colorItem
         }
     }

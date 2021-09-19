@@ -33,13 +33,13 @@ class DesignDetailViewModel(application: Application) : BaseViewModel<Any?>(appl
         )
     }
 
-    fun clickZzimBtn(shopId : Int, zzim : Boolean) {
+    fun clickZzimBtn(authorization : String, shopId : Int, zzim : Boolean) {
         Log.d("songjem", "zzim, shopId = " + shopId + ", zzim = " + zzim)
         // 찜되어있는 디자인일 경우
         if(zzim) {
             // 찜 해제
             ZzimDesignDelUseCase.execute(
-                ZzimDesignDelUseCase.Request(shopId),
+                ZzimDesignDelUseCase.Request(authorization, shopId),
                 onSuccess = {
                     _zzim.value = false
                     Log.d("songjem", "Zzim Design Delete onSuccess")
@@ -55,9 +55,8 @@ class DesignDetailViewModel(application: Application) : BaseViewModel<Any?>(appl
         else {
             // 찜 등록
             ZzimDesignRegUseCase.execute(
-                ZzimDesignRegUseCase.Request(shopId),
+                ZzimDesignRegUseCase.Request(authorization, shopId),
                 onSuccess = {
-                    Log.d("songjem", "찜 등록 성공")
                     _zzim.value = true
                     Log.d("songjem", "Zzim Design Register onSuccess")
                 },

@@ -39,7 +39,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding = getViewDataBinding()
         binding.vm = getViewModel()
 
@@ -143,12 +142,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
         popularCakeListAdapter.setOnItemClickListener(this)
 
         rv_home_cake_list.adapter = popularCakeListAdapter
+        rv_home_cake_list.addItemDecoration(CakeListDeco(context!!, "home"))
         rv_home_cake_list.layoutManager = GridLayoutManager(context!!, 2)
-
+        rv_home_cake_list.setNestedScrollingEnabled(false);
     }
 
     override fun onClick(v: View?) {
-        Log.d("TEST","SUCCESS")
         when(v!!.id)
         {
             R.id.tv_home_hide_theme -> {
@@ -169,49 +168,49 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
 
             R.id.rl_home_theme_birthday -> {
                 var intent = Intent(context, DesignListActivity::class.java)
-                intent.putExtra("theme", "BIRTHDAY")
+                intent.putExtra("theme", "생일")
                 startActivity(intent)
             }
 
             R.id.rl_home_theme_anniv -> {
                 var intent = Intent(context, DesignListActivity::class.java)
-                intent.putExtra("theme", "ANNIVERSARY")
+                intent.putExtra("theme", "기념일")
                 startActivity(intent)
             }
 
             R.id.rl_home_theme_wedding -> {
                 var intent = Intent(context, DesignListActivity::class.java)
-                intent.putExtra("theme", "WEDDING")
+                intent.putExtra("theme", "결혼")
                 startActivity(intent)
             }
 
             R.id.rl_home_company1_theme -> {
                 var intent = Intent(context, DesignListActivity::class.java)
-                intent.putExtra("theme", "EMPLOYMENT")
+                intent.putExtra("theme", "입사")
                 startActivity(intent)
             }
 
             R.id.rl_home_theme_retire -> {
                 var intent = Intent(context, DesignListActivity::class.java)
-                intent.putExtra("theme", "LEAVE")
+                intent.putExtra("theme", "퇴사")
                 startActivity(intent)
             }
 
             R.id.rl_home_theme_discharge -> {
                 var intent = Intent(context, DesignListActivity::class.java)
-                intent.putExtra("theme", "DISCHARGE")
+                intent.putExtra("theme", "전역")
                 startActivity(intent)
             }
 
             R.id.rl_home_theme_club -> {
                 var intent = Intent(context, DesignListActivity::class.java)
-                intent.putExtra("theme", "GRADUATED")
+                intent.putExtra("theme", "동아리")
                 startActivity(intent)
             }
 
             R.id.rl_home_theme_etc -> {
                 var intent = Intent(context, DesignListActivity::class.java)
-                intent.putExtra("theme", "NONE")
+                intent.putExtra("theme", "기타")
                 startActivity(intent)
             }
 

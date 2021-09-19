@@ -18,15 +18,12 @@ class SearchShopPriceAdapter(var sizeAndrPrices : ArrayList<CakeSizeAndrPrice>) 
     }
 
     override fun getItemCount(): Int {
-        Log.d("songjem", "sizeAndrPrices size = " + sizeAndrPrices.size)
         return sizeAndrPrices.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val sizeAndrPrice = sizeAndrPrices[position]
         val cakeShopTagViewHolder = holder as CakeShopPriceViewHolder
-
-        Log.d("songjem", "sizeAndrPrice = " + sizeAndrPrice)
 
         cakeShopTagViewHolder.bind(sizeAndrPrice)
     }
@@ -36,7 +33,6 @@ class SearchShopPriceAdapter(var sizeAndrPrices : ArrayList<CakeSizeAndrPrice>) 
         val sizePrice = view.tv_shop_size_price
 
         fun bind(sizeAndrPrice : CakeSizeAndrPrice) {
-            Log.d("songjem", "sizeAndrPrice name = " + sizeAndrPrice.name + ", sizeAndrPrice price = " + sizeAndrPrice.price)
             sizeName.text = sizeAndrPrice.name
             var cakePriceDot = String.format("%,d", sizeAndrPrice.price) + "원"
             sizePrice.text = cakePriceDot

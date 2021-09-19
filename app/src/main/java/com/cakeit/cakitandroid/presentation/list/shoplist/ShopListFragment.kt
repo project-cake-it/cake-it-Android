@@ -39,19 +39,19 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
 
     private var clickedPosition = -1;
 
-    private val filterList = listOf<String>("기본순", "찜순", "가격 높은 순", "가격 낮은 순")
+    private val filterList = listOf<String>("기본순", "찜순", "가격 낮은 순")
     private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구", "서대문구"
             , "송파구", "노원구", "성북구", "중구", "중랑구")
     private var selectedDate : String = ""
     var listSelected = mutableListOf<Boolean>(false, false, false)
 
+    var pickup : String? = null
     lateinit var selecedLocList : ArrayList<String>
-    var selectedOrder : String = ""
+    var selectedOrder : String? = null
     lateinit var cakeShopIds : ArrayList<Int>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         shopListBinding = getViewDataBinding()
         shopListBinding.viewModel = getViewModel()
 
@@ -67,10 +67,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
         shopListAdapter.setOnItemClickListener(object : ShopListAdapter.OnShopItemClickListener{
 
             override fun onShopItemClick(position: Int) {
-                Log.d("songjem", "onShopImtemClick = " + position)
-
                 val intent = Intent(context!!, ShopDetailActivity::class.java)
-                Log.d("songjem", "position = " + position + ", cakeShopID = " + cakeShopIds[position])
                 intent.putExtra("cakeShopId", cakeShopIds[position])
                 startActivity(intent)
             }
@@ -104,13 +101,22 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
         // 달력 날짜 선택
         cv_pickup_calendar_shop_list.setOnDateChangedListener(OnDateSelectedListener { widget, date, selected ->
             selectedDate = date.month.toString() + "월 " + date.day.toString() + "일"
+            var pickupMonth = ""
+            var pickupDay = ""
+            if(date.month < 10) pickupMonth = "0" + date.month
+            else pickupMonth = date.month.toString()
+
+            if(date.day < 10) pickupDay = "0" + date.day
+            else pickupDay = date.day.toString()
+
+            pickup = date.year.toString() + pickupMonth + pickupDay
         })
 
     }
 
     fun getshopList() {
         selecedLocList = ArrayList<String>()
-        shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList) // 추후 픽업 날짜도 추가 예정
+        shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList, pickup) // 추후 픽업 날짜도 추가 예정
     }
 
     fun initRecyclerview() {
@@ -200,11 +206,19 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
                 else selecedLocList.add(choiceTagItems[i].choiceName)
             }
         }
-        Log.d("songjem", "locList = " + selecedLocList.toString())
-        Log.d("songjem", "order = " + selectedOrder)
-        shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList)  // 추후 픽업 날짜도 추가 예정
+        if(selecedLocList.size > 0) {
+            sv_choice_tag_shop_list.visibility = View.VISIBLE
+        } else {
+            sv_choice_tag_shop_list.visibility = View.GONE
+        }
+        if(selectedOrder.equals(filterList[0])) selectedOrder = null
+        else if(selectedOrder.equals(filterList[1])) selectedOrder = "zzim"
+        else if(selectedOrder.equals(filterList[2])) selectedOrder = "cheap"
+
+        shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList, pickup)  // 추후 픽업 날짜도 추가 예정
 
     }
+
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.view_background_shop_list -> {
@@ -332,27 +346,29 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
     }
     // 기본순 초기화
     fun clearDefault() {
-        btn_filter_default_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn))
+        btn_filter_default_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect_before))
         btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact_before))
         btn_filter_default_shop_list.isSelected = false
         btn_filter_default_compact_shop_list.isSelected = false
         tv_filter_default_title_shop_list.setTextColor(Color.parseColor("#000000"))
         tv_filter_default_title_shop_list.text = "기본순"
         shopDefaultFilterAdapter.checkedPosition.clear()
+        shopDefaultFilterAdapter.checkedPosition.add(0)
     }
     // 장소 선택 초기화
     fun clearRegion() {
-        btn_filter_pickup_region_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn))
+        btn_filter_pickup_region_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect_before))
         btn_filter_pickup_region_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact_before))
         btn_filter_pickup_region_shop_list.isSelected = false
         btn_filter_pickup_region_compact_shop_list.isSelected = false
         tv_filter_pickup_region_title_shop_list.setTextColor(Color.parseColor("#000000"))
         tv_filter_pickup_region_title_shop_list.text = "픽업 지역"
         shopRegionFilterAdapter.checkedPosition.clear()
+        shopRegionFilterAdapter.checkedPosition.add(0)
     }
     // 날짜 선택 초기화
     fun clearDate() {
-        btn_filter_pickup_date_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn))
+        btn_filter_pickup_date_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect_before))
         btn_filter_pickup_date_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact_before))
         btn_filter_pickup_date_shop_list.isSelected = false
         btn_filter_pickup_date_compact_shop_list.isSelected = false

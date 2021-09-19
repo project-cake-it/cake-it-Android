@@ -14,49 +14,84 @@
         android:layout_height="match_parent"
         >
 
-        <Button
-            android:id="@+id/btn_login_googleLogin"
+        <TextView
+            android:id="@+id/tv_login_welcome"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/google_login"
+            android:layout_height="29dp"
+            android:layout_marginTop="96dp"
+            android:bufferType="spannable"
+            android:text="@string/login_welcome"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.837" />
+            app:layout_constraintVertical_bias="0.0" />
 
-        <Button
-            android:id="@+id/btn_login_appleLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/apple_login"
+        <ImageView
+            android:id="@+id/iv_login_logo"
+            android:layout_width="115dp"
+            android:layout_height="115dp"
+            android:layout_marginTop="32dp"
+            android:background="#f7f7f7"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.92" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_login_welcome"
+            app:layout_constraintVertical_bias="0.0"
+            tools:srcCompat="@tools:sample/avatars" />
 
-        <Button
-            android:id="@+id/btn_login_kakaoLogin"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/ll_login_buttons"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/kakao_login"
+            android:layout_marginBottom="80dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:foregroundGravity="center_vertical"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="0dp"
+            android:paddingBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.696" />
+            app:layout_constraintVertical_bias="1.0">
 
-        <Button
-            android:id="@+id/btn_login_naverLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/naver_login"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.767" />
+            <Button
+                android:id="@+id/btn_login_naverLogin"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_round"
+                android:backgroundTint="#1ec800"
+                android:drawableStart="@drawable/ic_login_naver"
+                android:padding="10dp" />
+
+            <Button
+                android:id="@+id/btn_login_kakaoLogin"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:background="@drawable/bg_round"
+                android:backgroundTint="#f9df32"
+                android:drawableStart="@drawable/ic_login_kakao"
+                android:padding="10dp" />
+
+            <Button
+                android:id="@+id/btn_login_googleLogin"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_round"
+                android:backgroundTint="#ffffff"
+                android:drawableStart="@drawable/ic_login_google"
+                android:drawablePadding="20dp"
+                android:padding="10dp" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.domain.model.CakeShopHashTag
+import com.cakeit.cakitandroid.presentation.list.shoplist.ShopListAdapter
 import kotlinx.android.synthetic.main.item_shop_tag.view.*
 
 class CakeShopTagAdapter(var shopHashTags : ArrayList<CakeShopHashTag>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -31,14 +32,14 @@ class CakeShopTagAdapter(var shopHashTags : ArrayList<CakeShopHashTag>) : Recycl
         cakeShopTagViewHolder.bind(shopHashTag)
     }
 
-//    fun setTagItem(listItem: ArrayList<CakeShopHashTag>) {
-//        shopHashTags = listItem
-//        Log.d("songjem", "shopHashTag Size = " + shopHashTags.size)
-//        notifyDataSetChanged()
-//    }
-
     class CakeShopTagViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         val tagName = view.tv_shop_tag_name
+
+        init {
+            view.setOnClickListener {
+                ShopListAdapter.shopListAdapter.onItemClick.onShopItemClick(adapterPosition)
+            }
+        }
 
         fun bind(cakeShopHashTag : CakeShopHashTag) {
             Log.d("songjem", "cakeShopHashTag name = " + cakeShopHashTag.name)

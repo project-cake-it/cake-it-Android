@@ -9,10 +9,10 @@ import io.reactivex.schedulers.Schedulers
 
 object ShopListRepo {
     val TAG = this.javaClass.simpleName
-    fun sendParams(order : String?, locList : ArrayList<String>) : Single<ShopListResponse>? {
+    fun sendParams(order : String?, locList : ArrayList<String>, pickup : String?) : Single<ShopListResponse>? {
 
         return ApiClient.provideCakeApi()
-            .getShopList(order, locList)
+            .getShopList(order, locList, pickup)
             .map {
                 Log.d(TAG, "getShopList status = " + it.status)
                 if (it.status.div(100) == 2) {
