@@ -25,9 +25,14 @@ import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceControlle
 import com.cakeit.cakitandroid.presentation.main.MainActivity
 import com.nhn.android.naverlogin.OAuthLoginHandler
 
-//import com.google.api.client.googleapis.auth.oauth2.*
-//import com.google.api.client.http.javanet.NetHttpTransport
-//import com.google.api.client.json.jackson2.JacksonFactory
+import com.google.api.client.googleapis.auth.oauth2.*
+import com.google.api.client.http.javanet.NetHttpTransport
+import com.google.api.client.json.jackson2.JacksonFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.IOException
 
 
 class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
@@ -142,31 +147,37 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
         }
     }
 
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == REQUEST_CODE_GOOGLE_LOGIN) {
             // The Task returned from this call is always completed, no need to attach a listener.
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-//                val REDIRECT_URI = ""
-//                val tokenResponse = GoogleAuthorizationCodeTokenRequest(
-//                    NetHttpTransport(),
-//                    JacksonFactory.getDefaultInstance(),
-//                    "https://oauth2.googleapis.com/token",
-//                    getString(R.string.AUTHCODE_GOOGLE_CLIENTID),
-//                    getString(R.string.AUTHCODE_GOOGLE_SECRET),
-//                    task.result?.serverAuthCode,
-//                    REDIRECT_URI
-//                ) // Specify the same redirect URI that you use with your web
-//                    // app. If you don't have a web version of your app, you can
-//                    // specify an empty string.
-//                    .execute()
-//
-//                val accessToken = tokenResponse.accessToken
-//                binding.viewModel?.sendGoogleCodeToServer(accessToken)
+                val transport = NetHttpTransport()
+                val jacksonFactory = JacksonFactory()
+                val authcode = task.result?.serverAuthCode
+                var tokenRequest = GoogleAuthorizationCodeTokenRequest(
+                    transport,
+                    jacksonFactory,
+                    getString(R.string.AUTHCODE_GOOGLE_CLIENTID),
+                    getString(R.string.AUTHCODE_GOOGLE_SECRET),
+                    authcode,
+                    GoogleOAuthConstants.OOB_REDIRECT_URI
+                ) // Specify the same redirect URI that you use with your web
+                // app. If you don't have a web version of your app, you can
+                // specify an empty string.
+                GlobalScope.launch(Dispatchers.IO) {
+                    try {
+                        val tokenResponse = tokenRequest.execute()
+                        val accessToken = tokenResponse.accessToken
+                        runOnUiThread { binding.viewModel?.sendGoogleCodeToServer(accessToken) }
+                    } catch (ioe : IOException){
+                        Log.d(TAG, "Google signin failed IOException: ${ioe.message}")
+                        showToast("Google signin failed IOException: ${ioe.message}")
+                    }
+                }
             } catch (e: Exception) {
                 // The ApiException status code indicates the detailed failure reason.
                 // Please refer to the GoogleSignInStatusCodes class reference for more information.
