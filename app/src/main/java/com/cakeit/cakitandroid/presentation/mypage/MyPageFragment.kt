@@ -10,13 +10,16 @@ import com.cakeit.cakitandroid.base.BaseFragment
 import com.cakeit.cakitandroid.databinding.FragmentMypageBinding
 import com.cakeit.cakitandroid.presentation.mypage.announcement.AnnouncementListActivity
 import com.cakeit.cakitandroid.presentation.mypage.textboard.TextboardActivity
+import com.cakeit.cakitandroid.presentation.mypage.webview.WebViewActivity
+import com.kakao.sdk.common.util.KakaoCustomTabsClient
+import com.kakao.sdk.talk.TalkApiClient
 import kotlinx.android.synthetic.main.fragment_mypage.view.*
+
 
 class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), View.OnClickListener {
 
     private lateinit var binding : FragmentMypageBinding
     private lateinit var myPageViewModel: MyPageViewModel
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = getViewDataBinding()
@@ -28,8 +31,12 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
         view.btn_mypage_terms_of_service.setOnClickListener(this)
         view.btn_mypage_terms_of_private_info.setOnClickListener(this)
         view.btn_mypage_opensource_license.setOnClickListener(this)
-        view.btn_mypage_version_info.setOnClickListener(this)
+        view.tv_mypage_version_info.setOnClickListener(this)
 
+        // Set version name from package info
+        // Not using MVVM since it's very static and lightweight job.
+        val pInfo = context!!.packageManager.getPackageInfo(context!!.packageName, 0)
+        view.tv_mypage_version_name.text = pInfo.versionName
 
     }
     override fun getLayoutId(): Int {
@@ -50,6 +57,13 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
         startActivity(intent)
     }
 
+    fun startWebViewActivityFromAssets(fileName : String){
+        var intent = Intent(context, WebViewActivity::class.java)
+
+        intent.putExtra("fileUrl", "file:///android_asset/${fileName}")
+        startActivity(intent)
+    }
+
     override fun onClick(v: View?) {
         Log.d(TAG, v!!.id.toString())
         when(v!!.id)
@@ -60,23 +74,20 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
             }
 
             R.id.btn_mypage_qna -> {
-                startTextBoardActivityWithData(getString(R.string.mypage_qna), getString(R.string.mypage_qna))
+                val url = TalkApiClient.instance.channelChatUrl(getString(R.string.mypage_cakeit_pfchannel_id))
+                KakaoCustomTabsClient.openWithDefault(context!!, url)
             }
 
             R.id.btn_mypage_terms_of_service -> {
-                startTextBoardActivityWithData(getString(R.string.mypage_terms_of_service), getString(R.string.mypage_terms_of_service))
+              startWebViewActivityFromAssets("terms.html")
             }
 
             R.id.btn_mypage_terms_of_private_info -> {
-                startTextBoardActivityWithData(getString(R.string.mypage_terms_of_private_info), getString(R.string.mypage_terms_of_private_info))
+                startWebViewActivityFromAssets("personalinfomation.html")
             }
 
             R.id.btn_mypage_opensource_license -> {
                 startTextBoardActivityWithData(getString(R.string.mypage_opensource_license), getString(R.string.mypage_opensource_license))
-            }
-
-            R.id.btn_mypage_version_info -> {
-                startTextBoardActivityWithData(getString(R.string.mypage_version_info), getString(R.string.mypage_version_info))
             }
         }
     }
