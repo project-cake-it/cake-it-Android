@@ -1,5 +1,6 @@
 package com.cakeit.cakitandroid.presentation.zzim
 
+import android.util.Log
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -12,8 +13,12 @@ class ZzimContentsPagerAdapter(fm: FragmentManager, num : Int) :
     var num = num
 
     override fun getItem(position: Int): Fragment {
-        if(position == 0) return ZzimDesignFragment()
-        else if(position == 1) return ZzimShopFragment()
+        if(position == 0) {
+            return ZzimDesignFragment()
+        }
+        else if(position == 1) {
+            return ZzimShopFragment()
+        }
         else return null!!
     }
 

@@ -19,14 +19,13 @@ import android.widget.Toast
 import org.json.JSONObject
 
 import android.os.AsyncTask
-
-
-
+import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 
 
 class LoginViewModel(application: Application) : BaseViewModel<Any?>(application) {
     var registerMessage = "Reset livedata"
     val registerState = MutableLiveData<Boolean>(false)
+    var accessToken = MutableLiveData<String>()
 
 //    val toastMessage = MutableLiveData<String>() // TODO(view에서 showToast하기 위한 live data. 이거 base에 넣는게 낫지 않나?)
 
@@ -55,6 +54,7 @@ class LoginViewModel(application: Application) : BaseViewModel<Any?>(application
         SocialLoginUseCase.execute(
             SocialLoginUseCase.Request(authCode, socialType),
             onSuccess = {
+                accessToken.value = it.accessToken
                 registerMessage = it.message
                 registerState.value =
                     it.message == "회원가입 성공입니다" || it.message == "로그인 성공입니다"

@@ -20,7 +20,7 @@ class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.Vie
     private var context = context
     private lateinit var cakeShopTagAdapter : CakeShopTagAdapter
     private lateinit var cakeShopPriceAdapter : CakeShopPriceAdapter
-    private lateinit var onItemClick : OnShopItemClickListener
+    lateinit var onItemClick : OnShopItemClickListener
 
     interface OnShopItemClickListener {
         fun onShopItemClick(position: Int)
@@ -46,13 +46,16 @@ class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.Vie
         val cakeShop = shopListItems[position]
         Log.d("songjem", "cakeShop = " + cakeShop)
 
+        shopListAdapter = this
         val shopListViewHolder = holder as ShopListViewHolder
+
         cakeShopTagAdapter = CakeShopTagAdapter(cakeShop.hashTag!!)
         cakeShopPriceAdapter = CakeShopPriceAdapter(cakeShop.prices!!)
         shopListViewHolder.shopTagRv.adapter = cakeShopTagAdapter
         shopListViewHolder.shopTagRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         shopListViewHolder.shopPriceRv.adapter = cakeShopPriceAdapter
         shopListViewHolder.shopPriceRv.layoutManager = LinearLayoutManager(context)
+
         Log.d("songjem", "cakeShop.shopImages.size = " + cakeShop.shopImages!!.size)
         if(cakeShop.shopImages!!.size > 0) {
             Log.d("songjem", "imageUrl = " + cakeShop.shopImages!![0].shopImageUrl)
@@ -72,22 +75,28 @@ class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.Vie
 
     inner class ShopListViewHolder(view : View, listener : OnShopItemClickListener?) : RecyclerView.ViewHolder(view) {
 
-        val shopListItem = view.cl_shop_list_item
+        val shopListItem = view.rl_shop_list_item
         val shopTagRv = view.rv_shop_tag_item_shop
         val shopPriceRv = view.rv_cake_size_item_shop
         val shopImg = view.iv_shop_list_major_img
         val cakeShopName = view.tv_shop_name_item_shop
         val cakeShopAddress = view.tv_shop_address_item_shop
 
-        fun bind(cakeShop : CakeShopData) {
-            Log.d("songjem", "zzim Cake Shop, cakeShop = " + cakeShop)
-            cakeShopName.text = cakeShop.shopName
-            cakeShopAddress.text = cakeShop.shopAddress
-
-            shopListItem.setOnClickListener {
+        init {
+            view.setOnClickListener {
                 Log.d("songjem", "adapter position = " + adapterPosition)
                 onItemClick.onShopItemClick(adapterPosition)
             }
         }
+
+        fun bind(cakeShop : CakeShopData) {
+            Log.d("songjem", "zzim Cake Shop, cakeShop = " + cakeShop)
+            cakeShopName.text = cakeShop.shopName
+            cakeShopAddress.text = cakeShop.shopAddress
+        }
+    }
+
+    companion object {
+        lateinit var shopListAdapter: ShopListAdapter
     }
 }

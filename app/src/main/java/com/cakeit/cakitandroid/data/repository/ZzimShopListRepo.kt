@@ -9,10 +9,10 @@ import io.reactivex.schedulers.Schedulers
 
 object ZzimShopListRepo {
     val TAG = this.javaClass.simpleName
-    fun sendParams() : Single<ShopListResponse>? {
+    fun sendParams(authorization : String) : Single<ShopListResponse>? {
 
         return ApiClient.provideCakeApi()
-            .getZzimShopList()
+            .getZzimShopList(authorization)
             .map {
                 Log.d(TAG, "getZzimShopList status = " + it.status)
                 if (it.status.div(100) == 2) {

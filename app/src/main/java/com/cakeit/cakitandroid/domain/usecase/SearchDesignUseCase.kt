@@ -10,7 +10,7 @@ object SearchDesignUseCase : SingleUseCase<SearchDesignResponseModel>(){
     override fun buildUseCase(baseRequest: BaseRequest): Single<SearchDesignResponseModel>? {
         var req = baseRequest as Request
 
-        return SearchDesignRepo.sendParams(req.keyword!!, req.name!!, req.locList, req.theme, req.sizeList, req.colorList, req.categoryList, req.order)
+        return SearchDesignRepo.sendParams(req.keyword!!, req.name, req.locList, req.theme, req.sizeList, req.colorList, req.categoryList, req.order)
             ?.map {
                 Log.d("songjem", "getDesignList, message = " + it.message)
                 SearchDesignResponseModel(it.message, it.data)

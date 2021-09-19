@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
+import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 import com.cakeit.cakitandroid.databinding.ActivityShopDetailBinding
 import com.cakeit.cakitandroid.di.api.responses.ShopDetailResponseData
 import com.google.android.material.tabs.TabLayout
@@ -15,7 +16,6 @@ import com.kakao.sdk.talk.TalkApiClient
 import com.kakao.util.maps.helper.Utility
 import kotlinx.android.synthetic.main.activity_shop.*
 import kotlinx.android.synthetic.main.activity_shop_detail.*
-import kotlinx.android.synthetic.main.activity_test.*
 import kotlin.properties.Delegates
 
 class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailViewModel>() {
@@ -25,6 +25,9 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
     private lateinit var shopDetailViewModel: ShopDetailViewModel
     private var zzim : Boolean = false
     private lateinit var shopChannel : String
+    private var fromToZzim : Boolean = false
+
+    private lateinit var authorization : String
 
     var shopId by Delegates.notNull<Int>()
 
@@ -38,6 +41,9 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
         dataBinding()
         binding = getViewDataBinding()
         binding.vm = getViewModel()
+
+        authorization = SharedPreferenceController.getToken(applicationContext)
+        fromToZzim = intent.getBooleanExtra("fromToZzim", false)
 
         shopDetailViewModel.shopDetailData.observe(this, Observer { datas ->
             if(datas != null) {
@@ -88,11 +94,10 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
         })
 
         btn_shop_detail_zzim.setOnClickListener {
-            shopDetailViewModel.clickZzimBtn(shopId, zzim)
+            shopDetailViewModel.clickZzimBtn(authorization, shopId, zzim)
         }
 
         rl_shop_detail_connect.setOnClickListener {
-            Log.d("songjem", "가게연결 클릭")
             if(shopChannel != null) {
                 Log.d("songjem", "shopChannel = " + shopChannel)
                 // 카카오톡 채널 채팅 URL
@@ -103,7 +108,11 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
         }
 
         btn_shop_detail_back.setOnClickListener {
-            super.onBackPressed()
+            if(fromToZzim) {
+                setResult(RESULT_OK, intent);
+                finish()
+            }
+            else super.onBackPressed()
         }
 
         setTabLayout()
@@ -153,6 +162,14 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
                 }
             }
         })*/
+    }
+
+    override fun onBackPressed() {
+        if(fromToZzim) {
+            setResult(RESULT_OK, intent);
+            finish()
+        }
+        else super.onBackPressed()
     }
 
     fun sendShopIdToServer()

@@ -45,10 +45,9 @@ class ZzimViewModel(application: Application,
         viewPagerAdapter = ZzimContentsPagerAdapter(fm, 2)
     }
 
-    fun sendParamsForZzimShopList() {
-        Log.d("songjem", "sendParamsForZzimShopList")
+    fun sendParamsForZzimShopList(authorization : String) {
         ZzimShopListUseCase.execute(
-            ZzimShopListUseCase.Request(""),
+            ZzimShopListUseCase.Request("", authorization),
             onSuccess = {
                 Log.d("songjem", "zzimShop onSuccess")
                 var cakeShops = ArrayList<CakeShopData>()
@@ -67,9 +66,10 @@ class ZzimViewModel(application: Application,
         )
     }
 
-    fun getZzimDesign()
+    fun getZzimDesign(authorization : String)
     {
         ZzimDesignsUseCase.execute(
+            ZzimDesignsUseCase.Request(authorization),
             onSuccess = {
                 var designDatas : ArrayList<DesignDetailData> = it.data
                 _designDatas.value = designDatas

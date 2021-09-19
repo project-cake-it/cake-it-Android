@@ -10,7 +10,7 @@ object ZzimShopListUseCase : SingleUseCase<ZzimShopResponseModel>(){
     override fun buildUseCase(baseRequest: BaseRequest): Single<ZzimShopResponseModel>? {
         var req = baseRequest as ZzimShopListUseCase.Request
         Log.d("ssongjem", "buildUseCase")
-        return ZzimShopListRepo.sendParams()
+        return ZzimShopListRepo.sendParams(req.authorization)
             ?.map {
                 Log.d("songjem", "getZzimShopList, message = " + it.message)
                 ZzimShopResponseModel(it.message, it.data)
@@ -18,7 +18,8 @@ object ZzimShopListUseCase : SingleUseCase<ZzimShopResponseModel>(){
     }
 
     data class Request(
-        val authCode : String
+        val authCode : String,
+        val authorization : String
     ) : BaseRequest()
 
     override fun buildUseCase(): Single<ZzimShopResponseModel>? {

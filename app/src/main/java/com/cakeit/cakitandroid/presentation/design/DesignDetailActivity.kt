@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
+import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 import com.cakeit.cakitandroid.databinding.ActivityDesignDetailBinding
 import com.cakeit.cakitandroid.presentation.list.designlist.DesignListActivity
 import com.cakeit.cakitandroid.presentation.shop.calendar.CalendarActivity
@@ -27,7 +28,9 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
     lateinit var designPagerAdapter : DesignPagerAdapter
 
     private var zzim : Boolean = false
+    private var fromToZzim : Boolean = false
     private lateinit var shopChannel : String
+    private lateinit var authorization : String
 
     companion object {
         const val TAG: String = "DesignDetailActivityTAG"
@@ -41,12 +44,19 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
         binding = getViewDataBinding()
         binding.vm = getViewModel()
 
+        authorization = SharedPreferenceController.getToken(applicationContext)
+        fromToZzim = intent.getBooleanExtra("fromToZzim", false)
+
         btn_cake_detail_zzim.setOnClickListener {
-            designDetailViewModel.clickZzimBtn(designId, zzim)
+            designDetailViewModel.clickZzimBtn(authorization, designId, zzim)
         }
 
         btn_cake_detail_back.setOnClickListener {
-            super.onBackPressed()
+            if(fromToZzim) {
+                setResult(RESULT_OK, intent);
+                finish()
+            }
+            else super.onBackPressed()
         }
 
         designDetailViewModel.zzim.observe(this, Observer { datas ->
@@ -117,7 +127,6 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
         })
 
         rl_cake_detail_connect.setOnClickListener {
-            Log.d("songjem", "가게연결 클릭")
             if(shopChannel != null) {
                 Log.d("songjem", "shopChannel = " + shopChannel)
                 // 카카오톡 채널 채팅 URL
@@ -144,11 +153,18 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
         return designDetailViewModel
     }
 
+    override fun onBackPressed() {
+        if(fromToZzim) {
+            setResult(RESULT_OK, intent);
+            finish()
+        }
+        else super.onBackPressed()
+    }
+
     fun sendDesignIdToServer()
     {
         designId = intent.extras!!.getInt("designId")
 
         designDetailViewModel.sendDesignIdForDesignDetail(designId)
     }
-
 }

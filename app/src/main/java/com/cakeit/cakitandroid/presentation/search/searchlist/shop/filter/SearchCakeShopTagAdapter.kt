@@ -41,7 +41,6 @@ class SearchCakeShopTagAdapter(var shopHashTags : ArrayList<CakeShopHashTag>) : 
         val tagName = view.tv_shop_tag_name
 
         fun bind(cakeShopHashTag : CakeShopHashTag) {
-            Log.d("songjem", "cakeShopHashTag name = " + cakeShopHashTag.name)
             tagName.text = cakeShopHashTag.name
         }
     }

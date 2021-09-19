@@ -1,6 +1,6 @@
 <!DOCTYPE resources [<!ENTITY AUTHCODE_KAKAO_NATIVEAPPKEY "336e5fa0e2a8c916ffda94b2b64f5c8d">]>
 <resources>
-    <string name="app_name">CakeItReboot</string>
+    <string name="app_name">CakeIt</string>
     <string name="shop_title">케이크가게</string>
     <string name="shop_address">서울특별시 마포구 **동 123-45</string>
     <string name="shop_zzim_count">132</string>

@@ -1,6 +1,7 @@
 package com.cakeit.cakitandroid.presentation.search
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,7 +14,6 @@ import com.cakeit.cakitandroid.databinding.FragmentSearchBinding
 import com.cakeit.cakitandroid.presentation.search.searchlist.SearchListActivity
 import kotlinx.android.synthetic.main.fragment_search.*
 
-
 class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
 
     lateinit var keyword : String
@@ -22,7 +22,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding = getViewDataBinding()
         binding.viewModel = getViewModel()
 
