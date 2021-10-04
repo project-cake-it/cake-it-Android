@@ -24,6 +24,7 @@
             android:id="@+id/tv_name_tab_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:text="마이페이지"
             app:tabTextColor="#000000"
             app:tabSelectedTextColor="@color/colorPrimary"
