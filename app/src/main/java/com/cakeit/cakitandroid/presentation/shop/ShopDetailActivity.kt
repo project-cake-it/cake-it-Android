@@ -16,6 +16,7 @@ import com.kakao.sdk.talk.TalkApiClient
 import com.kakao.util.maps.helper.Utility
 import kotlinx.android.synthetic.main.activity_shop.*
 import kotlinx.android.synthetic.main.activity_shop_detail.*
+import java.text.DecimalFormat
 import kotlin.properties.Delegates
 
 class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailViewModel>() {
@@ -61,11 +62,12 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
                     }
                 }
                 var sizeDataAll : String = ""
+                var dec = DecimalFormat("#,###")
                 for (i in datas.sizes.indices)
                 {
                     sizeDataAll += datas.sizes[i].name
-                    if(datas.sizes[i].size.isNotEmpty()) sizeDataAll += "(${datas.sizes[i].size})"
-                    sizeDataAll += " / ${datas.sizes[i].price}원"
+                    if(datas.sizes[i].size.isNotEmpty()) sizeDataAll += "(${datas.sizes[i].size}cm)"
+                    sizeDataAll += " / ${dec.format(datas.sizes[i].price)}원"
                     if(i < datas.sizes.size-1) sizeDataAll += "\n"
                 }
                 tv_cake_detail_size_price_contents.text = sizeDataAll

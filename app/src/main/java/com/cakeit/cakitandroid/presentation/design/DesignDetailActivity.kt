@@ -10,13 +10,12 @@ import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 import com.cakeit.cakitandroid.databinding.ActivityDesignDetailBinding
-import com.cakeit.cakitandroid.presentation.list.designlist.DesignListActivity
 import com.cakeit.cakitandroid.presentation.shop.calendar.CalendarActivity
 import com.kakao.sdk.common.util.KakaoCustomTabsClient
 import com.kakao.sdk.talk.TalkApiClient
 import kotlinx.android.synthetic.main.activity_design_detail.*
 import kotlinx.android.synthetic.main.activity_design_detail.tv_cake_detail_size_price_contents
-import kotlinx.android.synthetic.main.activity_shop_detail.*
+import java.text.DecimalFormat
 import kotlin.properties.Delegates
 
 class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDetailViewModel>() {
@@ -112,11 +111,12 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
                 })
 
                 var sizeDataAll : String = ""
+                var dec = DecimalFormat("#,###")
                 for (i in datas.sizes.indices)
                 {
                     sizeDataAll += datas.sizes[i].name
-                    if(datas.sizes[i].size.isNotEmpty()) sizeDataAll += "(${datas.sizes[i].size})"
-                    sizeDataAll += " / ${datas.sizes[i].price}원"
+                    if(datas.sizes[i].size.isNotEmpty()) sizeDataAll += "(${datas.sizes[i].size}cm)"
+                    sizeDataAll += " / ${dec.format(datas.sizes[i].price)}원"
                     if(i < datas.sizes.size-1) sizeDataAll += "\n"
                 }
                 tv_cake_detail_size_price_contents.text = sizeDataAll
