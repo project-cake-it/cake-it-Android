@@ -19,8 +19,10 @@ import com.cakeit.cakitandroid.data.source.local.entity.ChoiceTag
 import com.cakeit.cakitandroid.databinding.ActivityDesignListBinding
 import com.cakeit.cakitandroid.domain.model.CakeSizeAndrPrice
 import com.cakeit.cakitandroid.presentation.design.DesignDetailActivity
+import com.cakeit.cakitandroid.presentation.home.CakeListDeco
 import com.cakeit.cakitandroid.presentation.list.designlist.filter.*
 import kotlinx.android.synthetic.main.activity_design_list.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_search_design.*
 import kotlin.collections.ArrayList
 
@@ -50,7 +52,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
     private val filterList = listOf<String>("기본순", "찜순", "가격 낮은 순", "인기 많은 순")
     private val filterTransList = listOf<String>("default", "zzim", "cheap", "best")
     private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구", "서대문구"
-            , "송파구", "노원구", "성북구", "중구", "중랑구")
+            , "송파구")
     private var designSizeItems = ArrayList<CakeDesignSize>()
     private val colorValList = listOf<Int>(0, Color.parseColor("#F4F3EF"), Color.BLACK, Color.parseColor("#fb319c"), Color.YELLOW, Color.RED, Color.BLUE, Color.parseColor("#7033AD"), Color.parseColor("#909090"))
     private val colorList = listOf<String>("전체", "화이트", "블랙", "핑크", "옐로우", "레드", "블루", "퍼플", "기타")
@@ -182,6 +184,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(this@DesignListActivity, 2)
             adapter = designListAdapter
+            addItemDecoration(CakeListDeco(context!!, "designList"))
         }
 
         rv_filter_default_list_design_list.run {
