@@ -22,12 +22,15 @@ import com.kakao.sdk.user.UserApiClient
 import com.nhn.android.naverlogin.OAuthLogin
 import android.widget.Toast
 import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
+import com.cakeit.cakitandroid.presentation.list.designlist.DesignListActivity
 import com.cakeit.cakitandroid.presentation.main.MainActivity
 import com.nhn.android.naverlogin.OAuthLoginHandler
 
 import com.google.api.client.googleapis.auth.oauth2.*
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
+import kotlinx.android.synthetic.main.activity_calendar.*
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -64,6 +67,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             binding.viewModel?.accessToken?.observe(it, Observer{ token ->
                 SharedPreferenceController.setToken(applicationContext, token)
             })
+        }
+
+        ib_login_eixt.setOnClickListener{
+            var intent = Intent(applicationContext, MainActivity::class.java)
+            finish()
+            startActivity(intent)
         }
 
         val welcomeText = findViewById<TextView>(R.id.tv_login_welcome).text as Spannable
