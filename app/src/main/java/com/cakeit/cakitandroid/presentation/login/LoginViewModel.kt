@@ -6,20 +6,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.cakeit.cakitandroid.base.BaseViewModel
 import com.cakeit.cakitandroid.domain.usecase.SocialLoginUseCase
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.kakao.sdk.auth.model.OAuthToken
-import com.nhn.android.naverlogin.OAuthLogin
-import java.lang.Error
-import kotlin.reflect.KProperty
-import kotlin.reflect.KProperty1
-import org.json.JSONException
-
-import android.widget.Toast
-
-import org.json.JSONObject
-
-import android.os.AsyncTask
-import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 
 
 class LoginViewModel(application: Application) : BaseViewModel<Any?>(application) {
@@ -29,11 +16,9 @@ class LoginViewModel(application: Application) : BaseViewModel<Any?>(application
 
 //    val toastMessage = MutableLiveData<String>() // TODO(view에서 showToast하기 위한 live data. 이거 base에 넣는게 낫지 않나?)
 
-    fun sendGoogleCodeToServer(account: GoogleSignInAccount?) {
+    fun sendGoogleCodeToServer(authCode: String) {
 
-        Log.e(TAG, "${account!!.id},${account!!.idToken},${account!!.account},${account!!.displayName},${account!!.serverAuthCode},")
-
-        val authCode = account?.id!!
+        Log.e(TAG, "${authCode},")
 
         sendAuthCodeToServer(authCode, "GOOGLE")
     }

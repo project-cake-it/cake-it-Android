@@ -86,4 +86,5 @@
     <string name="AUTHCODE_NAVER_SECRET">PFv_FX3EsN</string>
     <!-- google-->
     <string name="AUTHCODE_GOOGLE_CLIENTID">911891330500-f586aevn27sktah813pncac2qa5na15v.apps.googleusercontent.com</string>
+    <string name="AUTHCODE_GOOGLE_SECRET">0O6-MpiaLrtB-EWXWXTKUs38</string>
 </resources>
