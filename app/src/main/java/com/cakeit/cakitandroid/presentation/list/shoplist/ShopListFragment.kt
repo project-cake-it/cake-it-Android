@@ -40,8 +40,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
     private var clickedPosition = -1;
 
     private val filterList = listOf<String>("기본순", "찜순", "가격 낮은 순")
-    private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구", "서대문구"
-            , "송파구", "노원구", "성북구", "중구", "중랑구")
+    private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구")
     private var selectedDate : String = ""
     var listSelected = mutableListOf<Boolean>(false, false, false)
 
