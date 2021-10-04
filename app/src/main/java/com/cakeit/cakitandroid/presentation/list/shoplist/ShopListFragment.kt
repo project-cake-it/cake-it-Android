@@ -14,11 +14,11 @@ import com.cakeit.cakitandroid.base.BaseFragment
 import com.cakeit.cakitandroid.data.source.local.entity.ChoiceTag
 import com.cakeit.cakitandroid.databinding.FragmentShopListBinding
 import com.cakeit.cakitandroid.presentation.list.MinDecorator
-import com.cakeit.cakitandroid.presentation.list.TodayDecorator
 import com.cakeit.cakitandroid.presentation.list.shoplist.filter.ShopChoiceTagAdapter
 import com.cakeit.cakitandroid.presentation.list.shoplist.filter.ShopDefaultFilterAdapter
 import com.cakeit.cakitandroid.presentation.list.shoplist.filter.ShopRegionFilterAdapter
 import com.cakeit.cakitandroid.presentation.shop.ShopDetailActivity
+import com.cakeit.cakitandroid.presentation.shop.calendar.TodayDecorator
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import kotlinx.android.synthetic.main.fragment_shop_list.*
 import kotlin.collections.ArrayList
@@ -40,7 +40,8 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
     private var clickedPosition = -1;
 
     private val filterList = listOf<String>("기본순", "찜순", "가격 낮은 순")
-    private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구")
+    private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구", "서대문구"
+        , "송파구")
     private var selectedDate : String = ""
     var listSelected = mutableListOf<Boolean>(false, false, false)
 

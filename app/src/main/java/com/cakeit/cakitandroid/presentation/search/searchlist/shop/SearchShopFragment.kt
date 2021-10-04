@@ -22,6 +22,7 @@ import com.cakeit.cakitandroid.presentation.search.searchlist.shop.filter.Search
 import com.cakeit.cakitandroid.presentation.search.searchlist.shop.filter.SearchShopRegionAdapter
 import com.cakeit.cakitandroid.presentation.shop.ShopDetailActivity
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
+import kotlinx.android.synthetic.main.fragment_search_design.*
 import kotlinx.android.synthetic.main.fragment_search_shop.*
 import kotlinx.android.synthetic.main.fragment_shop_list.*
 
@@ -43,7 +44,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
 
     private val filterList = listOf<String>("기본순", "찜순", "가격 낮은 순")
     private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구", "서대문구"
-        , "송파구", "노원구", "성북구", "중구", "중랑구")
+        , "송파구")
     private var selectedDate : String = ""
     var listSelected = mutableListOf<Boolean>(false, false, false)
 
@@ -103,6 +104,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
             }
             else {
                 rl_search_shop_not_empty.visibility = View.GONE
+                sv_filter_btn_search_shop.visibility = View.GONE
                 rl_search_shop_empty.visibility = View.VISIBLE
                 Log.d("songjem", "get search shops size == 0")
             }

@@ -47,7 +47,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     private val filterList = listOf<String>("기본순", "찜순", "가격 낮은 순")
     private val filterTransList = listOf<String>("DEFAULT", "ZZIM", "HIGH_PRICE", "LOW_PRICE")
     private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구", "서대문구"
-        , "송파구", "노원구", "성북구", "중구", "중랑구")
+        , "송파구")
     private var designSizeItems = ArrayList<CakeDesignSize>()
     private val colorValList = listOf<Int>(0, Color.parseColor("#F4F3EF"), Color.BLACK, Color.parseColor("#fb319c"), Color.YELLOW, Color.RED, Color.BLUE, Color.parseColor("#7033AD"), Color.parseColor("#909090"))
     private val colorList = listOf<String>("전체", "화이트", "블랙", "핑크", "옐로우", "레드", "블루", "퍼플", "기타")
@@ -97,6 +97,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
             }
             else {
                 rl_search_design_not_empty.visibility = View.GONE
+                sv_filter_btn_search_design.visibility = View.GONE
                 rl_search_design_empty.visibility = View.VISIBLE
                 Log.d("songjem", "get search designs size == 0")
             }
