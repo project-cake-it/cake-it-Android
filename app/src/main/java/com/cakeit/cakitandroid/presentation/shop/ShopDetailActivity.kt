@@ -65,7 +65,7 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
                 for (i in datas.sizes.indices)
                 {
                     sizeDataAll += datas.sizes[i].name
-                    if(datas.sizes[i].size.isNotEmpty()) sizeDataAll += "(${datas.sizes[i].size}cm)"
+                    if(datas.sizes[i].size.isNotEmpty()) sizeDataAll += "(${datas.sizes[i].size})"
                     sizeDataAll += " / ${dec.format(datas.sizes[i].price)}원"
                     if(i < datas.sizes.size-1) sizeDataAll += "\n"
                 }
