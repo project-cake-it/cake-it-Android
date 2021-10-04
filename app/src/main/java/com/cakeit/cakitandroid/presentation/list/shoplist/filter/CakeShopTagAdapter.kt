@@ -10,13 +10,14 @@ import com.cakeit.cakitandroid.domain.model.CakeShopHashTag
 import com.cakeit.cakitandroid.presentation.list.shoplist.ShopListAdapter
 import kotlinx.android.synthetic.main.item_shop_tag.view.*
 
-class CakeShopTagAdapter(var shopHashTags : ArrayList<CakeShopHashTag>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class CakeShopTagAdapter(var shopHashTags : ArrayList<CakeShopHashTag>, cakeListIndex : Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
 //    private var shopHashTags = ArrayList<CakeShopHashTag>()
+    var cakeListIndex = cakeListIndex
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_shop_tag, parent, false)
-        val viewHolder = CakeShopTagViewHolder(view)
+        val viewHolder = CakeShopTagViewHolder(view, cakeListIndex)
         return viewHolder
     }
 
@@ -32,12 +33,13 @@ class CakeShopTagAdapter(var shopHashTags : ArrayList<CakeShopHashTag>) : Recycl
         cakeShopTagViewHolder.bind(shopHashTag)
     }
 
-    class CakeShopTagViewHolder(view : View) : RecyclerView.ViewHolder(view) {
+    class CakeShopTagViewHolder(view : View, cakeListIndex : Int) : RecyclerView.ViewHolder(view) {
         val tagName = view.tv_shop_tag_name
 
         init {
             view.setOnClickListener {
-                ShopListAdapter.shopListAdapter.onItemClick.onShopItemClick(adapterPosition)
+                Log.d("songjem", "CakeShopTagAdapter click")
+                ShopListAdapter.shopListAdapter.onItemClick.onShopItemClick(cakeListIndex)
             }
         }
 

@@ -49,8 +49,8 @@ class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.Vie
         shopListAdapter = this
         val shopListViewHolder = holder as ShopListViewHolder
 
-        cakeShopTagAdapter = CakeShopTagAdapter(cakeShop.hashTag!!)
-        cakeShopPriceAdapter = CakeShopPriceAdapter(cakeShop.prices!!)
+        cakeShopTagAdapter = CakeShopTagAdapter(cakeShop.hashTag!!, position)
+        cakeShopPriceAdapter = CakeShopPriceAdapter(cakeShop.prices!!, position)
         shopListViewHolder.shopTagRv.adapter = cakeShopTagAdapter
         shopListViewHolder.shopTagRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         shopListViewHolder.shopPriceRv.adapter = cakeShopPriceAdapter

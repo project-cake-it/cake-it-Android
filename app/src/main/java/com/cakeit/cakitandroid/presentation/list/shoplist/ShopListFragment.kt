@@ -68,6 +68,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
 
             override fun onShopItemClick(position: Int) {
                 val intent = Intent(context!!, ShopDetailActivity::class.java)
+                Log.d("songjem", "ShopListFragment clickId = " + position)
                 intent.putExtra("cakeShopId", cakeShopIds[position])
                 startActivity(intent)
             }
