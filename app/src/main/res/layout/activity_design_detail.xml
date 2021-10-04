@@ -141,6 +141,7 @@
                     android:layout_marginTop="16dp"
                     android:background="@drawable/bg_order_date"
                     android:layout_marginHorizontal="20dp"
+                    android:fontFamily="@font/spoqa_han_sans_medium"
                     android:text="@string/shop_order_availability_date"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -321,7 +322,7 @@
                         >
 
                         <ImageView
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="4dp"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@drawable/ic_kakao_channel"
@@ -333,6 +334,7 @@
                             android:textSize="16sp"
                             android:textColor="#ffffff"
                             android:text="@string/shop_connect"
+                            android:fontFamily="@font/spoqa_han_sans_neo_bold"
                             android:layout_marginStart="6dp"
                             />
                     </LinearLayout>
