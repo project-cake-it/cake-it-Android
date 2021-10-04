@@ -26,6 +26,7 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
     var designId by Delegates.notNull<Int>()
     lateinit var designPagerAdapter : DesignPagerAdapter
 
+    private var orderDates = ArrayList<String>()
     private var zzim : Boolean = false
     private var fromToZzim : Boolean = false
     private lateinit var shopChannel : String
@@ -72,16 +73,15 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
         designDetailViewModel.designDetailData.observe(this, Observer { datas ->
             if(datas != null)
             {
+                orderDates = datas.orderAvailabilityDates
                 zzim = datas.zzim
                 btn_cake_detail_zzim.isSelected = zzim
 
-                if(datas.shopChannel != null) {
-                    shopChannel = datas.shopChannel
-                    if(shopChannel.contains("http://pf.kakao.com/")) {
-                        shopChannel = shopChannel.substring(shopChannel.indexOf("http://pf.kakao.com/") + 20)
-                    } else if(shopChannel.contains("https://pf.kakao.com/")) {
-                        shopChannel = shopChannel.substring(shopChannel.indexOf("https://pf.kakao.com/") + 21)
-                    }
+                shopChannel = datas.shopChannel
+                if(shopChannel.contains("http://pf.kakao.com/")) {
+                    shopChannel = shopChannel.substring(shopChannel.indexOf("http://pf.kakao.com/") + 20)
+                } else if(shopChannel.contains("https://pf.kakao.com/")) {
+                    shopChannel = shopChannel.substring(shopChannel.indexOf("https://pf.kakao.com/") + 21)
                 }
 
                 val data = ArrayList<String>()
@@ -138,6 +138,7 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
 
         btn_cake_detail_order_date.setOnClickListener{
             var intent = Intent(applicationContext, CalendarActivity::class.java)
+            intent.putExtra("dates", orderDates)
             startActivity(intent)
         }
 

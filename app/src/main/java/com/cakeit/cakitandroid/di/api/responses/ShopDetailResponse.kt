@@ -42,7 +42,8 @@ data class ShopDetailData(
     var sheetNames : String,
     var zzimCount : Int,
     var designs : ArrayList<DesignData>,
-    var zzim : Boolean
+    var zzim : Boolean,
+    var orderAvailabilityDates : ArrayList<String>
 )
 
 data class ShopDetailResponseData(

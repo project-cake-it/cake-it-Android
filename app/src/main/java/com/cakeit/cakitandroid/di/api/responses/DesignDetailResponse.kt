@@ -29,5 +29,6 @@ data class DesignDetailData(
     var shopChannel : String,
     var displaySize : SizeData,
     var zzim : Boolean,
-    var displayImage : String
+    var displayImage : String,
+    var orderAvailabilityDates : ArrayList<String>
 )
