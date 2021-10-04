@@ -33,10 +33,13 @@ class DesignListViewModel(application : Application) : BaseViewModel<Any?>(appli
 
                     var cakeDesigns = ArrayList<CakeDesignData>()
                     for(i in 0 .. it.data.size-1 ) {
-                        for(j in 0 .. it.data[i].sizes.size - 1) {
-                            if(it.data[i].designImages.size > 0) cakeDesigns.add(CakeDesignData(it.data[i].id.toLong(), it.data[i].shopAddress, it.data[i].sizes[j].name, it.data[i].shopName, it.data[i].sizes[j].price.toLong(), it.data[i].designImages[0].designImageUrl))
-                            else cakeDesigns.add(CakeDesignData(it.data[i].id.toLong(), it.data[i].shopAddress, it.data[i].sizes[j].name, it.data[i].shopName, it.data[i].sizes[j].price.toLong(), null))
-                        }
+                        cakeDesigns.add(CakeDesignData(it.data[i].id.toLong(), it.data[i].name, it.data[i].shopAddress, it.data[i].sizes[0].name, it.data[i].shopName, it.data[i].sizes[0].price.toLong(), it.data[i].designImages[0].designImageUrl))
+
+                        // 사이즈 하나만 추가
+//                        for(j in 0 .. it.data[i].sizes.size - 1) {
+//                            if(it.data[i].designImages.size > 0) cakeDesigns.add(CakeDesignData(it.data[i].id.toLong(), it.data[i].name, it.data[i].shopAddress, it.data[i].sizes[j].name, it.data[i].shopName, it.data[i].sizes[j].price.toLong(), it.data[i].designImages[0].designImageUrl))
+//                            else cakeDesigns.add(CakeDesignData(it.data[i].id.toLong(), it.data[i].name, it.data[i].shopAddress, it.data[i].sizes[j].name, it.data[i].shopName, it.data[i].sizes[j].price.toLong(), null))
+//                        }
                     }
                     _cakeDesignItems.value = cakeDesigns
                     Log.d("songjem", "DesignList onSuccess")
