@@ -92,7 +92,7 @@
 
                 <RelativeLayout
                     android:id="@+id/btn_filter_default_shop_list"
-                    android:layout_width="82dp"
+                    android:layout_width="85dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="7.5dp"
                     android:background="@drawable/background_filter_btn_effect_before"
@@ -106,13 +106,13 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_centerInParent="true"
+                        android:layout_marginHorizontal="5dp"
                         >
 
                         <TextView
                             android:id="@+id/tv_filter_default_title_shop_list"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
                             android:fontFamily="@font/spoqa_han_sans_neo_regular"
                             android:text="기본순"
                             android:textColor="#242424"
@@ -123,7 +123,6 @@
                             android:id="@+id/btn_filter_default_compact_shop_list"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_marginEnd="10dp"
                             android:background="@drawable/background_filter_compact_before"
                             android:enabled="false"
                             />

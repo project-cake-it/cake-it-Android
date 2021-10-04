@@ -43,6 +43,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
 
     private var clickedPosition = -1
     var name : String? = null
+    var searchListSize = 0
 
     private val filterList = listOf<String>("기본순", "찜순", "가격 낮은 순")
     private val filterTransList = listOf<String>("DEFAULT", "ZZIM", "HIGH_PRICE", "LOW_PRICE")
@@ -63,6 +64,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     var selectedTheme : String? = null
     var selectedOrder : String = ""
     lateinit var keyword : String
+    var onceFlag = true
 
     lateinit var searchCakeDesignIds : ArrayList<Long>
 
@@ -88,7 +90,8 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
 
         searchDesignViewModel.cakeDesignItems.observe(viewLifecycleOwner, Observer { datas ->
             searchCakeDesignIds = ArrayList<Long>()
-            if(datas.size > 0) {
+            searchListSize = datas.size
+            if(searchListSize > 0) {
                 for(data in datas) {
                     searchCakeDesignIds.add(data.designIndex!!)
                 }
@@ -97,8 +100,14 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
             }
             else {
                 rl_search_design_not_empty.visibility = View.GONE
-                sv_filter_btn_search_design.visibility = View.GONE
                 rl_search_design_empty.visibility = View.VISIBLE
+
+//                 필터 부분 visible
+                if(onceFlag) {
+                    sv_filter_btn_search_design.visibility = View.GONE
+                }
+                else sv_filter_btn_search_design.visibility = View.VISIBLE
+
                 Log.d("songjem", "get search designs size == 0")
             }
             designListAdapter.setDesignListItems(datas)
@@ -237,6 +246,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     }
 
     fun getSearchDesignByNetwork(keyword : String, name : String, choiceTagItems : ArrayList<ChoiceTag>) {
+        onceFlag = false
         // 데이터 초기화
         selectedLocList = ArrayList<String>()
         selectedSizeList = ArrayList<String>()
@@ -257,7 +267,8 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                 // 전체
                 if(choiceTagItems[i].choiceCode == 0) {
                     for(i in 1.. choiceTagItems.size - 1) {
-                        selectedLocList.add(choiceTagItems[i].choiceName)
+                        selectedLocList.remove(choiceTagItems[i].choiceName)
+//                        selectedLocList.add(choiceTagItems[i].choiceName)
                     }
                 }
                 else selectedLocList.add(choiceTagItems[i].choiceName)
@@ -327,7 +338,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                     listSelected[1] = true
                     regionFilterOff()
 
-                    // 기존 장소 값(초이스) 지우기
+                    // 이전에 선택했던 장소 필터 값 지우기
                     deleteChoiceTag(1)
 
                     // 추가한 리스트 가져와서 리스트에 넣어야 함
@@ -335,8 +346,11 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
 
                     // 전체 선택
                     if(tagList[0] == 0) {
+                        clearRegion()
+                        listSelected[1] = false
                         for(i in 1.. regionList.size-1) {
-                            choiceTagItems.add(ChoiceTag(1, i, regionList[i]))
+                            choiceTagItems.remove(ChoiceTag(1, i, regionList[i]))
+//                            choiceTagItems.add(ChoiceTag(1, i, regionList[i]))
                         }
                     }
                     else {
@@ -355,15 +369,18 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                     listSelected[2] = true
                     sizeFilterOff()
 
-                    // 기존 장소 값(초이스) 지우기
+                    // 이전에 선택했던 크기 필터 값 지우기
                     deleteChoiceTag(2)
                     // 추가한 리스트 가져와서 리스트에 넣어야 함
                     var tagList = searchDesignSizeAdapter.getChoiceTagIndex()
 
                     // 전체 선택
                     if(tagList[0] == 0) {
+                        clearSize()
+                        listSelected[2] = false
                         for(i in 1.. designSizeItems.size-1) {
-                            choiceTagItems.add(ChoiceTag(1, i, designSizeItems[i].sizeName))
+                            choiceTagItems.remove(ChoiceTag(1, i, designSizeItems[i].sizeName))
+//                            choiceTagItems.add(ChoiceTag(1, i, designSizeItems[i].sizeName))
                         }
                     }
                     else {
@@ -383,15 +400,18 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                     listSelected[3] = true
                     colorFilterOff()
 
-                    // 기존 장소 값(초이스) 지우기
+                    // 이전에 선택했던 색깔 필터 값 지우기
                     deleteChoiceTag(3)
                     // 추가한 리스트 가져와서 리스트에 넣어야 함
                     var tagList = searchDesignColorAdapter.getChoiceTagIndex()
 
                     // 전체 선택
                     if(tagList[0] == 0) {
+                        clearColor()
+                        listSelected[3] = false
                         for(i in 1.. colorList.size-1) {
-                            choiceTagItems.add(ChoiceTag(1, i, colorList[i]))
+                            choiceTagItems.remove(ChoiceTag(1, i, colorList[i]))
+//                            choiceTagItems.add(ChoiceTag(1, i, colorList[i]))
                         }
                     }
                     else {
@@ -410,15 +430,18 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                     listSelected[4] = true
                     categoryFilterOff()
 
-                    // 기존 장소 값(초이스) 지우기
+                    // 이전에 선택했던 카테고리 필터 값 지우기
                     deleteChoiceTag(4)
                     // 추가한 리스트 가져와서 리스트에 넣어야 함
                     var tagList = searchDesignCategoryAdapter.getChoiceTagIndex()
 
                     // 전체 선택
                     if(tagList[0] == 0) {
+                        clearCategory()
+                        listSelected[4] = false
                         for(i in 1.. categoryList.size-1) {
-                            choiceTagItems.add(ChoiceTag(1, i, categoryList[i]))
+                            choiceTagItems.remove(ChoiceTag(1, i, categoryList[i]))
+//                            choiceTagItems.add(ChoiceTag(1, i, categoryList[i]))
                         }
                     }
                     else {
@@ -433,6 +456,12 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
             }
             R.id.btn_filter_default_search_design -> {
                 if(!btn_filter_default_search_design.isSelected) {
+                    if(searchListSize == 0) {
+                        // empty 화면 VISIBLITY OFF
+                        rl_search_design_not_empty.visibility = View.VISIBLE
+                        rl_search_design_empty.visibility = View.GONE
+                    }
+
                     setFilterItem(0)
                     regionFilterOff()
                     sizeFilterOff()
@@ -443,6 +472,12 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                     rv_design_list_search_design.visibility = View.GONE
                 }
                 else {
+                    if(searchListSize == 0) {
+                        // empty 화면 VISIBILITY ON
+                        rl_search_design_not_empty.visibility = View.GONE
+                        rl_search_design_empty.visibility = View.VISIBLE
+                    }
+
                     defaultFilterOff()
                     view_background_search_design.visibility = View.INVISIBLE
                     rv_design_list_search_design.visibility = View.VISIBLE
@@ -450,6 +485,12 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
             }
             R.id.btn_filter_pickup_region_search_design -> {
                 if(!btn_filter_pickup_region_search_design.isSelected) {
+                    if(searchListSize == 0) {
+                        // empty 화면 VISIBLITY OFF
+                        rl_search_design_not_empty.visibility = View.VISIBLE
+                        rl_search_design_empty.visibility = View.GONE
+                    }
+
                     setFilterItem(1)
                     defaultFilterOff()
                     sizeFilterOff()
@@ -460,6 +501,11 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                     rv_design_list_search_design.visibility = View.GONE
                 }
                 else {
+                    if(searchListSize == 0) {
+                        // empty 화면 VISIBILITY ON
+                        rl_search_design_not_empty.visibility = View.GONE
+                        rl_search_design_empty.visibility = View.VISIBLE
+                    }
                     regionFilterOff()
                     view_background_search_design.visibility = View.INVISIBLE
                     rv_design_list_search_design.visibility = View.VISIBLE
@@ -467,6 +513,12 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
             }
             R.id.btn_filter_size_search_design -> {
                 if(!btn_filter_size_search_design.isSelected) {
+                    if(searchListSize == 0) {
+                        // empty 화면 VISIBLITY OFF
+                        rl_search_design_not_empty.visibility = View.VISIBLE
+                        rl_search_design_empty.visibility = View.GONE
+                    }
+
                     setFilterItem(2)
                     defaultFilterOff()
                     regionFilterOff()
@@ -477,6 +529,12 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                     rv_design_list_search_design.visibility = View.GONE
                 }
                 else {
+                    if(searchListSize == 0) {
+                        // empty 화면 VISIBILITY ON
+                        rl_search_design_not_empty.visibility = View.GONE
+                        rl_search_design_empty.visibility = View.VISIBLE
+                    }
+
                     sizeFilterOff()
                     view_background_search_design.visibility = View.INVISIBLE
                     rv_design_list_search_design.visibility = View.VISIBLE
@@ -484,6 +542,12 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
             }
             R.id.btn_filter_color_search_design -> {
                 if(!btn_filter_color_search_design.isSelected) {
+                    if(searchListSize == 0) {
+                        // empty 화면 VISIBLITY OFF
+                        rl_search_design_not_empty.visibility = View.VISIBLE
+                        rl_search_design_empty.visibility = View.GONE
+                    }
+
                     setFilterItem(3)
                     defaultFilterOff()
                     regionFilterOff()
@@ -494,6 +558,12 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                     rv_design_list_search_design.visibility = View.GONE
                 }
                 else {
+                    if(searchListSize == 0) {
+                        // empty 화면 VISIBILITY ON
+                        rl_search_design_not_empty.visibility = View.GONE
+                        rl_search_design_empty.visibility = View.VISIBLE
+                    }
+
                     colorFilterOff()
                     view_background_search_design.visibility = View.INVISIBLE
                     rv_design_list_search_design.visibility = View.VISIBLE
@@ -501,6 +571,12 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
             }
             R.id.btn_filter_category_search_design -> {
                 if(!btn_filter_category_search_design.isSelected) {
+                    if(searchListSize == 0) {
+                        // empty 화면 VISIBLITY OFF
+                        rl_search_design_not_empty.visibility = View.VISIBLE
+                        rl_search_design_empty.visibility = View.GONE
+                    }
+
                     setFilterItem(4)
                     defaultFilterOff()
                     regionFilterOff()
@@ -511,6 +587,12 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                     rv_design_list_search_design.visibility = View.GONE
                 }
                 else {
+                    if(searchListSize == 0) {
+                        // empty 화면 VISIBILITY ON
+                        rl_search_design_not_empty.visibility = View.GONE
+                        rl_search_design_empty.visibility = View.VISIBLE
+                    }
+
                     categoryFilterOff()
                     view_background_search_design.visibility = View.INVISIBLE
                     rv_design_list_search_design.visibility = View.VISIBLE
@@ -536,17 +618,18 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     }
     // 장소 선택 초기화
     fun clearRegion() {
-        btn_filter_pickup_region_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn))
+        btn_filter_pickup_region_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect_before))
         btn_filter_pickup_region_compact_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact_before))
         btn_filter_pickup_region_search_design.isSelected = false
         btn_filter_pickup_region_compact_search_design.isSelected = false
         tv_filter_pickup_region_title_search_design.setTextColor(Color.parseColor("#000000"))
-        tv_filter_pickup_region_title_search_design.text = "픽업 지역"
+        tv_filter_pickup_region_title_search_design.text = "지역"
         searchDesignRegionAdapter.checkedPosition.clear()
+        searchDesignRegionAdapter.checkedPosition.add(0)
     }
     // 크기 선택 초기화
     fun clearSize() {
-        btn_filter_size_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn))
+        btn_filter_size_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect_before))
         btn_filter_size_compact_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact_before))
         btn_filter_size_search_design.isSelected = false
         btn_filter_size_compact_search_design.isSelected = false
@@ -556,7 +639,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     }
     // 색깔 선택 초기화
     fun clearColor() {
-        btn_filter_color_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn))
+        btn_filter_color_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect_before))
         btn_filter_color_compact_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact_before))
         btn_filter_color_search_design.isSelected = false
         btn_filter_color_compact_search_design.isSelected = false
@@ -566,7 +649,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     }
     // 카테고리 초기화
     fun clearCategory() {
-        btn_filter_category_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn))
+        btn_filter_category_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect_before))
         btn_filter_category_compact_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact_before))
         btn_filter_category_search_design.isSelected = false
         btn_filter_category_compact_search_design.isSelected = false

@@ -1,4 +1,5 @@
 package com.cakeit.cakitandroid.presentation.list.shoplist
+
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -45,7 +46,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
     private var selectedDate : String = ""
     var listSelected = mutableListOf<Boolean>(false, false, false)
 
-    var pickup : String? = null
+    var choicePickupDate : String? = null
     lateinit var selecedLocList : ArrayList<String>
     var selectedOrder : String? = null
     lateinit var cakeShopIds : ArrayList<Int>
@@ -110,14 +111,14 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
             if(date.day < 10) pickupDay = "0" + date.day
             else pickupDay = date.day.toString()
 
-            pickup = date.year.toString() + pickupMonth + pickupDay
+            choicePickupDate = date.year.toString() + pickupMonth + pickupDay
         })
 
     }
 
     fun getshopList() {
         selecedLocList = ArrayList<String>()
-        shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList, pickup) // 추후 픽업 날짜도 추가 예정
+        shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList, choicePickupDate)
     }
 
     fun initRecyclerview() {
@@ -216,7 +217,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
         else if(selectedOrder.equals(filterList[1])) selectedOrder = "zzim"
         else if(selectedOrder.equals(filterList[2])) selectedOrder = "cheap"
 
-        shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList, pickup)  // 추후 픽업 날짜도 추가 예정
+        shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList, choicePickupDate)
 
     }
 
@@ -252,8 +253,11 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
 
                     // 전체 선택
                     if(tagList[0] == 0) {
+                        clearRegion()
+                        listSelected[1] = false
                         for(i in 1.. regionList.size-1) {
-                            choiceTagItems.add(ChoiceTag(1, i, regionList[i]))
+//                            choiceTagItems.add(ChoiceTag(1, i, regionList[i]))
+                            choiceTagItems.remove(ChoiceTag(1, i, regionList[i]))
                         }
                     }
                     else {
@@ -284,6 +288,8 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
             R.id.btn_filter_refresh_shop_list -> {
                 view_background_shop_list.visibility = View.INVISIBLE
                 rv_shop_list_shop_list.visibility = View.VISIBLE
+
+                choicePickupDate = null
 
                 for(i in 0 .. 2) {
                     listSelected[i] = false
