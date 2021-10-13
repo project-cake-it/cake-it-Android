@@ -22,5 +22,18 @@
             android:layout_marginTop="12dp"
             />
 
+        <TextView
+            android:id="@+id/rv_zzim_shop_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textColor="@color/accentText"
+            android:text="찜한 가게가 없어요\n
+마음에 드는 가게를 담아볼까요?"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="8dp"
+            />
+
     </RelativeLayout>
 </layout>

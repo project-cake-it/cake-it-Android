@@ -1,6 +1,5 @@
 package com.cakeit.cakitandroid.presentation.zzim.shop
 
-import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
@@ -14,7 +13,6 @@ import com.cakeit.cakitandroid.base.BaseFragment
 import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 import com.cakeit.cakitandroid.databinding.FragmentZzimShopBinding
 import com.cakeit.cakitandroid.presentation.list.shoplist.ShopListAdapter
-import com.cakeit.cakitandroid.presentation.list.shoplist.ShopListFragment
 import com.cakeit.cakitandroid.presentation.shop.ShopDetailActivity
 import com.cakeit.cakitandroid.presentation.zzim.ZzimViewModel
 import kotlinx.android.synthetic.main.fragment_zzim_shop.*
@@ -51,12 +49,18 @@ class ZzimShopFragment : BaseFragment<FragmentZzimShopBinding, ZzimViewModel>() 
 
         zzimViewModel.cakeShopItems.observe(viewLifecycleOwner, Observer { datas ->
             zzimCakeShopIds = ArrayList<Int>()
+            Log.d("ssongjem", "get zzim shopList size = " + datas.size)
             if(datas.size > 0) {
+                rv_zzim_shop_list.visibility = View.VISIBLE
+                rv_zzim_shop_empty.visibility = View.GONE
+
                 for(data in datas) {
                     zzimCakeShopIds.add(data.shopId!!)
                 }
             }
             else {
+                rv_zzim_shop_list.visibility = View.GONE
+                rv_zzim_shop_empty.visibility = View.VISIBLE
                 Log.d("ssongjem", "get zzim shopList size == 0")
             }
             shopListAdapter.setShopListItems(datas)
