@@ -9,7 +9,6 @@ import io.reactivex.Single
 object ZzimShopListUseCase : SingleUseCase<ZzimShopResponseModel>(){
     override fun buildUseCase(baseRequest: BaseRequest): Single<ZzimShopResponseModel>? {
         var req = baseRequest as ZzimShopListUseCase.Request
-        Log.d("ssongjem", "buildUseCase")
         return ZzimShopListRepo.sendParams(req.authorization)
             ?.map {
                 Log.d("songjem", "getZzimShopList, message = " + it.message)

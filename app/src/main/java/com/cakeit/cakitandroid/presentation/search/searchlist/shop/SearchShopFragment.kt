@@ -528,7 +528,6 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
 
     // 지역별 필터링 OFF
     fun dateFilterOff() {
-        Log.d("songjem", "dateFilterOff")
         cl_filter_content_search_shop.visibility = View.GONE
         cv_pickup_calendar_search_shop.visibility = View.GONE
         btn_filter_pickup_date_search_shop.isSelected = false

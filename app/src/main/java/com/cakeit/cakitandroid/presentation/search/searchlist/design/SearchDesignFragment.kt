@@ -47,20 +47,18 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
 
     private val filterList = listOf<String>("기본순", "찜순", "가격 낮은 순")
     private val filterTransList = listOf<String>("DEFAULT", "zzim", "cheap")
-    private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구", "서대문구"
-        , "송파구")
+    private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구", "서대문구", "송파구")
     private var designSizeItems = ArrayList<CakeDesignSize>()
     private val colorValList = listOf<Int>(0, Color.parseColor("#F4F3EF"), Color.BLACK, Color.parseColor("#fb319c"), Color.YELLOW, Color.RED, Color.BLUE, Color.parseColor("#7033AD"), Color.parseColor("#909090"))
     private val colorList = listOf<String>("전체", "화이트", "블랙", "핑크", "옐로우", "레드", "블루", "퍼플", "기타")
-    private val colorTransList = listOf<String>("ALL", "WHITE", "BLACK", "PINK", "YELLOW", "RED", "BLUE", "PURPLE", "OTHER")
     private val categoryList = listOf<String>("전체", "문구", "이미지", "캐릭터", "개성")
-    private val categoryTransList = listOf<String>("ALL", "WORDING", "IMAGE", "CHARACTERS", "INDIVIDUALITY")
     var listSelected = mutableListOf<Boolean>(false, false, false, false, false)
 
     lateinit var selectedLocList : ArrayList<String>
     lateinit var selectedSizeList : ArrayList<String>
     lateinit var selectedColorList : ArrayList<String>
     lateinit var selectedCategoryList : ArrayList<String>
+
     var selectedTheme : String? = null
     var selectedOrder : String? = null
     lateinit var keyword : String
@@ -276,30 +274,30 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                 // 전체
                 if(choiceTagItems[i].choiceCode == 0) {
                     for(i in 1.. choiceTagItems.size - 1) {
-                        selectedLocList.add(choiceTagItems[i].choiceName)
+                        selectedSizeList.add(choiceTagItems[i].choiceName)
                     }
                 }
-                else selectedLocList.add(choiceTagItems[i].choiceName)
+                else selectedSizeList.add(choiceTagItems[i].choiceName)
             }
             // 색깔
             else if(choiceTagItems[i].filterCode == 3) {
                 // 전체
                 if(choiceTagItems[i].choiceCode == 0) {
-                    for(i in 1.. colorTransList.size - 1) {
-                        selectedLocList.add(colorTransList[i])
+                    for(i in 1.. colorList.size - 1) {
+                        selectedColorList.add(colorList[i])
                     }
                 }
-                else selectedLocList.add(colorTransList[choiceTagItems[i].choiceCode])
+                else selectedColorList.add(colorList[choiceTagItems[i].choiceCode])
             }
             // 카테고리
             else if(choiceTagItems[i].filterCode == 4) {
                 // 전체
                 if(choiceTagItems[i].choiceCode == 0) {
-                    for(i in 1.. categoryTransList.size - 1) {
-                        selectedLocList.add(categoryTransList[i])
+                    for(i in 1.. categoryList.size - 1) {
+                        selectedCategoryList.add(categoryList[i])
                     }
                 }
-                else selectedLocList.add(categoryTransList[choiceTagItems[i].choiceCode])
+                else selectedCategoryList.add(categoryList[choiceTagItems[i].choiceCode])
             }
         }
         if((isClickedOrder == false) && ((selectedLocList.size + selectedSizeList.size + selectedColorList.size + selectedCategoryList.size) == 0)) sv_choice_tag_search_design.visibility = View.GONE
@@ -332,9 +330,6 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                     else if(selectedOrder.equals("찜순")) selectedOrder = "zzim"
                     else if(selectedOrder.equals("가격 낮은 순")) selectedOrder = "cheap"
 
-//                    if(selectedOrder != "") sv_choice_tag_search_design.visibility = View.VISIBLE
-//                    else sv_choice_tag_search_design.visibility = View.GONE
-
                     getSearchDesignByNetwork(keyword, null, choiceTagItems)
                 }
                 else if(clickedPosition == 1) {
@@ -356,7 +351,6 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                         listSelected[1] = false
                         for(i in 1.. regionList.size-1) {
                             choiceTagItems.remove(ChoiceTag(1, i, regionList[i]))
-//                            choiceTagItems.add(ChoiceTag(1, i, regionList[i]))
                         }
                     }
                     else {
@@ -647,6 +641,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
         tv_filter_size_title_search_design.setTextColor(Color.parseColor("#000000"))
         tv_filter_size_title_search_design.text = "크기"
         searchDesignSizeAdapter.checkedPosition.clear()
+        searchDesignSizeAdapter.checkedPosition.add(0)
     }
     // 색깔 선택 초기화
     fun clearColor() {
@@ -657,6 +652,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
         tv_filter_color_title_search_design.setTextColor(Color.parseColor("#000000"))
         tv_filter_color_title_search_design.text = "색깔"
         searchDesignColorAdapter.checkedPosition.clear()
+        searchDesignColorAdapter.checkedPosition.add(0)
     }
     // 카테고리 초기화
     fun clearCategory() {
@@ -667,6 +663,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
         tv_filter_category_title_search_design.setTextColor(Color.parseColor("#000000"))
         tv_filter_category_title_search_design.text = "카테고리"
         searchDesignCategoryAdapter.checkedPosition.clear()
+        searchDesignCategoryAdapter.checkedPosition.add(0)
     }
 
     // 기본순 필터링 ON
@@ -711,7 +708,6 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
 
     // 지역별 필터링 OFF
     fun regionFilterOff() {
-        Log.d("songjem", "regionFilterOff")
         cl_filter_content_search_design.visibility = View.GONE
         rv_filter_region_list_search_design.visibility = View.GONE
         btn_filter_pickup_region_search_design.isSelected = false
@@ -833,11 +829,11 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
             2 -> {
                 designSizeItems = ArrayList<CakeDesignSize>()
                 designSizeItems.add(CakeDesignSize(0, "전체", ""))
-                designSizeItems.add(CakeDesignSize(1, "미니", "미니 설명"))
-                designSizeItems.add(CakeDesignSize(2, "1호", "1호 설명"))
-                designSizeItems.add(CakeDesignSize(3, "2호", "2호 설명"))
-                designSizeItems.add(CakeDesignSize(4, "3호", "3호 설명"))
-                designSizeItems.add(CakeDesignSize(5, "2단", "2단 설명"))
+                designSizeItems.add(CakeDesignSize(1, "미니", "10-11cm, 1-2인용"))
+                designSizeItems.add(CakeDesignSize(2, "1호", "15-16cm, 3-4인용"))
+                designSizeItems.add(CakeDesignSize(3, "2호", "18cm, 5-6인용"))
+                designSizeItems.add(CakeDesignSize(4, "3호", "21cm, 7-8인용"))
+                designSizeItems.add(CakeDesignSize(5, "2단", "파티용 특별제작"))
                 searchDesignSizeAdapter.setDesignSizeItems(designSizeItems)
             }
             // 색깔 필터

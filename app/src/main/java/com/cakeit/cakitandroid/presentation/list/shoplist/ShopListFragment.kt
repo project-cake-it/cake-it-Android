@@ -477,7 +477,6 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
 
     // 지역별 필터링 OFF
     fun dateFilterOff() {
-        Log.d("songjem", "dateFilterOff")
         cl_filter_content_shop_list.visibility = View.GONE
         cv_pickup_calendar_shop_list.visibility = View.GONE
         btn_filter_pickup_date_shop_list.isSelected = false

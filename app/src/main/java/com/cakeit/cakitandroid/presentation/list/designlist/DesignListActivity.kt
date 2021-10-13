@@ -680,7 +680,6 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
 
     // 지역별 필터링 OFF
     fun regionFilterOff() {
-        Log.d("songjem", "regionFilterOff")
         cl_filter_content_design_list.visibility = View.GONE
         rv_filter_region_list_design_list.visibility = View.GONE
         btn_filter_pickup_region_design_list.isSelected = false
@@ -802,11 +801,11 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
             2 -> {
                 designSizeItems = ArrayList<CakeDesignSize>()
                 designSizeItems.add(CakeDesignSize(0, "전체", ""))
-                designSizeItems.add(CakeDesignSize(1, "미니", "미니 설명"))
-                designSizeItems.add(CakeDesignSize(2, "1호", "1호 설명"))
-                designSizeItems.add(CakeDesignSize(3, "2호", "2호 설명"))
-                designSizeItems.add(CakeDesignSize(4, "3호", "3호 설명"))
-                designSizeItems.add(CakeDesignSize(5, "2단", "2단 설명"))
+                designSizeItems.add(CakeDesignSize(1, "미니", "10-11cm, 1-2인용"))
+                designSizeItems.add(CakeDesignSize(2, "1호", "15-16cm, 3-4인용"))
+                designSizeItems.add(CakeDesignSize(3, "2호", "18cm, 5-6인용"))
+                designSizeItems.add(CakeDesignSize(4, "3호", "21cm, 7-8인용"))
+                designSizeItems.add(CakeDesignSize(5, "2단", "파티용 특별제작"))
                 designSizeFilterAdapter.setDesignSizeItems(designSizeItems)
             }
             // 색깔 필터
