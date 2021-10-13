@@ -112,6 +112,26 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
             else pickupDay = date.day.toString()
 
             choicePickupDate = date.year.toString() + pickupMonth + pickupDay
+
+            btn_filter_pickup_date_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
+            btn_filter_pickup_date_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact))
+            btn_filter_pickup_date_shop_list.isSelected = false
+
+            listSelected[2] = true
+            dateFilterOff()
+
+            // 기존 선택한 날짜 값(초이스) 지우기
+            deleteChoiceTag(2)
+
+            // 선택한 날짜 태그 리스트에 추가
+            choiceTagItems.add(ChoiceTag(2, 0, selectedDate!!))
+
+            // 리스트 화면 re visible
+            view_background_shop_list.visibility = View.INVISIBLE
+            rv_shop_list_shop_list.visibility = View.VISIBLE
+
+            shopChoiceTagAdapter.setChoiceTagItem(choiceTagItems)
+            getShopListByNetwork(choiceTagItems)
         })
 
     }
@@ -192,13 +212,17 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
     }
 
     fun getShopListByNetwork(choiceTagItems : ArrayList<ChoiceTag>) {
-        // 데이터 초기화
+        // TAG 리스트 초기화
         selecedLocList = ArrayList<String>()
 
-        // 데이터 가져오기
+        // TAG 리스트 가져오기
         for(i in 0.. choiceTagItems.size - 1) {
-            // 지역
-            if(choiceTagItems[i].filterCode == 1) {
+            // 기본 정렬
+            if(choiceTagItems[i].filterCode == 0) {
+                sv_choice_tag_shop_list.visibility = View.VISIBLE
+            }
+            // 장소
+            else if(choiceTagItems[i].filterCode == 1) {
                 // 전체
                 if(choiceTagItems[i].choiceCode == 0) {
                     for(i in 1.. choiceTagItems.size - 1) {
@@ -207,8 +231,12 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
                 }
                 else selecedLocList.add(choiceTagItems[i].choiceName)
             }
+            // 날짜
+            else if(choiceTagItems[i].filterCode == 2) {
+                sv_choice_tag_shop_list.visibility = View.VISIBLE
+            }
         }
-        if(selecedLocList.size > 0) {
+        if(selectedOrder != null || selecedLocList.size > 0 || choicePickupDate != null) {
             sv_choice_tag_shop_list.visibility = View.VISIBLE
         } else {
             sv_choice_tag_shop_list.visibility = View.GONE
@@ -236,6 +264,11 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
                     selectedOrder = shopDefaultFilterAdapter.getClickedItem()
                     tv_filter_default_title_shop_list.text = selectedOrder
 
+                    // 기존 정렬 값(초이스) 지우기
+                    deleteChoiceTag(0)
+                    choiceTagItems.add(ChoiceTag(0, 0, selectedOrder!!))
+
+                    shopChoiceTagAdapter.setChoiceTagItem(choiceTagItems)
                     getShopListByNetwork(choiceTagItems)
                 }
                 else if(clickedPosition == 1) {
@@ -270,19 +303,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
                     getShopListByNetwork(choiceTagItems)
                 }
                 else if(clickedPosition == 2) {
-                    btn_filter_pickup_date_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
-                    btn_filter_pickup_date_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact))
-                    listSelected[2] = true
-
-                    if(selectedDate.equals("")) tv_filter_pickup_date_title_shop_list.text = "픽업 날짜"
-                    else {
-                        tv_filter_pickup_date_title_shop_list.text = selectedDate
-                        Log.d("song", "selectedDate = " + selectedDate)
-                    }
                     dateFilterOff()
-                    btn_filter_pickup_date_shop_list.isSelected = false
-
-                    getShopListByNetwork(choiceTagItems)
                 }
             }
             R.id.btn_filter_refresh_shop_list -> {
@@ -361,6 +382,8 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
         tv_filter_default_title_shop_list.text = "기본순"
         shopDefaultFilterAdapter.checkedPosition.clear()
         shopDefaultFilterAdapter.checkedPosition.add(0)
+
+        selectedOrder = null
     }
     // 장소 선택 초기화
     fun clearRegion() {
@@ -380,7 +403,9 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
         btn_filter_pickup_date_shop_list.isSelected = false
         btn_filter_pickup_date_compact_shop_list.isSelected = false
         tv_filter_pickup_date_title_shop_list.setTextColor(Color.parseColor("#000000"))
-        tv_filter_pickup_date_title_shop_list.text = "픽업 날짜"
+        tv_filter_pickup_date_title_shop_list.text = "주문 가능 날짜"
+        selectedDate = ""
+        choicePickupDate = null
     }
 
     // 기본순 필터링 ON
