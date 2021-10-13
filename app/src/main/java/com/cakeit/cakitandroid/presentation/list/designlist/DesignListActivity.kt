@@ -94,12 +94,15 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         designListViewModel.cakeDesignItems.observe(this, Observer { datas ->
             cakeDesignIds = ArrayList<Long>()
             if(datas.size > 0) {
+                rv_design_list_design_list.visibility = View.VISIBLE
+                tv_empty_design_list.visibility = View.GONE
                 for(data in datas) {
                     cakeDesignIds.add(data.designIndex!!)
                 }
             }
             else {
-                Log.d("songjem", "get designList size == 0")
+                rv_design_list_design_list.visibility = View.GONE
+                tv_empty_design_list.visibility = View.VISIBLE
             }
             designListAdapter.setDesignListItems(datas)
          })

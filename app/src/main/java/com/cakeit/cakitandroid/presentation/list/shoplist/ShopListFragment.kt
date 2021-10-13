@@ -21,6 +21,7 @@ import com.cakeit.cakitandroid.presentation.list.shoplist.filter.ShopRegionFilte
 import com.cakeit.cakitandroid.presentation.shop.ShopDetailActivity
 import com.cakeit.cakitandroid.presentation.shop.calendar.TodayDecorator
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
+import kotlinx.android.synthetic.main.activity_design_list.*
 import kotlinx.android.synthetic.main.fragment_shop_list.*
 import kotlin.collections.ArrayList
 
@@ -50,6 +51,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
     lateinit var selecedLocList : ArrayList<String>
     var selectedOrder : String? = null
     lateinit var cakeShopIds : ArrayList<Int>
+    var isClickedOrder = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -78,12 +80,16 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
         shopListViewModel.cakeShopItems.observe(viewLifecycleOwner, Observer { datas ->
             cakeShopIds = ArrayList<Int>()
             if(datas.size > 0) {
+                rv_shop_list_shop_list.visibility = View.VISIBLE
+                tv_empty_shop_list.visibility = View.GONE
+
                 for(data in datas) {
                     cakeShopIds.add(data!!.shopId)
                 }
             }
             else {
-                Log.d("songjem", "get shopList size == 0")
+                rv_shop_list_shop_list.visibility = View.GONE
+                tv_empty_shop_list.visibility = View.VISIBLE
             }
             shopListAdapter.setShopListItems(datas)
         })
@@ -236,7 +242,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
                 sv_choice_tag_shop_list.visibility = View.VISIBLE
             }
         }
-        if(selectedOrder != null || selecedLocList.size > 0 || choicePickupDate != null) {
+        if(isClickedOrder == true || selecedLocList.size > 0 || choicePickupDate != null) {
             sv_choice_tag_shop_list.visibility = View.VISIBLE
         } else {
             sv_choice_tag_shop_list.visibility = View.GONE
@@ -256,6 +262,8 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
                 view_background_shop_list.visibility = View.INVISIBLE
                 rv_shop_list_shop_list.visibility = View.VISIBLE
                 if(clickedPosition == 0) {
+                    isClickedOrder = true
+
                     btn_filter_default_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
                     btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact))
 
@@ -374,6 +382,8 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
     }
     // 기본순 초기화
     fun clearDefault() {
+        isClickedOrder = false
+
         btn_filter_default_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect_before))
         btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact_before))
         btn_filter_default_shop_list.isSelected = false

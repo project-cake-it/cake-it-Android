@@ -52,7 +52,7 @@ class ZzimShopFragment : BaseFragment<FragmentZzimShopBinding, ZzimViewModel>() 
             Log.d("ssongjem", "get zzim shopList size = " + datas.size)
             if(datas.size > 0) {
                 rv_zzim_shop_list.visibility = View.VISIBLE
-                rv_zzim_shop_empty.visibility = View.GONE
+                tv_zzim_shop_empty.visibility = View.GONE
 
                 for(data in datas) {
                     zzimCakeShopIds.add(data.shopId!!)
@@ -60,8 +60,7 @@ class ZzimShopFragment : BaseFragment<FragmentZzimShopBinding, ZzimViewModel>() 
             }
             else {
                 rv_zzim_shop_list.visibility = View.GONE
-                rv_zzim_shop_empty.visibility = View.VISIBLE
-                Log.d("ssongjem", "get zzim shopList size == 0")
+                tv_zzim_shop_empty.visibility = View.VISIBLE
             }
             shopListAdapter.setShopListItems(datas)
         })

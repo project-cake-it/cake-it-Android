@@ -44,11 +44,10 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
         getZzimDesigns()
 
         zzimViewModel.desigDatas.observe(viewLifecycleOwner, Observer { datas ->
-            if(datas != null)
-            {
+            if(datas != null) {
                 if(datas.size > 0) {
                     rv_zzim_design_item.visibility = View.VISIBLE
-                    rv_zzim_design_empty.visibility = View.GONE
+                    tv_zzim_design_empty.visibility = View.GONE
 
                     var designs = ArrayList<String>()
                     designId = ArrayList()
@@ -60,7 +59,7 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
                     designGridAdapter.setRefresh(designs)
                 } else {
                     rv_zzim_design_item.visibility = View.GONE
-                    rv_zzim_design_empty.visibility = View.VISIBLE
+                    tv_zzim_design_empty.visibility = View.VISIBLE
                 }
             }
             else {

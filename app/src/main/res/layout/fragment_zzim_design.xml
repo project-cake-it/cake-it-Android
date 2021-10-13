@@ -19,7 +19,7 @@
             />
 
         <TextView
-            android:id="@+id/rv_zzim_design_empty"
+            android:id="@+id/tv_zzim_design_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
