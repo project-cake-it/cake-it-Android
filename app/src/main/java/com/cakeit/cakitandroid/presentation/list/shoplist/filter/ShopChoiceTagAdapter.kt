@@ -31,18 +31,15 @@ class ShopChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
         shopChoiceTagViewHolder.rlItemTag.setOnClickListener {
 
-            // 1:장소, 2:날짜
+            // 0:기본 정렬, 1:장소, 2:날짜
             var filterCode = ShopListFragment.shopListFragment.choiceTagItems[position].filterCode
             var choiceCode = ShopListFragment.shopListFragment.choiceTagItems[position].choiceCode
-            var choiceName = ShopListFragment.shopListFragment.choiceTagItems[position].choiceName
-            Log.d("songjem", "filterCode = " + filterCode + ", choiceCode = " + choiceCode + ", choiceName = " + choiceName)
 
             // 기본 정렬
             if(filterCode == 0) {
                 ShopListFragment.shopListFragment.listSelected[0] = false
                 ShopListFragment.shopListFragment.clearDefault()
             }
-
             // 장소
             else if(filterCode == 1) {
                 ShopListFragment.shopListFragment.shopRegionFilterAdapter.checkedPosition.remove(choiceCode)
@@ -73,7 +70,6 @@ class ShopChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
         val rlItemTag = view.rl_name_item_tag
         val tagName = view.tv_name_item_tag
-        val btnDeleteTag = view.btn_delete_item_tag
 
         fun bind(choiceTag : ChoiceTag) {
             tagName.text = choiceTag.choiceName

@@ -15,9 +15,9 @@ class SearchDesignViewModel(application: Application) : BaseViewModel<Any?>(appl
 
     fun sendParamsForSearchDesign(keyword : String?, name : String?, theme : String?, locList : ArrayList<String>?, sizeList : ArrayList<String>?,
                                 colorList : ArrayList<String>?, categoryList : ArrayList<String>?
-                                , order : String) {
+                                , order : String?, pickup : String?) {
         SearchDesignUseCase.execute(
-            SearchDesignUseCase.Request(keyword!!, name, locList!!, theme, sizeList!!, colorList!!, categoryList!!, order),
+            SearchDesignUseCase.Request(keyword!!, name, locList!!, theme, sizeList!!, colorList!!, categoryList!!, order, pickup),
             onSuccess = {
 
                 var cakeDesigns = ArrayList<CakeDesignData>()

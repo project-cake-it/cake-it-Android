@@ -46,7 +46,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     var searchListSize = 0
 
     private val filterList = listOf<String>("기본순", "찜순", "가격 낮은 순")
-    private val filterTransList = listOf<String>("DEFAULT", "ZZIM", "HIGH_PRICE", "LOW_PRICE")
+    private val filterTransList = listOf<String>("DEFAULT", "zzim", "cheap")
     private val regionList = listOf<String>("전체", "강남구", "관악구", "광진구", "마포구", "서대문구"
         , "송파구")
     private var designSizeItems = ArrayList<CakeDesignSize>()
@@ -62,9 +62,10 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     lateinit var selectedColorList : ArrayList<String>
     lateinit var selectedCategoryList : ArrayList<String>
     var selectedTheme : String? = null
-    var selectedOrder : String = ""
+    var selectedOrder : String? = null
     lateinit var keyword : String
     var onceFlag = true
+    var isClickedOrder = false
 
     lateinit var searchCakeDesignIds : ArrayList<Long>
 
@@ -124,8 +125,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
         selectedSizeList = ArrayList<String>()
         selectedColorList = ArrayList<String>()
         selectedCategoryList = ArrayList<String>()
-        selectedOrder = "DEFAULT"
-        searchDesignViewModel.sendParamsForSearchDesign(keyword, name, selectedTheme, selectedLocList, selectedSizeList, selectedColorList, selectedCategoryList, selectedOrder)
+        searchDesignViewModel.sendParamsForSearchDesign(keyword, name, selectedTheme, selectedLocList, selectedSizeList, selectedColorList, selectedCategoryList, null, null)
     }
 
     fun initRecyclerview() {
@@ -245,7 +245,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
         choiceTagItems = backUpTagItems
     }
 
-    fun getSearchDesignByNetwork(keyword : String, name : String, choiceTagItems : ArrayList<ChoiceTag>) {
+    fun getSearchDesignByNetwork(keyword : String, name : String?, choiceTagItems : ArrayList<ChoiceTag>) {
         onceFlag = false
         // 데이터 초기화
         selectedLocList = ArrayList<String>()
@@ -258,9 +258,8 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
 
         // 데이터 가져오기
         for(i in 0.. choiceTagItems.size - 1) {
-            // ORDER
+            // 기본 정렬
             if(choiceTagItems[i].filterCode == 0) {
-                selectedLocList.add(filterTransList[choiceTagItems[i].choiceCode])
             }
             // 지역
             else if(choiceTagItems[i].filterCode == 1) {
@@ -268,7 +267,6 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                 if(choiceTagItems[i].choiceCode == 0) {
                     for(i in 1.. choiceTagItems.size - 1) {
                         selectedLocList.remove(choiceTagItems[i].choiceName)
-//                        selectedLocList.add(choiceTagItems[i].choiceName)
                     }
                 }
                 else selectedLocList.add(choiceTagItems[i].choiceName)
@@ -304,9 +302,9 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                 else selectedLocList.add(categoryTransList[choiceTagItems[i].choiceCode])
             }
         }
-        if((selectedLocList.size + selectedSizeList.size + selectedColorList.size + selectedCategoryList.size) == 0) sv_choice_tag_search_design.visibility = View.GONE
+        if((isClickedOrder == false) && ((selectedLocList.size + selectedSizeList.size + selectedColorList.size + selectedCategoryList.size) == 0)) sv_choice_tag_search_design.visibility = View.GONE
 
-        searchDesignViewModel.sendParamsForSearchDesign(keyword, name, selectedTheme, selectedLocList, selectedSizeList, selectedColorList, selectedCategoryList, selectedOrder)
+        searchDesignViewModel.sendParamsForSearchDesign(keyword, name, selectedTheme, selectedLocList, selectedSizeList, selectedColorList, selectedCategoryList, selectedOrder, null)
     }
 
     override fun onClick(view: View?) {
@@ -316,6 +314,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                 view_background_search_design.visibility = View.INVISIBLE
                 rv_design_list_search_design.visibility = View.VISIBLE
                 if(clickedPosition == 0) {
+                    isClickedOrder = true
                     btn_filter_default_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
                     btn_filter_default_compact_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact))
 
@@ -324,12 +323,19 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                     selectedOrder = searchDesignDefaultAdapter.getClickedItem()
                     tv_filter_default_title_search_design.text = selectedOrder
 
-                    if(selectedOrder.equals("기본순")) selectedOrder = "DEFAULT"
-                    else if(selectedOrder.equals("찜순")) selectedOrder = "ZZIM"
-                    else if(selectedOrder.equals("가격 높은 순")) selectedOrder = "HIGH_PRICE"
-                    else if(selectedOrder.equals("가격 낮은 순")) selectedOrder = "LOW_PRICE"
+                    // 기존 정렬 값(초이스) 지우기
+                    deleteChoiceTag(0)
+                    choiceTagItems.add(ChoiceTag(0, 0, selectedOrder!!))
+                    searchDesignChoiceTagAdapter.setChoiceTagItem(choiceTagItems)
 
-                    getSearchDesignByNetwork(keyword, keyword, choiceTagItems)
+                    if(selectedOrder.equals("기본순")) selectedOrder = null
+                    else if(selectedOrder.equals("찜순")) selectedOrder = "zzim"
+                    else if(selectedOrder.equals("가격 낮은 순")) selectedOrder = "cheap"
+
+//                    if(selectedOrder != "") sv_choice_tag_search_design.visibility = View.VISIBLE
+//                    else sv_choice_tag_search_design.visibility = View.GONE
+
+                    getSearchDesignByNetwork(keyword, null, choiceTagItems)
                 }
                 else if(clickedPosition == 1) {
                     btn_filter_pickup_region_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
@@ -360,7 +366,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                     }
 
                     searchDesignChoiceTagAdapter.setChoiceTagItem(choiceTagItems)
-                    getSearchDesignByNetwork(keyword, keyword, choiceTagItems)
+                    getSearchDesignByNetwork(keyword, name, choiceTagItems)
                 }
                 else if(clickedPosition == 2) {
                     btn_filter_size_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
@@ -391,7 +397,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
 
                     searchDesignChoiceTagAdapter.setChoiceTagItem(choiceTagItems)
 
-                    getSearchDesignByNetwork(keyword, keyword, choiceTagItems)
+                    getSearchDesignByNetwork(keyword, name, choiceTagItems)
                 }
                 else if(clickedPosition == 3) {
                     btn_filter_color_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
@@ -421,7 +427,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                     }
 
                     searchDesignChoiceTagAdapter.setChoiceTagItem(choiceTagItems)
-                    getSearchDesignByNetwork(keyword, keyword, choiceTagItems)
+                    getSearchDesignByNetwork(keyword, name, choiceTagItems)
                 }
                 else if(clickedPosition == 4) {
                     btn_filter_category_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
@@ -451,7 +457,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                     }
 
                     searchDesignChoiceTagAdapter.setChoiceTagItem(choiceTagItems)
-                    getSearchDesignByNetwork(keyword, keyword, choiceTagItems)
+                    getSearchDesignByNetwork(keyword, name, choiceTagItems)
                 }
             }
             R.id.btn_filter_default_search_design -> {
@@ -608,6 +614,8 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     }
     // 기본순 초기화
     fun clearDefault() {
+        isClickedOrder = false
+
         btn_filter_default_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn))
         btn_filter_default_compact_search_design.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact_before))
         btn_filter_default_search_design.isSelected = false
@@ -615,6 +623,9 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
         tv_filter_default_title_search_design.setTextColor(Color.parseColor("#000000"))
         tv_filter_default_title_search_design.text = "기본순"
         searchDesignDefaultAdapter.checkedPosition.clear()
+        searchDesignDefaultAdapter.checkedPosition.add(0)
+
+        selectedOrder = null
     }
     // 장소 선택 초기화
     fun clearRegion() {

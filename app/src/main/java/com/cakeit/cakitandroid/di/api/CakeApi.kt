@@ -58,7 +58,8 @@ interface CakeApi {
         @Query("size", encoded = true) size : List<String>?,
         @Query("color") color : List<String>?,
         @Query("category") category : List<String>?,
-        @Query("order") order : String?
+        @Query("order") order : String?,
+        @Query("pickup") pickup: String?
     ) : Flowable<KeywordSearchResponse>
 
     @GET("/api/v2/zzim/shops")

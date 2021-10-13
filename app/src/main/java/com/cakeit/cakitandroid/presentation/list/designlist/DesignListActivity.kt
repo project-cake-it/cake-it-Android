@@ -22,6 +22,7 @@ import com.cakeit.cakitandroid.presentation.design.DesignDetailActivity
 import com.cakeit.cakitandroid.presentation.list.designlist.filter.*
 import kotlinx.android.synthetic.main.activity_design_list.*
 import kotlinx.android.synthetic.main.fragment_search_design.*
+import kotlinx.android.synthetic.main.fragment_shop_list.*
 import kotlin.collections.ArrayList
 
 class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListViewModel>(),
@@ -64,6 +65,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
     var selectedTheme : String? = null
     var selectedOrder : String? = null
     lateinit var cakeDesignIds : ArrayList<Long>
+    var isClickedOrder = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -237,7 +239,6 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
     }
 
     fun getDesignListByNetwork(choiceTagItems : ArrayList<ChoiceTag>) {
-        Log.d("songjem", "getDesignListByNetwork = ddf , choiceTagItems.size  = " + choiceTagItems.size)
         // 데이터 초기화
         selectedLocList = ArrayList<String>()
         selectedSizeList = ArrayList<String>()
@@ -250,7 +251,6 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
             Log.d("songjem", "filterCode = " + choiceTagItems[i].filterCode + ", choiceCode = " + choiceTagItems[i].choiceCode + ", choiceName = " + choiceTagItems[i].choiceName)
             // ORDER
             if(choiceTagItems[i].filterCode == 0) {
-                selectedLocList.add(filterTransList[choiceTagItems[i].choiceCode])
             }
             // 지역
             else if(choiceTagItems[i].filterCode == 1) {
@@ -294,7 +294,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
                 else selectedCategoryList.add(categoryList[choiceTagItems[i].choiceCode])
             }
         }
-        if((selectedLocList.size + selectedSizeList.size + selectedColorList.size + selectedCategoryList.size) == 0) sv_choice_tag_design_list.visibility = View.GONE
+        if((isClickedOrder == false) && ((selectedLocList.size + selectedSizeList.size + selectedColorList.size + selectedCategoryList.size) == 0)) sv_choice_tag_design_list.visibility = View.GONE
 
         designListViewModel.sendParamsForDesignList(selectedTheme, selectedLocList, selectedSizeList, selectedColorList, selectedCategoryList, selectedOrder)
     }
@@ -308,6 +308,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
                 view_background_design_list.visibility = View.INVISIBLE
                 rv_design_list_design_list.visibility = View.VISIBLE
                 if(clickedPosition == 0) {
+                    isClickedOrder = true
                     btn_filter_default_design_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_btn_effect))
                     btn_filter_default_compact_design_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_compact))
 
@@ -316,10 +317,18 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
                     selectedOrder = designDefaultFilterAdapter.getClickedItem()
                     tv_filter_default_title_design_list.text = selectedOrder
 
+                    // 기존 정렬 값(초이스) 지우기
+                    deleteChoiceTag(0)
+                    choiceTagItems.add(ChoiceTag(0, 0, selectedOrder!!))
+                    designChoiceTagAdapter.setChoiceTagItem(choiceTagItems)
+
                     if(selectedOrder.equals(filterList[0])) selectedOrder = null
                     else if(selectedOrder.equals(filterList[1])) selectedOrder = "zzim"
                     else if(selectedOrder.equals(filterList[2])) selectedOrder = "cheap"
                     else if(selectedOrder.equals(filterList[3])) selectedOrder = "best"
+
+                    if(isClickedOrder) sv_choice_tag_design_list.visibility = View.VISIBLE
+                    else sv_choice_tag_design_list.visibility = View.GONE
 
                     getDesignListByNetwork(choiceTagItems)
                 }
@@ -572,6 +581,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
     }
     // 기본순 초기화
     fun clearDefault() {
+        isClickedOrder = false
         btn_filter_default_design_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_btn_effect_before))
         btn_filter_default_compact_design_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_compact_before))
         btn_filter_default_design_list.isSelected = false
@@ -580,6 +590,8 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         tv_filter_default_title_design_list.text = "기본순"
         designDefaultFilterAdapter.checkedPosition.clear()
         designDefaultFilterAdapter.checkedPosition.add(0)
+
+        selectedOrder = null
     }
     // 장소 선택 초기화
     fun clearRegion() {

@@ -22,9 +22,7 @@ import com.cakeit.cakitandroid.presentation.search.searchlist.shop.filter.Search
 import com.cakeit.cakitandroid.presentation.search.searchlist.shop.filter.SearchShopRegionAdapter
 import com.cakeit.cakitandroid.presentation.shop.ShopDetailActivity
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
-import kotlinx.android.synthetic.main.fragment_search_design.*
 import kotlinx.android.synthetic.main.fragment_search_shop.*
-import kotlinx.android.synthetic.main.fragment_shop_list.*
 
 class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopViewModel>(), View.OnClickListener {
 
@@ -53,13 +51,14 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
     lateinit var selecedColorList : ArrayList<String>
     lateinit var selecedCategoryList : ArrayList<String>
     var selectedTheme : String? = null
-    var selectedOrder : String = ""
+    var selectedOrder : String? = null
     var name : String? = null
     lateinit var keyword : String
     lateinit var searchCakeShopIds : ArrayList<Int>
     var choicePickupDate : String? = null
     var onceFlag = true
     var searchListSize = 0
+    var isClickedOrder = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -77,7 +76,6 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
         seleceSizeList = ArrayList<String>()
         selecedColorList = ArrayList<String>()
         selecedCategoryList = ArrayList<String>()
-        selectedOrder = "DEFAULT"
 
         view_background_search_shop.setOnClickListener(this)
         btn_filter_default_search_shop.setOnClickListener(this)
@@ -144,6 +142,26 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
             else pickupDay = date.day.toString()
 
             choicePickupDate = date.year.toString() + pickupMonth + pickupDay
+
+            btn_filter_pickup_date_search_shop.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
+            btn_filter_pickup_date_compact_search_shop.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact))
+            btn_filter_pickup_date_search_shop.isSelected = false
+
+            listSelected[2] = true
+            dateFilterOff()
+
+            // 기존 선택한 날짜 값(초이스) 지우기
+            deleteChoiceTag(2)
+
+            // 선택한 날짜 태그 리스트에 추가
+            choiceTagItems.add(ChoiceTag(2, 0, selectedDate!!))
+
+            // 리스트 화면 re visible
+            view_background_search_shop.visibility = View.INVISIBLE
+            rv_shop_list_search_shop.visibility = View.VISIBLE
+
+            searchShopChoiceTagAdapter.setChoiceTagItem(choiceTagItems)
+            getShopListByNetwork(choiceTagItems)
         })
     }
 
@@ -154,9 +172,8 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
         seleceSizeList = ArrayList<String>()
         selecedColorList = ArrayList<String>()
         selecedCategoryList = ArrayList<String>()
-        selectedOrder = "DEFAULT"
 
-        searchShopViewModel.sendParamsForSearchShop(keyword, name, selectedTheme, selecedLocList, seleceSizeList, selecedColorList, selecedCategoryList, selectedOrder)
+        searchShopViewModel.sendParamsForSearchShop(keyword, name, selectedTheme, selecedLocList, seleceSizeList, selecedColorList, selecedCategoryList, selectedOrder, choicePickupDate)
     }
 
 
@@ -223,35 +240,38 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
 
     fun getShopListByNetwork(choiceTagItems : ArrayList<ChoiceTag>) {
         onceFlag = false
-        // 데이터 초기화
+        // TAG 리스트 초기화
         selecedLocList = ArrayList<String>()
 
-        // 데이터 가져오기
+        // TAG 리스트 가져오기
         for(i in 0.. choiceTagItems.size - 1) {
+            // 기본 정렬
+            if(choiceTagItems[i].filterCode == 0) {
+                sv_choice_tag_search_shop.visibility = View.VISIBLE
+            }
             // 지역
             if(choiceTagItems[i].filterCode == 1) {
                 // 전체
                 if(choiceTagItems[i].choiceCode == 0) {
                     for(i in 1.. choiceTagItems.size - 1) {
                         selecedLocList.remove(choiceTagItems[i].choiceName)
-//                        selecedLocList.add(choiceTagItems[i].choiceName)
-
                     }
                 }
                 else selecedLocList.add(choiceTagItems[i].choiceName)
             }
+            // 날짜
+            else if(choiceTagItems[i].filterCode == 2) {
+                sv_choice_tag_search_shop.visibility = View.VISIBLE
+            }
         }
 
-        if(selecedLocList.size > 0) {
+        if(isClickedOrder == true || selecedLocList.size > 0 || choicePickupDate != null) {
             sv_choice_tag_search_shop.visibility = View.VISIBLE
         } else {
             sv_choice_tag_search_shop.visibility = View.GONE
         }
 
-        Log.d("songjem", "locList = " + selecedLocList.toString())
-        Log.d("songjem", "order = " + selectedOrder)
-        searchShopViewModel.sendParamsForSearchShop(keyword, name, selectedTheme, selecedLocList, seleceSizeList, selecedColorList, selecedCategoryList, selectedOrder)
-
+        searchShopViewModel.sendParamsForSearchShop(keyword, name, selectedTheme, selecedLocList, seleceSizeList, selecedColorList, selecedCategoryList, selectedOrder, choicePickupDate)
     }
     override fun onClick(view: View?) {
         when (view?.id) {
@@ -260,13 +280,25 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
                 view_background_search_shop.visibility = View.INVISIBLE
                 rv_shop_list_search_shop.visibility = View.VISIBLE
                 if(clickedPosition == 0) {
+                    isClickedOrder = true
+
                     btn_filter_default_search_shop.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
                     btn_filter_default_compact_search_shop.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact))
 
                     listSelected[0] = true
                     defaultFilterOff()
+
                     selectedOrder = searchShopDefaultAdapter.getClickedItem()
                     tv_filter_default_title_search_shop.text = selectedOrder
+
+                    // 기존 정렬 값(초이스) 지우기
+                    deleteChoiceTag(0)
+                    choiceTagItems.add(ChoiceTag(0, 0, selectedOrder!!))
+                    searchShopChoiceTagAdapter.setChoiceTagItem(choiceTagItems)
+
+                    if(selectedOrder.equals("기본순")) selectedOrder = null
+                    else if(selectedOrder.equals("찜순")) selectedOrder = "zzim"
+                    else if(selectedOrder.equals("가격 낮은 순")) selectedOrder = "cheap"
 
                     getShopListByNetwork(choiceTagItems)
                 }
@@ -292,7 +324,6 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
                         listSelected[1] = false
                         for(i in 1.. regionList.size-1) {
                             choiceTagItems.remove(ChoiceTag(1, i, regionList[i]))
-//                            choiceTagItems.add(ChoiceTag(1, i, regionList[i]))
                         }
                     }
                     else {
@@ -305,18 +336,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
                     getShopListByNetwork(choiceTagItems)
                 }
                 else if(clickedPosition == 2) {
-                    btn_filter_pickup_date_search_shop.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
-                    btn_filter_pickup_date_compact_search_shop.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact))
-                    listSelected[2] = true
-
-                    if(selectedDate.equals("")) tv_filter_pickup_date_title_search_shop.text = "픽업 날짜"
-                    else {
-                        tv_filter_pickup_date_title_search_shop.text = selectedDate
-                    }
                     dateFilterOff()
-                    btn_filter_pickup_date_search_shop.isSelected = false
-
-                    getShopListByNetwork(choiceTagItems)
                 }
             }
             R.id.btn_filter_default_search_shop -> {
@@ -403,6 +423,8 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
     }
     // 기본순 초기화
     fun clearDefault() {
+        isClickedOrder = false
+
         btn_filter_default_search_shop.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect_before))
         btn_filter_default_compact_search_shop.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact_before))
         btn_filter_default_search_shop.isSelected = false
@@ -410,6 +432,9 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
         tv_filter_default_title_search_shop.setTextColor(Color.parseColor("#000000"))
         tv_filter_default_title_search_shop.text = "기본순"
         searchShopDefaultAdapter.checkedPosition.clear()
+        searchShopDefaultAdapter.checkedPosition.add(0)
+
+        selectedOrder = null
     }
     // 장소 선택 초기화
     fun clearRegion() {
@@ -429,6 +454,9 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
         btn_filter_pickup_date_compact_search_shop.isSelected = false
         tv_filter_pickup_date_title_search_shop.setTextColor(Color.parseColor("#000000"))
         tv_filter_pickup_date_title_search_shop.text = "픽업 날짜"
+
+        selectedDate = ""
+        choicePickupDate = null
     }
 
     // 기본순 필터링 ON

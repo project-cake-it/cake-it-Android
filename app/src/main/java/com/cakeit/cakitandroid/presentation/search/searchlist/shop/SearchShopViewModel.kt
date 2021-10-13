@@ -15,11 +15,9 @@ class SearchShopViewModel(application: Application) : BaseViewModel<Any?>(applic
 
     fun sendParamsForSearchShop(keyword : String?, name : String?, theme : String?, locList : ArrayList<String>?, sizeList : ArrayList<String>?,
                                 colorList : ArrayList<String>?, categoryList : ArrayList<String>?
-                                , order : String) {
-
-        Log.d("songjem", "searchShop, keyword = " + keyword + ", name = " + name)
+                                , order : String?, pickup : String?) {
         SearchShopUseCase.execute(
-            SearchShopUseCase.Request(keyword!!, name, locList!!, theme, sizeList!!, colorList!!, categoryList!!, order),
+            SearchShopUseCase.Request(keyword!!, name, locList!!, theme, sizeList!!, colorList!!, categoryList!!, order, pickup),
             onSuccess = {
 
                 var cakeShops = ArrayList<CakeShopData>()

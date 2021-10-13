@@ -267,8 +267,8 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
                     // 기존 정렬 값(초이스) 지우기
                     deleteChoiceTag(0)
                     choiceTagItems.add(ChoiceTag(0, 0, selectedOrder!!))
-
                     shopChoiceTagAdapter.setChoiceTagItem(choiceTagItems)
+
                     getShopListByNetwork(choiceTagItems)
                 }
                 else if(clickedPosition == 1) {
