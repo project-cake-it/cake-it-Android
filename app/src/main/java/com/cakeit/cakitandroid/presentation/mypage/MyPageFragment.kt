@@ -1,5 +1,6 @@
 package com.cakeit.cakitandroid.presentation.mypage
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -32,6 +33,13 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
         view.btn_mypage_terms_of_private_info.setOnClickListener(this)
         view.btn_mypage_loginout.setOnClickListener(this)
         view.tv_mypage_version_info.setOnClickListener(this)
+
+        view.btn_mypage_loginout.text = if (context?.getSharedPreferences("userAccount", Context.MODE_PRIVATE)
+            ?.getString("accessToken", null) == null) {
+            "로그인" 
+        } else {
+            "로그아웃"
+        }
 
         // Set version name from package info
         // Not using MVVM since it's very static and lightweight job.

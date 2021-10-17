@@ -1,9 +1,13 @@
 package com.cakeit.cakitandroid.presentation.login
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
+import android.provider.Settings.Global.getString
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseViewModel
 import com.cakeit.cakitandroid.domain.usecase.SocialLoginUseCase
 import com.kakao.sdk.auth.model.OAuthToken
@@ -13,7 +17,7 @@ class LoginViewModel(application: Application) : BaseViewModel<Any?>(application
     var registerMessage = "Reset livedata"
     val registerState = MutableLiveData<Boolean>(false)
     var accessToken = MutableLiveData<String>()
-
+    var currentApplication = application
 //    val toastMessage = MutableLiveData<String>() // TODO(view에서 showToast하기 위한 live data. 이거 base에 넣는게 낫지 않나?)
 
     fun sendGoogleCodeToServer(authCode: String) {
@@ -43,6 +47,12 @@ class LoginViewModel(application: Application) : BaseViewModel<Any?>(application
                 registerMessage = it.message
                 registerState.value =
                     it.message == "회원가입 성공입니다" || it.message == "로그인 성공입니다"
+
+                val sharedPref = currentApplication.applicationContext.getSharedPreferences("userAccount", Context.MODE_PRIVATE)
+                with (sharedPref.edit()) {
+                    putString("accessToken", accessToken.value)
+                    apply()
+                }
             },
             onError = {
                 registerMessage = it.message.toString()
