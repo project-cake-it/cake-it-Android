@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
     // Cake It BaseURL
-    var BASE_URL = "http://13.124.173.58:8080"
+    var BASE_URL = "http://cake-it.shop:8080"
     private var retrofit: Retrofit? = null
 
     fun provideCakeApi(): CakeApi = getRetrofit().create(CakeApi::class.java)
