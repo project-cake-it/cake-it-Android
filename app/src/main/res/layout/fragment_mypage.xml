@@ -38,34 +38,6 @@
             app:layout_constraintTop_toBottomOf="@id/tv_mypage_title" />
 
         <TextView
-            android:id="@+id/tv_mypage_welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="17dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/spoqa_han_sans_neo_regular"
-            android:gravity="center_vertical"
-            android:text="@string/mypage_welcome"
-            android:textAlignment="viewStart"
-            android:textColor="#242424"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_mypage_title_bottom_border" />
-
-        <View
-            android:id="@+id/view_mypage_welcome_bottom_border"
-            android:layout_width="0dp"
-            android:layout_height="9dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/solidLine"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_mypage_welcome" />
-
-        <TextView
             android:id="@+id/tv_mypage_service_center"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -80,7 +52,7 @@
             android:textColor="#242424"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_mypage_welcome_bottom_border" />
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_title_bottom_border" />
 
         <Button
             android:id="@+id/btn_mypage_announcement"
