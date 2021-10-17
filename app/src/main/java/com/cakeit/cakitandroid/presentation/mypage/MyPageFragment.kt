@@ -30,7 +30,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
         view.btn_mypage_qna.setOnClickListener(this)
         view.btn_mypage_terms_of_service.setOnClickListener(this)
         view.btn_mypage_terms_of_private_info.setOnClickListener(this)
-        view.btn_mypage_opensource_license.setOnClickListener(this)
+        view.btn_mypage_loginout.setOnClickListener(this)
         view.tv_mypage_version_info.setOnClickListener(this)
 
         // Set version name from package info
@@ -86,7 +86,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
                 startWebViewActivityFromAssets("personalinfomation.html")
             }
 
-            R.id.btn_mypage_opensource_license -> {
+            R.id.btn_mypage_loginout -> {
                 startTextBoardActivityWithData(getString(R.string.mypage_opensource_license), getString(R.string.mypage_opensource_license))
             }
         }

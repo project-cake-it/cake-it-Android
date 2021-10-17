@@ -205,7 +205,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_mypage_opensource_license" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_mypage_loginout" />
 
         <TextView
             android:id="@+id/tv_mypage_version_name"
@@ -227,15 +227,15 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             app:tint="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_mypage_opensource_license"
-            app:layout_constraintEnd_toEndOf="@+id/btn_mypage_opensource_license"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_mypage_loginout"
+            app:layout_constraintEnd_toEndOf="@+id/btn_mypage_loginout"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btn_mypage_opensource_license"
+            app:layout_constraintTop_toTopOf="@+id/btn_mypage_loginout"
             app:srcCompat="@drawable/ic_chevron_compact_right" />
 
         <Button
-            android:id="@+id/btn_mypage_opensource_license"
+            android:id="@+id/btn_mypage_loginout"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="50dp"
