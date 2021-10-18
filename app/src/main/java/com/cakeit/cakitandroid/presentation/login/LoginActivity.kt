@@ -92,7 +92,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             } else if(fromToScreen.equals("MyPageFragment") || fromToScreen.equals("ShopDetailActivity")
                 || fromToScreen.equals("DesignDetailActivity")) {
                 super.onBackPressed()
-            }
+            } else super.onBackPressed()
         }
 
         val welcomeText = findViewById<TextView>(R.id.tv_login_welcome).text as Spannable
@@ -235,7 +235,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
         } else if(fromToScreen.equals("MyPageFragment") || fromToScreen.equals("ShopDetailActivity")
             || fromToScreen.equals("DesignDetailActivity")) {
             super.onBackPressed()
-        }
+        } else super.onBackPressed()
     }
 }
 
