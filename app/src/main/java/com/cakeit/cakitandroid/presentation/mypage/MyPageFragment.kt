@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseFragment
 import com.cakeit.cakitandroid.databinding.FragmentMypageBinding
+import com.cakeit.cakitandroid.presentation.login.LoginActivity
 import com.cakeit.cakitandroid.presentation.mypage.announcement.AnnouncementListActivity
 import com.cakeit.cakitandroid.presentation.mypage.textboard.TextboardActivity
 import com.cakeit.cakitandroid.presentation.mypage.webview.WebViewActivity
@@ -21,6 +22,8 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
 
     private lateinit var binding : FragmentMypageBinding
     private lateinit var myPageViewModel: MyPageViewModel
+
+    private var accessToken : String? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = getViewDataBinding()
@@ -34,9 +37,11 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
         view.btn_mypage_loginout.setOnClickListener(this)
         view.tv_mypage_version_info.setOnClickListener(this)
 
-        view.btn_mypage_loginout.text = if (context?.getSharedPreferences("userAccount", Context.MODE_PRIVATE)
-            ?.getString("accessToken", null) == null) {
-            "로그인" 
+        accessToken = context?.getSharedPreferences("userAccount", Context.MODE_PRIVATE)
+            ?.getString("accessToken", null)
+
+        view.btn_mypage_loginout.text = if (accessToken == null) {
+            "로그인"
         } else {
             "로그아웃"
         }
@@ -95,7 +100,14 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
             }
 
             R.id.btn_mypage_loginout -> {
-                startTextBoardActivityWithData(getString(R.string.mypage_opensource_license), getString(R.string.mypage_opensource_license))
+                if (accessToken == null){
+                    // 로그인
+                    var intent = Intent(context, LoginActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    // 로그아웃
+
+                }
             }
         }
     }
