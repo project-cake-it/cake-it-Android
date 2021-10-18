@@ -29,6 +29,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         dataBinding()
         binding = getViewDataBinding()
         binding.viewModel = getViewModel()
+        mainActivity = MainActivity()
 
         setTabLayout()
         getHashKey()
@@ -126,5 +127,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun onBackPressed() {
         showExitDialog()
+    }
+
+    companion object {
+        lateinit var mainActivity: MainActivity
     }
 }

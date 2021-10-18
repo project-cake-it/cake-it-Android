@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseFragment
+import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 import com.cakeit.cakitandroid.databinding.FragmentMypageBinding
 import com.cakeit.cakitandroid.presentation.login.LoginActivity
 import com.cakeit.cakitandroid.presentation.login.LoginViewModel
@@ -32,7 +33,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
 
     private lateinit var btn_mypage_loginout : Button
 
-    private var accessToken : String? = null
+    private var accessToken : String = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = getViewDataBinding()
@@ -46,10 +47,9 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
         view.btn_mypage_loginout.setOnClickListener(this)
         view.tv_mypage_version_info.setOnClickListener(this)
 
-        accessToken = context?.getSharedPreferences("userAccount", Context.MODE_PRIVATE)
-            ?.getString("accessToken", null)
+        accessToken = SharedPreferenceController?.getAccessToken(context!!)
 
-        btn_mypage_loginout.text = if (accessToken == null) {
+        view.btn_mypage_loginout.text = if (accessToken.equals("")) {
             "로그인"
         } else {
             "로그아웃"
@@ -109,14 +109,14 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
             }
 
             R.id.btn_mypage_loginout -> {
-                if (accessToken == null){
+                if (accessToken.equals("")){
                     // 로그인
                     var intent = Intent(context, LoginActivity::class.java)
+                    intent.putExtra("fromToScreen", "MyPageFragment")
                     startActivity(intent)
                 } else {
                     // 로그아웃
-                    var socialType = context?.getSharedPreferences("userAccount", Context.MODE_PRIVATE)
-                        ?.getString("socialType", null)
+                    var socialType = SharedPreferenceController.getSocialType(context!!)
 
                     Log.e("SUNGMIN", "$socialType")
                     when (socialType) {
@@ -152,15 +152,12 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
     }
 
     fun logoutCallback(){
-        Toast.makeText(context, "로그아웃에 성공하였습니다", Toast.LENGTH_LONG)
-        val sharedPref = context!!.getSharedPreferences("userAccount", Context.MODE_PRIVATE)
-        with (sharedPref.edit()) {
-            putString("accessToken", null)
-            putString("socialType", null)
-            apply()
-        }
+        Toast.makeText(context, "로그아웃에 성공하였습니다", Toast.LENGTH_LONG).show()
+        SharedPreferenceController.setAccessToken(context!!, "")
+        SharedPreferenceController.setSocialType(context!!, "")
 
-        btn_mypage_loginout.text = "로그아웃"
+        accessToken = SharedPreferenceController.getAccessToken(context!!)
+        binding.btnMypageLoginout.text = "로그인"
 
     }
 }

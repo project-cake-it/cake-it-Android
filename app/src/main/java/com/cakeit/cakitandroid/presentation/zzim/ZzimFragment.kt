@@ -1,12 +1,18 @@
 package com.cakeit.cakitandroid.presentation.zzim
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseFragment
+import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 import com.cakeit.cakitandroid.databinding.FragmentZzimBinding
+import com.cakeit.cakitandroid.presentation.login.LoginActivity
+import com.cakeit.cakitandroid.presentation.main.MainActivity
 import com.cakeit.cakitandroid.presentation.zzim.design.ZzimDesignFragment
 import com.cakeit.cakitandroid.presentation.zzim.shop.ZzimShopFragment
 import com.google.android.material.tabs.TabLayout
@@ -16,6 +22,7 @@ class ZzimFragment : BaseFragment<FragmentZzimBinding, ZzimViewModel>() {
     private lateinit var adapter : ZzimContentsPagerAdapter
     private lateinit var binding : FragmentZzimBinding
     private lateinit var zzimViewModel: ZzimViewModel
+    var myIsVisibleToUser : Boolean = false
 
     companion object {
         const val TAG: String = "ZzimActivityTAG"
@@ -23,6 +30,8 @@ class ZzimFragment : BaseFragment<FragmentZzimBinding, ZzimViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUserVisibleHint(myIsVisibleToUser)
+
         adapter = ZzimContentsPagerAdapter(childFragmentManager, 2)
         binding = getViewDataBinding()
         binding.vm = getViewModel()
@@ -50,10 +59,20 @@ class ZzimFragment : BaseFragment<FragmentZzimBinding, ZzimViewModel>() {
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser) {
+        myIsVisibleToUser = isVisibleToUser
+
+        if (isVisibleToUser && getActivity()!=null) {
             if (ZzimShopFragment.zzimShopFragment != null && ZzimDesignFragment.zzimDesignFragment != null) {
-                ZzimShopFragment.zzimShopFragment!!.getZzimShoplist()
-                ZzimDesignFragment.zzimDesignFragment!!.getZzimDesigns()
+                var accessToken : String? = SharedPreferenceController.getAccessToken(context!!)!!
+                Log.d("songjem", "ZzimFragment, accessToken = " + accessToken)
+                if (accessToken.equals("")) {
+                    val intent = Intent(activity, LoginActivity::class.java)
+                    intent.putExtra("fromToScreen", "ZzimFragment")
+                    startActivity(intent)
+                } else {
+                    ZzimShopFragment.zzimShopFragment!!.getZzimShoplist()
+                    ZzimDesignFragment.zzimDesignFragment!!.getZzimDesigns()
+                }
             }
         }
     }

@@ -33,11 +33,12 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("songjem", "ZzimDesignFragment onViewCreated")
 
         binding = getViewDataBinding()
         binding.vm = getViewModel()
 
-        authorization = SharedPreferenceController.getToken(context!!)
+        authorization = SharedPreferenceController.getAccessToken(context!!)
         initRecycler(view)
 
         zzimDesignFragment = this

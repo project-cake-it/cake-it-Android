@@ -1,14 +1,10 @@
 package com.cakeit.cakitandroid.presentation.login
 
-import android.app.Activity
 import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
-import android.provider.Settings.Global.getString
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseViewModel
+import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 import com.cakeit.cakitandroid.domain.usecase.SocialLoginUseCase
 import com.kakao.sdk.auth.model.OAuthToken
 
@@ -48,12 +44,7 @@ class LoginViewModel(application: Application) : BaseViewModel<Any?>(application
                 registerState.value =
                     it.message == "회원가입 성공입니다" || it.message == "로그인 성공입니다"
 
-                val sharedPref = currentApplication.applicationContext.getSharedPreferences("userAccount", Context.MODE_PRIVATE)
-                with (sharedPref.edit()) {
-                    putString("accessToken", accessToken.value)
-                    putString("socialType", socialType)
-                    apply()
-                }
+                SharedPreferenceController.setSocialType(currentApplication.applicationContext, socialType)
             },
             onError = {
                 registerMessage = it.message.toString()
