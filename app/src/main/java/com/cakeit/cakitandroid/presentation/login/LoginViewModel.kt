@@ -51,6 +51,7 @@ class LoginViewModel(application: Application) : BaseViewModel<Any?>(application
                 val sharedPref = currentApplication.applicationContext.getSharedPreferences("userAccount", Context.MODE_PRIVATE)
                 with (sharedPref.edit()) {
                     putString("accessToken", accessToken.value)
+                    putString("socialType", socialType)
                     apply()
                 }
             },

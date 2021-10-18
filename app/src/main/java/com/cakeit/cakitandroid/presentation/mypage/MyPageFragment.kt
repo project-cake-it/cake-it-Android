@@ -5,16 +5,23 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseFragment
 import com.cakeit.cakitandroid.databinding.FragmentMypageBinding
 import com.cakeit.cakitandroid.presentation.login.LoginActivity
+import com.cakeit.cakitandroid.presentation.login.LoginViewModel
 import com.cakeit.cakitandroid.presentation.mypage.announcement.AnnouncementListActivity
 import com.cakeit.cakitandroid.presentation.mypage.textboard.TextboardActivity
 import com.cakeit.cakitandroid.presentation.mypage.webview.WebViewActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.tasks.OnCompleteListener
 import com.kakao.sdk.common.util.KakaoCustomTabsClient
 import com.kakao.sdk.talk.TalkApiClient
+import com.kakao.sdk.user.UserApiClient
 import kotlinx.android.synthetic.main.fragment_mypage.view.*
 
 
@@ -22,6 +29,8 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
 
     private lateinit var binding : FragmentMypageBinding
     private lateinit var myPageViewModel: MyPageViewModel
+
+    private lateinit var btn_mypage_loginout : Button
 
     private var accessToken : String? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,7 +49,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
         accessToken = context?.getSharedPreferences("userAccount", Context.MODE_PRIVATE)
             ?.getString("accessToken", null)
 
-        view.btn_mypage_loginout.text = if (accessToken == null) {
+        btn_mypage_loginout.text = if (accessToken == null) {
             "로그인"
         } else {
             "로그아웃"
@@ -106,9 +115,52 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
                     startActivity(intent)
                 } else {
                     // 로그아웃
+                    var socialType = context?.getSharedPreferences("userAccount", Context.MODE_PRIVATE)
+                        ?.getString("socialType", null)
+
+                    Log.e("SUNGMIN", "$socialType")
+                    when (socialType) {
+                        "GOOGLE" -> {
+                            LoginActivity.googleSignInClient.signOut()
+                                .addOnCompleteListener {
+                                    logoutCallback()
+                                }
+                        }
+                        "KAKAO" -> {
+                            Log.e("SUNGMIN", "KAKAO LOGOUT")
+                            UserApiClient.instance.logout { error ->
+                                if (error != null) {
+                                    Log.e(TAG, "Kakao Logout Failed.", error)
+                                } else {
+                                    logoutCallback()
+                                    Log.e("SUNGMIN", "KAKAO LOGOUT")
+                                }
+                            }
+                        }
+                        "NAVER" -> {
+                            LoginActivity.mOAuthLoginModule.logout(context)
+                            logoutCallback()
+                        }
+                        else -> {
+                            Log.e(TAG, "wrong socialLogin Type $socialType")
+                        }
+                    }
 
                 }
             }
         }
+    }
+
+    fun logoutCallback(){
+        Toast.makeText(context, "로그아웃에 성공하였습니다", Toast.LENGTH_LONG)
+        val sharedPref = context!!.getSharedPreferences("userAccount", Context.MODE_PRIVATE)
+        with (sharedPref.edit()) {
+            putString("accessToken", null)
+            putString("socialType", null)
+            apply()
+        }
+
+        btn_mypage_loginout.text = "로그아웃"
+
     }
 }
