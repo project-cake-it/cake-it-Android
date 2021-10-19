@@ -15,7 +15,7 @@
     <string name="shop_inform_notice_pickup_time">픽업 가능 시간</string>
     <string name="shop_inform_notice_closed_days">휴무일</string>
     <string name="shop_inform_notice_phone">전화번호</string>
-    <string name="shop_connect">가게 연결</string>
+    <string name="shop_connect">케이크 문의하기</string>
 
     <string name="mypage_title">마이페이지</string>
     <string name="mypage_welcome">%1$s님, 환영합니다!</string>
