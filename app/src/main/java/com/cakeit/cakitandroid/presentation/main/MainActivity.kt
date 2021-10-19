@@ -1,7 +1,6 @@
 package com.cakeit.cakitandroid.presentation.main
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -92,7 +91,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         binding.tlMainTablayout.getTabAt(0)?.setIcon(R.drawable.isclick_tab_home)
         binding.tlMainTablayout.getTabAt(1)?.setIcon(R.drawable.isclick_tab_search)
         binding.tlMainTablayout.getTabAt(2)?.setIcon(R.drawable.isclick_tab_store)
-        binding.tlMainTablayout.getTabAt(3)?.setIcon(R.drawable.isclick_tab_zzim)
+        binding.tlMainTablayout.getTabAt(3)?.setIcon(R.drawable.isclick_tab_mark)
         binding.tlMainTablayout.getTabAt(4)?.setIcon(R.drawable.isclick_tab_mypage)
 
         for (i in 0 until binding.tlMainTablayout.getTabCount()) {

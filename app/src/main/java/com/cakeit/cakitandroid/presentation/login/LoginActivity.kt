@@ -85,7 +85,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
         }
 
         ib_login_eixt.setOnClickListener{
-            if(fromToScreen.equals("ZzimFragment")) {
+            if(fromToScreen.equals("ZzimFragment") || fromToScreen.isNullOrEmpty()) {
                 val intent = Intent(applicationContext, MainActivity::class.java)
                 finish()
                 startActivity(intent)
