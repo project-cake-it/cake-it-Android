@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.data.source.local.entity.ChoiceTag
+import com.cakeit.cakitandroid.presentation.list.designlist.DesignListActivity
 import com.cakeit.cakitandroid.presentation.search.searchlist.design.SearchDesignFragment
 import kotlinx.android.synthetic.main.item_filter_tag.view.*
 
@@ -27,13 +28,18 @@ class SearchDesignChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         val choiceItem = choiceItems[position]
         val designChoiceTagViewHolder = holder as DesignChoiceTagViewHolder
 
-        designChoiceTagViewHolder.btnDeleteTag.setOnClickListener {
-            // 1:지역, 2:크기, 3:색깔, 4:카테고리
+        designChoiceTagViewHolder.rlNameTag.setOnClickListener {
+            // 0:기본 정렬, 1:지역, 2:크기, 3:색깔, 4:카테고리
             var filterCode = SearchDesignFragment.searchDesignFragment.choiceTagItems[position].filterCode
             var choiceCode = SearchDesignFragment.searchDesignFragment.choiceTagItems[position].choiceCode
 
+            // 기본 정렬
+            if(filterCode == 0) {
+                SearchDesignFragment.searchDesignFragment.listSelected[0] = false
+                SearchDesignFragment.searchDesignFragment.clearDefault()
+            }
             // 지역
-            if(filterCode == 1) {
+            else if(filterCode == 1) {
                  SearchDesignFragment.searchDesignFragment.searchDesignRegionAdapter.checkedPosition.remove(choiceCode)
                 if( SearchDesignFragment.searchDesignFragment.searchDesignRegionAdapter.checkedPosition.size == 0) {
                      SearchDesignFragment.searchDesignFragment.listSelected[1] = false
@@ -79,8 +85,8 @@ class SearchDesignChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
     class DesignChoiceTagViewHolder(view : View) : RecyclerView.ViewHolder(view) {
 
+        val rlNameTag = view.rl_name_item_tag
         val tagName = view.tv_name_item_tag
-        val btnDeleteTag = view.btn_delete_item_tag
 
         fun bind(choiceTag : ChoiceTag) {
             tagName.text = choiceTag.choiceName

@@ -334,6 +334,22 @@
             app:layout_constraintTop_toBottomOf="@id/sv_choice_tag_design_list"
             />
 
+        <TextView
+            android:id="@+id/tv_empty_design_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:lineSpacingExtra="8dp"
+            android:text="해당 조건의 디자인이 없어요\n
+다른 필터로 찾아보세요!"
+            android:textColor="@color/accentText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sv_choice_tag_design_list"
+            android:visibility="gone"
+            />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_filter_content_design_list"
             android:layout_width="match_parent"

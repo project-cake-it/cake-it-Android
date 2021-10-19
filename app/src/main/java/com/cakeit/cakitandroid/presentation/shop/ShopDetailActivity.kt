@@ -9,7 +9,10 @@ import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 import com.cakeit.cakitandroid.databinding.ActivityShopDetailBinding
+import com.cakeit.cakitandroid.presentation.login.LoginActivity
 import com.cakeit.cakitandroid.presentation.shop.calendar.CalendarActivity
+import com.cakeit.cakitandroid.presentation.zzim.design.ZzimDesignFragment
+import com.cakeit.cakitandroid.presentation.zzim.shop.ZzimShopFragment
 import com.google.android.material.tabs.TabLayout
 import com.kakao.sdk.common.util.KakaoCustomTabsClient
 import com.kakao.sdk.talk.TalkApiClient
@@ -43,7 +46,7 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
         binding = getViewDataBinding()
         binding.vm = getViewModel()
 
-        authorization = SharedPreferenceController.getToken(applicationContext)
+        authorization = SharedPreferenceController.getAccessToken(applicationContext)
         fromToZzim = intent.getBooleanExtra("fromToZzim", false)
 
         shopDetailViewModel.shopDetailData.observe(this, Observer { datas ->
@@ -95,7 +98,14 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
         })
 
         btn_shop_detail_zzim.setOnClickListener {
-            shopDetailViewModel.clickZzimBtn(authorization, shopId, zzim)
+            var accessToken : String? = SharedPreferenceController.getAccessToken(applicationContext)!!
+            if (accessToken.equals("")) {
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.putExtra("fromToScreen", "ShopDetailActivity")
+                startActivity(intent)
+            } else {
+                shopDetailViewModel.clickZzimBtn(authorization, shopId, zzim)
+            }
         }
 
         rl_shop_detail_connect.setOnClickListener {

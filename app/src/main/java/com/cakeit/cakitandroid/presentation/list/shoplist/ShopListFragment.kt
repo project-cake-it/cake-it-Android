@@ -1,4 +1,5 @@
 package com.cakeit.cakitandroid.presentation.list.shoplist
+
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -20,6 +21,7 @@ import com.cakeit.cakitandroid.presentation.list.shoplist.filter.ShopRegionFilte
 import com.cakeit.cakitandroid.presentation.shop.ShopDetailActivity
 import com.cakeit.cakitandroid.presentation.shop.calendar.TodayDecorator
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
+import kotlinx.android.synthetic.main.activity_design_list.*
 import kotlinx.android.synthetic.main.fragment_shop_list.*
 import kotlin.collections.ArrayList
 
@@ -45,10 +47,11 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
     private var selectedDate : String = ""
     var listSelected = mutableListOf<Boolean>(false, false, false)
 
-    var pickup : String? = null
+    var choicePickupDate : String? = null
     lateinit var selecedLocList : ArrayList<String>
     var selectedOrder : String? = null
     lateinit var cakeShopIds : ArrayList<Int>
+    var isClickedOrder = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,6 +71,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
 
             override fun onShopItemClick(position: Int) {
                 val intent = Intent(context!!, ShopDetailActivity::class.java)
+                Log.d("songjem", "ShopListFragment clickId = " + position)
                 intent.putExtra("cakeShopId", cakeShopIds[position])
                 startActivity(intent)
             }
@@ -76,12 +80,16 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
         shopListViewModel.cakeShopItems.observe(viewLifecycleOwner, Observer { datas ->
             cakeShopIds = ArrayList<Int>()
             if(datas.size > 0) {
+                rv_shop_list_shop_list.visibility = View.VISIBLE
+                tv_empty_shop_list.visibility = View.GONE
+
                 for(data in datas) {
                     cakeShopIds.add(data!!.shopId)
                 }
             }
             else {
-                Log.d("songjem", "get shopList size == 0")
+                rv_shop_list_shop_list.visibility = View.GONE
+                tv_empty_shop_list.visibility = View.VISIBLE
             }
             shopListAdapter.setShopListItems(datas)
         })
@@ -109,14 +117,34 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
             if(date.day < 10) pickupDay = "0" + date.day
             else pickupDay = date.day.toString()
 
-            pickup = date.year.toString() + pickupMonth + pickupDay
+            choicePickupDate = date.year.toString() + pickupMonth + pickupDay
+
+            btn_filter_pickup_date_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
+            btn_filter_pickup_date_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact))
+            btn_filter_pickup_date_shop_list.isSelected = false
+
+            listSelected[2] = true
+            dateFilterOff()
+
+            // 기존 선택한 날짜 값(초이스) 지우기
+            deleteChoiceTag(2)
+
+            // 선택한 날짜 태그 리스트에 추가
+            choiceTagItems.add(ChoiceTag(2, 0, selectedDate!!))
+
+            // 리스트 화면 re visible
+            view_background_shop_list.visibility = View.INVISIBLE
+            rv_shop_list_shop_list.visibility = View.VISIBLE
+
+            shopChoiceTagAdapter.setChoiceTagItem(choiceTagItems)
+            getShopListByNetwork(choiceTagItems)
         })
 
     }
 
     fun getshopList() {
         selecedLocList = ArrayList<String>()
-        shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList, pickup) // 추후 픽업 날짜도 추가 예정
+        shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList, choicePickupDate)
     }
 
     fun initRecyclerview() {
@@ -190,13 +218,17 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
     }
 
     fun getShopListByNetwork(choiceTagItems : ArrayList<ChoiceTag>) {
-        // 데이터 초기화
+        // TAG 리스트 초기화
         selecedLocList = ArrayList<String>()
 
-        // 데이터 가져오기
+        // TAG 리스트 가져오기
         for(i in 0.. choiceTagItems.size - 1) {
-            // 지역
-            if(choiceTagItems[i].filterCode == 1) {
+            // 기본 정렬
+            if(choiceTagItems[i].filterCode == 0) {
+                sv_choice_tag_shop_list.visibility = View.VISIBLE
+            }
+            // 장소
+            else if(choiceTagItems[i].filterCode == 1) {
                 // 전체
                 if(choiceTagItems[i].choiceCode == 0) {
                     for(i in 1.. choiceTagItems.size - 1) {
@@ -205,8 +237,12 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
                 }
                 else selecedLocList.add(choiceTagItems[i].choiceName)
             }
+            // 날짜
+            else if(choiceTagItems[i].filterCode == 2) {
+                sv_choice_tag_shop_list.visibility = View.VISIBLE
+            }
         }
-        if(selecedLocList.size > 0) {
+        if(isClickedOrder == true || selecedLocList.size > 0 || choicePickupDate != null) {
             sv_choice_tag_shop_list.visibility = View.VISIBLE
         } else {
             sv_choice_tag_shop_list.visibility = View.GONE
@@ -215,7 +251,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
         else if(selectedOrder.equals(filterList[1])) selectedOrder = "zzim"
         else if(selectedOrder.equals(filterList[2])) selectedOrder = "cheap"
 
-        shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList, pickup)  // 추후 픽업 날짜도 추가 예정
+        shopListViewModel.sendParamsForShopList(selectedOrder, selecedLocList, choicePickupDate)
 
     }
 
@@ -226,6 +262,8 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
                 view_background_shop_list.visibility = View.INVISIBLE
                 rv_shop_list_shop_list.visibility = View.VISIBLE
                 if(clickedPosition == 0) {
+                    isClickedOrder = true
+
                     btn_filter_default_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
                     btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact))
 
@@ -233,6 +271,11 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
                     defaultFilterOff()
                     selectedOrder = shopDefaultFilterAdapter.getClickedItem()
                     tv_filter_default_title_shop_list.text = selectedOrder
+
+                    // 기존 정렬 값(초이스) 지우기
+                    deleteChoiceTag(0)
+                    choiceTagItems.add(ChoiceTag(0, 0, selectedOrder!!))
+                    shopChoiceTagAdapter.setChoiceTagItem(choiceTagItems)
 
                     getShopListByNetwork(choiceTagItems)
                 }
@@ -251,8 +294,11 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
 
                     // 전체 선택
                     if(tagList[0] == 0) {
+                        clearRegion()
+                        listSelected[1] = false
                         for(i in 1.. regionList.size-1) {
-                            choiceTagItems.add(ChoiceTag(1, i, regionList[i]))
+//                            choiceTagItems.add(ChoiceTag(1, i, regionList[i]))
+                            choiceTagItems.remove(ChoiceTag(1, i, regionList[i]))
                         }
                     }
                     else {
@@ -265,24 +311,14 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
                     getShopListByNetwork(choiceTagItems)
                 }
                 else if(clickedPosition == 2) {
-                    btn_filter_pickup_date_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect))
-                    btn_filter_pickup_date_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact))
-                    listSelected[2] = true
-
-                    if(selectedDate.equals("")) tv_filter_pickup_date_title_shop_list.text = "픽업 날짜"
-                    else {
-                        tv_filter_pickup_date_title_shop_list.text = selectedDate
-                        Log.d("song", "selectedDate = " + selectedDate)
-                    }
                     dateFilterOff()
-                    btn_filter_pickup_date_shop_list.isSelected = false
-
-                    getShopListByNetwork(choiceTagItems)
                 }
             }
             R.id.btn_filter_refresh_shop_list -> {
                 view_background_shop_list.visibility = View.INVISIBLE
                 rv_shop_list_shop_list.visibility = View.VISIBLE
+
+                choicePickupDate = null
 
                 for(i in 0 .. 2) {
                     listSelected[i] = false
@@ -346,6 +382,8 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
     }
     // 기본순 초기화
     fun clearDefault() {
+        isClickedOrder = false
+
         btn_filter_default_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_btn_effect_before))
         btn_filter_default_compact_shop_list.setBackground(ContextCompat.getDrawable(context!!, R.drawable.background_filter_compact_before))
         btn_filter_default_shop_list.isSelected = false
@@ -354,6 +392,8 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
         tv_filter_default_title_shop_list.text = "기본순"
         shopDefaultFilterAdapter.checkedPosition.clear()
         shopDefaultFilterAdapter.checkedPosition.add(0)
+
+        selectedOrder = null
     }
     // 장소 선택 초기화
     fun clearRegion() {
@@ -373,7 +413,9 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
         btn_filter_pickup_date_shop_list.isSelected = false
         btn_filter_pickup_date_compact_shop_list.isSelected = false
         tv_filter_pickup_date_title_shop_list.setTextColor(Color.parseColor("#000000"))
-        tv_filter_pickup_date_title_shop_list.text = "픽업 날짜"
+        tv_filter_pickup_date_title_shop_list.text = "주문 가능 날짜"
+        selectedDate = ""
+        choicePickupDate = null
     }
 
     // 기본순 필터링 ON
@@ -445,7 +487,6 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
 
     // 지역별 필터링 OFF
     fun dateFilterOff() {
-        Log.d("songjem", "dateFilterOff")
         cl_filter_content_shop_list.visibility = View.GONE
         cv_pickup_calendar_shop_list.visibility = View.GONE
         btn_filter_pickup_date_shop_list.isSelected = false

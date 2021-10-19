@@ -1,5 +1,6 @@
 package com.cakeit.cakitandroid.presentation.list.shoplist.filter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,18 +29,29 @@ class ShopChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         val choiceItem = choiceItems[position]
         val shopChoiceTagViewHolder = holder as ShopChoiceTagAdapter.ShopChoiceTagViewHolder
 
-        shopChoiceTagViewHolder.btnDeleteTag.setOnClickListener {
-            // 1:지역
+        shopChoiceTagViewHolder.rlItemTag.setOnClickListener {
+
+            // 0:기본 정렬, 1:장소, 2:날짜
             var filterCode = ShopListFragment.shopListFragment.choiceTagItems[position].filterCode
             var choiceCode = ShopListFragment.shopListFragment.choiceTagItems[position].choiceCode
 
-            // 지역
-            if(filterCode == 1) {
+            // 기본 정렬
+            if(filterCode == 0) {
+                ShopListFragment.shopListFragment.listSelected[0] = false
+                ShopListFragment.shopListFragment.clearDefault()
+            }
+            // 장소
+            else if(filterCode == 1) {
                 ShopListFragment.shopListFragment.shopRegionFilterAdapter.checkedPosition.remove(choiceCode)
                 if(ShopListFragment.shopListFragment.shopRegionFilterAdapter.checkedPosition.size == 0) {
                     ShopListFragment.shopListFragment.listSelected[1] = false
                     ShopListFragment.shopListFragment.clearRegion()
                 }
+            }
+            // 날짜
+            else if(filterCode == 2) {
+                ShopListFragment.shopListFragment.listSelected[2] = false
+                ShopListFragment.shopListFragment.clearDate()
             }
             choiceItems.removeAt(position)
 
@@ -56,8 +68,8 @@ class ShopChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     class ShopChoiceTagViewHolder(view : View) : RecyclerView.ViewHolder(view) {
 
+        val rlItemTag = view.rl_name_item_tag
         val tagName = view.tv_name_item_tag
-        val btnDeleteTag = view.btn_delete_item_tag
 
         fun bind(choiceTag : ChoiceTag) {
             tagName.text = choiceTag.choiceName

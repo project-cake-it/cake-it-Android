@@ -24,6 +24,7 @@ import com.cakeit.cakitandroid.presentation.list.designlist.filter.*
 import kotlinx.android.synthetic.main.activity_design_list.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_search_design.*
+import kotlinx.android.synthetic.main.fragment_shop_list.*
 import kotlin.collections.ArrayList
 
 class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListViewModel>(),
@@ -66,6 +67,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
     var selectedTheme : String? = null
     var selectedOrder : String? = null
     lateinit var cakeDesignIds : ArrayList<Long>
+    var isClickedOrder = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,12 +96,15 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         designListViewModel.cakeDesignItems.observe(this, Observer { datas ->
             cakeDesignIds = ArrayList<Long>()
             if(datas.size > 0) {
+                rv_design_list_design_list.visibility = View.VISIBLE
+                tv_empty_design_list.visibility = View.GONE
                 for(data in datas) {
                     cakeDesignIds.add(data.designIndex!!)
                 }
             }
             else {
-                Log.d("songjem", "get designList size == 0")
+                rv_design_list_design_list.visibility = View.GONE
+                tv_empty_design_list.visibility = View.VISIBLE
             }
             designListAdapter.setDesignListItems(datas)
          })
@@ -249,14 +254,15 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         // 데이터 가져오기
         for(i in 0.. choiceTagItems.size - 1) {
 
+            Log.d("songjem", "filterCode = " + choiceTagItems[i].filterCode + ", choiceCode = " + choiceTagItems[i].choiceCode + ", choiceName = " + choiceTagItems[i].choiceName)
             // ORDER
             if(choiceTagItems[i].filterCode == 0) {
-                selectedLocList.add(filterTransList[choiceTagItems[i].choiceCode])
             }
             // 지역
             else if(choiceTagItems[i].filterCode == 1) {
                 // 전체
                 if(choiceTagItems[i].choiceCode == 0) {
+
                     for(i in 1.. choiceTagItems.size - 1) {
                         selectedLocList.add(choiceTagItems[i].choiceName)
                     }
@@ -294,7 +300,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
                 else selectedCategoryList.add(categoryList[choiceTagItems[i].choiceCode])
             }
         }
-        if((selectedLocList.size + selectedSizeList.size + selectedColorList.size + selectedCategoryList.size) == 0) sv_choice_tag_design_list.visibility = View.GONE
+        if((isClickedOrder == false) && ((selectedLocList.size + selectedSizeList.size + selectedColorList.size + selectedCategoryList.size) == 0)) sv_choice_tag_design_list.visibility = View.GONE
 
         designListViewModel.sendParamsForDesignList(selectedTheme, selectedLocList, selectedSizeList, selectedColorList, selectedCategoryList, selectedOrder)
     }
@@ -308,6 +314,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
                 view_background_design_list.visibility = View.INVISIBLE
                 rv_design_list_design_list.visibility = View.VISIBLE
                 if(clickedPosition == 0) {
+                    isClickedOrder = true
                     btn_filter_default_design_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_btn_effect))
                     btn_filter_default_compact_design_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_compact))
 
@@ -316,10 +323,18 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
                     selectedOrder = designDefaultFilterAdapter.getClickedItem()
                     tv_filter_default_title_design_list.text = selectedOrder
 
+                    // 기존 정렬 값(초이스) 지우기
+                    deleteChoiceTag(0)
+                    choiceTagItems.add(ChoiceTag(0, 0, selectedOrder!!))
+                    designChoiceTagAdapter.setChoiceTagItem(choiceTagItems)
+
                     if(selectedOrder.equals(filterList[0])) selectedOrder = null
                     else if(selectedOrder.equals(filterList[1])) selectedOrder = "zzim"
                     else if(selectedOrder.equals(filterList[2])) selectedOrder = "cheap"
                     else if(selectedOrder.equals(filterList[3])) selectedOrder = "best"
+
+                    if(isClickedOrder) sv_choice_tag_design_list.visibility = View.VISIBLE
+                    else sv_choice_tag_design_list.visibility = View.GONE
 
                     getDesignListByNetwork(choiceTagItems)
                 }
@@ -330,7 +345,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
                     listSelected[1] = true
                     regionFilterOff()
 
-                    // 기존 장소 값(초이스) 지우기
+                    // 이전에 선택했던 장소 필터 값 지우기
                     deleteChoiceTag(1)
 
                     // 추가한 리스트 가져와서 리스트에 넣어야 함
@@ -341,8 +356,11 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
 
                     // 전체 선택
                     if(tagList[0] == 0) {
+                        clearRegion()
+                        listSelected[1] = false
                         for(i in 1.. regionList.size-1) {
-                            choiceTagItems.add(ChoiceTag(1, i, regionList[i]))
+                            choiceTagItems.remove(ChoiceTag(1, i, regionList[i]))
+//                            choiceTagItems.add(ChoiceTag(1, i, regionList[i]))
                         }
                     }
                     else {
@@ -361,7 +379,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
                     listSelected[2] = true
                     sizeFilterOff()
 
-                    // 기존 장소 값(초이스) 지우기
+                    // 이전에 선택했던 크기 필터 값 지우기
                     deleteChoiceTag(2)
                     // 추가한 리스트 가져와서 리스트에 넣어야 함
                     var tagList = designSizeFilterAdapter.getChoiceTagIndex()
@@ -371,8 +389,11 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
 
                     // 전체 선택
                     if(tagList[0] == 0) {
+                        clearSize()
+                        listSelected[2] = false
                         for(i in 1.. designSizeItems.size-1) {
-                            choiceTagItems.add(ChoiceTag(2, i, designSizeItems[i].sizeName))
+                            choiceTagItems.remove(ChoiceTag(2, i, designSizeItems[i].sizeName))
+//                            choiceTagItems.add(ChoiceTag(2, i, designSizeItems[i].sizeName))
                         }
                     }
                     else {
@@ -392,7 +413,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
                     listSelected[3] = true
                     colorFilterOff()
 
-                    // 기존 장소 값(초이스) 지우기
+                    // 이전에 선택했던 색깔 필터 값 지우기 지우기
                     deleteChoiceTag(3)
                     // 추가한 리스트 가져와서 리스트에 넣어야 함
                     var tagList = designColorFilterAdapter.getChoiceTagIndex()
@@ -401,8 +422,11 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
 
                     // 전체 선택
                     if(tagList[0] == 0) {
+                        clearColor()
+                        listSelected[3] = false
                         for(i in 1.. colorList.size-1) {
-                            choiceTagItems.add(ChoiceTag(3, i, colorList[i]))
+                            choiceTagItems.remove(ChoiceTag(3, i, colorList[i]))
+//                            choiceTagItems.add(ChoiceTag(3, i, colorList[i]))
                         }
                     }
                     else {
@@ -421,7 +445,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
                     listSelected[4] = true
                     categoryFilterOff()
 
-                    // 기존 장소 값(초이스) 지우기
+                    // 이전에 선택했던 카테고리 필터 값 지우기
                     deleteChoiceTag(4)
                     // 추가한 리스트 가져와서 리스트에 넣어야 함
                     var tagList = designCategoryFilterAdapter.getChoiceTagIndex()
@@ -430,8 +454,11 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
 
                     // 전체 선택
                     if(tagList[0] == 0) {
+                        clearCategory()
+                        listSelected[4] = false
                         for(i in 1.. categoryList.size-1) {
-                            choiceTagItems.add(ChoiceTag(4, i, categoryList[i]))
+                            choiceTagItems.remove(ChoiceTag(4, i, categoryList[i]))
+//                            choiceTagItems.add(ChoiceTag(4, i, categoryList[i]))
                         }
                     }
                     else {
@@ -560,6 +587,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
     }
     // 기본순 초기화
     fun clearDefault() {
+        isClickedOrder = false
         btn_filter_default_design_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_btn_effect_before))
         btn_filter_default_compact_design_list.setBackground(ContextCompat.getDrawable(this, R.drawable.background_filter_compact_before))
         btn_filter_default_design_list.isSelected = false
@@ -568,6 +596,8 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         tv_filter_default_title_design_list.text = "기본순"
         designDefaultFilterAdapter.checkedPosition.clear()
         designDefaultFilterAdapter.checkedPosition.add(0)
+
+        selectedOrder = null
     }
     // 장소 선택 초기화
     fun clearRegion() {
@@ -656,7 +686,6 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
 
     // 지역별 필터링 OFF
     fun regionFilterOff() {
-        Log.d("songjem", "regionFilterOff")
         cl_filter_content_design_list.visibility = View.GONE
         rv_filter_region_list_design_list.visibility = View.GONE
         btn_filter_pickup_region_design_list.isSelected = false
@@ -778,11 +807,11 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
             2 -> {
                 designSizeItems = ArrayList<CakeDesignSize>()
                 designSizeItems.add(CakeDesignSize(0, "전체", ""))
-                designSizeItems.add(CakeDesignSize(1, "미니", "미니 설명"))
-                designSizeItems.add(CakeDesignSize(2, "1호", "1호 설명"))
-                designSizeItems.add(CakeDesignSize(3, "2호", "2호 설명"))
-                designSizeItems.add(CakeDesignSize(4, "3호", "3호 설명"))
-                designSizeItems.add(CakeDesignSize(5, "2단", "2단 설명"))
+                designSizeItems.add(CakeDesignSize(1, "미니", "10-11cm, 1-2인용"))
+                designSizeItems.add(CakeDesignSize(2, "1호", "15-16cm, 3-4인용"))
+                designSizeItems.add(CakeDesignSize(3, "2호", "18cm, 5-6인용"))
+                designSizeItems.add(CakeDesignSize(4, "3호", "21cm, 7-8인용"))
+                designSizeItems.add(CakeDesignSize(5, "2단", "파티용 특별제작"))
                 designSizeFilterAdapter.setDesignSizeItems(designSizeItems)
             }
             // 색깔 필터

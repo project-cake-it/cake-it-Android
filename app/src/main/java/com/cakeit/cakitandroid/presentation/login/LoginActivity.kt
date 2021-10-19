@@ -24,6 +24,8 @@ import android.widget.Toast
 import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 import com.cakeit.cakitandroid.presentation.list.designlist.DesignListActivity
 import com.cakeit.cakitandroid.presentation.main.MainActivity
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.tasks.OnCompleteListener
 import com.nhn.android.naverlogin.OAuthLoginHandler
 
 import com.google.api.client.googleapis.auth.oauth2.*
@@ -42,14 +44,27 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
     private lateinit var binding : ActivityLoginBinding
     private lateinit var loginViewModel: LoginViewModel
+    var fromToScreen : String = ""
 
     private val REQUEST_CODE_GOOGLE_LOGIN = 100
+
+    companion object {
+        lateinit var googleSignInClient : GoogleSignInClient
+        val mOAuthLoginModule = OAuthLogin.getInstance()
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding()
         binding = getViewDataBinding()
         binding.viewModel = getViewModel()
+
+        if(intent != null) {
+            if(intent.getStringExtra("fromToScreen") != null) fromToScreen = intent.getStringExtra("fromToScreen")!!
+        }
+
+        Log.d("songjem", "fromToScreen = " + fromToScreen)
 
         binding.lifecycleOwner?.let {
             binding.viewModel?.registerState?.observe(it, Observer{ it ->
@@ -65,14 +80,19 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             })
 
             binding.viewModel?.accessToken?.observe(it, Observer{ token ->
-                SharedPreferenceController.setToken(applicationContext, token)
+                SharedPreferenceController.setAccessToken(applicationContext, token)
             })
         }
 
         ib_login_eixt.setOnClickListener{
-            var intent = Intent(applicationContext, MainActivity::class.java)
-            finish()
-            startActivity(intent)
+            if(fromToScreen.equals("ZzimFragment")) {
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                finish()
+                startActivity(intent)
+            } else if(fromToScreen.equals("MyPageFragment") || fromToScreen.equals("ShopDetailActivity")
+                || fromToScreen.equals("DesignDetailActivity")) {
+                super.onBackPressed()
+            } else super.onBackPressed()
         }
 
         val welcomeText = findViewById<TextView>(R.id.tv_login_welcome).text as Spannable
@@ -94,7 +114,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
         val ctx = this
         //네이버 로그인 버튼
         findViewById<Button>(R.id.btn_login_naverLogin).setOnClickListener {
-            val mOAuthLoginModule = OAuthLogin.getInstance();
+
             mOAuthLoginModule.init(
                 ctx
                 ,getString(R.string.AUTHCODE_NAVER_CLIENTID)
@@ -138,7 +158,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 //                .requestEmail()
                 .build()
 
-            val googleSignInClient = GoogleSignIn.getClient(this, gso)
+            googleSignInClient = GoogleSignIn.getClient(this, gso)
 
             val signInIntent: Intent = googleSignInClient.signInIntent
             startActivityForResult(signInIntent, REQUEST_CODE_GOOGLE_LOGIN)
@@ -155,6 +175,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             binding.viewModel?.sendKakaoCodeToServer(token)
         }
     }
+
+
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -203,6 +225,17 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
     override fun getViewModel(): LoginViewModel {
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         return loginViewModel
+    }
+
+    override fun onBackPressed() {
+        if(fromToScreen.equals("ZzimFragment")) {
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            finish()
+            startActivity(intent)
+        } else if(fromToScreen.equals("MyPageFragment") || fromToScreen.equals("ShopDetailActivity")
+            || fromToScreen.equals("DesignDetailActivity")) {
+            super.onBackPressed()
+        } else super.onBackPressed()
     }
 }
 

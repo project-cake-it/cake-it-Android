@@ -50,7 +50,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_login_welcome"
             app:layout_constraintVertical_bias="0.0"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:src="@drawable/cakeit_logo_circle"
+            />
 
         <LinearLayout
             android:id="@+id/ll_login_buttons"

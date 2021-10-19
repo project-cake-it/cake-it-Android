@@ -16,7 +16,7 @@ import com.cakeit.cakitandroid.presentation.design.DesignDetailActivity
 import com.cakeit.cakitandroid.presentation.home.CakeListDeco
 import com.cakeit.cakitandroid.presentation.shop.design.DesignGridAdapter
 import com.cakeit.cakitandroid.presentation.zzim.ZzimViewModel
-import com.cakeit.cakitandroid.presentation.zzim.shop.ZzimShopFragment
+import kotlinx.android.synthetic.main.fragment_zzim_design.*
 import kotlinx.android.synthetic.main.fragment_zzim_design.view.*
 
 class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel>() {
@@ -33,34 +33,38 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("songjem", "ZzimDesignFragment onViewCreated")
 
         binding = getViewDataBinding()
         binding.vm = getViewModel()
 
-        authorization = SharedPreferenceController.getToken(context!!)
+        authorization = SharedPreferenceController.getAccessToken(context!!)
         initRecycler(view)
 
         zzimDesignFragment = this
         getZzimDesigns()
 
         zzimViewModel.desigDatas.observe(viewLifecycleOwner, Observer { datas ->
-            if(datas != null)
-            {
-                var designs = ArrayList<String>()
-                designId = ArrayList()
+            if(datas != null) {
+                if(datas.size > 0) {
+                    rv_zzim_design_item.visibility = View.VISIBLE
+                    tv_zzim_design_empty.visibility = View.GONE
 
-                for(data in datas)
-                {
-                    // 프롬마틸다 디자인 임시 제거
-                    if(data.id == 1) continue
+                    var designs = ArrayList<String>()
+                    designId = ArrayList()
 
-                    designs.add(data.displayImage)
-                    designId.add(data.id)
+                    for(data in datas) {
+                        designs.add(data.displayImage)
+                        designId.add(data.id)
+                    }
+                    designGridAdapter.setRefresh(designs)
+                } else {
+                    rv_zzim_design_item.visibility = View.GONE
+                    tv_zzim_design_empty.visibility = View.VISIBLE
                 }
-                designGridAdapter.setRefresh(designs)
             }
             else {
-                Log.d("nulkong", "get zzim designs size == 0")
+                Log.d("nulkong", "get zzim design list, ERROR")
             }
         })
     }

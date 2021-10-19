@@ -38,34 +38,6 @@
             app:layout_constraintTop_toBottomOf="@id/tv_mypage_title" />
 
         <TextView
-            android:id="@+id/tv_mypage_welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="17dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/spoqa_han_sans_neo_regular"
-            android:gravity="center_vertical"
-            android:text="@string/mypage_welcome"
-            android:textAlignment="viewStart"
-            android:textColor="#242424"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_mypage_title_bottom_border" />
-
-        <View
-            android:id="@+id/view_mypage_welcome_bottom_border"
-            android:layout_width="0dp"
-            android:layout_height="9dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/solidLine"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_mypage_welcome" />
-
-        <TextView
             android:id="@+id/tv_mypage_service_center"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -80,7 +52,7 @@
             android:textColor="#242424"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_mypage_welcome_bottom_border" />
+            app:layout_constraintTop_toBottomOf="@+id/view_mypage_title_bottom_border" />
 
         <Button
             android:id="@+id/btn_mypage_announcement"
@@ -233,7 +205,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_mypage_opensource_license" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_mypage_loginout" />
 
         <TextView
             android:id="@+id/tv_mypage_version_name"
@@ -255,15 +227,15 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             app:tint="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_mypage_opensource_license"
-            app:layout_constraintEnd_toEndOf="@+id/btn_mypage_opensource_license"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_mypage_loginout"
+            app:layout_constraintEnd_toEndOf="@+id/btn_mypage_loginout"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btn_mypage_opensource_license"
+            app:layout_constraintTop_toTopOf="@+id/btn_mypage_loginout"
             app:srcCompat="@drawable/ic_chevron_compact_right" />
 
         <Button
-            android:id="@+id/btn_mypage_opensource_license"
+            android:id="@+id/btn_mypage_loginout"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="50dp"

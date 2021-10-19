@@ -11,10 +11,10 @@ object SearchShopRepo {
     val TAG = this.javaClass.simpleName
     fun sendParams(keyword : String?, name : String?, locList : ArrayList<String>, theme : String?, sizeList : ArrayList<String>,
                    colorList : ArrayList<String>, categoryList : ArrayList<String>
-                   , order : String) : Single<KeywordSearchResponse>? {
+                   , order : String?, pickup : String?) : Single<KeywordSearchResponse>? {
 
         return ApiClient.provideCakeApi()
-            .getKeywordSearch(keyword, name, locList, theme, sizeList, colorList, categoryList, order)
+            .getKeywordSearch(keyword, name, locList, theme, sizeList, colorList, categoryList, order, pickup)
             .map {
                 Log.d(TAG, "getSearchShop status = " + it.status)
                 if (it.status.div(100) == 2) {

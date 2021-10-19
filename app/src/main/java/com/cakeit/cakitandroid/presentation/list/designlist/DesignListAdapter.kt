@@ -61,7 +61,7 @@ class DesignListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.V
         fun bind(cakeDesign : CakeDesignData) {
             designLoc.text = cakeDesign.designShopLoc
             designSize.text = cakeDesign.designSize
-            designShop.text = cakeDesign.designShopName
+            designShop.text = cakeDesign.designName
 
             val df = DecimalFormat("###,###")
             val designPriceComma: String = df.format(cakeDesign.designPrice) + "원"

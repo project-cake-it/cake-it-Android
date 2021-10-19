@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class CakeDesignData (
      @PrimaryKey(autoGenerate = true)
      var designIndex : Long?,
+     var designName : String,
      var designShopLoc : String,
      var designSize : String,
      var designShopName : String,

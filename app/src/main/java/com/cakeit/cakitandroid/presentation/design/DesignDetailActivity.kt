@@ -10,6 +10,7 @@ import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 import com.cakeit.cakitandroid.databinding.ActivityDesignDetailBinding
+import com.cakeit.cakitandroid.presentation.login.LoginActivity
 import com.cakeit.cakitandroid.presentation.shop.calendar.CalendarActivity
 import com.kakao.sdk.common.util.KakaoCustomTabsClient
 import com.kakao.sdk.talk.TalkApiClient
@@ -44,11 +45,18 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
         binding = getViewDataBinding()
         binding.vm = getViewModel()
 
-        authorization = SharedPreferenceController.getToken(applicationContext)
+        authorization = SharedPreferenceController.getAccessToken(applicationContext)
         fromToZzim = intent.getBooleanExtra("fromToZzim", false)
 
         btn_cake_detail_zzim.setOnClickListener {
-            designDetailViewModel.clickZzimBtn(authorization, designId, zzim)
+            var accessToken : String? = SharedPreferenceController.getAccessToken(applicationContext)!!
+            if (accessToken.equals("")) {
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.putExtra("fromToScreen", "DesignDetailActivity")
+                startActivity(intent)
+            } else {
+                designDetailViewModel.clickZzimBtn(authorization, designId, zzim)
+            }
         }
 
         btn_cake_detail_back.setOnClickListener {

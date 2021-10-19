@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.data.source.local.entity.ChoiceTag
+import com.cakeit.cakitandroid.presentation.list.shoplist.ShopListFragment
 import com.cakeit.cakitandroid.presentation.search.searchlist.shop.SearchShopFragment
 import kotlinx.android.synthetic.main.item_filter_tag.view.*
 
@@ -27,18 +28,28 @@ class SearchShopChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
         val choiceItem = choiceItems[position]
         val shopChoiceTagViewHolder = holder as SearchShopChoiceTagAdapter.ShopChoiceTagViewHolder
 
-        shopChoiceTagViewHolder.btnDeleteTag.setOnClickListener {
-            // 1:지역
+        shopChoiceTagViewHolder.rlNameTag.setOnClickListener {
+            // 0:기본 정렬, 1:지역, 2:날짜
             var filterCode = SearchShopFragment.searchShopFragment.choiceTagItems[position].filterCode
             var choiceCode = SearchShopFragment.searchShopFragment.choiceTagItems[position].choiceCode
 
+            // 기본 정렬
+            if(filterCode == 0) {
+                SearchShopFragment.searchShopFragment.listSelected[0] = false
+                SearchShopFragment.searchShopFragment.clearDefault()
+            }
             // 지역
-            if(filterCode == 1) {
+            else if(filterCode == 1) {
                 SearchShopFragment.searchShopFragment.searchShopRegionAdapter.checkedPosition.remove(choiceCode)
                 if(SearchShopFragment.searchShopFragment.searchShopRegionAdapter.checkedPosition.size == 0) {
                     SearchShopFragment.searchShopFragment.listSelected[1] = false
                     SearchShopFragment.searchShopFragment.clearRegion()
                 }
+            }
+            // 날짜
+            else if(filterCode == 2) {
+                SearchShopFragment.searchShopFragment.listSelected[2] = false
+                SearchShopFragment.searchShopFragment.clearDate()
             }
             choiceItems.removeAt(position)
             SearchShopFragment.searchShopFragment.getShopListByNetwork(SearchShopFragment.searchShopFragment.choiceTagItems)
@@ -54,8 +65,8 @@ class SearchShopChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     class ShopChoiceTagViewHolder(view : View) : RecyclerView.ViewHolder(view) {
 
+        val rlNameTag = view.rl_name_item_tag
         val tagName = view.tv_name_item_tag
-        val btnDeleteTag = view.btn_delete_item_tag
 
         fun bind(choiceTag : ChoiceTag) {
             tagName.text = choiceTag.choiceName

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_name_item_tag"
     android:layout_width="78dp"
     android:layout_height="30dp"
     android:background="@drawable/background_filter_tag"
