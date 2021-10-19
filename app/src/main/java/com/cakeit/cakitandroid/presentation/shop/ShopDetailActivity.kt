@@ -1,5 +1,7 @@
 package com.cakeit.cakitandroid.presentation.shop
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +18,7 @@ import com.cakeit.cakitandroid.presentation.zzim.shop.ZzimShopFragment
 import com.google.android.material.tabs.TabLayout
 import com.kakao.sdk.common.util.KakaoCustomTabsClient
 import com.kakao.sdk.talk.TalkApiClient
+import kotlinx.android.synthetic.main.activity_design_detail.*
 import kotlinx.android.synthetic.main.activity_shop_detail.*
 import java.text.DecimalFormat
 import kotlinx.android.synthetic.main.activity_shop_detail.tv_cake_detail_size_price_contents
@@ -109,11 +112,19 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
         }
 
         rl_shop_detail_connect.setOnClickListener {
-            Log.d("songjem", "shopChannel = " + shopChannel)
-            // 카카오톡 채널 채팅 URL
-            val url = TalkApiClient.instance.channelChatUrl(shopChannel)
-            // CustomTabs 로 열기
-            KakaoCustomTabsClient.openWithDefault(this, url)
+            val msgBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
+                    .setTitle("케이크 가게와 주문 상담을 시작할까요?")
+                    .setMessage("카카오톡 채널 앱으로 이동해요!")
+                    .setPositiveButton("예",
+                            DialogInterface.OnClickListener { dialog, id ->
+                                // 카카오톡 채널 채팅 URL
+                                val url = TalkApiClient.instance.channelChatUrl(shopChannel)
+                                // CustomTabs 로 열기
+                                KakaoCustomTabsClient.openWithDefault(this, url)
+                            })
+                    .setNegativeButton("아니오",null)
+            val msgDlg : AlertDialog = msgBuilder.create()
+            msgDlg.show()
         }
 
         btn_shop_detail_back.setOnClickListener {

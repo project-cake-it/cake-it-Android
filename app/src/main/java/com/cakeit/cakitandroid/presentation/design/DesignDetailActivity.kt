@@ -1,7 +1,10 @@
 package com.cakeit.cakitandroid.presentation.design
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.os.Process
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -138,13 +141,19 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
         })
 
         rl_cake_detail_connect.setOnClickListener {
-            if(shopChannel != null) {
-                Log.d("songjem", "shopChannel = " + shopChannel)
-                // 카카오톡 채널 채팅 URL
-                val url = TalkApiClient.instance.channelChatUrl(shopChannel)
-                // CustomTabs 로 열기
-                KakaoCustomTabsClient.openWithDefault(this, url)
-            }
+            val msgBuilder:AlertDialog.Builder = AlertDialog.Builder(this)
+                    .setTitle("케이크 가게와 주문 상담을 시작할까요?")
+                    .setMessage("카카오톡 채널 앱으로 이동해요!")
+                    .setPositiveButton("예",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        // 카카오톡 채널 채팅 URL
+                        val url = TalkApiClient.instance.channelChatUrl(shopChannel)
+                        // CustomTabs 로 열기
+                        KakaoCustomTabsClient.openWithDefault(this, url)
+                    })
+                    .setNegativeButton("아니오",null)
+            val msgDlg : AlertDialog = msgBuilder.create()
+            msgDlg.show()
         }
 
         btn_cake_detail_order_date.setOnClickListener{
