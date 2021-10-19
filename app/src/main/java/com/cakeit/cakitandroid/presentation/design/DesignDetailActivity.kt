@@ -11,6 +11,7 @@ import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 import com.cakeit.cakitandroid.databinding.ActivityDesignDetailBinding
 import com.cakeit.cakitandroid.presentation.login.LoginActivity
+import com.cakeit.cakitandroid.presentation.shop.ShopDetailActivity
 import com.cakeit.cakitandroid.presentation.shop.calendar.CalendarActivity
 import com.kakao.sdk.common.util.KakaoCustomTabsClient
 import com.kakao.sdk.talk.TalkApiClient
@@ -28,6 +29,7 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
     lateinit var designPagerAdapter : DesignPagerAdapter
 
     private var orderDates = ArrayList<String>()
+    private var shopId by Delegates.notNull<Int>()
     private var zzim : Boolean = false
     private var fromToZzim : Boolean = false
     private lateinit var shopChannel : String
@@ -81,6 +83,7 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
         designDetailViewModel.designDetailData.observe(this, Observer { datas ->
             if(datas != null)
             {
+                shopId = datas.shopId
                 orderDates = datas.orderAvailabilityDates
                 zzim = datas.zzim
                 btn_cake_detail_zzim.isSelected = zzim
@@ -147,6 +150,13 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
         btn_cake_detail_order_date.setOnClickListener{
             var intent = Intent(applicationContext, CalendarActivity::class.java)
             intent.putExtra("dates", orderDates)
+            startActivity(intent)
+        }
+
+        tv_shop_detail_name.setOnClickListener {
+            val intent = Intent(applicationContext, ShopDetailActivity::class.java)
+            intent.putExtra("cakeShopId", shopId)
+            intent.putExtra("fromToZzim", false)
             startActivity(intent)
         }
 
