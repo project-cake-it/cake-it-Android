@@ -21,10 +21,9 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:text="케이크가게"
-            android:layout_marginTop="14dp"
-            android:textSize="16sp"
-            android:textColor="#242424"
-            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:textSize="15sp"
+            android:textColor="@color/defaultText"
             android:layout_centerHorizontal="true"
             />
         <Button
