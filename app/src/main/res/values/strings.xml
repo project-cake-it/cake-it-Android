@@ -51,7 +51,7 @@
 
     <!-- HOME TAB -->
     <string name="home_theme">오늘은 어떤 특별한 날인가요? 🎁</string>
-    <string name="home_hide_theme">테마 숨기기</string>
+    <string name="home_hide_theme">숨기기</string>
     <string name="home_birth">생일</string>
     <string name="home_anniversary">기념일</string>
     <string name="home_wedding">결혼</string>
