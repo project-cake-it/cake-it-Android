@@ -207,7 +207,7 @@
 
                     <RelativeLayout
                         android:visibility="gone"
-                        android:id="@+id/rl_home_company1_theme"
+                        android:id="@+id/rl_home_theme_join"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginStart="6dp"
@@ -275,7 +275,7 @@
                     android:weightSum="2">
 
                     <RelativeLayout
-                        android:id="@+id/rl_home_theme_retire"
+                        android:id="@+id/rl_home_theme_promotion"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginEnd="6dp"
@@ -304,10 +304,50 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@+id/rl_home_theme_discharge"
+                        android:id="@+id/rl_home_theme_retire"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorSubPrimary"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="9sp"
+                            android:text="@string/home_company_3"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="13dp"
+                            android:src="@drawable/ic_chevron_compact_right" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_home_fourth_theme_line"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_home_theme_discharge"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="6dp"
                         android:layout_weight="1"
                         android:background="@color/colorSubPrimary"
                         android:gravity="center_vertical">
@@ -331,49 +371,9 @@
                             android:layout_marginEnd="13dp"
                             android:src="@drawable/ic_chevron_compact_right" />
                     </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:visibility="gone"
-                    android:id="@+id/ll_home_fourth_theme_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="12dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
 
                     <RelativeLayout
-                        android:id="@+id/rl_home_theme_club"
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_marginEnd="6dp"
-                        android:layout_weight="1"
-                        android:background="@color/colorSubPrimary"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_marginStart="16dp"
-                            android:fontFamily="@font/spoqa_han_sans_neo_medium"
-                            android:letterSpacing="-0.02"
-                            android:lineSpacingExtra="9sp"
-                            android:text="@string/home_meeting"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="15sp" />
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="13dp"
-                            android:src="@drawable/ic_chevron_compact_right" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/rl_home_theme_etc"
+                        android:id="@+id/rl_home_theme_graduation"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginStart="6dp"
@@ -389,7 +389,7 @@
                             android:fontFamily="@font/spoqa_han_sans_neo_medium"
                             android:letterSpacing="-0.02"
                             android:lineSpacingExtra="9sp"
-                            android:text="@string/home_etc"
+                            android:text="@string/home_graduation"
                             android:textColor="@color/colorPrimary"
                             android:textSize="15sp" />
 
@@ -400,6 +400,47 @@
                             android:layout_marginEnd="13dp"
                             android:src="@drawable/ic_chevron_compact_right" />
                     </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/ll_home_fifth_theme_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="12dp"
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_home_theme_rehabilitation"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorSubPrimary"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingExtra="9sp"
+                            android:text="@string/home_company_4"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="13dp"
+                            android:src="@drawable/ic_chevron_compact_right" />
+                    </RelativeLayout>
+
                 </LinearLayout>
             </LinearLayout>
 
