@@ -32,6 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="53dp"
                 app:tabIndicatorColor="@color/white"
+                app:tabRippleColor="@color/white"
                 />
 
         </com.google.android.material.appbar.AppBarLayout>

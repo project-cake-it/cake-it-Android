@@ -1,5 +1,6 @@
 package com.cakeit.cakitandroid.presentation.main
 
+import android.util.Log
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -18,7 +19,10 @@ class MainPagerAdapter(fm: FragmentManager, num : Int) :
         if(position == 0) return HomeFragment()
         else if(position == 1) return SearchFragment()
         else if(position == 2) return ShopListFragment()
-        else if(position == 3) return ZzimFragment()
+        else if(position == 3) {
+            Log.d("songjem", "ZzimFragment Tab is clicked")
+            return ZzimFragment()
+        }
         else if(position == 4) return MyPageFragment()
         else return null!!
     }

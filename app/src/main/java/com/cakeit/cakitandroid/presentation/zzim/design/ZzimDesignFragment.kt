@@ -33,11 +33,12 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("songjem", "ZzimDesignFragment onViewCreated")
 
         binding = getViewDataBinding()
         binding.vm = getViewModel()
 
-        authorization = SharedPreferenceController.getToken(context!!)
+        authorization = SharedPreferenceController.getAccessToken(context!!)
         initRecycler(view)
 
         zzimDesignFragment = this
@@ -89,7 +90,7 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
         })
 
         v.rv_zzim_design_item.adapter = designGridAdapter
-        v.rv_zzim_design_item.addItemDecoration(CakeListDeco(context!!, "zzim"))
+        v.rv_zzim_design_item.addItemDecoration(CakeListDeco(context!!, "designImage"))
         v.rv_zzim_design_item.layoutManager = GridLayoutManager(context, 2)
     }
 

@@ -29,12 +29,14 @@ class ZzimShopFragment : BaseFragment<FragmentZzimShopBinding, ZzimViewModel>() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("songjem", "ZzimShopFragment onViewCreated")
+
         zzimShopFragment = this
 
         binding = getViewDataBinding()
         binding.viewModel = getViewModel()
 
-        authorization = SharedPreferenceController.getToken(context!!)
+        authorization = SharedPreferenceController.getAccessToken(context!!)
         initRecyclerview()
 
         shopListAdapter.setOnItemClickListener(object : ShopListAdapter.OnShopItemClickListener{
@@ -64,7 +66,6 @@ class ZzimShopFragment : BaseFragment<FragmentZzimShopBinding, ZzimViewModel>() 
             }
             shopListAdapter.setShopListItems(datas)
         })
-
         getZzimShoplist()
     }
 
@@ -76,6 +77,7 @@ class ZzimShopFragment : BaseFragment<FragmentZzimShopBinding, ZzimViewModel>() 
     }
 
     fun getZzimShoplist() {
+        Log.d("songjem", "ZzimShopFragment, authorization = " + authorization)
         zzimViewModel.sendParamsForZzimShopList(authorization)
     }
 

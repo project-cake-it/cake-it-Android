@@ -44,10 +44,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
     private lateinit var binding : ActivityLoginBinding
     private lateinit var loginViewModel: LoginViewModel
+    var fromToScreen : String = ""
 
     private val REQUEST_CODE_GOOGLE_LOGIN = 100
-
-
 
     companion object {
         lateinit var googleSignInClient : GoogleSignInClient
@@ -60,6 +59,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
         dataBinding()
         binding = getViewDataBinding()
         binding.viewModel = getViewModel()
+
+        if(intent != null) {
+            if(intent.getStringExtra("fromToScreen") != null) fromToScreen = intent.getStringExtra("fromToScreen")!!
+        }
+
+        Log.d("songjem", "fromToScreen = " + fromToScreen)
 
         binding.lifecycleOwner?.let {
             binding.viewModel?.registerState?.observe(it, Observer{ it ->
@@ -75,14 +80,19 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             })
 
             binding.viewModel?.accessToken?.observe(it, Observer{ token ->
-                SharedPreferenceController.setToken(applicationContext, token)
+                SharedPreferenceController.setAccessToken(applicationContext, token)
             })
         }
 
         ib_login_eixt.setOnClickListener{
-            var intent = Intent(applicationContext, MainActivity::class.java)
-            finish()
-            startActivity(intent)
+            if(fromToScreen.equals("ZzimFragment") || fromToScreen.isNullOrEmpty()) {
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                finish()
+                startActivity(intent)
+            } else if(fromToScreen.equals("MyPageFragment") || fromToScreen.equals("ShopDetailActivity")
+                || fromToScreen.equals("DesignDetailActivity")) {
+                super.onBackPressed()
+            } else super.onBackPressed()
         }
 
         val welcomeText = findViewById<TextView>(R.id.tv_login_welcome).text as Spannable
@@ -215,6 +225,17 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
     override fun getViewModel(): LoginViewModel {
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         return loginViewModel
+    }
+
+    override fun onBackPressed() {
+        if(fromToScreen.equals("ZzimFragment")) {
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            finish()
+            startActivity(intent)
+        } else if(fromToScreen.equals("MyPageFragment") || fromToScreen.equals("ShopDetailActivity")
+            || fromToScreen.equals("DesignDetailActivity")) {
+            super.onBackPressed()
+        } else super.onBackPressed()
     }
 }
 

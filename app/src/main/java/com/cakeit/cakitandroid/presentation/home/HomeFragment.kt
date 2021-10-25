@@ -12,12 +12,9 @@ import androidx.viewpager.widget.ViewPager
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseFragment
 import com.cakeit.cakitandroid.databinding.FragmentHomeBinding
-import com.cakeit.cakitandroid.di.api.responses.DesignListResponseData
 import com.cakeit.cakitandroid.presentation.design.DesignDetailActivity
 import com.cakeit.cakitandroid.presentation.list.designlist.DesignListActivity
-import com.cakeit.cakitandroid.presentation.shop.design.DesignGridAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.item_home_promotion.*
 import kotlin.properties.Delegates
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.OnClickListener {
@@ -120,11 +117,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
         rl_home_theme_birthday.setOnClickListener(this)
         rl_home_theme_anniv.setOnClickListener(this)
         rl_home_theme_wedding.setOnClickListener(this)
-        rl_home_company1_theme.setOnClickListener(this)
+        rl_home_theme_join.setOnClickListener(this)
+        rl_home_theme_promotion.setOnClickListener(this)
         rl_home_theme_retire.setOnClickListener(this)
         rl_home_theme_discharge.setOnClickListener(this)
-        rl_home_theme_club.setOnClickListener(this)
-        rl_home_theme_etc.setOnClickListener(this)
+        rl_home_theme_graduation.setOnClickListener(this)
+        rl_home_theme_rehabilitation.setOnClickListener(this)
     }
 
     fun getPromotion()
@@ -142,7 +140,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
         popularCakeListAdapter.setOnItemClickListener(this)
 
         rv_home_cake_list.adapter = popularCakeListAdapter
-        rv_home_cake_list.addItemDecoration(CakeListDeco(context!!, "home"))
+        rv_home_cake_list.addItemDecoration(CakeListDeco(context!!, "designList"))
         rv_home_cake_list.layoutManager = GridLayoutManager(context!!, 2)
         rv_home_cake_list.setNestedScrollingEnabled(false);
     }
@@ -152,18 +150,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
         {
             R.id.tv_home_hide_theme -> {
                 tv_home_hide_theme.visibility = View.GONE
-                rl_home_company1_theme.visibility = View.GONE
+                rl_home_theme_join.visibility = View.GONE
                 rl_home_view_more.visibility = View.VISIBLE
                 ll_home_third_theme_line.visibility = View.GONE
                 ll_home_fourth_theme_line.visibility = View.GONE
+                ll_home_fifth_theme_line.visibility = View.GONE
             }
 
             R.id.rl_home_view_more -> {
                 tv_home_hide_theme.visibility = View.VISIBLE
-                rl_home_company1_theme.visibility = View.VISIBLE
+                rl_home_theme_join.visibility = View.VISIBLE
                 rl_home_view_more.visibility = View.GONE
                 ll_home_third_theme_line.visibility = View.VISIBLE
                 ll_home_fourth_theme_line.visibility = View.VISIBLE
+                ll_home_fifth_theme_line.visibility = View.VISIBLE
             }
 
             R.id.rl_home_theme_birthday -> {
@@ -184,9 +184,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
                 startActivity(intent)
             }
 
-            R.id.rl_home_company1_theme -> {
+            R.id.rl_home_theme_join -> {
                 var intent = Intent(context, DesignListActivity::class.java)
                 intent.putExtra("theme", "입사")
+                startActivity(intent)
+            }
+
+            R.id.rl_home_theme_promotion -> {
+                var intent = Intent(context, DesignListActivity::class.java)
+                intent.putExtra("theme", "승")
                 startActivity(intent)
             }
 
@@ -202,15 +208,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
                 startActivity(intent)
             }
 
-            R.id.rl_home_theme_club -> {
+            R.id.rl_home_theme_graduation -> {
                 var intent = Intent(context, DesignListActivity::class.java)
-                intent.putExtra("theme", "동아리")
+                intent.putExtra("theme", "졸업")
                 startActivity(intent)
             }
 
-            R.id.rl_home_theme_etc -> {
+            R.id.rl_home_theme_rehabilitation -> {
                 var intent = Intent(context, DesignListActivity::class.java)
-                intent.putExtra("theme", "기타")
+                intent.putExtra("theme", "복직")
                 startActivity(intent)
             }
 

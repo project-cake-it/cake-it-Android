@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.util.TypedValue
 import android.view.View
 
-class CakeListDeco(context : Context, val tabName: String) : RecyclerView.ItemDecoration() {
+class CakeListDeco(context : Context, val purpose: String) : RecyclerView.ItemDecoration() {
 
     private var horizontalSplitSpace : Int = 0
     private var verticalSplitSpace : Int = 0
@@ -17,15 +17,15 @@ class CakeListDeco(context : Context, val tabName: String) : RecyclerView.ItemDe
 
         val position : Int = parent.getChildAdapterPosition(view)
 
-        when(tabName) {
-            "home" -> {
+        when(purpose) {
+            "designList" -> {
                 // 왼쪽 아이템만 여백
                 if (position % 2 == 0) {
                     outRect.right = horizontalSplitSpace
                 }
                 else outRect.left = horizontalSplitSpace
             }
-            "zzim" -> {
+            "designImage" -> {
                 outRect.bottom = verticalSplitSpace
                 // 왼쪽 아이템만 여백
                 if (position % 2 == 0) {

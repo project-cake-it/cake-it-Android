@@ -1,7 +1,10 @@
 package com.cakeit.cakitandroid.presentation.design
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.os.Process
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +13,8 @@ import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
 import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 import com.cakeit.cakitandroid.databinding.ActivityDesignDetailBinding
+import com.cakeit.cakitandroid.presentation.login.LoginActivity
+import com.cakeit.cakitandroid.presentation.shop.ShopDetailActivity
 import com.cakeit.cakitandroid.presentation.shop.calendar.CalendarActivity
 import com.kakao.sdk.common.util.KakaoCustomTabsClient
 import com.kakao.sdk.talk.TalkApiClient
@@ -27,6 +32,7 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
     lateinit var designPagerAdapter : DesignPagerAdapter
 
     private var orderDates = ArrayList<String>()
+    private var shopId by Delegates.notNull<Int>()
     private var zzim : Boolean = false
     private var fromToZzim : Boolean = false
     private lateinit var shopChannel : String
@@ -44,11 +50,18 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
         binding = getViewDataBinding()
         binding.vm = getViewModel()
 
-        authorization = SharedPreferenceController.getToken(applicationContext)
+        authorization = SharedPreferenceController.getAccessToken(applicationContext)
         fromToZzim = intent.getBooleanExtra("fromToZzim", false)
 
         btn_cake_detail_zzim.setOnClickListener {
-            designDetailViewModel.clickZzimBtn(authorization, designId, zzim)
+            var accessToken : String? = SharedPreferenceController.getAccessToken(applicationContext)!!
+            if (accessToken.equals("")) {
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.putExtra("fromToScreen", "DesignDetailActivity")
+                startActivity(intent)
+            } else {
+                designDetailViewModel.clickZzimBtn(authorization, designId, zzim)
+            }
         }
 
         btn_cake_detail_back.setOnClickListener {
@@ -73,6 +86,7 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
         designDetailViewModel.designDetailData.observe(this, Observer { datas ->
             if(datas != null)
             {
+                shopId = datas.shopId
                 orderDates = datas.orderAvailabilityDates
                 zzim = datas.zzim
                 btn_cake_detail_zzim.isSelected = zzim
@@ -127,18 +141,31 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
         })
 
         rl_cake_detail_connect.setOnClickListener {
-            if(shopChannel != null) {
-                Log.d("songjem", "shopChannel = " + shopChannel)
-                // 카카오톡 채널 채팅 URL
-                val url = TalkApiClient.instance.channelChatUrl(shopChannel)
-                // CustomTabs 로 열기
-                KakaoCustomTabsClient.openWithDefault(this, url)
-            }
+            val msgBuilder:AlertDialog.Builder = AlertDialog.Builder(this)
+                    .setTitle("케이크 가게와 주문 상담을 시작할까요?")
+                    .setMessage("카카오톡 채널 앱으로 이동해요!")
+                    .setPositiveButton("예",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        // 카카오톡 채널 채팅 URL
+                        val url = TalkApiClient.instance.channelChatUrl(shopChannel)
+                        // CustomTabs 로 열기
+                        KakaoCustomTabsClient.openWithDefault(this, url)
+                    })
+                    .setNegativeButton("아니오",null)
+            val msgDlg : AlertDialog = msgBuilder.create()
+            msgDlg.show()
         }
 
         btn_cake_detail_order_date.setOnClickListener{
             var intent = Intent(applicationContext, CalendarActivity::class.java)
             intent.putExtra("dates", orderDates)
+            startActivity(intent)
+        }
+
+        tv_shop_detail_name.setOnClickListener {
+            val intent = Intent(applicationContext, ShopDetailActivity::class.java)
+            intent.putExtra("cakeShopId", shopId)
+            intent.putExtra("fromToZzim", false)
             startActivity(intent)
         }
 
