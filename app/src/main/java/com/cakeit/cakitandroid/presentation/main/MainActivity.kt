@@ -1,7 +1,7 @@
 package com.cakeit.cakitandroid.presentation.main
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -85,29 +85,32 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         }
     }
 
+    @SuppressLint("InflateParams")
     fun setTabLayout()
     {
-
         //Tab 아이콘 설정
         binding.tlMainTablayout.getTabAt(0)?.setIcon(R.drawable.isclick_tab_home)
         binding.tlMainTablayout.getTabAt(1)?.setIcon(R.drawable.isclick_tab_search)
         binding.tlMainTablayout.getTabAt(2)?.setIcon(R.drawable.isclick_tab_store)
-        binding.tlMainTablayout.getTabAt(3)?.setIcon(R.drawable.isclick_tab_zzim)
+        binding.tlMainTablayout.getTabAt(3)?.setIcon(R.drawable.isclick_tab_mark)
         binding.tlMainTablayout.getTabAt(4)?.setIcon(R.drawable.isclick_tab_mypage)
 
         for (i in 0 until binding.tlMainTablayout.getTabCount()) {
             val tab: TabLayout.Tab = binding.tlMainTablayout.getTabAt(i)!!
 
-            var customTabView = getLayoutInflater().inflate(R.layout.view_tab_icon_home, null)
-            var txtTabName = customTabView.findViewById(R.id.tv_name_tab_icon) as TextView
+            val customTabView = layoutInflater.inflate(R.layout.view_tab_icon_home, null)
+            val txtTabName = customTabView.findViewById(R.id.tv_name_tab_icon) as TextView
 
-            if(i == 0) txtTabName.setText("홈")
-            else if(i == 1) txtTabName.setText("검색")
-            else if(i == 2) txtTabName.setText("케이크 가게")
-            else if(i == 3) txtTabName.setText("찜")
-            else if(i == 4) txtTabName.setText("마이페이지")
+            when(i)
+            {
+                0 -> txtTabName.setText("홈")
+                1 -> txtTabName.setText("검색")
+                2 -> txtTabName.setText("케이크 가게")
+                3 -> txtTabName.setText("찜")
+                4 -> txtTabName.setText("마이페이지")
+            }
 
-            tab?.setCustomView(customTabView)
+            tab.customView = customTabView
         }
     }
 

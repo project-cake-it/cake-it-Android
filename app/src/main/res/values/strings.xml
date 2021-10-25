@@ -15,7 +15,7 @@
     <string name="shop_inform_notice_pickup_time">픽업 가능 시간</string>
     <string name="shop_inform_notice_closed_days">휴무일</string>
     <string name="shop_inform_notice_phone">전화번호</string>
-    <string name="shop_connect">가게 연결</string>
+    <string name="shop_connect">케이크 문의하기</string>
 
     <string name="mypage_title">마이페이지</string>
     <string name="mypage_welcome">%1$s님, 환영합니다!</string>
@@ -50,20 +50,21 @@
     <string name="zzim_shop_fragment_name">가게</string>
 
     <!-- HOME TAB -->
-    <string name="home_theme">테마로 찾기</string>
-    <string name="home_hide_theme">테마 숨기기</string>
+    <string name="home_theme">오늘은 어떤 특별한 날인가요? 🎁</string>
+    <string name="home_hide_theme">숨기기</string>
     <string name="home_birth">생일</string>
     <string name="home_anniversary">기념일</string>
     <string name="home_wedding">결혼</string>
-    <string name="home_join">입사</string>
-    <string name="home_promote">승진</string>
-    <string name="home_retire">퇴사</string>
+
+    <string name="home_company_1">입사</string>
+    <string name="home_company_2">승진</string>
+    <string name="home_company_3">퇴사</string>
+    <string name="home_company_4">복직</string>
     <string name="home_military">전역</string>
-    <string name="home_graduate">졸업</string>
-    <string name="home_reinstate">복직</string>
+    <string name="home_graduation">졸업</string>
     <string name="home_view_more">더보기</string>
     <string name="home_etc">기타</string>
-    <string name="home_popular_cake">인기 많은 케이크</string>
+    <string name="home_popular_cake">요즘 핫한 케이크 😎</string>
 
     <!-- TAB -->
     <string name="tab_home">홈</string>

@@ -93,7 +93,7 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
         })
 
         v.rv_zzim_design_item.adapter = designGridAdapter
-        v.rv_zzim_design_item.addItemDecoration(CakeListDeco(context!!, "zzim"))
+        v.rv_zzim_design_item.addItemDecoration(CakeListDeco(context!!, "designImage"))
         v.rv_zzim_design_item.layoutManager = GridLayoutManager(context, 2)
     }
 

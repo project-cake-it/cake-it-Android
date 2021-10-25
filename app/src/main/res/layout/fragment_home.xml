@@ -36,7 +36,7 @@
                 android:gravity="center"
                 android:background="@drawable/background_promotion_num"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="25dp"
                 app:layout_constraintBottom_toBottomOf="@id/vp_home_promotion"
                 app:layout_constraintEnd_toEndOf="parent" >
 
@@ -48,18 +48,18 @@
                     android:letterSpacing="-0.03"
                     android:lineSpacingExtra="12sp"
                     android:text="1"
-                    android:textColor="@color/defaultText"
+                    android:textColor="@color/white"
                     android:textSize="13sp"/>
-            <TextView
-                android:id="@+id/tv_home_promotion_cnt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                android:letterSpacing="-0.03"
-                android:lineSpacingExtra="12sp"
-                android:text=" / 전체"
-                android:textColor="@color/defaultText"
-                android:textSize="13sp"/>
+                <TextView
+                    android:id="@+id/tv_home_promotion_cnt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                    android:letterSpacing="-0.03"
+                    android:lineSpacingExtra="12sp"
+                    android:text=" / 전체"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/tv_home_theme"
@@ -223,7 +223,7 @@
                             android:fontFamily="@font/spoqa_han_sans_neo_medium"
                             android:letterSpacing="-0.02"
                             android:lineSpacingExtra="9sp"
-                            android:text="@string/home_join"
+                            android:text="@string/home_company_1"
                             android:textColor="@color/colorPrimary"
                             android:textSize="15sp" />
 
@@ -275,7 +275,7 @@
                     android:weightSum="2">
 
                     <RelativeLayout
-                        android:id="@+id/rl_home_theme_promote"
+                        android:id="@+id/rl_home_theme_promotion"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginEnd="6dp"
@@ -291,7 +291,7 @@
                             android:fontFamily="@font/spoqa_han_sans_neo_medium"
                             android:letterSpacing="-0.02"
                             android:lineSpacingExtra="9sp"
-                            android:text="@string/home_promote"
+                            android:text="@string/home_company_2"
                             android:textColor="@color/colorPrimary"
                             android:textSize="15sp" />
 
@@ -320,7 +320,7 @@
                             android:fontFamily="@font/spoqa_han_sans_neo_medium"
                             android:letterSpacing="-0.02"
                             android:lineSpacingExtra="9sp"
-                            android:text="@string/home_retire"
+                            android:text="@string/home_company_3"
                             android:textColor="@color/colorPrimary"
                             android:textSize="15sp" />
 
@@ -334,8 +334,8 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/ll_home_fourth_theme_line"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="12dp"
@@ -373,7 +373,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@+id/rl_home_theme_graduate"
+                        android:id="@+id/rl_home_theme_graduation"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginStart="6dp"
@@ -389,7 +389,7 @@
                             android:fontFamily="@font/spoqa_han_sans_neo_medium"
                             android:letterSpacing="-0.02"
                             android:lineSpacingExtra="9sp"
-                            android:text="@string/home_graduate"
+                            android:text="@string/home_graduation"
                             android:textColor="@color/colorPrimary"
                             android:textSize="15sp" />
 
@@ -401,18 +401,19 @@
                             android:src="@drawable/ic_chevron_compact_right" />
                     </RelativeLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:visibility="gone"
-                    android:id="@+id/ll_home_five_theme_line"
+                    android:id="@+id/ll_home_fifth_theme_line"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="12dp"
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
                     <RelativeLayout
-                        android:id="@+id/rl_home_theme_reinstate"
+                        android:id="@+id/rl_home_theme_rehabilitation"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginEnd="6dp"
@@ -428,7 +429,7 @@
                             android:fontFamily="@font/spoqa_han_sans_neo_medium"
                             android:letterSpacing="-0.02"
                             android:lineSpacingExtra="9sp"
-                            android:text="@string/home_reinstate"
+                            android:text="@string/home_company_4"
                             android:textColor="@color/colorPrimary"
                             android:textSize="15sp" />
 
@@ -440,35 +441,6 @@
                             android:src="@drawable/ic_chevron_compact_right" />
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/rl_home_theme_blank"
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="6dp"
-                        android:layout_weight="1"
-                        android:background="@color/colorSubPrimary"
-                        android:visibility="invisible"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_marginStart="16dp"
-                            android:fontFamily="@font/spoqa_han_sans_neo_medium"
-                            android:letterSpacing="-0.02"
-                            android:lineSpacingExtra="9sp"
-                            android:text="@string/home_etc"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="15sp" />
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="13dp"
-                            android:src="@drawable/ic_chevron_compact_right" />
-                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
 
