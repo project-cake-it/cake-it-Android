@@ -78,7 +78,8 @@
 
 
     <!-- LOGIN -->
-    <string name="login_welcome">마음을 전하는 가장 달콤한 방법</string>
+    <string name="login_welcome">마음을 전하는</string>
+    <string name="login_welcome2">가장 달콤한 방법</string>
     <!-- Login auth code -->
     <!-- kakao -->
     <string name="AUTHCODE_KAKAO_NATIVEAPPKEY">&AUTHCODE_KAKAO_NATIVEAPPKEY;</string>
