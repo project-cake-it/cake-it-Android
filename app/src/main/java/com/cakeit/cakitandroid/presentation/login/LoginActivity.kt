@@ -2,6 +2,7 @@ package com.cakeit.cakitandroid.presentation.login
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Paint
 import android.os.Bundle
 import android.text.Spannable
 import android.text.style.ForegroundColorSpan
@@ -9,34 +10,29 @@ import android.text.style.StyleSpan
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
-import com.cakeit.cakitandroid.databinding.ActivityLoginBinding
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.user.UserApiClient
-import com.nhn.android.naverlogin.OAuthLogin
-import android.widget.Toast
 import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
-import com.cakeit.cakitandroid.presentation.list.designlist.DesignListActivity
+import com.cakeit.cakitandroid.databinding.ActivityLoginBinding
 import com.cakeit.cakitandroid.presentation.main.MainActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.tasks.OnCompleteListener
-import com.nhn.android.naverlogin.OAuthLoginHandler
-
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.api.client.googleapis.auth.oauth2.*
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
-import kotlinx.android.synthetic.main.activity_calendar.*
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.user.UserApiClient
+import com.nhn.android.naverlogin.OAuthLogin
+import com.nhn.android.naverlogin.OAuthLoginHandler
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.IOException
 
 
@@ -64,6 +60,25 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             if(intent.getStringExtra("fromToScreen") != null) fromToScreen = intent.getStringExtra("fromToScreen")!!
         }
 
+        val imgArr = arrayOf(
+            R.drawable.bg_login_image_1,
+            R.drawable.bg_login_image_2,
+            R.drawable.bg_login_image_3,
+            R.drawable.bg_login_image_4,
+            R.drawable.bg_login_image_5,
+            R.drawable.bg_login_image_6,
+            R.drawable.bg_login_image_7,
+            R.drawable.bg_login_image_8,
+            R.drawable.bg_login_image_9,
+            R.drawable.bg_login_image_10,
+            R.drawable.bg_login_image_11
+        )
+
+        val backgroundRndIdx = (1..11).random()
+        iv_login_background.setImageResource(imgArr[backgroundRndIdx])
+
+        tv_login_eixt.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+
         Log.d("songjem", "fromToScreen = " + fromToScreen)
 
         binding.lifecycleOwner?.let {
@@ -84,7 +99,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             })
         }
 
-        ib_login_eixt.setOnClickListener{
+        tv_login_eixt.setOnClickListener{
             if(fromToScreen.equals("ZzimFragment") || fromToScreen.isNullOrEmpty()) {
                 val intent = Intent(applicationContext, MainActivity::class.java)
                 finish()
@@ -94,10 +109,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 super.onBackPressed()
             } else super.onBackPressed()
         }
-
-        val welcomeText = findViewById<TextView>(R.id.tv_login_welcome).text as Spannable
-        welcomeText.setSpan(ForegroundColorSpan(Color.parseColor("#df7373")), 11, 14, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        welcomeText.setSpan(StyleSpan(ResourcesCompat.getFont(this, R.font.spoqa_han_sans_neo_bold)!!.style), 11, 14, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
 //        Log.e("ReleaseKeyHash",  Utility.getKeyHash(this))
 
