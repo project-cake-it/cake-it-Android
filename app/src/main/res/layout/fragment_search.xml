@@ -5,12 +5,14 @@
             name="viewModel"
             type="com.cakeit.cakitandroid.presentation.search.SearchViewModel" />
     </data>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.search.SearchActivity">
+        android:orientation="vertical"
+        tools:context=".presentation.search.SearchActivity"
+        >
 
         <RelativeLayout
             android:id="@+id/rl_search_input"
@@ -30,6 +32,8 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:imeOptions="actionSearch"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 />
 
             <Button
@@ -51,5 +55,10 @@
             android:background="#eeeeee"
             android:layout_below="@+id/rl_search_input"
             />
-    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_search_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </LinearLayout>
 </layout>
