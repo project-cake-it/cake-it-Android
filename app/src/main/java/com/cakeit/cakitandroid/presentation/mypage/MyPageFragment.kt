@@ -1,6 +1,8 @@
 package com.cakeit.cakitandroid.presentation.mypage
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -109,42 +111,50 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
             }
 
             R.id.btn_mypage_loginout -> {
-                if (accessToken.equals("")){
+                if (accessToken == ""){
                     // 로그인
                     var intent = Intent(context, LoginActivity::class.java)
                     intent.putExtra("fromToScreen", "MyPageFragment")
                     startActivity(intent)
                 } else {
-                    // 로그아웃
-                    var socialType = SharedPreferenceController.getSocialType(context!!)
+                    val msgBuilder: AlertDialog.Builder = AlertDialog.Builder(context!!)
+                        .setTitle("로그아웃")
+                        .setMessage("정말로 로그아웃 하시겠습니까?")
+                        .setPositiveButton("확인",
+                            DialogInterface.OnClickListener { dialog, id ->
+                                var socialType = SharedPreferenceController.getSocialType(context!!)
 
-                    Log.e("SUNGMIN", "$socialType")
-                    when (socialType) {
-                        "GOOGLE" -> {
-                            LoginActivity.googleSignInClient.signOut()
-                                .addOnCompleteListener {
-                                    logoutCallback()
+                                Log.e("SUNGMIN", "$socialType")
+                                when (socialType) {
+                                    "GOOGLE" -> {
+                                        LoginActivity.googleSignInClient.signOut()
+                                            .addOnCompleteListener {
+                                                logoutCallback()
+                                            }
+                                    }
+                                    "KAKAO" -> {
+                                        Log.e("SUNGMIN", "KAKAO LOGOUT")
+                                        UserApiClient.instance.logout { error ->
+                                            if (error != null) {
+                                                Log.e(TAG, "Kakao Logout Failed.", error)
+                                            } else {
+                                                logoutCallback()
+                                                Log.e("SUNGMIN", "KAKAO LOGOUT")
+                                            }
+                                        }
+                                    }
+                                    "NAVER" -> {
+                                        LoginActivity.mOAuthLoginModule.logout(context)
+                                        logoutCallback()
+                                    }
+                                    else -> {
+                                        Log.e(TAG, "wrong socialLogin Type $socialType")
+                                    }
                                 }
-                        }
-                        "KAKAO" -> {
-                            Log.e("SUNGMIN", "KAKAO LOGOUT")
-                            UserApiClient.instance.logout { error ->
-                                if (error != null) {
-                                    Log.e(TAG, "Kakao Logout Failed.", error)
-                                } else {
-                                    logoutCallback()
-                                    Log.e("SUNGMIN", "KAKAO LOGOUT")
-                                }
-                            }
-                        }
-                        "NAVER" -> {
-                            LoginActivity.mOAuthLoginModule.logout(context)
-                            logoutCallback()
-                        }
-                        else -> {
-                            Log.e(TAG, "wrong socialLogin Type $socialType")
-                        }
-                    }
+                            })
+                        .setNegativeButton("취소",null)
+                    val msgDlg : AlertDialog = msgBuilder.create()
+                    msgDlg.show()
 
                 }
             }
