@@ -408,7 +408,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
         rl_filter_pickup_region_shop_list.isSelected = false
         btn_filter_pickup_region_compact_shop_list.isSelected = false
         tv_filter_pickup_region_title_shop_list.setTextColor(Color.parseColor("#000000"))
-        tv_filter_pickup_region_title_shop_list.text = "픽업 지역"
+        tv_filter_pickup_region_title_shop_list.text = "지역"
         shopRegionFilterAdapter.checkedPosition.clear()
         shopRegionFilterAdapter.checkedPosition.add(0)
     }
@@ -518,7 +518,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
                 }
                 shopDefaultFilterAdapter.setDefaultListItems(filterItems)
             }
-            // 픽업 지역 필터
+            // 지역 필터
             1 -> {
                 regionItems = ArrayList<String>()
                 for (i in 0..regionList.size - 1) {

@@ -123,6 +123,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
         rl_home_theme_join.setOnClickListener(this)
         rl_home_theme_promotion.setOnClickListener(this)
         rl_home_theme_retire.setOnClickListener(this)
+        rl_home_theme_military.setOnClickListener(this)
         rl_home_theme_graduation.setOnClickListener(this)
         rl_home_theme_rehabilitation.setOnClickListener(this)
     }
@@ -182,54 +183,63 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
             R.id.rl_home_theme_birthday -> {
                 var intent = Intent(context, DesignListActivity::class.java)
                 intent.putExtra("theme", "생일")
+                intent.putExtra("themePosition", 0)
                 startActivity(intent)
             }
 
             R.id.rl_home_theme_anniv -> {
                 var intent = Intent(context, DesignListActivity::class.java)
                 intent.putExtra("theme", "기념일")
+                intent.putExtra("themePosition", 1)
                 startActivity(intent)
             }
 
             R.id.rl_home_theme_wedding -> {
                 var intent = Intent(context, DesignListActivity::class.java)
                 intent.putExtra("theme", "결혼")
+                intent.putExtra("themePosition", 2)
                 startActivity(intent)
             }
 
             R.id.rl_home_theme_join -> {
                 var intent = Intent(context, DesignListActivity::class.java)
                 intent.putExtra("theme", "입사")
+                intent.putExtra("themePosition", 3)
                 startActivity(intent)
             }
 
             R.id.rl_home_theme_promotion -> {
                 var intent = Intent(context, DesignListActivity::class.java)
                 intent.putExtra("theme", "승진")
+                intent.putExtra("themePosition", 4)
                 startActivity(intent)
             }
 
             R.id.rl_home_theme_retire -> {
                 var intent = Intent(context, DesignListActivity::class.java)
                 intent.putExtra("theme", "퇴사")
+                intent.putExtra("themePosition", 5)
                 startActivity(intent)
             }
 
             R.id.rl_home_theme_military -> {
                 var intent = Intent(context, DesignListActivity::class.java)
                 intent.putExtra("theme", "전역")
+                intent.putExtra("themePosition", 6)
                 startActivity(intent)
             }
 
             R.id.rl_home_theme_graduation -> {
                 var intent = Intent(context, DesignListActivity::class.java)
                 intent.putExtra("theme", "졸업")
+                intent.putExtra("themePosition", 7)
                 startActivity(intent)
             }
 
             R.id.rl_home_theme_rehabilitation -> {
                 var intent = Intent(context, DesignListActivity::class.java)
                 intent.putExtra("theme", "복직")
+                intent.putExtra("themePosition", 8)
                 startActivity(intent)
             }
 

@@ -840,7 +840,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
                 }
                 searchDesignDefaultAdapter.setDefaultListItems(filterItems)
             }
-            // 픽업 지역 필터
+            // 지역 필터
             1 -> {
                 regionItems = ArrayList<String>()
                 for (i in 0..regionList.size - 1) {

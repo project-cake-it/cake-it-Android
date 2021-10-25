@@ -12,7 +12,7 @@
     <string name="cake_information_sheet_type">시트 종류</string>
     <string name="shop_inform_notice_title">가게 안내사항</string>
     <string name="shop_inform_notice_time">운영시간</string>
-    <string name="shop_inform_notice_pickup_time">픽업 가능 시간</string>
+    <string name="shop_inform_notice_pickup_time">주문 가능 시간</string>
     <string name="shop_inform_notice_closed_days">휴무일</string>
     <string name="shop_inform_notice_phone">전화번호</string>
     <string name="shop_connect">케이크 문의하기</string>
@@ -37,8 +37,8 @@
 
     <string name="shop_list_filter_refresh">초기화</string>
     <string name="shop_list_filter_recommend">기본순</string>
-    <string name="shop_list_filter_pickup_region">픽업 지역</string>
-    <string name="shop_list_filter_pickup_availability_date">픽업 가능 날짜</string>
+    <string name="shop_list_filter_pickup_region">지역</string>
+    <string name="shop_list_filter_pickup_availability_date">주문 가능 날짜</string>
 
     <string name="filter_list_name">필터 리스트 아이템</string>
     <string name="shop_info_address">주소복사</string>

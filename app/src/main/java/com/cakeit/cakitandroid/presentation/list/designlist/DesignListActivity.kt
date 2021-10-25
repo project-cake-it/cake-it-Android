@@ -67,6 +67,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
     var selectedTheme : String? = null
     var selectedOrder : String? = null
     lateinit var cakeDesignIds : ArrayList<Long>
+    var themePosition : Int = 0
     var isClickedOrder = false
     lateinit var designRvItemDeco : DesignRvItemDeco
 
@@ -79,6 +80,10 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         showLoadingBar()
         choiceTagItems = ArrayList()
 
+        selectedTheme = intent.getStringExtra("theme")
+        tv_design_title_design_list.text = selectedTheme
+        themePosition = intent.getIntExtra("themePosition", 0)
+
         ll_design_title_design_list.setOnClickListener(this)
         view_background_design_list.setOnClickListener(this)
         rl_filter_refresh_design_list.setOnClickListener(this)
@@ -90,8 +95,6 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         btn_back_design_list.setOnClickListener(this)
 
         initRecyclerview()
-        selectedTheme = intent.getStringExtra("theme")
-        tv_design_title_design_list.text = selectedTheme
 
         designListViewModel.cakeDesignItems.observe(this, Observer { datas ->
             hideLoadingBar()
@@ -183,14 +186,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
                 }
 
         designThemeListAdapter = DesignThemeListAdapter()
-            .apply {
-                listener = object : DesignThemeListAdapter.OnDesignThemeItemClickListener {
-                    override fun onDesignThemeItemClick(position: Int) {
-                        Log.d("songjem", "design theme position = " + position)
-                        Toast.makeText(applicationContext, "theme item" + position + " is clicked", Toast.LENGTH_LONG).show()
-                    }
-                }
-            }
+        designThemeListAdapter.addCheckedPosition(themePosition)
 
         rv_choice_tag_design_list.run {
             setHasFixedSize(true)
@@ -642,7 +638,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         rl_filter_pickup_region_design_list.isSelected = false
         btn_filter_pickup_region_compact_design_list.isSelected = false
         tv_filter_pickup_region_title_design_list.setTextColor(Color.parseColor("#000000"))
-        tv_filter_pickup_region_title_design_list.text = "픽업 지역"
+        tv_filter_pickup_region_title_design_list.text = "지역"
         designRegionFilterAdapter.checkedPosition.clear()
         designRegionFilterAdapter.checkedPosition.add(0)
     }
@@ -842,7 +838,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
                 }
                 designDefaultFilterAdapter.setDefaultListItems(filterItems)
             }
-            // 픽업 지역 필터
+            // 지역 필터
             1 -> {
                 regionItems = ArrayList<String>()
                 for (i in 0..regionList.size - 1) {

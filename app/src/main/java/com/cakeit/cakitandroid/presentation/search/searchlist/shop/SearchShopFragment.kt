@@ -459,7 +459,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
         rl_filter_pickup_region_search_shop.isSelected = false
         btn_filter_pickup_region_compact_search_shop.isSelected = false
         tv_filter_pickup_region_title_search_shop.setTextColor(Color.parseColor("#000000"))
-        tv_filter_pickup_region_title_search_shop.text = "픽업 지역"
+        tv_filter_pickup_region_title_search_shop.text = "지역"
         searchShopRegionAdapter.checkedPosition.clear()
     }
     // 날짜 선택 초기화
@@ -469,7 +469,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
         rl_filter_pickup_date_search_shop.isSelected = false
         btn_filter_pickup_date_compact_search_shop.isSelected = false
         tv_filter_pickup_date_title_search_shop.setTextColor(Color.parseColor("#000000"))
-        tv_filter_pickup_date_title_search_shop.text = "픽업 날짜"
+        tv_filter_pickup_date_title_search_shop.text = "주문 가능 날짜"
 
         selectedDate = ""
         choicePickupDate = null
@@ -580,7 +580,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
                 }
                 searchShopDefaultAdapter.setDefaultListItems(filterItems)
             }
-            // 픽업 지역 필터
+            // 지역 필터
             1 -> {
                 regionItems = ArrayList<String>()
                 for (i in 0..regionList.size - 1) {

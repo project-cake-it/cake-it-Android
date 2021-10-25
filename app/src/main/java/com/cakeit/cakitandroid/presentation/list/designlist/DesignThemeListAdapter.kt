@@ -32,6 +32,10 @@ class DesignThemeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         return viewHolder
     }
 
+    fun addCheckedPosition(position: Int) {
+        checkedPosition.add(position)
+    }
+
     fun getClickedItem() : String {
         var clickedData = ""
         var list = ArrayList(checkedPosition)
