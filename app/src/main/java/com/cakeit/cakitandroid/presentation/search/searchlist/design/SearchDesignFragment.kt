@@ -2,6 +2,7 @@ package com.cakeit.cakitandroid.presentation.search.searchlist.design
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -72,6 +73,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
         binding = getViewDataBinding()
         binding.viewModel = getViewModel()
 
+        showLoadingBar()
         choiceTagItems = ArrayList()
         var extra = this.arguments
         extra = getArguments();
@@ -88,6 +90,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
         initRecyclerview()
 
         searchDesignViewModel.cakeDesignItems.observe(viewLifecycleOwner, Observer { datas ->
+            hideLoadingBar()
             searchCakeDesignIds = ArrayList<Long>()
             searchListSize = datas.size
             if(searchListSize > 0) {
@@ -244,6 +247,7 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
     }
 
     fun getSearchDesignByNetwork(keyword : String, name : String?, choiceTagItems : ArrayList<ChoiceTag>) {
+        showLoadingBar()
         onceFlag = false
         // 데이터 초기화
         selectedLocList = ArrayList<String>()
@@ -672,6 +676,17 @@ class SearchDesignFragment : BaseFragment<FragmentSearchDesignBinding, SearchDes
         tv_filter_category_title_search_design.text = "카테고리"
         searchDesignCategoryAdapter.checkedPosition.clear()
         searchDesignCategoryAdapter.checkedPosition.add(0)
+    }
+
+    fun showLoadingBar() {
+        val c = resources.getColor(R.color.colorPrimary)
+        pb_loading_search_design.setIndeterminate(true)
+        pb_loading_search_design.getIndeterminateDrawable().setColorFilter(c, PorterDuff.Mode.MULTIPLY)
+        pb_loading_search_design.visibility = View.VISIBLE
+    }
+
+    fun hideLoadingBar() {
+        pb_loading_search_design.visibility = View.GONE
     }
 
     // 기본순 필터링 ON

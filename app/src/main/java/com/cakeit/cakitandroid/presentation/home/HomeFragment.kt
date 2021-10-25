@@ -2,6 +2,7 @@ package com.cakeit.cakitandroid.presentation.home
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -42,12 +43,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
         binding = getViewDataBinding()
         binding.vm = getViewModel()
 
+        showLoadingBar()
         setListener()
         initRecycler()
         getPromotion()
         getPopularCake()
 
         homeViewModel.promotionsData.observe(viewLifecycleOwner, Observer { datas ->
+            hideLoadingBar()
             if(datas != null)
             {
                 var data = ArrayList<String>()
@@ -146,6 +149,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
         rv_home_cake_list.addItemDecoration(CakeListDeco(context!!, "home"))
         rv_home_cake_list.layoutManager = GridLayoutManager(context!!, 2)
         rv_home_cake_list.setNestedScrollingEnabled(false);
+    }
+
+    fun showLoadingBar() {
+        val c = resources.getColor(R.color.colorPrimary)
+        pb_home_loading.setIndeterminate(true)
+        pb_home_loading.getIndeterminateDrawable().setColorFilter(c, PorterDuff.Mode.MULTIPLY)
+        pb_home_loading.visibility = View.VISIBLE
+    }
+
+    fun hideLoadingBar() {
+        pb_home_loading.visibility = View.GONE
     }
 
     override fun onClick(v: View?) {

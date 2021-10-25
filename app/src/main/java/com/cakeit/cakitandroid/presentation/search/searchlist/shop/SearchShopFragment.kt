@@ -2,6 +2,7 @@ package com.cakeit.cakitandroid.presentation.search.searchlist.shop
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -23,7 +24,6 @@ import com.cakeit.cakitandroid.presentation.search.searchlist.shop.filter.Search
 import com.cakeit.cakitandroid.presentation.shop.ShopDetailActivity
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import kotlinx.android.synthetic.main.fragment_search_shop.*
-import kotlinx.android.synthetic.main.fragment_shop_list.*
 
 class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopViewModel>(), View.OnClickListener {
 
@@ -67,6 +67,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
         binding = getViewDataBinding()
         binding.viewModel = getViewModel()
 
+        showLoadingBar()
         choiceTagItems = ArrayList()
         var extra = this.arguments
         extra = getArguments();
@@ -97,6 +98,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
         })
 
         searchShopViewModel.cakeShopItems.observe(viewLifecycleOwner, Observer { datas ->
+            hideLoadingBar()
             searchCakeShopIds = ArrayList<Int>()
             searchListSize = datas.size
             if(searchListSize > 0) {
@@ -120,7 +122,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
             }
             shopListAdapter.setShopListItems(datas)
         })
-        getshopList()
+        getShopList()
         searchShopFragment = this
 
         cv_pickup_calendar_search_shop.addDecorators(
@@ -166,7 +168,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
         })
     }
 
-    fun getshopList() {
+    fun getShopList() {
 
         selectedTheme = "NONE"
         selecedLocList = ArrayList<String>()
@@ -240,6 +242,7 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
     }
 
     fun getShopListByNetwork(choiceTagItems : ArrayList<ChoiceTag>) {
+        showLoadingBar()
         onceFlag = false
         // TAG 리스트 초기화
         selecedLocList = ArrayList<String>()
@@ -470,6 +473,17 @@ class SearchShopFragment : BaseFragment<FragmentSearchShopBinding, SearchShopVie
 
         selectedDate = ""
         choicePickupDate = null
+    }
+
+    fun showLoadingBar() {
+        val c = resources.getColor(R.color.colorPrimary)
+        pb_loading_search_shop.setIndeterminate(true)
+        pb_loading_search_shop.getIndeterminateDrawable().setColorFilter(c, PorterDuff.Mode.MULTIPLY)
+        pb_loading_search_shop.visibility = View.VISIBLE
+    }
+
+    fun hideLoadingBar() {
+        pb_loading_search_shop.visibility = View.GONE
     }
 
     // 기본순 필터링 ON

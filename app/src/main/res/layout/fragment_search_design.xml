@@ -285,6 +285,14 @@
                                 android:visibility="gone"
                                 android:gravity="center"
                                 />
+                            <ProgressBar
+                                android:id="@+id/pb_loading_search_design"
+                                android:layout_centerInParent="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                style="?android:attr/progress"
+                                />
                         </RelativeLayout>
                     </LinearLayout>
                     <View

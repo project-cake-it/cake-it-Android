@@ -2,6 +2,7 @@ package com.cakeit.cakitandroid.presentation.list.designlist
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -73,6 +74,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         designListBinding = getViewDataBinding()
         designListBinding.viewModel = getViewModel()
 
+        showLoadingBar()
         choiceTagItems = ArrayList()
 
         ll_design_title_design_list.setOnClickListener(this)
@@ -90,6 +92,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         tv_design_title_design_list.text = selectedTheme
 
         designListViewModel.cakeDesignItems.observe(this, Observer { datas ->
+            hideLoadingBar()
             cakeDesignIds = ArrayList<Long>()
             if(datas.size > 0) {
                 tv_empty_design_list.visibility = View.GONE
@@ -258,6 +261,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
     }
 
     fun getDesignListByNetwork(choiceTagItems : ArrayList<ChoiceTag>, changeTheme : String?) {
+        showLoadingBar()
         // 데이터 초기화
         selectedLocList = ArrayList<String>()
         selectedSizeList = ArrayList<String>()
@@ -804,6 +808,17 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
         else {
             tv_filter_category_title_design_list.setTextColor(Color.parseColor("#ffffff"))
         }
+    }
+
+    fun showLoadingBar() {
+        val c = resources.getColor(R.color.colorPrimary)
+        pb_loading_design_list.setIndeterminate(true)
+        pb_loading_design_list.getIndeterminateDrawable().setColorFilter(c, PorterDuff.Mode.MULTIPLY)
+        pb_loading_design_list.visibility = View.VISIBLE
+    }
+
+    fun hideLoadingBar() {
+        pb_loading_design_list.visibility = View.GONE
     }
 
     // 필터 리스트 세팅

@@ -2,6 +2,7 @@ package com.cakeit.cakitandroid.presentation.zzim.design
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -38,6 +39,7 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
         binding = getViewDataBinding()
         binding.vm = getViewModel()
 
+        showLoadingBar()
         authorization = SharedPreferenceController.getAccessToken(context!!)
         initRecycler(view)
 
@@ -45,6 +47,7 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
         getZzimDesigns()
 
         zzimViewModel.desigDatas.observe(viewLifecycleOwner, Observer { datas ->
+            hideLoadingBar()
             if(datas != null) {
                 if(datas.size > 0) {
                     rv_zzim_design_item.visibility = View.VISIBLE
@@ -98,6 +101,7 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == RESULT_OK) {
+            showLoadingBar()
             getZzimDesigns()
         }
     }
@@ -105,6 +109,17 @@ class ZzimDesignFragment : BaseFragment<FragmentZzimDesignBinding, ZzimViewModel
     fun getZzimDesigns()
     {
         zzimViewModel.getZzimDesign(authorization)
+    }
+
+    fun showLoadingBar() {
+        val c = resources.getColor(R.color.colorPrimary)
+        pb_loading_zzim_design.setIndeterminate(true)
+        pb_loading_zzim_design.getIndeterminateDrawable().setColorFilter(c, PorterDuff.Mode.MULTIPLY)
+        pb_loading_zzim_design.visibility = View.VISIBLE
+    }
+
+    fun hideLoadingBar() {
+        pb_loading_zzim_design.visibility = View.GONE
     }
 
     companion object {

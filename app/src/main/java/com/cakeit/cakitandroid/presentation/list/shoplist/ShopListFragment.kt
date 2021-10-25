@@ -2,6 +2,7 @@ package com.cakeit.cakitandroid.presentation.list.shoplist
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -54,9 +55,11 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         shopListBinding = getViewDataBinding()
         shopListBinding.viewModel = getViewModel()
 
+        showLoadingBar()
         choiceTagItems = ArrayList()
         initRecyclerview()
 
@@ -77,6 +80,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
         })
 
         shopListViewModel.cakeShopItems.observe(viewLifecycleOwner, Observer { datas ->
+            hideLoadingBar()
             cakeShopIds = ArrayList<Int>()
             if(datas.size > 0) {
                 rv_shop_list_shop_list.visibility = View.VISIBLE
@@ -138,6 +142,17 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
             getShopListByNetwork(choiceTagItems)
         })
 
+    }
+
+    fun showLoadingBar() {
+        val c = resources.getColor(R.color.colorPrimary)
+        loading_progress.setIndeterminate(true)
+        loading_progress.getIndeterminateDrawable().setColorFilter(c, PorterDuff.Mode.MULTIPLY)
+        loading_progress.visibility = View.VISIBLE
+    }
+
+    fun hideLoadingBar() {
+        loading_progress.visibility = View.GONE
     }
 
     fun getshopList() {
@@ -216,6 +231,7 @@ class ShopListFragment : BaseFragment<FragmentShopListBinding, ShopListViewModel
     }
 
     fun getShopListByNetwork(choiceTagItems : ArrayList<ChoiceTag>) {
+        showLoadingBar()
         // TAG 리스트 초기화
         selecedLocList = ArrayList<String>()
 

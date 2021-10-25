@@ -2,6 +2,7 @@ package com.cakeit.cakitandroid.presentation.zzim.shop
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -35,6 +36,7 @@ class ZzimShopFragment : BaseFragment<FragmentZzimShopBinding, ZzimViewModel>() 
 
         binding = getViewDataBinding()
         binding.viewModel = getViewModel()
+        showLoadingBar()
 
         authorization = SharedPreferenceController.getAccessToken(context!!)
         initRecyclerview()
@@ -50,6 +52,7 @@ class ZzimShopFragment : BaseFragment<FragmentZzimShopBinding, ZzimViewModel>() 
         })
 
         zzimViewModel.cakeShopItems.observe(viewLifecycleOwner, Observer { datas ->
+            hideLoadingBar()
             zzimCakeShopIds = ArrayList<Int>()
             Log.d("ssongjem", "get zzim shopList size = " + datas.size)
             if(datas.size > 0) {
@@ -72,6 +75,7 @@ class ZzimShopFragment : BaseFragment<FragmentZzimShopBinding, ZzimViewModel>() 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
+            showLoadingBar()
             getZzimShoplist()
         }
     }
@@ -88,6 +92,17 @@ class ZzimShopFragment : BaseFragment<FragmentZzimShopBinding, ZzimViewModel>() 
             layoutManager = LinearLayoutManager(context!!)
             adapter = shopListAdapter
         }
+    }
+
+    fun showLoadingBar() {
+        val c = resources.getColor(R.color.colorPrimary)
+        pb_loading_zzim_shop.setIndeterminate(true)
+        pb_loading_zzim_shop.getIndeterminateDrawable().setColorFilter(c, PorterDuff.Mode.MULTIPLY)
+        pb_loading_zzim_shop.visibility = View.VISIBLE
+    }
+
+    fun hideLoadingBar() {
+        pb_loading_zzim_shop.visibility = View.GONE
     }
 
     override fun getLayoutId(): Int {
