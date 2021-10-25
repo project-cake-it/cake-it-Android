@@ -50,7 +50,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
         })
 
         btn_search_clear.setOnClickListener {
-            keyword = ""
+            et_search_input.setText("")
             btn_search_clear.visibility = View.INVISIBLE
         }
     }

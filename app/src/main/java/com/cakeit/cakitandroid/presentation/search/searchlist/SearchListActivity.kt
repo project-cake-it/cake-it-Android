@@ -28,6 +28,7 @@ class SearchListActivity : BaseActivity<ActivitySearchListBinding, SearchListVie
         binding.viewModel = getViewModel()
 
         Log.d("songjem", "keyword = " + keyword)
+        tv_searchlist_keyword.setText(keyword)
         setTabLayout()
 
         btn_searchlist_back.setOnClickListener {

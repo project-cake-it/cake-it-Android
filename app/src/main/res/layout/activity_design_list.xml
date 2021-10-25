@@ -44,7 +44,7 @@
                     android:textSize="16sp"
                     android:textColor="#242424"
                     android:textStyle="bold"
-                    android:fontFamily="@font/spoqa_han_sans_bold"
+                    android:fontFamily="@font/spoqa_han_sans_regular"
                     />
                 <Button
                     android:id="@+id/btn_design_name_design_list"
@@ -115,6 +115,7 @@
                             android:layout_height="29dp"
                             android:layout_marginStart="7.5dp"
                             android:background="#eeeeee"
+                            android:layout_marginTop="3dp"
                             />
 
                         <RelativeLayout
@@ -171,7 +172,7 @@
                                     android:id="@+id/tv_filter_pickup_region_title_design_list"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="픽업 지역"
+                                    android:text="지역"
                                     android:textColor="#242424"
                                     android:textSize="13sp"
                                     />
@@ -325,6 +326,7 @@
                                 android:textColor="@color/accentText"
                                 android:layout_centerInParent="true"
                                 android:visibility="gone"
+                                android:gravity="center"
                                 />
                         </RelativeLayout>
                     </LinearLayout>

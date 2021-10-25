@@ -113,7 +113,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     fun showExitDialog() {
         val dialog = AlertDialog.Builder(this)
-        dialog.setMessage("CakeIt을 종료할까요?")
+        dialog.setMessage("케이크잇을 종료할까요?")
         dialog.setPositiveButton(
             "확인"
         ) { dialogInterface, i ->

@@ -65,6 +65,7 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
     var selectedOrder : String? = null
     lateinit var cakeDesignIds : ArrayList<Long>
     var isClickedOrder = false
+    lateinit var designRvItemDeco : DesignRvItemDeco
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,6 +122,10 @@ class DesignListActivity : BaseActivity<ActivityDesignListBinding, DesignListVie
     }
 
     fun initRecyclerview() {
+
+        designRvItemDeco = DesignRvItemDeco(applicationContext, 2)
+        if(designRvItemDeco != null) rv_design_list_design_list.removeItemDecoration(designRvItemDeco!!)
+        rv_design_list_design_list.addItemDecoration(designRvItemDeco!!)
 
         designListAdapter = DesignListAdapter(applicationContext)
         designListAdapter.setOnItemClickListener(this)
