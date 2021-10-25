@@ -41,16 +41,6 @@
                 android:layout_toEndOf="@+id/btn_searchlist_back"
                 android:layout_centerVertical="true"
                 />
-
-            <Button
-                android:id="@+id/btn_searchlist_clear"
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:background="@drawable/ic_clear"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="2dp"
-                />
         </RelativeLayout>
 
         <com.google.android.material.appbar.AppBarLayout

@@ -1,9 +1,9 @@
 package com.cakeit.cakitandroid.presentation.search
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
@@ -25,10 +25,22 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
         binding = getViewDataBinding()
         binding.viewModel = getViewModel()
 
+        et_search_input.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(et_search_input.text.length > 0) btn_search_clear.visibility = View.VISIBLE
+                else btn_search_clear.visibility = View.INVISIBLE
+            }
+        })
+
         et_search_input.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 keyword = et_search_input.text.toString()
-                Log.d("songjem", "keyword = " + keyword)
                 var intent = Intent(context!!, SearchListActivity::class.java)
                 intent.putExtra("keyword", keyword)
                 startActivity(intent)
@@ -36,6 +48,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
             }
             false
         })
+
+        btn_search_clear.setOnClickListener {
+            keyword = ""
+            btn_search_clear.visibility = View.INVISIBLE
+        }
     }
 
     override fun getLayoutId(): Int {

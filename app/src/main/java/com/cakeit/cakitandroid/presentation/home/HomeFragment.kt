@@ -120,11 +120,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
         rl_home_theme_birthday.setOnClickListener(this)
         rl_home_theme_anniv.setOnClickListener(this)
         rl_home_theme_wedding.setOnClickListener(this)
-        rl_home_company1_theme.setOnClickListener(this)
+        rl_home_theme_join.setOnClickListener(this)
+        rl_home_theme_promote.setOnClickListener(this)
         rl_home_theme_retire.setOnClickListener(this)
-        rl_home_theme_discharge.setOnClickListener(this)
-        rl_home_theme_club.setOnClickListener(this)
-        rl_home_theme_etc.setOnClickListener(this)
+        rl_home_theme_military.setOnClickListener(this)
+        rl_home_theme_graduate.setOnClickListener(this)
+        rl_home_theme_reinstate.setOnClickListener(this)
     }
 
     fun getPromotion()
@@ -152,18 +153,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
         {
             R.id.tv_home_hide_theme -> {
                 tv_home_hide_theme.visibility = View.GONE
-                rl_home_company1_theme.visibility = View.GONE
+                rl_home_theme_join.visibility = View.GONE
                 rl_home_view_more.visibility = View.VISIBLE
                 ll_home_third_theme_line.visibility = View.GONE
                 ll_home_fourth_theme_line.visibility = View.GONE
+                ll_home_five_theme_line.visibility = View.GONE
             }
 
             R.id.rl_home_view_more -> {
                 tv_home_hide_theme.visibility = View.VISIBLE
-                rl_home_company1_theme.visibility = View.VISIBLE
+                rl_home_theme_join.visibility = View.VISIBLE
                 rl_home_view_more.visibility = View.GONE
                 ll_home_third_theme_line.visibility = View.VISIBLE
                 ll_home_fourth_theme_line.visibility = View.VISIBLE
+                ll_home_five_theme_line.visibility = View.VISIBLE
             }
 
             R.id.rl_home_theme_birthday -> {
@@ -184,9 +187,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
                 startActivity(intent)
             }
 
-            R.id.rl_home_company1_theme -> {
+            R.id.rl_home_theme_join -> {
                 var intent = Intent(context, DesignListActivity::class.java)
                 intent.putExtra("theme", "입사")
+                startActivity(intent)
+            }
+
+            R.id.rl_home_theme_promote -> {
+                var intent = Intent(context, DesignListActivity::class.java)
+                intent.putExtra("theme", "승진")
                 startActivity(intent)
             }
 
@@ -196,21 +205,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), View.On
                 startActivity(intent)
             }
 
-            R.id.rl_home_theme_discharge -> {
+            R.id.rl_home_theme_military -> {
                 var intent = Intent(context, DesignListActivity::class.java)
                 intent.putExtra("theme", "전역")
                 startActivity(intent)
             }
 
-            R.id.rl_home_theme_club -> {
+            R.id.rl_home_theme_graduate -> {
                 var intent = Intent(context, DesignListActivity::class.java)
-                intent.putExtra("theme", "동아리")
+                intent.putExtra("theme", "졸업")
                 startActivity(intent)
             }
 
-            R.id.rl_home_theme_etc -> {
+            R.id.rl_home_theme_reinstate -> {
                 var intent = Intent(context, DesignListActivity::class.java)
-                intent.putExtra("theme", "기타")
+                intent.putExtra("theme", "복직")
                 startActivity(intent)
             }
 

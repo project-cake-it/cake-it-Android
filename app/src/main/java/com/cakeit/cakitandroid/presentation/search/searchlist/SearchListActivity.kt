@@ -33,10 +33,6 @@ class SearchListActivity : BaseActivity<ActivitySearchListBinding, SearchListVie
         btn_searchlist_back.setOnClickListener {
             finish()
         }
-
-        btn_searchlist_clear.setOnClickListener {
-            finish()
-        }
     }
     override fun getLayoutId(): Int {
         return R.layout.activity_search_list
