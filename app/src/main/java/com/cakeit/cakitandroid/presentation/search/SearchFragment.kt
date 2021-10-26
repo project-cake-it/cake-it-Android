@@ -5,18 +5,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView.OnEditorActionListener
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseFragment
 import com.cakeit.cakitandroid.databinding.FragmentSearchBinding
 import com.cakeit.cakitandroid.presentation.search.searchlist.SearchListActivity
 import kotlinx.android.synthetic.main.fragment_search.*
-
 
 class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
 
@@ -45,10 +46,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
 
         et_search_input.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                hideKeyboard()
                 keyword = et_search_input.text.toString()
-                var intent = Intent(context!!, SearchListActivity::class.java)
-                intent.putExtra("keyword", keyword)
-                startActivity(intent)
+                if(keyword.length == 0) Toast.makeText(context, "키워드를 입력해주세요", Toast.LENGTH_LONG).show()
+                else {
+                    var intent = Intent(context!!, SearchListActivity::class.java)
+                    intent.putExtra("keyword", keyword)
+                    startActivity(intent)
+                }
                 return@OnEditorActionListener true
             }
             false
@@ -75,6 +80,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
         myIsVisibleToUser = isVisibleToUser
 
         if (isVisibleToUser && getActivity()!= null) {
+            Log.d("songjem", "setUserVisibleHint")
             showKeyboard()
         }
     }
