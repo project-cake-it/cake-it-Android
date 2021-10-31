@@ -1,5 +1,6 @@
 package com.cakeit.cakitandroid.presentation.list.shoplist
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -53,8 +54,6 @@ class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.Vie
         cakeShopPriceAdapter = CakeShopPriceAdapter(cakeShop.prices!!, position)
         shopListViewHolder.shopTagRv.adapter = cakeShopTagAdapter
         shopListViewHolder.shopTagRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        shopListViewHolder.shopPriceRv.adapter = cakeShopPriceAdapter
-        shopListViewHolder.shopPriceRv.layoutManager = LinearLayoutManager(context)
 
         Log.d("songjem", "cakeShop.shopImages.size = " + cakeShop.shopImages!!.size)
         if(cakeShop.shopImages!!.size > 0) {
@@ -75,9 +74,11 @@ class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.Vie
 
     inner class ShopListViewHolder(view : View, listener : OnShopItemClickListener?) : RecyclerView.ViewHolder(view) {
 
-        val shopListItem = view.rl_shop_list_item
         val shopTagRv = view.rv_shop_tag_item_shop
-        val shopPriceRv = view.rv_cake_size_item_shop
+        val shopPriceFirst = view.tv_cake_price_first_item
+        val shopSizeFirst = view.tv_cake_size_first_item
+        val shopPriceSecond = view.tv_cake_price_second_item
+        val shopSizeSecond = view.tv_cake_size_second_item
         val shopImg = view.iv_shop_list_major_img
         val cakeShopName = view.tv_shop_name_item_shop
         val cakeShopAddress = view.tv_shop_address_item_shop
@@ -89,10 +90,15 @@ class ShopListAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.Vie
             }
         }
 
+        @SuppressLint("SetTextI18n")
         fun bind(cakeShop : CakeShopData) {
             Log.d("songjem", "zzim Cake Shop, cakeShop = " + cakeShop)
             cakeShopName.text = cakeShop.shopName
             cakeShopAddress.text = cakeShop.shopAddress
+            shopSizeFirst.text = cakeShop.prices!![0].name
+            shopPriceFirst.text = String.format("%,d", cakeShop.prices!![0].price) + "원"
+            shopSizeSecond.text = cakeShop.prices!![1].name
+            shopPriceSecond.text = String.format("%,d", cakeShop.prices!![1].price) + "원"
         }
     }
 

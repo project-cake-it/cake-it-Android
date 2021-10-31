@@ -52,14 +52,64 @@
         android:layout_below="@+id/tv_shop_address_item_shop"
         />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_cake_size_item_shop"
+<LinearLayout
+    android:id="@+id/ll_cake_detail_item"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_alignParentEnd="true"
+    android:layout_marginTop="11dp"
+    android:layout_below="@id/rv_shop_tag_item_shop">
+
+    <TextView
+        android:id="@+id/tv_cake_size_first_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/rv_shop_tag_item_shop"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="17dp"
-        />
+        android:textSize="13dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/subText"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:text="미니"/>
 
+    <TextView
+        android:id="@+id/tv_cake_price_first_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+        android:textColor="@color/defaultText"
+        android:text="18,000원"
+        android:layout_marginEnd="13dp"/>
+
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="2dp"
+        android:layout_below="@id/ll_cake_detail_item">
+
+        <TextView
+            android:id="@+id/tv_cake_size_second_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13dp"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/subText"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="미니"/>
+
+        <TextView
+            android:id="@+id/tv_cake_price_second_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
+            android:textColor="@color/defaultText"
+            android:text="18,000원"
+            android:layout_marginEnd="13dp"/>
+
+    </LinearLayout>
 </RelativeLayout>
