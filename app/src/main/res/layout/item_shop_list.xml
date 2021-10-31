@@ -26,7 +26,7 @@
         android:text="@string/shop_title"
         android:layout_marginTop="4dp"
         android:textColor="#242424"
-        android:textSize="14sp"
+        android:textSize="14dp"
         android:layout_marginStart="12dp"
         />
 
@@ -38,7 +38,7 @@
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:text="@string/shop_title"
         android:textColor="#909090"
-        android:textSize="13sp"
+        android:textSize="13dp"
         android:layout_alignStart="@+id/tv_shop_name_item_shop"
         android:layout_below="@+id/tv_shop_name_item_shop"
         />

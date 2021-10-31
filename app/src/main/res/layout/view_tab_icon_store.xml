@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            android:text="케이크 가게"
+            android:text="가게"
             app:tabTextColor="#000000"
             app:tabSelectedTextColor="@color/colorPrimary"
             android:layout_marginTop="3dp"

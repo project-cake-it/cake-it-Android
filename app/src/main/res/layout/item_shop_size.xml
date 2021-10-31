@@ -11,7 +11,7 @@
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:text="@string/shop_size_type"
         android:textColor="#909090"
-        android:textSize="13sp"
+        android:textSize="13dp"
         android:layout_toStartOf="@+id/tv_shop_size_price"
         android:layout_marginEnd="8dp"
         />
@@ -23,7 +23,7 @@
         android:fontFamily="@font/spoqa_han_sans_neo_medium"
         android:text="@string/shop_size_price"
         android:textColor="#3d3d3d"
-        android:textSize="13sp"
+        android:textSize="13dp"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="13dp"
         />

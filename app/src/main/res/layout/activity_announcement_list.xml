@@ -42,7 +42,7 @@
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:text="리스트 제목"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -46,20 +46,20 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/spoqa_han_sans_neo_regular"
                     android:letterSpacing="-0.03"
-                    android:lineSpacingExtra="12sp"
-                    android:text="1"
+                    android:lineSpacingExtra="12dp"
+                    android:text="0"
                     android:textColor="@color/white"
-                    android:textSize="13sp"/>
+                    android:textSize="13dp"/>
                 <TextView
                     android:id="@+id/tv_home_promotion_cnt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/spoqa_han_sans_neo_regular"
                     android:letterSpacing="-0.03"
-                    android:lineSpacingExtra="12sp"
-                    android:text=" / 전체"
+                    android:lineSpacingExtra="12dp"
+                    android:text=" / 0"
                     android:textColor="@color/white"
-                    android:textSize="13sp"/>
+                    android:textSize="13dp"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/tv_home_theme"
@@ -71,7 +71,7 @@
                 android:letterSpacing="-0.01"
                 android:text="@string/home_theme"
                 android:textColor="@color/defaultText"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vp_home_promotion" />
 
@@ -86,7 +86,7 @@
                 android:letterSpacing="-0.01"
                 android:text="@string/home_hide_theme"
                 android:textColor="@color/lightText"
-                android:textSize="13sp"
+                android:textSize="13dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vp_home_promotion" />
 
@@ -124,10 +124,10 @@
                             android:layout_marginStart="16dp"
                             android:fontFamily="@font/spoqa_han_sans_neo_medium"
                             android:letterSpacing="-0.02"
-                            android:lineSpacingExtra="9sp"
+                            android:lineSpacingExtra="9dp"
                             android:text="@string/home_birth"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="15sp" />
+                            android:textSize="15dp" />
 
                         <ImageView
                             android:layout_width="20dp"
@@ -153,10 +153,10 @@
                             android:layout_marginStart="16dp"
                             android:fontFamily="@font/spoqa_han_sans_neo_medium"
                             android:letterSpacing="-0.02"
-                            android:lineSpacingExtra="9sp"
+                            android:lineSpacingExtra="9dp"
                             android:text="@string/home_anniversary"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="15sp" />
+                            android:textSize="15dp" />
 
                         <ImageView
                             android:layout_width="20dp"
@@ -192,10 +192,10 @@
                             android:layout_marginStart="16dp"
                             android:fontFamily="@font/spoqa_han_sans_neo_medium"
                             android:letterSpacing="-0.02"
-                            android:lineSpacingExtra="9sp"
+                            android:lineSpacingExtra="9dp"
                             android:text="@string/home_wedding"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="15sp" />
+                            android:textSize="15dp" />
 
                         <ImageView
                             android:layout_width="20dp"
@@ -222,10 +222,10 @@
                             android:layout_marginStart="16dp"
                             android:fontFamily="@font/spoqa_han_sans_neo_medium"
                             android:letterSpacing="-0.02"
-                            android:lineSpacingExtra="9sp"
+                            android:lineSpacingExtra="9dp"
                             android:text="@string/home_company_1"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="15sp" />
+                            android:textSize="15dp" />
 
                         <ImageView
                             android:layout_width="20dp"
@@ -250,10 +250,10 @@
                             android:layout_marginStart="16dp"
                             android:fontFamily="@font/spoqa_han_sans_neo_medium"
                             android:letterSpacing="-0.02"
-                            android:lineSpacingExtra="9sp"
+                            android:lineSpacingExtra="9dp"
                             android:text="@string/home_view_more"
                             android:textColor="@color/white"
-                            android:textSize="15sp" />
+                            android:textSize="15dp" />
 
                         <ImageView
                             android:layout_width="20dp"
@@ -290,10 +290,10 @@
                             android:layout_marginStart="16dp"
                             android:fontFamily="@font/spoqa_han_sans_neo_medium"
                             android:letterSpacing="-0.02"
-                            android:lineSpacingExtra="9sp"
+                            android:lineSpacingExtra="9dp"
                             android:text="@string/home_company_2"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="15sp" />
+                            android:textSize="15dp" />
 
                         <ImageView
                             android:layout_width="20dp"
@@ -319,10 +319,10 @@
                             android:layout_marginStart="16dp"
                             android:fontFamily="@font/spoqa_han_sans_neo_medium"
                             android:letterSpacing="-0.02"
-                            android:lineSpacingExtra="9sp"
+                            android:lineSpacingExtra="9dp"
                             android:text="@string/home_company_3"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="15sp" />
+                            android:textSize="15dp" />
 
                         <ImageView
                             android:layout_width="20dp"
@@ -359,10 +359,10 @@
                             android:layout_marginStart="16dp"
                             android:fontFamily="@font/spoqa_han_sans_neo_medium"
                             android:letterSpacing="-0.02"
-                            android:lineSpacingExtra="9sp"
+                            android:lineSpacingExtra="9dp"
                             android:text="@string/home_military"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="15sp" />
+                            android:textSize="15dp" />
 
                         <ImageView
                             android:layout_width="20dp"
@@ -388,10 +388,10 @@
                             android:layout_marginStart="16dp"
                             android:fontFamily="@font/spoqa_han_sans_neo_medium"
                             android:letterSpacing="-0.02"
-                            android:lineSpacingExtra="9sp"
+                            android:lineSpacingExtra="9dp"
                             android:text="@string/home_graduation"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="15sp" />
+                            android:textSize="15dp" />
 
                         <ImageView
                             android:layout_width="20dp"
@@ -428,10 +428,10 @@
                             android:layout_marginStart="16dp"
                             android:fontFamily="@font/spoqa_han_sans_neo_medium"
                             android:letterSpacing="-0.02"
-                            android:lineSpacingExtra="9sp"
+                            android:lineSpacingExtra="9dp"
                             android:text="@string/home_company_4"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="15sp" />
+                            android:textSize="15dp" />
 
                         <ImageView
                             android:layout_width="20dp"
@@ -454,7 +454,7 @@
                 android:letterSpacing="-0.01"
                 android:text="@string/home_popular_cake"
                 android:textColor="@color/defaultText"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ll_home_theme_keyword" />
 
