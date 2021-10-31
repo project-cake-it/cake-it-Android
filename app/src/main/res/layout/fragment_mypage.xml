@@ -203,6 +203,7 @@
             android:gravity="center"
             android:paddingLeft="16dp"
             android:text="@string/mypage_version_info"
+            android:textSize="14dp"
             android:textAlignment="viewStart"
             android:textColor="#242424"
             app:layout_constraintEnd_toEndOf="parent"
