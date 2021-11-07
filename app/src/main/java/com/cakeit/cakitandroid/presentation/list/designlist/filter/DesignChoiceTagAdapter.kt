@@ -73,7 +73,7 @@ class DesignChoiceTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             }
 
             choiceItems.removeAt(position)
-            DesignListActivity.designListActivity.getDesignListByNetwork(DesignListActivity.designListActivity.choiceTagItems)
+            DesignListActivity.designListActivity.getDesignListByNetwork(DesignListActivity.designListActivity.choiceTagItems, DesignListActivity.designListActivity.selectedTheme)
             notifyDataSetChanged()
         }
         designChoiceTagViewHolder.bind(choiceItem)

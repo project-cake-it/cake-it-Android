@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="블랙"
             android:textColor="@color/accentText"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:layout_marginStart="11dp"
             android:textStyle="normal"
             />

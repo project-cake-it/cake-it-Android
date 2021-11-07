@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="@string/zzim_title"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            android:textSize="15sp"
+            android:textSize="15dp"
             android:textColor="@color/defaultText"
             android:gravity="center_horizontal"
             android:layout_marginTop="24dp"

@@ -41,9 +41,9 @@
                 android:layout_height="wrap_content"
                 android:text="강동구"
                 android:fontFamily="@font/spoqa_han_sans_regular"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 android:textColor="@color/subText"
-                android:lineSpacingExtra="5sp"
+                android:lineSpacingExtra="5dp"
                 />
 
             <TextView
@@ -51,9 +51,9 @@
                 android:layout_height="wrap_content"
                 android:text=" | "
                 android:fontFamily="@font/spoqa_han_sans_regular"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 android:textColor="@color/subText"
-                android:lineSpacingExtra="5sp"
+                android:lineSpacingExtra="5dp"
                 />
 
             <TextView
@@ -62,9 +62,9 @@
                 android:layout_height="wrap_content"
                 android:text="1호 13cm"
                 android:fontFamily="@font/spoqa_han_sans_regular"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 android:textColor="@color/subText"
-                android:lineSpacingExtra="5sp"
+                android:lineSpacingExtra="5dp"
                 />
         </LinearLayout>
 
@@ -73,11 +73,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:fontFamily="@font/spoqa_han_sans_regular"
             android:textColor="@color/accentText"
             android:letterSpacing="-0.03"
-            android:lineSpacingExtra="7sp"
+            android:lineSpacingExtra="7dp"
             android:text="케이크 가게 이름이 두줄일 경우"
             />
         <TextView
@@ -89,7 +89,7 @@
             android:layout_marginBottom="12dp"
             android:fontFamily="@font/spoqa_han_sans_bold"
             android:textColor="@color/accentText"
-            android:textSize="14sp"
+            android:textSize="14dp"
             />
 
     </LinearLayout>

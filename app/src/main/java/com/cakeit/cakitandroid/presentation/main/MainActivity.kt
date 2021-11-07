@@ -105,7 +105,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             {
                 0 -> txtTabName.setText("홈")
                 1 -> txtTabName.setText("검색")
-                2 -> txtTabName.setText("케이크 가게")
+                2 -> txtTabName.setText("가게")
                 3 -> txtTabName.setText("찜")
                 4 -> txtTabName.setText("마이페이지")
             }
@@ -116,7 +116,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     fun showExitDialog() {
         val dialog = AlertDialog.Builder(this)
-        dialog.setMessage("CakeIt을 종료할까요?")
+        dialog.setMessage("케이크잇을 종료할까요?")
         dialog.setPositiveButton(
             "확인"
         ) { dialogInterface, i ->

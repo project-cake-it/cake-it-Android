@@ -1,17 +1,11 @@
 package com.cakeit.cakitandroid.presentation.login
 
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
-import android.text.Spannable
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
 import android.util.Log
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.R
@@ -22,7 +16,8 @@ import com.cakeit.cakitandroid.presentation.main.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.api.client.googleapis.auth.oauth2.*
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest
+import com.google.api.client.googleapis.auth.oauth2.GoogleOAuthConstants
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
 import com.kakao.sdk.auth.model.OAuthToken
@@ -34,10 +29,25 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.util.*
 
 
 class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
+    lateinit var timer: Timer
+    val imgArr = arrayOf(
+            R.drawable.bg_login_image_1,
+            R.drawable.bg_login_image_2,
+            R.drawable.bg_login_image_3,
+            R.drawable.bg_login_image_4,
+            R.drawable.bg_login_image_5,
+            R.drawable.bg_login_image_6,
+            R.drawable.bg_login_image_7,
+            R.drawable.bg_login_image_8,
+            R.drawable.bg_login_image_9,
+            R.drawable.bg_login_image_10,
+            R.drawable.bg_login_image_11
+    )
     private lateinit var binding : ActivityLoginBinding
     private lateinit var loginViewModel: LoginViewModel
     var fromToScreen : String = ""
@@ -60,32 +70,17 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             if(intent.getStringExtra("fromToScreen") != null) fromToScreen = intent.getStringExtra("fromToScreen")!!
         }
 
-        val imgArr = arrayOf(
-            R.drawable.bg_login_image_1,
-            R.drawable.bg_login_image_2,
-            R.drawable.bg_login_image_3,
-            R.drawable.bg_login_image_4,
-            R.drawable.bg_login_image_5,
-            R.drawable.bg_login_image_6,
-            R.drawable.bg_login_image_7,
-            R.drawable.bg_login_image_8,
-            R.drawable.bg_login_image_9,
-            R.drawable.bg_login_image_10,
-            R.drawable.bg_login_image_11
-        )
-
-        val backgroundRndIdx = (1..11).random()
-        iv_login_background.setImageResource(imgArr[backgroundRndIdx])
+        Start_Period()
 
         tv_login_eixt.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
         Log.d("songjem", "fromToScreen = " + fromToScreen)
 
         binding.lifecycleOwner?.let {
-            binding.viewModel?.registerState?.observe(it, Observer{ it ->
+            binding.viewModel?.registerState?.observe(it, Observer { it ->
                 //filtering reset :: is this necessary?
                 val message = binding.viewModel?.registerMessage!!
-                if(it || message != "Reset livedata"){
+                if (it || message != "Reset livedata") {
                     val intent = Intent(applicationContext, MainActivity::class.java)
                     startActivity(intent)
                     showToast(message, true)
@@ -94,7 +89,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 //                TODO("미/완료시 logic 짜기")
             })
 
-            binding.viewModel?.accessToken?.observe(it, Observer{ token ->
+            binding.viewModel?.accessToken?.observe(it, Observer { token ->
                 SharedPreferenceController.setAccessToken(applicationContext, token)
             })
         }
@@ -127,10 +122,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
         findViewById<Button>(R.id.btn_login_naverLogin).setOnClickListener {
 
             mOAuthLoginModule.init(
-                ctx
-                ,getString(R.string.AUTHCODE_NAVER_CLIENTID)
-                ,getString(R.string.AUTHCODE_NAVER_SECRET)
-                ,getString(R.string.app_name)
+                    ctx, getString(R.string.AUTHCODE_NAVER_CLIENTID), getString(R.string.AUTHCODE_NAVER_SECRET), getString(R.string.app_name)
 
             );
 
@@ -148,8 +140,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                         val errorCode: String = mOAuthLoginModule.getLastErrorCode(ctx).code
                         val errorDesc: String = mOAuthLoginModule.getLastErrorDesc(ctx)
                         Toast.makeText(
-                            ctx, "errorCode:" + errorCode
-                                    + ", errorDesc:" + errorDesc, Toast.LENGTH_SHORT
+                                ctx, "errorCode:" + errorCode
+                                + ", errorDesc:" + errorDesc, Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -187,7 +179,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
         }
     }
 
+    fun Start_Period(){
+        timer = Timer();
 
+        timer.schedule(object : TimerTask(){
+            override fun run(){
+                val backgroundRndIdx = (0..10).random()
+                iv_login_background.setImageResource(imgArr[backgroundRndIdx])
+            }
+        },0, 1000*3)
+    }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -201,12 +202,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 val jacksonFactory = JacksonFactory()
                 val authcode = task.result?.serverAuthCode
                 var tokenRequest = GoogleAuthorizationCodeTokenRequest(
-                    transport,
-                    jacksonFactory,
-                    getString(R.string.AUTHCODE_GOOGLE_CLIENTID),
-                    getString(R.string.AUTHCODE_GOOGLE_SECRET),
-                    authcode,
-                    GoogleOAuthConstants.OOB_REDIRECT_URI
+                        transport,
+                        jacksonFactory,
+                        getString(R.string.AUTHCODE_GOOGLE_CLIENTID),
+                        getString(R.string.AUTHCODE_GOOGLE_SECRET),
+                        authcode,
+                        GoogleOAuthConstants.OOB_REDIRECT_URI
                 ) // Specify the same redirect URI that you use with your web
                 // app. If you don't have a web version of your app, you can
                 // specify an empty string.
@@ -215,7 +216,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                         val tokenResponse = tokenRequest.execute()
                         val accessToken = tokenResponse.accessToken
                         runOnUiThread { binding.viewModel?.sendGoogleCodeToServer(accessToken) }
-                    } catch (ioe : IOException){
+                    } catch (ioe: IOException){
                         Log.d(TAG, "Google signin failed IOException: ${ioe.message}")
                         showToast("Google signin failed IOException: ${ioe.message}")
                     }

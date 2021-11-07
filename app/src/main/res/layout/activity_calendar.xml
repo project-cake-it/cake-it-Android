@@ -28,7 +28,7 @@
                 android:text="주문 가능 날짜"
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/spoqa_han_sans_neo_bold"
-                android:textSize="14.4sp"
+                android:textSize="14.4dp"
                 android:textColor="@color/defaultText"/>
             <ImageButton
                 android:id="@+id/ib_calendar_close"

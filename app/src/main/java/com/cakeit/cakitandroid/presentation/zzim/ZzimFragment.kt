@@ -1,18 +1,15 @@
 package com.cakeit.cakitandroid.presentation.zzim
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseFragment
 import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 import com.cakeit.cakitandroid.databinding.FragmentZzimBinding
 import com.cakeit.cakitandroid.presentation.login.LoginActivity
-import com.cakeit.cakitandroid.presentation.main.MainActivity
 import com.cakeit.cakitandroid.presentation.zzim.design.ZzimDesignFragment
 import com.cakeit.cakitandroid.presentation.zzim.shop.ZzimShopFragment
 import com.google.android.material.tabs.TabLayout
