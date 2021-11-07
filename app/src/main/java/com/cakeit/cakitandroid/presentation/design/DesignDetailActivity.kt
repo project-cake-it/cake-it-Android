@@ -54,8 +54,7 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
         fromToZzim = intent.getBooleanExtra("fromToZzim", false)
 
         btn_cake_detail_zzim.setOnClickListener {
-            var accessToken : String? = SharedPreferenceController.getAccessToken(applicationContext)!!
-            if (accessToken.equals("")) {
+            if (authorization.equals("")) {
                 val intent = Intent(this, LoginActivity::class.java)
                 intent.putExtra("fromToScreen", "DesignDetailActivity")
                 startActivity(intent)
@@ -88,7 +87,10 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
             {
                 shopId = datas.shopId
                 orderDates = datas.orderAvailabilityDates
-                zzim = datas.zzim
+
+                if (authorization.equals("")) zzim = false
+                else zzim = datas.zzim
+
                 btn_cake_detail_zzim.isSelected = zzim
 
                 shopChannel = datas.shopChannel

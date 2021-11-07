@@ -13,12 +13,9 @@ import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceControlle
 import com.cakeit.cakitandroid.databinding.ActivityShopDetailBinding
 import com.cakeit.cakitandroid.presentation.login.LoginActivity
 import com.cakeit.cakitandroid.presentation.shop.calendar.CalendarActivity
-import com.cakeit.cakitandroid.presentation.zzim.design.ZzimDesignFragment
-import com.cakeit.cakitandroid.presentation.zzim.shop.ZzimShopFragment
 import com.google.android.material.tabs.TabLayout
 import com.kakao.sdk.common.util.KakaoCustomTabsClient
 import com.kakao.sdk.talk.TalkApiClient
-import kotlinx.android.synthetic.main.activity_design_detail.*
 import kotlinx.android.synthetic.main.activity_shop_detail.*
 import java.text.DecimalFormat
 import kotlinx.android.synthetic.main.activity_shop_detail.tv_cake_detail_size_price_contents
@@ -55,9 +52,11 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
         shopDetailViewModel.shopDetailData.observe(this, Observer { datas ->
             if(datas != null) {
                 orderDates = datas.orderAvailabilityDates
-                zzim = datas.zzim
-                btn_shop_detail_zzim.isSelected = zzim
 
+                if (authorization.equals("")) zzim = false
+                else zzim = datas.zzim
+
+                btn_shop_detail_zzim.isSelected = zzim
                 tv_shop_detail_zzim_cnt.text = datas.zzimCount.toString()
 
                 shopChannel = datas.shopChannel
