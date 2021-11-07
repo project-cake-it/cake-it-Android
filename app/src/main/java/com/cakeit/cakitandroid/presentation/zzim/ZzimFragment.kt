@@ -61,17 +61,23 @@ class ZzimFragment : BaseFragment<FragmentZzimBinding, ZzimViewModel>() {
         if (isVisibleToUser && getActivity()!=null) {
             if (ZzimShopFragment.zzimShopFragment != null && ZzimDesignFragment.zzimDesignFragment != null) {
                 var accessToken : String? = SharedPreferenceController.getAccessToken(context!!)!!
-                Log.d("songjem", "ZzimFragment, accessToken = " + accessToken)
                 if (accessToken.equals("")) {
-                    val intent = Intent(activity, LoginActivity::class.java)
-                    intent.putExtra("fromToScreen", "ZzimFragment")
-                    startActivity(intent)
+                    goToLoginAct()
                 } else {
                     ZzimShopFragment.zzimShopFragment!!.getZzimShoplist()
                     ZzimDesignFragment.zzimDesignFragment!!.getZzimDesigns()
                 }
+            } else {
+                goToLoginAct()
             }
         }
+    }
+
+    fun goToLoginAct() {
+        Log.d("songjem", "here5")
+        val intent = Intent(activity, LoginActivity::class.java)
+        intent.putExtra("fromToScreen", "ZzimFragment")
+        startActivity(intent)
     }
 
     fun setTabLayout()
