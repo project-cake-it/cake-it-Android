@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="검색어 입력 시"
                 android:textColor="#242424"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:layout_marginStart="4dp"
                 android:layout_toEndOf="@+id/btn_searchlist_back"

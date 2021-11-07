@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:text="관악구"
-            android:textSize="13sp"
+            android:textSize="13dp"
             android:textColor="@color/colorPrimary"
             />
         <Button

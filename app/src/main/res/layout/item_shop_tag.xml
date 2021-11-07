@@ -16,7 +16,7 @@
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="11sp"
+        android:textSize="11dp"
         android:textColor="#909090"
         />
 

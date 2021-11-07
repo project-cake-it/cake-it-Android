@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:text="@string/filter_list_name"
             android:textColor="#3d3d3d"
-            android:textSize="14sp"
+            android:textSize="14dp"
             />
 
         <Button

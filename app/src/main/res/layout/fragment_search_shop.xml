@@ -29,6 +29,7 @@
                     android:id="@+id/sv_filter_btn_search_shop"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
+                    android:scrollbars="none"
                     >
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -56,7 +57,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="초기화"
                                     android:textColor="#242424"
-                                    android:textSize="13sp"
+                                    android:textSize="13dp"
                                     />
 
                                 <Button
@@ -82,7 +83,7 @@
                             android:layout_height="35dp"
                             android:layout_marginStart="7.5dp"
                             android:background="@drawable/background_filter_btn_effect_before"
-                            android:textSize="13sp"
+                            android:textSize="13dp"
                             >
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -98,7 +99,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="기본순"
                                     android:textColor="#242424"
-                                    android:textSize="13sp"
+                                    android:textSize="13dp"
                                     />
 
                                 <Button
@@ -116,7 +117,7 @@
                             android:layout_height="35dp"
                             android:layout_marginStart="8dp"
                             android:background="@drawable/background_filter_btn_effect_before"
-                            android:textSize="13sp"
+                            android:textSize="13dp"
                             >
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -132,7 +133,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="지역"
                                     android:textColor="#242424"
-                                    android:textSize="13sp"
+                                    android:textSize="13dp"
                                     />
                                 <Button
                                     android:id="@+id/btn_filter_pickup_region_compact_search_shop"
@@ -149,7 +150,7 @@
                             android:layout_height="35dp"
                             android:layout_marginStart="8dp"
                             android:background="@drawable/background_filter_btn_effect_before"
-                            android:textSize="13sp"
+                            android:textSize="13dp"
                             >
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -165,7 +166,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="주문 가능 날짜"
                                     android:textColor="#242424"
-                                    android:textSize="13sp"
+                                    android:textSize="13dp"
                                     />
 
                                 <Button

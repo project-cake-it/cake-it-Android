@@ -28,7 +28,7 @@
             android:layout_gravity="center_horizontal"
             android:textIsSelectable="true"
             android:textColor="@color/selector_click_tab"
-            android:textSize="10sp"
+            android:textSize="10dp"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
             />
 
