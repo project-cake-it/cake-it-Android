@@ -40,15 +40,15 @@ class LoginViewModel(application: Application) : BaseViewModel<Any?>(application
             SocialLoginUseCase.Request(authCode, socialType),
             onSuccess = {
                 accessToken.value = it.accessToken
-                registerMessage = it.message
+                registerMessage = "로그인 되었습니다."
                 registerState.value =
                     it.message == "회원가입 성공입니다" || it.message == "로그인 성공입니다"
 
                 SharedPreferenceController.setSocialType(currentApplication.applicationContext, socialType)
             },
             onError = {
-                registerMessage = it.message.toString()
-                Log.d(TAG, "onFailure, $registerMessage")
+                registerMessage = "로그인에 실패하였습니다."
+                Log.d(TAG, "onFailure, $it.message.toString()")
                 it.printStackTrace()
                 registerState.value = false
             },

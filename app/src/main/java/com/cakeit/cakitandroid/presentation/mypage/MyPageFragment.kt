@@ -162,7 +162,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding, MyPageViewModel>(), V
     }
 
     fun logoutCallback(){
-        Toast.makeText(context, "로그아웃에 성공하였습니다", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "로그아웃 되었습니다.", Toast.LENGTH_LONG).show()
         SharedPreferenceController.setAccessToken(context!!, "")
         SharedPreferenceController.setSocialType(context!!, "")
 

@@ -140,9 +140,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                         val errorCode: String = mOAuthLoginModule.getLastErrorCode(ctx).code
                         val errorDesc: String = mOAuthLoginModule.getLastErrorDesc(ctx)
                         Toast.makeText(
-                                ctx, "errorCode:" + errorCode
-                                + ", errorDesc:" + errorDesc, Toast.LENGTH_SHORT
+                                ctx, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT
                         ).show()
+
+                        Log.d(TAG, "errorCode:" + errorCode
+                                + ", errorDesc:" + errorDesc)
                     }
                 }
             }
@@ -171,7 +173,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
     val kakaoLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, e ->
         if (e != null) {
             Log.d(TAG, "Kakao signin failed : ${e.message}")
-            showToast("Kakao signin failed : ${e.message}")
+            showToast("로그인에 실패하였습니다.")
         }
         else if (token != null) {
             //Login Success
@@ -218,14 +220,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                         runOnUiThread { binding.viewModel?.sendGoogleCodeToServer(accessToken) }
                     } catch (ioe: IOException){
                         Log.d(TAG, "Google signin failed IOException: ${ioe.message}")
-                        showToast("Google signin failed IOException: ${ioe.message}")
+                        showToast("로그인에 실패하였습니다.")
                     }
                 }
             } catch (e: Exception) {
                 // The ApiException status code indicates the detailed failure reason.
                 // Please refer to the GoogleSignInStatusCodes class reference for more information.
                 Log.d(TAG, "Google signin failed : ${e.message}")
-                showToast("Google signin failed : ${e.message}")
+                showToast("로그인에 실패하였습니다.")
             }
         }
     }
