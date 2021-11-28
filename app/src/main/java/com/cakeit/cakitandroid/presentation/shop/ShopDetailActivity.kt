@@ -119,11 +119,17 @@ class ShopDetailActivity : BaseActivity<ActivityShopDetailBinding, ShopDetailVie
                             DialogInterface.OnClickListener { dialog, id ->
                                 // 카카오톡 채널 채팅 URL
                                 val url = TalkApiClient.instance.channelChatUrl(shopChannel)
-                                // CustomTabs 로 열기
+                                // Chrome으로 열기
                                 try {
                                     KakaoCustomTabsClient.openWithDefault(this, url)
-                                } catch (e: UnsupportedOperationException){
-                                    Toast.makeText(this, "크롬 브라우저가 활성화 되어있지 않습니다.", Toast.LENGTH_SHORT).show()
+                                } catch (e: UnsupportedOperationException){ // Chrome 브라우저가 없을 때 예외처리
+                                    // Chrome 활성화X인 경우, 디바이스 기본 브라우저로 열기
+                                    try {
+                                        KakaoCustomTabsClient.open(this, url)
+                                    } catch (e: Exception) {
+                                        // 기본 인터넷 브라우저가 없을 때 예외처리
+                                        Toast.makeText(this, "인터넷 브라우저가 없습니다", Toast.LENGTH_SHORT).show()
+                                    }
                                 }
                             })
                     .setNegativeButton("아니오",null)
