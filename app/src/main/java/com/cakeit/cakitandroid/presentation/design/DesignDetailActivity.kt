@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Process
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
@@ -151,7 +152,11 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
                         // 카카오톡 채널 채팅 URL
                         val url = TalkApiClient.instance.channelChatUrl(shopChannel)
                         // CustomTabs 로 열기
-                        KakaoCustomTabsClient.openWithDefault(this, url)
+                        try {
+                            KakaoCustomTabsClient.openWithDefault(this, url)
+                        } catch (e: UnsupportedOperationException){
+                            Toast.makeText(this, "크롬 브라우저가 활성화 되어있지 않습니다.", Toast.LENGTH_SHORT).show()
+                        }
                     })
                     .setNegativeButton("아니오",null)
             val msgDlg : AlertDialog = msgBuilder.create()
