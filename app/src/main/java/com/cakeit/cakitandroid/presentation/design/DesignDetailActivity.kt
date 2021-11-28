@@ -157,7 +157,7 @@ class DesignDetailActivity : BaseActivity<ActivityDesignDetailBinding, DesignDet
             val msgDlg : AlertDialog = msgBuilder.create()
             msgDlg.show()
         }
-
+        
         btn_cake_detail_order_date.setOnClickListener{
             var intent = Intent(applicationContext, CalendarActivity::class.java)
             intent.putExtra("dates", orderDates)
