@@ -8,7 +8,6 @@ import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceControlle
 import com.cakeit.cakitandroid.domain.usecase.SocialLoginUseCase
 import com.kakao.sdk.auth.model.OAuthToken
 
-
 class LoginViewModel(application: Application) : BaseViewModel<Any?>(application) {
     var registerMessage = "Reset livedata"
     val registerState = MutableLiveData<Boolean>(false)

@@ -2,6 +2,7 @@ package com.cakeit.cakitandroid.presentation.main
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -12,7 +13,9 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.cakeit.cakitandroid.R
 import com.cakeit.cakitandroid.base.BaseActivity
+import com.cakeit.cakitandroid.data.source.local.prefs.SharedPreferenceController
 import com.cakeit.cakitandroid.databinding.ActivityMainBinding
+import com.cakeit.cakitandroid.presentation.login.LoginActivity
 import com.google.android.material.tabs.TabLayout
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -32,8 +35,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         mainActivity = MainActivity()
 
         setTabLayout()
-        getHashKey()
-//        //MainActivity 진입시 로그인 되어있는지 확인후 분기
+//        getHashKey()
+        //MainActivity 진입시 로그인 되어있는지 확인후 분기
 //        binding.lifecycleOwner?.let {
 //            binding.viewModel?.isRegistered?.observe(it, Observer{ isLoggedIn ->
 //                if(!isLoggedIn){
@@ -45,6 +48,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 //            })
 //        }
 //        binding.viewModel?.checkIsRegistered()
+
+        var authorization = SharedPreferenceController.getAccessToken(applicationContext)
+        if (authorization.equals("")) {
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.putExtra("fromToScreen", "DesignDetailActivity")
+            startActivity(intent)
+        }
     }
     override fun getLayoutId(): Int {
         return R.layout.activity_main

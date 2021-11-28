@@ -19,12 +19,14 @@
 
         <activity android:name=".presentation.search.searchlist.SearchListActivity" />
         <activity android:name=".presentation.main.test.SampleActivity" />
-        <activity android:name=".presentation.login.LoginActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".presentation.login.LoginActivity"/>
+        <activity android:name=".presentation.main.MainActivity"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".presentation.list.designlist.DesignListActivity" />
         <activity android:name=".presentation.mypage.announcement.AnnouncementListActivity"/>
@@ -42,14 +44,10 @@
                     android:scheme="@string/AUTHCODE_KAKAO_REDIRECTURI" />
             </intent-filter>
         </activity>
-
         <activity android:name=".presentation.shop.calendar.CalendarActivity"
             android:theme="@style/Transparent"/>
         <activity android:name=".presentation.shop.ShopDetailActivity"/>
         <activity android:name=".presentation.design.DesignDetailActivity"/>
-
-        <activity android:name=".presentation.main.MainActivity"
-            android:windowSoftInputMode="adjustPan"/>
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/AUTHCODE_KAKAO_NATIVEAPPKEY" />
